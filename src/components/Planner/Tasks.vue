@@ -23,7 +23,7 @@ export default {
                 {
                     task:'Cleaning Room',
                     begin: '13:15',
-                    end: '14:59'
+                    end: '16:59'
                 }
             ],
             currentTask: null
@@ -37,28 +37,35 @@ export default {
                 const hours = Number(date.getHours())
                 const minutes = Number(date.getMinutes())
                 const findTask = this.tasks.find((task)=>{
-                    const time = this.splitTime(task)
-                    this.converDateToMS(task.begin.split(':')[0], task.begin.split(':')[1])
-                    if(time.taskHourBegin===hours && time.taskHourEnd >= hours){
-                        if(time.taskMinuteBegin<=minutes){
-                            if(time.taskHourEnd>hours){
-                                return task
-                            }
-                            else if(time.taskMinuteEnd >= minutes){
-                                return task
-                            }
+                    // const time = this.splitTime(task)
+                    // this.converDateToMS(task.begin.split(':')[0], task.begin.split(':')[1])
+                    // if(time.taskHourBegin===hours && time.taskHourEnd >= hours){
+                    //     if(time.taskMinuteBegin<=minutes){
+                    //         if(time.taskHourEnd>hours){
+                    //             return task
+                    //         }
+                    //         else if(time.taskMinuteEnd >= minutes){
+                    //             return task
+                    //         }
                             
-                        }
+                    //     }
+                    // }
+                    const begin = this.converDateToMS(task.begin.split(':')[0],task.begin.split(':')[1])
+                    const end = this.converDateToMS(task.end.split(':')[0],task.end.split(':')[1])
+                    const currentTimeInMS = this.converDateToMS()
+                    if(begin<=currentTimeInMS && end>=currentTimeInMS){
+                        return task
                     }
+
                 })
                 console.log(findTask)
-                if(findTask){
-                    const time = this.splitTime(findTask)
-                    this.changeTimeSize(time)
-                    this.currentTask = findTask
-                }else{
-                    this.currentTask = 'No Tasks Right now!'
-                }
+                // if(findTask){
+                //     const time = this.splitTime(findTask)
+                //     this.changeTimeSize(time)
+                //     this.currentTask = findTask
+                // }else{
+                //     this.currentTask = 'No Tasks Right now!'
+                // }
             },5000)
         },
         splitTime(task){
@@ -79,7 +86,6 @@ export default {
         },
         changeTimeSize(time){
             const allLi = document.querySelectorAll('li').forEach(li=>{
-                console.log(li[date-time])
                 const hour = Number(li.textContent.split(':')[0]) 
                 console.log(hour, time.taskHourBegin)
                 if(hour === time.taskHourBegin && task.taskMinuteBegin < 15){
@@ -89,20 +95,15 @@ export default {
         },
         converDateToMS(hours, minutes){
             const date = new Date()
-            const day = date.getDay()
-            const month = date.getMonth()
+            const day = date.getDate()
+            const month = date.getMonth()+1
             const year = date.getFullYear()
-
-            console.log(`${month}/${day}/${year} ${hours}:${minutes}:00`)
-            const dateToConvert = new Date(`${month}/${day}/${year} ${hours}:${minutes}:00`)
-            const milliseconds = dateToConvert.getTime()
-            console.log(milliseconds)
-            // var date = new Date("11/21/1987 16:00:00"); // some mock date
-            // var milliseconds = date.getTime(); 
-            // // This will return you the number of milliseconds
-            // // elapsed from January 1, 1970 
-            // // if your date is less than that date, the value will be negative
-            console.log(day,month,year)
+            if(hours && minutes){
+                const dateToConvert = new Date(`${month}/${day}/${year} ${hours}:${minutes}:00`)
+                const milliseconds = dateToConvert.getTime()
+                return milliseconds
+            }
+            return date.getTime()
         }
     },
     mounted(){
