@@ -74,7 +74,7 @@ export default {
   created(){
   },
   mounted(){
-    this.settingDistanceAndAdjust()
+    // this.settingDistanceAndAdjust()
   }
 }
 </script>
@@ -83,7 +83,7 @@ export default {
 #planner{
   margin: auto;
   width: 500px;
-  background: orange;
+  /* background: orange; */
   display: flex;
   max-height: 600px;
   overflow-y: auto;

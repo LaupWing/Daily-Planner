@@ -85,10 +85,13 @@ ul#Timeline{
   display: inline;
   font-size: 32px;
   transform-origin: right;
+  opacity: .2;
+  transition: 2s;
 }
 #Timeline li.highlight{
   transform: scale(1.2);
-  color: white;
+  /* color: white; */
+  opacity: 1;
 }
 /* width */
 /* ul#Timeline::-webkit-scrollbar {

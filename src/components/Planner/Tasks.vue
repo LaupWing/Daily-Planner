@@ -1,6 +1,12 @@
 <template>
     <div id="Tasks"> 
-        
+        <div 
+            class="task"
+            v-for="(task, index) in tasks"
+            :key="index"
+        >
+            {{task.task}}
+        </div>
     </div>
 </template>
 
@@ -102,7 +108,7 @@ export default {
         }
     },
     mounted(){
-        this.checkCurrentTask()
+        // this.checkCurrentTask()
     }
 }
 </script>
@@ -110,5 +116,10 @@ export default {
 <style>
 #Tasks{
     width: 100%;
+    position: relative;
+}
+
+.task{
+    position: absolute;
 }
 </style>
