@@ -26,13 +26,13 @@ export default {
                 },
                 {
                     task:'Cleaning Room',
-                    begin: '01:50',
+                    begin: '01:40',
                     end: '02:00'
                 },
                 {
                     task:'Cleaning Room',
-                    begin: '13:15',
-                    end: '16:59'
+                    begin: '16:15',
+                    end: '19:59'
                 }
             ],
             currentTask: null
@@ -109,23 +109,29 @@ export default {
             }
             return date.getTime()
         },
-        setTaskPosition(){
+        taskHeightAndPosition(){
             const allTasks = this.$el.querySelectorAll('.task')
             allTasks.forEach(task=>{
-                const allLi = Array.from(document.querySelectorAll('li'))
-                const startLi = allLi
-                    .find(li=>{
-                        const liHour = li.dataset.time.split(':')[0]
-                        const taskHour = task.dataset.begin.split(':')[0]
-                        if(liHour===taskHour){
-                            return li
-                        }
-                    })
-                const calcMinutes = ((startLi.offsetHeight*2)/60)*task.dataset.begin.split(':')[1]
-                console.log(calcMinutes)
-                const startingPoint = startLi.offsetTop + (startLi.offsetHeight/2) + calcMinutes
+                const startingPoint = this.calculatePoint(task.dataset.begin)
                 task.style.top = `${startingPoint}px`
+
+                const height = this.calculatePoint(task.dataset.end) - startingPoint
+                task.style.height = `${height}px`
             })
+        },
+        calculatePoint(state){
+            const allLi = Array.from(document.querySelectorAll('li'))
+            const li = allLi
+                .find(li=>{
+                    const liHour = li.dataset.time.split(':')[0]
+                    const taskHour = state.split(':')[0]
+                    if(liHour===taskHour){
+                        return li
+                    }
+                })
+            const calcMinutes = ((li.offsetHeight*2)/60)*state.split(':')[1]
+            const point = li.offsetTop + (li.offsetHeight/2) + calcMinutes
+            return point
         }
     },
     computed:{
@@ -136,7 +142,8 @@ export default {
         }
     },
     mounted(){
-        this.setTaskPosition()
+        this.taskHeightAndPosition()
+        this.checkCurrentTask()
     }
 }
 </script>

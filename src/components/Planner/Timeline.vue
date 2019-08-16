@@ -83,7 +83,7 @@ ul#Timeline{
   list-style: none;
   text-align: right;
   display: inline;
-  font-size: 32px;
+  font-size: 40px;
   transform-origin: right;
   opacity: .2;
   transition: 2s;

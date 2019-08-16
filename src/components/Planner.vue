@@ -1,6 +1,6 @@
 <template>
   <div id="planner">
-    <div class="overlay"></div>
+    <div class="overlay" @click="turnoff"></div>
     <Timeline
       :hours="hours"
       :minutes="minutes"
@@ -12,6 +12,7 @@
 <script>
 import Timeline from '@/components/Planner/Timeline'
 import Tasks from '@/components/Planner/Tasks'
+import debounce from '@/components/helper/debounce'
 
 export default {
   name: '',
@@ -23,7 +24,8 @@ export default {
       hours: null,
       minutes: null,
       distanceMinutes: null,
-      distanceHours: null
+      distanceHours: null,
+      settingDistanceAndAdjust: null
     }
   },
   components:{
@@ -62,19 +64,20 @@ export default {
       this.hours = this.addZero(date.getHours())
       this.minutes = this.addZero(date.getMinutes())
     },
-    settingDistanceAndAdjust(){
-      setInterval(()=>{
-        this.setTime()
-        this.distanceMinutes = this.getMinutesDistance()
-        this.distanceHours = this.getDistanceHours()
-        this.adjustPosition()
-      },1000)
+    turnoff(){
+      console.log('clearing')
+      clearInterval(this.settingDistanceAndAdjust)
     }
   },
   created(){
   },
   mounted(){
-    // this.settingDistanceAndAdjust()
+    this.settingDistanceAndAdjust = setInterval(()=>{
+        this.setTime()
+        this.distanceMinutes = this.getMinutesDistance()
+        this.distanceHours = this.getDistanceHours()
+        this.adjustPosition()
+      },1000)
   }
 }
 </script>
@@ -83,7 +86,6 @@ export default {
 #planner{
   margin: auto;
   width: 500px;
-  /* background: orange; */
   display: flex;
   max-height: 600px;
   overflow-y: auto;
