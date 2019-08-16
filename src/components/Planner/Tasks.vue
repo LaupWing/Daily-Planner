@@ -4,6 +4,9 @@
             class="task"
             v-for="(task, index) in tasks"
             :key="index"
+            :style="styleObj"
+            :data-begin="task.begin"
+            :data-end="task.end"
         >
             {{task.task}}
         </div>
@@ -105,10 +108,35 @@ export default {
                 return milliseconds
             }
             return date.getTime()
+        },
+        setTaskPosition(){
+            const allTasks = this.$el.querySelectorAll('.task')
+            allTasks.forEach(task=>{
+                const allLi = Array.from(document.querySelectorAll('li'))
+                const startLi = allLi
+                    .find(li=>{
+                        const liHour = li.dataset.time.split(':')[0]
+                        const taskHour = task.dataset.begin.split(':')[0]
+                        if(liHour===taskHour){
+                            return li
+                        }
+                    })
+                const calcMinutes = ((startLi.offsetHeight*2)/60)*task.dataset.begin.split(':')[1]
+                console.log(calcMinutes)
+                const startingPoint = startLi.offsetTop + (startLi.offsetHeight/2) + calcMinutes
+                task.style.top = `${startingPoint}px`
+            })
+        }
+    },
+    computed:{
+        styleObj:function(){
+            return {
+                background: 'orange'
+            }
         }
     },
     mounted(){
-        // this.checkCurrentTask()
+        this.setTaskPosition()
     }
 }
 </script>
