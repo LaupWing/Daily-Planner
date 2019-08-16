@@ -37,69 +37,64 @@ export default {
                 const hours = Number(date.getHours())
                 const minutes = Number(date.getMinutes())
                 const findTask = this.tasks.find((task)=>{
-                    // const time = this.splitTime(task)
-                    // this.converDateToMS(task.begin.split(':')[0], task.begin.split(':')[1])
-                    // if(time.taskHourBegin===hours && time.taskHourEnd >= hours){
-                    //     if(time.taskMinuteBegin<=minutes){
-                    //         if(time.taskHourEnd>hours){
-                    //             return task
-                    //         }
-                    //         else if(time.taskMinuteEnd >= minutes){
-                    //             return task
-                    //         }
-                            
-                    //     }
-                    // }
-                    const begin = this.converDateToMS(task.begin.split(':')[0],task.begin.split(':')[1])
-                    const end = this.converDateToMS(task.end.split(':')[0],task.end.split(':')[1])
+                    const begin = this.converDateToMS(task.begin)
+                    const end = this.converDateToMS(task.end)
                     const currentTimeInMS = this.converDateToMS()
                     if(begin<=currentTimeInMS && end>=currentTimeInMS){
                         return task
                     }
 
                 })
-                console.log(findTask)
-                // if(findTask){
-                //     const time = this.splitTime(findTask)
-                //     this.changeTimeSize(time)
-                //     this.currentTask = findTask
-                // }else{
-                //     this.currentTask = 'No Tasks Right now!'
-                // }
+                if(findTask){
+                    this.changeTimeSize(findTask)
+                    this.currentTask = findTask
+                }else{
+                    this.currentTask = 'No Tasks Right now!'
+                }
             },5000)
         },
-        splitTime(task){
-            const taskTimeBegin = task.begin.split(':')
-            const taskHourBegin = Number(taskTimeBegin[0])
-            const taskMinuteBegin = Number(taskTimeBegin[1]) 
-
-            const taskTimeEnd = task.end.split(':')
-            const taskHourEnd = Number(taskTimeEnd[0])
-            const taskMinuteEnd = Number(taskTimeEnd[1])
-
-            return {
-                taskHourBegin,
-                taskMinuteBegin,
-                taskHourEnd,
-                taskMinuteEnd
-            }
-        },
-        changeTimeSize(time){
-            const allLi = document.querySelectorAll('li').forEach(li=>{
-                const hour = Number(li.textContent.split(':')[0]) 
-                console.log(hour, time.taskHourBegin)
-                if(hour === time.taskHourBegin && task.taskMinuteBegin < 15){
-                    console.log(li)
+        changeTimeSize(task){
+            const quarterInMs = 900000
+            const allLi = Array.from(document.querySelectorAll('li'))
+            const taskBegin = this.converDateToMS(task.begin)
+            const taskEnd = this.converDateToMS(task.end)
+            let beginLi = null
+            let endLi = null
+            
+            allLi.forEach((li,index)=>{
+                const time = this.converDateToMS(li.dataset.time)
+                const timeToCompareMax = time+quarterInMs
+                const timeToCompareMin = time-quarterInMs
+                if(timeToCompareMin<=taskBegin && timeToCompareMax>=taskBegin){
+                    beginLi = index
+                }
+                if(timeToCompareMin<=taskEnd && timeToCompareMax>=taskEnd){
+                    endLi = index
                 }
             })
+
+            const highlight = allLi.filter((li,index)=>{
+                if(index>=beginLi && index <= endLi){
+                    return li
+                }
+            })
+
+            if(highlight[0].classList.contains('highlight')){
+                return
+            }
+            else{
+                highlight.forEach(li=>{
+                    li.classList.add('highlight')
+                })
+            }
         },
-        converDateToMS(hours, minutes){
+        converDateToMS(time){
             const date = new Date()
             const day = date.getDate()
             const month = date.getMonth()+1
             const year = date.getFullYear()
-            if(hours && minutes){
-                const dateToConvert = new Date(`${month}/${day}/${year} ${hours}:${minutes}:00`)
+            if(time){
+                const dateToConvert = new Date(`${month}/${day}/${year} ${time}:00`)
                 const milliseconds = dateToConvert.getTime()
                 return milliseconds
             }

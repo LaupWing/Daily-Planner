@@ -71,18 +71,24 @@ export default {
 
 <style>
 ul#Timeline{
-    display: flex;
-    flex-direction: column;
-    padding-right: 15px;
-    padding-top: 100%;
-    height: 100%;
-    padding-bottom: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-right: 15px;
+  padding-top: 100%;
+  height: 100%;
+  margin-left: 20px;
+  padding-bottom: 100%;
 }
 #Timeline li{
-    list-style: none;
-    text-align: right;
-    display: inline;
-    font-size: 32px;
+  list-style: none;
+  text-align: right;
+  display: inline;
+  font-size: 32px;
+  transform-origin: right;
+}
+#Timeline li.highlight{
+  transform: scale(1.2);
+  color: white;
 }
 /* width */
 /* ul#Timeline::-webkit-scrollbar {
