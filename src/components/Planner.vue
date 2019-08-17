@@ -30,7 +30,9 @@ export default {
       distanceMinutes: null,
       distanceHours: null,
       settingDistanceAndAdjust: null,
-      firstLanding: true
+      timeoutInSec: 0,
+      timeoutInterval: null,
+      scrollByCode: false
     }
   },
   components:{
@@ -39,6 +41,7 @@ export default {
   },
   methods:{
     adjustPosition(){
+      this.scrollByCode = true
       this.$el.scrollTo(0,(this.distanceHours+this.distanceMinutes))
     },
     addZero(number){
@@ -70,18 +73,25 @@ export default {
       this.minutes = this.addZero(date.getMinutes())
     },
     turnoff(){
-      console.log('clearing')
       clearInterval(this.settingDistanceAndAdjust)
     },
-    scrollEvent(){
-      if(this.firstLanding){
-        this.firstLanding = false
+    scrollEvent(event){
+      if(this.scrollByCode){
+        this.scrollByCode = false
         return
       }
       clearInterval(this.settingDistanceAndAdjust)
-      setTimeout(()=>{
-        this.assignInterval()
-      },10000)
+      clearInterval(this.timeoutInterval)
+      this.timeoutInSec = 0
+      this.timeoutInterval = setInterval(()=>{
+        this.timeoutInSec += 1
+        console.log(this.timeoutInSec)
+        if(this.timeoutInSec === 10){
+          this.assignInterval()
+          this.timeoutInSec = 0
+          clearInterval(this.timeoutInterval)
+        }
+      },1000)
     },
     assignInterval(){
       this.settingDistanceAndAdjust = setInterval(()=>{
