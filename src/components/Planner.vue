@@ -41,7 +41,10 @@ export default {
   },
   methods:{
     adjustPosition(){
-      this.scrollByCode = true
+      setTimeout(()=>{
+        this.scrollByCode = true
+      },500)
+      // this.$el.classList.add('smooth')
       this.$el.scrollTo(0,(this.distanceHours+this.distanceMinutes))
     },
     addZero(number){
@@ -75,7 +78,8 @@ export default {
     turnoff(){
       clearInterval(this.settingDistanceAndAdjust)
     },
-    scrollEvent(event){
+    scrollEvent(){
+      // this.$el.classList.remove('smooth')
       if(this.scrollByCode){
         this.scrollByCode = false
         return
@@ -118,6 +122,10 @@ export default {
   max-height: 600px;
   overflow-y: auto;
   position: relative;
+  scroll-behavior: smooth;
+}
+#planner.smooth{
+  scroll-behavior: smooth;
 }
 #planner .overlay{
   height: 50%;
