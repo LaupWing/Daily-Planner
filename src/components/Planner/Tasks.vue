@@ -33,6 +33,11 @@ export default {
                     task:'Cleaning Room',
                     begin: '16:15',
                     end: '19:59'
+                },
+                {
+                    task:'Cleaning Room',
+                    begin: '12:15',
+                    end: '14:00'
                 }
             ],
             currentTask: null

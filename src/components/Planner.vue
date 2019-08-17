@@ -1,5 +1,8 @@
 <template>
-  <div id="planner">
+  <div 
+    id="planner"
+    @scroll="scrollEvent"
+  >
     <div class="overlay" @click="turnoff"></div>
     <Timeline
       :hours="hours"
@@ -13,6 +16,8 @@
 import Timeline from '@/components/Planner/Timeline'
 import Tasks from '@/components/Planner/Tasks'
 import debounce from '@/components/helpers/debounce'
+import IntervalTimer from '@/components/helpers/intervalTimer'
+import { setTimeout } from 'timers';
 
 export default {
   name: '',
@@ -25,7 +30,8 @@ export default {
       minutes: null,
       distanceMinutes: null,
       distanceHours: null,
-      settingDistanceAndAdjust: null
+      settingDistanceAndAdjust: null,
+      firstLanding: true
     }
   },
   components:{
@@ -67,17 +73,30 @@ export default {
     turnoff(){
       console.log('clearing')
       clearInterval(this.settingDistanceAndAdjust)
+    },
+    scrollEvent(){
+      if(this.firstLanding){
+        this.firstLanding = false
+        return
+      }
+      clearInterval(this.settingDistanceAndAdjust)
+      setTimeout(()=>{
+        this.assignInterval()
+      },10000)
+    },
+    assignInterval(){
+      this.settingDistanceAndAdjust = setInterval(()=>{
+          this.setTime()
+          this.distanceMinutes = this.getMinutesDistance()
+          this.distanceHours = this.getDistanceHours()
+          this.adjustPosition()
+      },1000)
     }
   },
   created(){
   },
   mounted(){
-    this.settingDistanceAndAdjust = setInterval(()=>{
-        this.setTime()
-        this.distanceMinutes = this.getMinutesDistance()
-        this.distanceHours = this.getDistanceHours()
-        this.adjustPosition()
-      },1000)
+    this.assignInterval()
   }
 }
 </script>
