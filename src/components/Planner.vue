@@ -17,7 +17,6 @@ import Timeline from '@/components/Planner/Timeline'
 import Tasks from '@/components/Planner/Tasks'
 import debounce from '@/components/helpers/debounce'
 import IntervalTimer from '@/components/helpers/intervalTimer'
-import { setTimeout } from 'timers';
 
 export default {
   name: '',
@@ -86,10 +85,10 @@ export default {
     },
     assignInterval(){
       this.settingDistanceAndAdjust = setInterval(()=>{
-          this.setTime()
-          this.distanceMinutes = this.getMinutesDistance()
-          this.distanceHours = this.getDistanceHours()
-          this.adjustPosition()
+        this.setTime()
+        this.distanceMinutes = this.getMinutesDistance()
+        this.distanceHours = this.getDistanceHours()
+        this.adjustPosition()
       },1000)
     }
   },
