@@ -12,7 +12,7 @@
 <script>
 import Timeline from '@/components/Planner/Timeline'
 import Tasks from '@/components/Planner/Tasks'
-import debounce from '@/components/helper/debounce'
+import debounce from '@/components/helpers/debounce'
 
 export default {
   name: '',
