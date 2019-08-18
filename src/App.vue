@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <CurrentTime/>
-    <i class="far fa-calendar-plus"></i>
+    <!-- <i class="far fa-calendar-plus"></i> -->
     <router-view/>
   </div>
 </template>

@@ -53,8 +53,8 @@ export default {
         .filter(el=>el.textContent.includes(':'))
         .find(el=>el.textContent.split(':')[0]===String(this.hours))
       const parentElOffset = currentElTime.parentElement.offsetTop
-      // console.log(parentElOffset)
-      console.log(currentElTime.offsetTop, currentElTime)
+      // console.log(currentElTime)
+      console.log(currentElTime.offsetTop)
       const distance = 
         (currentElTime.offsetTop-parentElOffset) - 
         (this.$el.offsetHeight/2) + 
