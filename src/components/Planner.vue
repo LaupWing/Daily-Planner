@@ -78,6 +78,7 @@ export default {
       if(this.scrollByCode){
         setTimeout(()=>{
           this.scrollByCode = false
+          this.checkTaskByScroll()
         },500)
         return
       }
@@ -87,7 +88,6 @@ export default {
       this.timeoutInSec = 0
       this.timeoutInterval = setInterval(()=>{
         this.timeoutInSec += 1
-        // console.log(this.timeoutInSec)
         if(this.timeoutInSec === 10){
           this.assignInterval()
           this.timeoutInSec = 0
