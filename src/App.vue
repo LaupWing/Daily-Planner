@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <CurrentTime/>
+    <i class="far fa-calendar-plus"></i>
     <router-view/>
   </div>
 </template>
@@ -25,5 +26,13 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#app i.far.fa-calendar-plus{
+  margin-left: auto;
+  display: block;
+  text-align: right;
+  font-size: 2em;
+  margin-bottom: .5em;
+  cursor: pointer;
 }
 </style>

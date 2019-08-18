@@ -74,10 +74,10 @@ ul#Timeline{
   display: flex;
   flex-direction: column;
   padding-right: 15px;
-  padding-top: 100%;
+  padding-top: 57%;
   height: 100%;
   margin-left: 20px;
-  padding-bottom: 100%;
+  padding-bottom: 60%;
 }
 #Timeline li{
   list-style: none;
