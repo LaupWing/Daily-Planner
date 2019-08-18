@@ -53,10 +53,13 @@ export default {
         .filter(el=>el.textContent.includes(':'))
         .find(el=>el.textContent.split(':')[0]===String(this.hours))
       const parentElOffset = currentElTime.parentElement.offsetTop
+      // console.log(parentElOffset)
+      console.log(currentElTime.offsetTop, currentElTime)
       const distance = 
         (currentElTime.offsetTop-parentElOffset) - 
         (this.$el.offsetHeight/2) + 
         (currentElTime.offsetHeight/2)
+      // console.log(distance)
       return distance
     },
     getMinutesDistance(){
@@ -106,7 +109,6 @@ export default {
         const taskHeight = task.offsetHeight
         const taskOffsetTop = task.offsetTop
         const taskMaxpoint = taskHeight+taskOffsetTop
-
         if(midpoint >= taskOffsetTop && midpoint <= taskMaxpoint){
           return task
         }
