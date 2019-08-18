@@ -40,32 +40,35 @@ export default {
                     end: '14:30'
                 }
             ],
-            currentTask: null,
-            init: 1000
+            currentTask: null
         }
     },
     methods:{
         checkCurrentTask(){
-            
-            const interval = setInterval(()=>{
-                // Ik kan ook de tijd vertalen naar secondes en dan vergelijken
-                const findTask = this.tasks.find((task)=>{
-                    const begin = this.converDateToMS(task.begin)
-                    const end = this.converDateToMS(task.end)
-                    const currentTimeInMS = this.converDateToMS()
-                    if(begin<=currentTimeInMS && end>=currentTimeInMS){
-                        return task
-                    }
-
-                })
-                if(findTask){
-                    this.changeTimeSize(findTask)
-                    this.currentTask = findTask
-                }else{
-                    this.currentTask = 'No Tasks Right now!'
+            setTimeout(()=>{
+                this.taskWatcher()
+            },1000)
+            setInterval(()=>{
+                this.taskWatcher()
+            },60000)
+        },
+        taskWatcher(){
+            const findTask = this.tasks.find((task)=>{
+                const begin = this.converDateToMS(task.begin)
+                const end = this.converDateToMS(task.end)
+                const currentTimeInMS = this.converDateToMS()
+                if(begin<=currentTimeInMS && end>=currentTimeInMS){
+                    return task
                 }
-            },5000) // Moet ik nog verandere per minuut zodat er word gekeken welke taak er nu bezig moet zijn per minuut
-            this.init = 5000
+
+            })
+            if(findTask){
+                this.changeTimeSize(findTask)
+                this.currentTask = findTask
+            }else{
+                this.currentTask = 'No Tasks Right now!'
+            }
+
         },
         changeTimeSize(task){
             const quarterInMs = 900000
