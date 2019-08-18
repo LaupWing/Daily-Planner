@@ -15,8 +15,8 @@
 <script>
 import Timeline from '@/components/Planner/Timeline'
 import Tasks from '@/components/Planner/Tasks'
-import debounce from '@/components/helpers/debounce'
-import IntervalTimer from '@/components/helpers/intervalTimer'
+// import debounce from '@/components/helpers/debounce'
+// import IntervalTimer from '@/components/helpers/intervalTimer'
 
 export default {
   name: '',
@@ -41,10 +41,7 @@ export default {
   },
   methods:{
     adjustPosition(){
-      setTimeout(()=>{
-        this.scrollByCode = true
-      },500)
-      // this.$el.classList.add('smooth')
+      this.scrollByCode = true
       this.$el.scrollTo(0,(this.distanceHours+this.distanceMinutes))
     },
     addZero(number){
@@ -52,7 +49,6 @@ export default {
       else          return number
     },
     getDistanceHours(){
-      const heightParent = this.$el.offsetHeight
       const currentElTime = Array.from(this.$el.querySelectorAll('li'))
         .filter(el=>el.textContent.includes(':'))
         .find(el=>el.textContent.split(':')[0]===String(this.hours))
@@ -79,23 +75,71 @@ export default {
       clearInterval(this.settingDistanceAndAdjust)
     },
     scrollEvent(){
-      // this.$el.classList.remove('smooth')
       if(this.scrollByCode){
-        this.scrollByCode = false
+        setTimeout(()=>{
+          this.scrollByCode = false
+        },500)
         return
       }
+      this.checkTaskByScroll()
       clearInterval(this.settingDistanceAndAdjust)
       clearInterval(this.timeoutInterval)
       this.timeoutInSec = 0
       this.timeoutInterval = setInterval(()=>{
         this.timeoutInSec += 1
-        console.log(this.timeoutInSec)
+        // console.log(this.timeoutInSec)
         if(this.timeoutInSec === 10){
           this.assignInterval()
           this.timeoutInSec = 0
           clearInterval(this.timeoutInterval)
         }
       },1000)
+    },
+    checkTaskByScroll(){
+      const scrolled = this.$el.scrollTop
+      const height = this.$el.offsetHeight
+      const midpoint = scrolled + (height/2)
+      
+      if(document.querySelectorAll('.task')===undefined) return
+      const tasks = Array.from(document.querySelectorAll('.task'))
+      const findTask = tasks.find(task=>{
+        const taskHeight = task.offsetHeight
+        const taskOffsetTop = task.offsetTop
+        const taskMaxpoint = taskHeight+taskOffsetTop
+
+        if(midpoint >= taskOffsetTop && midpoint <= taskMaxpoint){
+          return task
+        }
+      })
+
+      if(findTask){
+        document.querySelectorAll('#Timeline li').forEach(li=>{
+          const taskHeight = findTask.offsetHeight
+          const taskOffsetTop = findTask.offsetTop
+          const taskMaxpoint = taskHeight+taskOffsetTop
+          const quarterInPx = li.offsetHeight/2 // Because one li represents half an hour
+
+          const min = taskOffsetTop - quarterInPx
+          const max = taskMaxpoint  + (quarterInPx*1.2)  
+
+          const liMin = li.offsetTop
+          const liMax = li.offsetTop + li.offsetHeight
+          li.classList.remove('opacity')
+          if(liMin >= min && liMax <= max){
+            li.classList.add('opacity')
+          }
+        })
+      }
+      else{
+        document.querySelectorAll('#Timeline li').forEach(li=>{
+          const liMin = li.offsetTop
+          const liMax = li.offsetTop + li.offsetHeight
+          li.classList.remove('opacity')
+          if(midpoint >= liMin && midpoint <= liMax){
+            li.classList.add('opacity')
+          }
+        })
+      }
     },
     assignInterval(){
       this.settingDistanceAndAdjust = setInterval(()=>{

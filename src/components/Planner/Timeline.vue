@@ -91,6 +91,8 @@ ul#Timeline{
 #Timeline li.highlight{
   transform: scale(1.2);
   /* color: white; */
+}
+#Timeline li.opacity{
   opacity: 1;
 }
 /* width */

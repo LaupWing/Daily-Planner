@@ -37,19 +37,18 @@ export default {
                 {
                     task:'Cleaning Room',
                     begin: '12:15',
-                    end: '14:00'
+                    end: '14:30'
                 }
             ],
-            currentTask: null
+            currentTask: null,
+            init: 1000
         }
     },
     methods:{
         checkCurrentTask(){
-            setInterval(()=>{
+            
+            const interval = setInterval(()=>{
                 // Ik kan ook de tijd vertalen naar secondes en dan vergelijken
-                const date = new Date()
-                const hours = Number(date.getHours())
-                const minutes = Number(date.getMinutes())
                 const findTask = this.tasks.find((task)=>{
                     const begin = this.converDateToMS(task.begin)
                     const end = this.converDateToMS(task.end)
@@ -65,7 +64,8 @@ export default {
                 }else{
                     this.currentTask = 'No Tasks Right now!'
                 }
-            },5000)
+            },5000) // Moet ik nog verandere per minuut zodat er word gekeken welke taak er nu bezig moet zijn per minuut
+            this.init = 5000
         },
         changeTimeSize(task){
             const quarterInMs = 900000
@@ -98,7 +98,7 @@ export default {
             }
             else{
                 highlight.forEach(li=>{
-                    li.classList.add('highlight')
+                    li.classList.add('highlight', 'opacity')
                 })
             }
         },

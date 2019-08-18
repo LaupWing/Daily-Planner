@@ -31,7 +31,7 @@ export default {
             const date = new Date()
             this.hours = this.addZero(date.getHours())
             this.minutes = this.addZero(date.getMinutes())
-            this.day = this.addZero(date.getDay())
+            this.day = this.addZero(date.getDate())
             this.month = monthNames[date.getMonth()]
             this.year = date.getFullYear()
         },1000)
