@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-import firestore from 'firebase/firestore'
+
 var firebaseConfig = {
     apiKey: "AIzaSyDTf5mLqKAd04TT_EtTM244aWkXkjgIQFU",
     authDomain: "daily-planner-40cbf.firebaseapp.com",
@@ -12,4 +12,6 @@ var firebaseConfig = {
   // Initialize Firebase
 const firebaseApp =  firebase.initializeApp(firebaseConfig);
 
-export default firebaseApp.firestore()
+// To use auth = firebaseApp.auth()
+// To use database = firebaseApp.firestore()
+export default firebaseApp
