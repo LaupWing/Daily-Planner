@@ -3,6 +3,7 @@
     id="planner"
     @scroll="scrollEvent"
   >
+    <i class="far fa-calendar-plus"></i>
     <div class="overlay" @click="turnoff"></div>
     <Timeline
       :hours="hours"
@@ -168,6 +169,7 @@ export default {
   max-height: 600px;
   overflow-y: auto;
   position: relative;
+  position: relative;
   scroll-behavior: smooth;
 }
 #planner.smooth{
@@ -181,5 +183,28 @@ export default {
   left: 0;
   background: purple;
   opacity: .1;
+}
+#planner i{
+  position: absolute;
+  top: -100%;
+  right: 0;
+}
+#planner::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+#planner::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+#planner::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+#planner::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
 </style>

@@ -19,11 +19,11 @@ export default {
     data(){
         return{
             tasks:[
-                {
-                    task:'Cleaning Room',
-                    begin: '02:00',
-                    end: '02:30'
-                },
+                // {
+                //     task:'Cleaning Room',
+                //     begin: '02:00',
+                //     end: '02:30'
+                // },
                 {
                     task:'Cleaning Room',
                     begin: '01:40',
