@@ -89,7 +89,7 @@ export default {
                     endLi = index
                 }
             })
-
+            
             const highlight = allLi.filter((li,index)=>{
                 if(index>=beginLi && index <= endLi){
                     return li
