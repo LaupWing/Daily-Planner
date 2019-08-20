@@ -34,7 +34,12 @@ export default {
       settingDistanceAndAdjust: null,
       timeoutInSec: 0,
       timeoutInterval: null,
-      scrollByCode: false
+      scrollByCode: false,
+      user: null,
+      geolocation:{
+        lat: 52.370216,
+        lng: 4.895168
+      }
     }
   },
   components:{
@@ -150,35 +155,52 @@ export default {
         this.distanceHours = this.getDistanceHours()
         this.adjustPosition()
       },1000)
+    },
+    updateAndGetUserData(){
+      const user = firebase.auth().currentUser
+      const ref = db.collection('users')
+      ref
+        .where('user_id', '==', user.uid)
+        .get()
+        .then(snapshot=>{
+          snapshot.forEach(doc=>{
+            ref
+              .doc(doc.id)
+              .update({
+                geolocation:{
+                  lat: this.geolocation.lat,
+                  lng: this.geolocation.lng
+                }
+              })
+          })
+        })
+        .then(()=>{
+          ref
+            .where('user_id', '==',user.uid)
+            .get()
+            .then(snapshot=>{
+              snapshot.forEach(doc=>{
+                this.user = doc.data()
+              })
+            })
+        })
     }
   },
   created(){
+    
   },
   mounted(){
-    let user = firebase.auth().currentUser
     this.assignInterval()
-    console.log(user)
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(pos=>{
-        db
-          .collection('users')
-          .where('user_id', '==', user.uid)
-          .get()
-          .then(snapshot=>{
-            snapshot.forEach(doc=>{
-              db
-                .collection('users')
-                .doc(doc.id)
-                .update({
-                  geolocation:{
-                    lat: pos.coords.latitude,
-                    lng: pos.coords.longitude
-                  }
-                })
-            })
-          })
+        this.geolocation.lat = pos.coords.latitude
+        this.geolocation.lng = pos.coords.longitude
+        this.updateAndGetUserData()
       })
+    }else{
+      this.updateAndGetUserData()
     }
+
   }
 }
 </script>

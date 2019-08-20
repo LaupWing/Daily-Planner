@@ -4,17 +4,20 @@ import Planner from './views/home/Planner.vue'
 import AddTask from './views/AddTask.vue'
 import Signup from './views/auth/Signup'
 import Login from './views/auth/Login'
-
+import firebase from 'firebase'
 Vue.use(Router)
 
-export default new Router({
+const router =  new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'Home',
-      component: Planner
+      component: Planner,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/add-task',
@@ -33,3 +36,18 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next)=>{
+  if(to.matched.some(rec=> rec.meta.requiresAuth)){
+    let user = firebase.auth().currentUser
+    if(user){
+      next()
+    }else{
+      next({name:'Login'})
+    }
+  }else{
+    next()
+  }
+})
+
+export default router

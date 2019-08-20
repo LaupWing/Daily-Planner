@@ -14,6 +14,9 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+import db from '@/firebase/init'
+
 export default {
     name: 'Tasks',
     data(){
@@ -63,6 +66,7 @@ export default {
 
             })
             if(findTask){
+                console.log(findTask)
                 this.changeTimeSize(findTask)
                 this.currentTask = findTask
             }else{
@@ -72,7 +76,7 @@ export default {
         },
         changeTimeSize(task){
             const quarterInMs = 900000
-            const allLi = Array.from(document.querySelectorAll('li'))
+            const allLi = Array.from(document.querySelectorAll('#Timeline li'))
             const taskBegin = this.converDateToMS(task.begin)
             const taskEnd = this.converDateToMS(task.end)
             let beginLi = null
@@ -83,19 +87,22 @@ export default {
                 const timeToCompareMax = time+quarterInMs
                 const timeToCompareMin = time-quarterInMs
                 if(timeToCompareMin<=taskBegin && timeToCompareMax>=taskBegin){
-                    beginLi = index
+                    console.log(index)
+                    if(beginLi===null){
+                        beginLi = index
+                    }
                 }
                 if(timeToCompareMin<=taskEnd && timeToCompareMax>=taskEnd){
-                    endLi = index
+                    if(endLi===null){
+                        endLi = index
+                    }
                 }
             })
-            
             const highlight = allLi.filter((li,index)=>{
                 if(index>=beginLi && index <= endLi){
                     return li
                 }
             })
-
             if(highlight[0].classList.contains('highlight')){
                 return
             }
@@ -149,9 +156,23 @@ export default {
             }
         }
     },
+    created(){
+        db
+            .collection('planner')
+            .doc(firebase.auth().currentUser.uid)
+            .get()
+            .then(doc=>{
+                if(doc.exists){
+                    this.tasks = doc.data().dailyTasks
+                }
+            })
+            .then(()=>{
+                    console.log(this.tasks)
+                    this.taskHeightAndPosition()
+                    this.checkCurrentTask()
+            })
+    },
     mounted(){
-        this.taskHeightAndPosition()
-        this.checkCurrentTask()
     }
 }
 </script>
