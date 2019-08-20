@@ -18,7 +18,8 @@ import Timeline from '@/components/Planner/Timeline'
 import Tasks from '@/components/Planner/Tasks'
 // import debounce from '@/components/helpers/debounce'
 // import IntervalTimer from '@/components/helpers/intervalTimer'
-
+import firebase from 'firebase'
+import db from '@/firebase/init'
 export default {
   name: '',
   props: {
@@ -54,8 +55,6 @@ export default {
         .filter(el=>el.textContent.includes(':'))
         .find(el=>el.textContent.split(':')[0]===String(this.hours))
       const parentElOffset = currentElTime.parentElement.offsetTop
-      // console.log(currentElTime)
-      console.log(currentElTime.offsetTop)
       const distance = 
         (currentElTime.offsetTop-parentElOffset) - 
         (this.$el.offsetHeight/2) + 
@@ -156,7 +155,30 @@ export default {
   created(){
   },
   mounted(){
+    let user = firebase.auth().currentUser
     this.assignInterval()
+    console.log(user)
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(pos=>{
+        db
+          .collection('users')
+          .where('user_id', '==', user.uid)
+          .get()
+          .then(snapshot=>{
+            snapshot.forEach(doc=>{
+              db
+                .collection('users')
+                .doc(doc.id)
+                .update({
+                  geolocation:{
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude
+                  }
+                })
+            })
+          })
+      })
+    }
   }
 }
 </script>
