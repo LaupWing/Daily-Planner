@@ -128,7 +128,7 @@ export default {
             })
         },
         calculatePoint(state){
-            const allLi = Array.from(document.querySelectorAll('li'))
+            const allLi = Array.from(document.querySelectorAll('#Timeline li'))
             const li = allLi
                 .find(li=>{
                     const liHour = li.dataset.time.split(':')[0]

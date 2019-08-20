@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <CurrentTime/>
+    <Nav/>
     <!-- <i class="far fa-calendar-plus"></i> -->
     <router-view/>
   </div>
@@ -8,10 +9,12 @@
 
 <script>
 import CurrentTime from '@/components/CurrentTime.vue'
+import Nav from '@/components/Nav.vue'
 export default {
   name: 'App',
   components:{
-    CurrentTime
+    CurrentTime,
+    Nav
   }
 }
 </script>

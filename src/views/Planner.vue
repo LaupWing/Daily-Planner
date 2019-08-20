@@ -50,7 +50,7 @@ export default {
       else          return number
     },
     getDistanceHours(){
-      const currentElTime = Array.from(this.$el.querySelectorAll('li'))
+      const currentElTime = Array.from(this.$el.querySelectorAll('#Timeline li'))
         .filter(el=>el.textContent.includes(':'))
         .find(el=>el.textContent.split(':')[0]===String(this.hours))
       const parentElOffset = currentElTime.parentElement.offsetTop

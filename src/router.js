@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Planner from './views/Planner.vue'
 import AddTask from './views/AddTask.vue'
-
+import Signup from './views/auth/Signup'
 Vue.use(Router)
 
 export default new Router({
@@ -12,12 +12,17 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Planner
     },
     {
       path: '/add-task',
       name: 'AddTask',
       component: AddTask
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup
     }
   ]
 })
