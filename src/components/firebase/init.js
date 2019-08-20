@@ -14,4 +14,4 @@ const firebaseApp =  firebase.initializeApp(firebaseConfig);
 
 // To use auth = firebaseApp.auth()
 // To use database = firebaseApp.firestore()
-export default firebaseApp
+export default firebaseApp.firestore()
