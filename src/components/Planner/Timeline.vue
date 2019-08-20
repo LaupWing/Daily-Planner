@@ -80,6 +80,7 @@ ul#Timeline{
   padding-bottom: 60%;
 }
 #Timeline li{
+  padding: 10px 0;
   list-style: none;
   text-align: right;
   display: inline;

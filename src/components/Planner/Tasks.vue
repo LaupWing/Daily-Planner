@@ -157,6 +157,8 @@ export default {
         }
     },
     created(){
+    },
+    mounted(){
         db
             .collection('planner')
             .doc(firebase.auth().currentUser.uid)
@@ -167,12 +169,9 @@ export default {
                 }
             })
             .then(()=>{
-                    console.log(this.tasks)
                     this.taskHeightAndPosition()
                     this.checkCurrentTask()
             })
-    },
-    mounted(){
     }
 }
 </script>
