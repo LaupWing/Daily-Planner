@@ -65,9 +65,11 @@
 </template>
 
 <script>
-import addZero from '@/components/helpers/timeFormat'
+import {addZero} from '@/components/helpers/timeFormat'
+import {converDateToMS} from '@/components/helpers/timeFormat'
 import firebase from 'firebase'
 import db from '@/firebase/init'
+
 export default {
     name: 'AddTask',
     data(){
@@ -103,16 +105,83 @@ export default {
                     end: `${this.end.hours.substring(0,2)}:${this.end.minutes.substring(0,2)}`,
                     days: this.days
                 }
-                this.dailyTasks.push(taskObj)
-                db
-                    .collection('planner')
-                    .doc(this.user.uid)
-                    .update({
-                        dailyTasks: this.dailyTasks
-                    })
-                    .then(()=>{
-                        this.$router.push({name:'Home'})
-                    })
+                
+                const findOverlap = this.dailyTasks.find(task=>{
+                    for(let dayInCurrentTask of task.days){
+                        for(let dayInNewTask of taskObj.days){
+                            if(dayInNewTask === dayInCurrentTask){
+                                console.log(task ,taskObj)
+                                const beginCurrentTask = converDateToMS(task.begin)
+                                const endCurrentTask = converDateToMS(task.end)
+                                const beginNewTask = converDateToMS(taskObj.begin)
+                                const endNewTask = converDateToMS(taskObj.end)
+                                // if(
+                                //     beginNewTask >= beginCurrentTask && 
+                                //     endNewTask <= endCurrentTask        
+                                //     ||
+                                //     beginNewTask >= beginCurrentTask && 
+                                //     endNewTask >= endCurrentTask     &&
+                                //     beginNewTask <= endCurrentTask      
+                                //     ||
+                                //     beginNewTask <= beginCurrentTask &&
+                                //     endNewTask <= endCurrentTask     &&
+                                //     endNewTask >= beginCurrentTask
+                                // ){
+                                //     return task
+                                // }
+                                console.log(this.dailyTasks)
+                                console.log('dayInCurrentTask.begin', dayInCurrentTask.begin)
+                                console.log('dayInCurrentTask.end', dayInCurrentTask)
+                                console.log('dayInNewTask.begin', dayInNewTask)
+                                console.log('dayInNewTask.end', dayInNewTask)
+                                if(
+                                    beginNewTask >= beginCurrentTask && 
+                                    endNewTask <= endCurrentTask   
+                                ){
+                                    console.log('dayInCurrentTask.begin', dayInCurrentTask)
+                                    console.log('dayInCurrentTask.end', dayInCurrentTask)
+                                    console.log('dayInNewTask.begin', dayInNewTask)
+                                    console.log('dayInNewTask.end', dayInNewTask)
+                                    console.log(task, 'inside')
+                                }
+                                else if(
+                                    beginNewTask >= beginCurrentTask && 
+                                    endNewTask >= endCurrentTask     &&
+                                    beginNewTask <= endCurrentTask   
+                                ){
+                                    console.log('dayInCurrentTask.begin', dayInCurrentTask)
+                                    console.log('dayInCurrentTask.end', dayInCurrentTask)
+                                    console.log('dayInNewTask.begin', dayInNewTask)
+                                    console.log('dayInNewTask.end', dayInNewTask)
+                                    console.log(task, 'inside first')
+                                }
+                                else if(
+                                    beginNewTask <= beginCurrentTask &&
+                                    endNewTask <= endCurrentTask     &&
+                                    endNewTask >= beginCurrentTask
+                                ){
+                                    console.log('dayInCurrentTask.begin', dayInCurrentTask)
+                                    console.log('dayInCurrentTask.end', dayInCurrentTask)
+                                    console.log('dayInNewTask.begin', dayInNewTask)
+                                    console.log('dayInNewTask.end', dayInNewTask)
+                                    console.log(task, 'inside second')
+                                }
+                            }
+                        }
+                    }
+                })
+
+                console.log(findOverlap)
+                // this.dailyTasks.push(taskObj)
+                // db
+                //     .collection('planner')
+                //     .doc(this.user.uid)
+                //     .update({
+                //         dailyTasks: this.dailyTasks
+                //     })
+                //     .then(()=>{
+                //         this.$router.push({name:'Home'})
+                //     })
             }else{
                 this.feedback = 'You have to fill in all the fields'
             }
@@ -132,7 +201,7 @@ export default {
             .get()
             .then(doc=>{
                 const data = doc.data()
-                this.currentTasks = data.dailyTasks 
+                this.dailyTasks = data.dailyTasks 
             })
     }
 }

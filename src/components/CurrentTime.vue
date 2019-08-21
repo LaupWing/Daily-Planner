@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import addZero from '@/components/helpers/timeFormat'
+import {addZero} from '@/components/helpers/timeFormat'
 export default {
     name: 'CurrentTime',
     data(){

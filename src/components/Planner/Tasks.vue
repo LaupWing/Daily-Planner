@@ -16,6 +16,7 @@
 <script>
 import firebase from 'firebase'
 import db from '@/firebase/init'
+import {converDateToMS} from '@/components/helpers/timeFormat'
 
 export default {
     name: 'Tasks',
@@ -57,9 +58,9 @@ export default {
         },
         taskWatcher(){
             const findTask = this.tasks.find((task)=>{
-                const begin = this.converDateToMS(task.begin)
-                const end = this.converDateToMS(task.end)
-                const currentTimeInMS = this.converDateToMS()
+                const begin = converDateToMS(task.begin)
+                const end = converDateToMS(task.end)
+                const currentTimeInMS = converDateToMS()
                 if(begin<=currentTimeInMS && end>=currentTimeInMS){
                     return task
                 }
@@ -76,13 +77,13 @@ export default {
         changeTimeSize(task){
             const quarterInMs = 900000
             const allLi = Array.from(document.querySelectorAll('#Timeline li'))
-            const taskBegin = this.converDateToMS(task.begin)
-            const taskEnd = this.converDateToMS(task.end)
+            const taskBegin = converDateToMS(task.begin)
+            const taskEnd = converDateToMS(task.end)
             let beginLi = null
             let endLi = null
             
             allLi.forEach((li,index)=>{
-                const time = this.converDateToMS(li.dataset.time)
+                const time = converDateToMS(li.dataset.time)
                 const timeToCompareMax = time+quarterInMs
                 const timeToCompareMin = time-quarterInMs
                 if(timeToCompareMin<=taskBegin && timeToCompareMax>=taskBegin){
@@ -109,18 +110,6 @@ export default {
                     li.classList.add('highlight', 'opacity')
                 })
             }
-        },
-        converDateToMS(time){
-            const date = new Date()
-            const day = date.getDate()
-            const month = date.getMonth()+1
-            const year = date.getFullYear()
-            if(time){
-                const dateToConvert = new Date(`${month}/${day}/${year} ${time}:00`)
-                const milliseconds = dateToConvert.getTime()
-                return milliseconds
-            }
-            return date.getTime()
         },
         taskHeightAndPosition(){
             const allTasks = this.$el.querySelectorAll('.task')
