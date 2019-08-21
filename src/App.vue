@@ -1,9 +1,13 @@
 <template>
   <div id="app">
-    <CurrentTime/>
+    <CurrentTime
+      :currentTask='currentTask'
+    />
     <Nav/>
     <!-- <i class="far fa-calendar-plus"></i> -->
-    <router-view/>
+    <router-view
+      v-on:setTask='setTask'
+    />
   </div>
 </template>
 
@@ -14,12 +18,17 @@ export default {
   name: 'App',
   data(){
     return{
-      
+      currentTask: null
     }
   },
   components:{
     CurrentTime,
     Nav
+  },
+  methods:{
+    setTask(task){
+      this.currentTask = task
+    }
   }
 }
 </script>
@@ -34,13 +43,5 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-}
-#app i.far.fa-calendar-plus{
-  margin-left: auto;
-  display: block;
-  text-align: right;
-  font-size: 2em;
-  margin-bottom: .5em;
-  cursor: pointer;
 }
 </style>

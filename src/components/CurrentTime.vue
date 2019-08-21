@@ -7,6 +7,7 @@
             class="far fa-calendar-plus"
             @click="addTask"
         ></i>
+        <p>Current Task: {{currentTask}}</p>
     </div>
 </template>
 
@@ -15,6 +16,7 @@ import {addZero} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'
 export default {
     name: 'CurrentTime',
+    props:['currentTask'],
     data(){
         return{
             hours: null,

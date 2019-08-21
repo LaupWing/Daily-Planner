@@ -8,7 +8,9 @@
       :hours="hours"
       :minutes="minutes"
     />
-    <Tasks/>
+    <Tasks
+      v-on:setTask='setTask'
+    />
   </div>
 </template>
 
@@ -44,6 +46,9 @@ export default {
     Tasks
   },
   methods:{
+    setTask(task){
+      this.$emit('setTask', task)
+    },
     adjustPosition(){
       this.scrollByCode = true
       this.$el.scrollTo(0,(this.distanceHours+this.distanceMinutes))

@@ -70,9 +70,14 @@ export default {
             })
             if(findTask){
                 this.changeTimeSize(findTask)
-                this.currentTask = findTask
+                this.currentTask = findTask.task
+                this.$emit('setTask', this.currentTask)
             }else{
+                document.querySelectorAll('#Timeline li').forEach(li=>{
+                    li.classList.remove('highlight')
+                })
                 this.currentTask = 'No Tasks Right now!'
+                this.$emit('setTask', this.currentTask)
             }
 
         },
