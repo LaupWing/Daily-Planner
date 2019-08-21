@@ -1,11 +1,118 @@
 <template>
-    <form id="AddTask"> 
-        
+    <form @submit.prevent="submit" id="AddTask"> 
+        <h2>AddTask</h2>
+        <div class="field">
+            <label for="task">Task:</label>
+            <input type="text" name="task" v-model="task">
+        </div>
+        <div class="field">
+            <label for="task">Begin:</label>
+            <div class="hours">
+                <label for="hours">Hours</label>
+                <input @input="setTaskTime('begin', 'hours')" type="number" name="hours" min="00" max="23">
+            </div>
+            <div class="minutes">
+                <label for="minutes">Minutes</label>
+                <input @input="setTaskTime('begin', 'minutes')" type="number" name="minutes" min="00" max="59">
+            </div>
+        </div>
+        <div class="field">
+            <label for="task">End:</label>
+            <div class="hours">
+                <label for="hours">Hours</label>
+                <input @input="setTaskTime('end', 'hours')" type="number" name="hours" min="00" max="23">
+            </div>
+            <div class="minutes">
+                <label for="minutes">Minutes</label>
+                <input @input="setTaskTime('end', 'minutes')" type="number" name="minutes" min="00" max="59">
+            </div>
+        </div>
+        <div class="field">
+            <div class="day">
+                <input type="checkbox" @input="checkboxValues" name="day" id="monday">
+                <label for="monday">Monday</label>
+            </div>
+            <div class="day">
+                <input type="checkbox" @input="checkboxValues" name="day" id="tuesday">
+                <label for="tuesday">Tuesday</label>
+            </div>
+            <div class="day">
+                <input type="checkbox" @input="checkboxValues" name="day" id="wednesday">
+                <label for="wednesday">Wednesday</label>
+            </div>
+            <div class="day">
+                <input type="checkbox" @input="checkboxValues" name="day" id="thursday">
+                <label for="thursday">Thursday</label>
+            </div>
+            <div class="day">
+                <input type="checkbox" @input="checkboxValues" name="day" id="friday">
+                <label for="friday">Friday</label>
+            </div>
+            <div class="day">
+                <input type="checkbox" @input="checkboxValues" name="day" id="saturday">
+                <label for="saturday">Saturday</label>
+            </div>
+            <div class="day">
+                <input type="checkbox" @input="checkboxValues" name="day" id="sunday">
+                <label for="sunday">Sunday</label>
+            </div>
+        </div>
+        <div class="field">
+            <p v-if="feedback">{{feedback}}</p>
+            <button>Submit</button>
+        </div>
     </form>
 </template>
 
 <script>
+import addZero from '@/components/helpers/timeFormat'
+import firebase from 'firebase'
+import db from '@/firebase/init'
 export default {
-    name: 'AddTask'
+    name: 'AddTask',
+    data(){
+        return{
+            days:[],
+            task: null,
+            begin: {
+                hours: null,
+                minutes: null
+            },
+            end: {
+                hours: null,
+                minutes: null
+            },
+            feedback: null
+        }
+    },
+    methods:{
+        submit(){
+            if(
+                this.days.length !== 0 &&
+                this.task              &&
+                this.begin.hours       &&
+                this.begin.minutes     &&
+                this.end.hours         &&
+                this.end.minutes       
+            ){
+                const taskObj = {
+                    task: this.task,
+                    begin: `${this.begin.hours}:${this.begin.minutes}`, 
+                    end: `${this.end.hours}:${this.end.minutes}`,
+                    days: this.days
+                }
+                console.log(firebase.auth().currentUser)
+                db.collection('tasks')
+            }else{
+                this.feedback = 'You have to fill in all the fields'
+            }
+        },
+        checkboxValues(){
+            this.days.push(event.target.id)
+        },
+        setTaskTime(state, time){
+            this[state][time] = addZero(event.target.value)
+        }
+    }
 }
 </script>

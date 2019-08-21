@@ -3,7 +3,6 @@
     id="planner"
     @scroll="scrollEvent"
   >
-    <i class="far fa-calendar-plus"></i>
     <div class="overlay" @click="turnoff"></div>
     <Timeline
       :hours="hours"

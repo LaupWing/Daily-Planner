@@ -2,10 +2,16 @@
     <div id="Current-Time">
         <h2 class="date">{{day}} {{month}} {{year}}</h2>
         <h2 class="time">{{hours}}:{{minutes}}</h2>
+        <i 
+            v-if="$route.name === 'Home'" 
+            class="far fa-calendar-plus"
+            @click="addTask"
+        ></i>
     </div>
 </template>
 
 <script>
+import addZero from '@/components/helpers/timeFormat'
 export default {
     name: 'CurrentTime',
     data(){
@@ -18,9 +24,8 @@ export default {
         }
     },
     methods:{
-        addZero(number){
-            if(number<10) return '0'+number
-            else          return number
+        addTask(){
+            this.$router.push({name:'AddTask'})
         }
     },
     created(){
@@ -29,9 +34,9 @@ export default {
         ];
         setInterval(()=>{
             const date = new Date()
-            this.hours = this.addZero(date.getHours())
-            this.minutes = this.addZero(date.getMinutes())
-            this.day = this.addZero(date.getDate())
+            this.hours = addZero(date.getHours())
+            this.minutes = addZero(date.getMinutes())
+            this.day = addZero(date.getDate())
             this.month = monthNames[date.getMonth()]
             this.year = date.getFullYear()
         },1000)
@@ -48,4 +53,9 @@ export default {
     margin: auto;
     text-align: center;
 }    
+
+#Current-Time i{
+    font-size: 1.2em;
+    cursor: pointer;
+}
 </style>
