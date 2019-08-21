@@ -35,15 +35,13 @@ export default {
                 firebase
                     .auth()
                     .signInWithEmailAndPassword(this.email, this.password)
-                    .then(cred=>{
-                        const user = cred.user
+                    .then(()=>{
                         this.$router.push({name:'Home'})
                     })
                     .catch(err=>{
                         this.feedback = err.message
                     })
                 this.feedback = null
-                console.log(this.email, this.password)
             } else {
                 this.feedback = 'Please fill in both field!'
             }

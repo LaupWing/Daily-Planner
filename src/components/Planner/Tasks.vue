@@ -66,7 +66,6 @@ export default {
 
             })
             if(findTask){
-                console.log(findTask)
                 this.changeTimeSize(findTask)
                 this.currentTask = findTask
             }else{
@@ -87,7 +86,6 @@ export default {
                 const timeToCompareMax = time+quarterInMs
                 const timeToCompareMin = time-quarterInMs
                 if(timeToCompareMin<=taskBegin && timeToCompareMax>=taskBegin){
-                    console.log(index)
                     if(beginLi===null){
                         beginLi = index
                     }

@@ -53,12 +53,10 @@ export default {
                         if(doc.exists){
                             this.feedback = 'This alias already exists'
                         }else{
-                            console.log(this.slug)
                             firebase
                                 .auth()
                                 .createUserWithEmailAndPassword(this.email, this.password)
                                 .then(cred=>{
-                                    console.log(cred.user)
                                     const user = cred.user
                                     ref.set({
                                         alias: this.alias,
@@ -71,7 +69,6 @@ export default {
                                     this.$router.push(({name: 'Home'}))
                                 })
                                 .catch(err=>{
-                                    console.log(err)
                                     this.feedback = err.message
                                 })
                             this.feedback = 'You can use this alias'
