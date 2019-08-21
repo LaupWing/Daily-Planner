@@ -151,25 +151,27 @@ export default {
                 if(findOverlap.length > 0){
                     findOverlap.forEach(task=>{
                         const overlappingDays = task.days.filter(day=>{
-                            const findDay = taskObj.days.find(dayInNewTask=>dayInNewTask===day)
-                            return day
+                            if(taskObj.days.includes(day)){
+                                return day
+                            }
                         })
                         overlappingDays.forEach(day=>{
                             const msg = `Your new taks is to long therfore it is within the task ${task.task} in between ${task.begin} - ${task.end} on a ${day}`
                             this.feedback.push(msg)
                         })
                     })
+                }else{
+                    this.dailyTasks.push(taskObj)
+                    db
+                        .collection('planner')
+                        .doc(this.user.uid)
+                        .update({
+                            dailyTasks: this.dailyTasks
+                        })
+                        .then(()=>{
+                            this.$router.push({name:'Home'})
+                        })
                 }
-                // this.dailyTasks.push(taskObj)
-                // db
-                //     .collection('planner')
-                //     .doc(this.user.uid)
-                //     .update({
-                //         dailyTasks: this.dailyTasks
-                //     })
-                //     .then(()=>{
-                //         this.$router.push({name:'Home'})
-                //     })
             }else{
                 this.feedback = 'You have to fill in all the fields'
             }

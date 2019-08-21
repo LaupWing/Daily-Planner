@@ -8,9 +8,7 @@
       :hours="hours"
       :minutes="minutes"
     />
-    <Tasks
-      :days='days'
-    />
+    <Tasks/>
   </div>
 </template>
 

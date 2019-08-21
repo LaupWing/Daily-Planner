@@ -12,6 +12,7 @@
 
 <script>
 import {addZero} from '@/components/helpers/timeFormat'
+import {monthNames} from '@/components/helpers/timeFormat'
 export default {
     name: 'CurrentTime',
     data(){
@@ -29,9 +30,6 @@ export default {
         }
     },
     created(){
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-        ];
         setInterval(()=>{
             const date = new Date()
             this.hours = addZero(date.getHours())

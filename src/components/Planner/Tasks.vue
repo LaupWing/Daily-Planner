@@ -17,9 +17,10 @@
 import firebase from 'firebase'
 import db from '@/firebase/init'
 import {converDateToMS} from '@/components/helpers/timeFormat'
-
+import {days} from '@/components/helpers/timeFormat'
 export default {
     name: 'Tasks',
+    props:['days'],
     data(){
         return{
             tasks:[
@@ -156,12 +157,17 @@ export default {
                     this.allTasks = doc
                         .data()
                         .dailyTasks
+                    
+                    this.tasks = doc
+                        .data()
+                        .dailyTasks
                         .filter(task=>{
                             const date = new Date()
-                            const day = date.getDay()
-                            console.log(day)
+                            const day = days[date.getDay()-1]
+                            if(task.days.includes(day)){
+                                return task
+                            }
                         })
-                    this.tasks = doc.data().dailyTasks
                 }
             })
             .then(()=>{

@@ -3,9 +3,7 @@
     <CurrentTime/>
     <Nav/>
     <!-- <i class="far fa-calendar-plus"></i> -->
-    <router-view
-      :days="days"
-    />
+    <router-view/>
   </div>
 </template>
 
@@ -16,7 +14,7 @@ export default {
   name: 'App',
   data(){
     return{
-      days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+      
     }
   },
   components:{
