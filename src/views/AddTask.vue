@@ -58,7 +58,12 @@
             </div>
         </div>
         <div class="field">
-            <p v-if="feedback">{{feedback}}</p>
+            <div class="feedback" v-if="feedback.length>0">
+                <p  
+                    v-for="(feed, index) in feedback"
+                    :key="index"
+                >{{feed}}</p>
+            </div>
             <button>Submit</button>
         </div>
     </form>
@@ -84,7 +89,7 @@ export default {
                 hours: null,
                 minutes: null
             },
-            feedback: null,
+            feedback: [],
             user: null,
             dailyTasks: []
         }
@@ -105,8 +110,7 @@ export default {
                     end: `${this.end.hours.substring(0,2)}:${this.end.minutes.substring(0,2)}`,
                     days: this.days
                 }
-                
-                const findOverlap = this.dailyTasks.find(task=>{
+                const findOverlap = this.dailyTasks.filter(task=>{
                     for(let dayInCurrentTask of task.days){
                         for(let dayInNewTask of taskObj.days){
                             if(dayInNewTask === dayInCurrentTask){
@@ -118,7 +122,6 @@ export default {
                                     beginNewTask >= beginCurrentTask && 
                                     endNewTask <= endCurrentTask   
                                 ){
-                                    this.feedback = `Your new taks overlaps with the task ${task.task} in between ${task.begin} - ${task.end}`
                                     return task
                                 }
                                 else if(
@@ -126,7 +129,6 @@ export default {
                                     endNewTask >= endCurrentTask     &&
                                     beginNewTask < endCurrentTask   
                                 ){
-                                    this.feedback = `Your new taks begins within the task ${task.task} in between ${task.begin} - ${task.end}`
                                     return task
                                 }
                                 else if(
@@ -134,22 +136,30 @@ export default {
                                     endNewTask <= endCurrentTask     &&
                                     endNewTask > beginCurrentTask
                                 ){
-                                    this.feedback = `Your new taks ends within the task ${task.task} in between ${task.begin} - ${task.end}`
                                     return task
                                 }
                                 else if(
                                     beginNewTask < beginCurrentTask &&
                                     endNewTask > endCurrentTask     
                                 ){
-                                    this.feedback = `Your new taks is to long therfore it is within the task ${task.task} in between ${task.begin} - ${task.end}`
                                     return task
                                 }
                             }
                         }
                     }
                 })
-
-                console.log(findOverlap)
+                if(findOverlap.length > 0){
+                    findOverlap.forEach(task=>{
+                        const overlappingDays = task.days.filter(day=>{
+                            const findDay = taskObj.days.find(dayInNewTask=>dayInNewTask===day)
+                            return day
+                        })
+                        overlappingDays.forEach(day=>{
+                            const msg = `Your new taks is to long therfore it is within the task ${task.task} in between ${task.begin} - ${task.end} on a ${day}`
+                            this.feedback.push(msg)
+                        })
+                    })
+                }
                 // this.dailyTasks.push(taskObj)
                 // db
                 //     .collection('planner')
