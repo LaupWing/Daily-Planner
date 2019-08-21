@@ -110,61 +110,39 @@ export default {
                     for(let dayInCurrentTask of task.days){
                         for(let dayInNewTask of taskObj.days){
                             if(dayInNewTask === dayInCurrentTask){
-                                console.log(task ,taskObj)
                                 const beginCurrentTask = converDateToMS(task.begin)
                                 const endCurrentTask = converDateToMS(task.end)
                                 const beginNewTask = converDateToMS(taskObj.begin)
                                 const endNewTask = converDateToMS(taskObj.end)
-                                // if(
-                                //     beginNewTask >= beginCurrentTask && 
-                                //     endNewTask <= endCurrentTask        
-                                //     ||
-                                //     beginNewTask >= beginCurrentTask && 
-                                //     endNewTask >= endCurrentTask     &&
-                                //     beginNewTask <= endCurrentTask      
-                                //     ||
-                                //     beginNewTask <= beginCurrentTask &&
-                                //     endNewTask <= endCurrentTask     &&
-                                //     endNewTask >= beginCurrentTask
-                                // ){
-                                //     return task
-                                // }
-                                console.log(this.dailyTasks)
-                                console.log('dayInCurrentTask.begin', dayInCurrentTask.begin)
-                                console.log('dayInCurrentTask.end', dayInCurrentTask)
-                                console.log('dayInNewTask.begin', dayInNewTask)
-                                console.log('dayInNewTask.end', dayInNewTask)
                                 if(
                                     beginNewTask >= beginCurrentTask && 
                                     endNewTask <= endCurrentTask   
                                 ){
-                                    console.log('dayInCurrentTask.begin', dayInCurrentTask)
-                                    console.log('dayInCurrentTask.end', dayInCurrentTask)
-                                    console.log('dayInNewTask.begin', dayInNewTask)
-                                    console.log('dayInNewTask.end', dayInNewTask)
-                                    console.log(task, 'inside')
+                                    this.feedback = `Your new taks overlaps with the task ${task.task} in between ${task.begin} - ${task.end}`
+                                    return task
                                 }
                                 else if(
                                     beginNewTask >= beginCurrentTask && 
                                     endNewTask >= endCurrentTask     &&
-                                    beginNewTask <= endCurrentTask   
+                                    beginNewTask < endCurrentTask   
                                 ){
-                                    console.log('dayInCurrentTask.begin', dayInCurrentTask)
-                                    console.log('dayInCurrentTask.end', dayInCurrentTask)
-                                    console.log('dayInNewTask.begin', dayInNewTask)
-                                    console.log('dayInNewTask.end', dayInNewTask)
-                                    console.log(task, 'inside first')
+                                    this.feedback = `Your new taks begins within the task ${task.task} in between ${task.begin} - ${task.end}`
+                                    return task
                                 }
                                 else if(
                                     beginNewTask <= beginCurrentTask &&
                                     endNewTask <= endCurrentTask     &&
-                                    endNewTask >= beginCurrentTask
+                                    endNewTask > beginCurrentTask
                                 ){
-                                    console.log('dayInCurrentTask.begin', dayInCurrentTask)
-                                    console.log('dayInCurrentTask.end', dayInCurrentTask)
-                                    console.log('dayInNewTask.begin', dayInNewTask)
-                                    console.log('dayInNewTask.end', dayInNewTask)
-                                    console.log(task, 'inside second')
+                                    this.feedback = `Your new taks ends within the task ${task.task} in between ${task.begin} - ${task.end}`
+                                    return task
+                                }
+                                else if(
+                                    beginNewTask < beginCurrentTask &&
+                                    endNewTask > endCurrentTask     
+                                ){
+                                    this.feedback = `Your new taks is to long therfore it is within the task ${task.task} in between ${task.begin} - ${task.end}`
+                                    return task
                                 }
                             }
                         }
