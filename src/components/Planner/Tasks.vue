@@ -44,6 +44,7 @@ export default {
                     end: '14:30'
                 }
             ],
+            allTasks: null,
             currentTask: null
         }
     },
@@ -152,6 +153,14 @@ export default {
             .get()
             .then(doc=>{
                 if(doc.exists){
+                    this.allTasks = doc
+                        .data()
+                        .dailyTasks
+                        .filter(task=>{
+                            const date = new Date()
+                            const day = date.getDay()
+                            console.log(day)
+                        })
                     this.tasks = doc.data().dailyTasks
                 }
             })

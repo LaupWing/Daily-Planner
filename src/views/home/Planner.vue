@@ -8,7 +8,9 @@
       :hours="hours"
       :minutes="minutes"
     />
-    <Tasks/>
+    <Tasks
+      :days='days'
+    />
   </div>
 </template>
 
@@ -21,9 +23,7 @@ import firebase from 'firebase'
 import db from '@/firebase/init'
 export default {
   name: '',
-  props: {
-    
-  },
+  props: ['days'],
   data(){
     return{
       hours: null,
