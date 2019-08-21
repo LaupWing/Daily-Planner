@@ -72,6 +72,9 @@
 <script>
 import {addZero} from '@/components/helpers/timeFormat'
 import {converDateToMS} from '@/components/helpers/timeFormat'
+import {checkOverlap} from '@/components/helpers/overlap'
+import {addDayToMsg} from '@/components/helpers/overlap'
+
 import firebase from 'firebase'
 import db from '@/firebase/init'
 
@@ -111,60 +114,14 @@ export default {
                     end: `${this.end.hours.substring(0,2)}:${this.end.minutes.substring(0,2)}`,
                     days: this.days
                 }
-                const findOverlap = this.dailyTasks.filter(task=>{
-                    for(let dayInCurrentTask of task.days){
-                        for(let dayInNewTask of taskObj.days){
-                            if(dayInNewTask === dayInCurrentTask){
-                                const beginCurrentTask = converDateToMS(task.begin)
-                                const endCurrentTask = converDateToMS(task.end)
-                                const beginNewTask = converDateToMS(taskObj.begin)
-                                const endNewTask = converDateToMS(taskObj.end)
-                                if(
-                                    beginNewTask >= beginCurrentTask && 
-                                    endNewTask <= endCurrentTask   
-                                ){
-                                    this.feedbackMsg = `This task overlaps with the task ${task.task} from ${task.begin} - ${task.end}`
-                                    return task
-                                }
-                                else if(
-                                    beginNewTask >= beginCurrentTask && 
-                                    endNewTask >= endCurrentTask     &&
-                                    beginNewTask < endCurrentTask   
-                                ){
-                                    this.feedbackMsg = `This task begins within the task ${task.task} from ${task.begin} - ${task.end}`
-                                    return task
-                                }
-                                else if(
-                                    beginNewTask <= beginCurrentTask &&
-                                    endNewTask <= endCurrentTask     &&
-                                    endNewTask > beginCurrentTask
-                                ){
-                                    this.feedbackMsg = `This task ends within the task ${task.task} from ${task.begin} - ${task.end}`
-                                    return task
-                                }
-                                else if(
-                                    beginNewTask < beginCurrentTask &&
-                                    endNewTask > endCurrentTask     
-                                ){
-                                    this.feedbackMsg = `This task is to long therfore it is within the task ${task.task} from ${task.begin} - ${task.end}`
-                                    return task
-                                }
-                            }
-                        }
-                    }
-                })
-                if(findOverlap.length > 0){
+
+                const overlapCheck = checkOverlap(this.dailyTasks, taskObj)
+               
+                if(overlapCheck.findOverlap.length > 0){
+                    const overlapArray = overlapCheck.findOverlap
+                    const feedbackMsg = overlapCheck.feedbackMsg
                     this.feedback = []
-                    findOverlap.forEach(task=>{
-                        const overlappingDays = task.days.filter(day=>{
-                            if(taskObj.days.includes(day)){
-                                return day
-                            }
-                        })
-                        overlappingDays.forEach(day=>{
-                            this.feedback.push(`${this.feedbackMsg} on a ${day}`)
-                        })
-                    })
+                    this.feedback = addDayToMsg(overlapArray, feedbackMsg, taskObj)
                 }else{
                     this.feedback = []
                     this.dailyTasks.push(taskObj)

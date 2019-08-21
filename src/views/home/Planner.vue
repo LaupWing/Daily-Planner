@@ -230,11 +230,7 @@ export default {
   background: purple;
   opacity: .1;
 }
-#planner i{
-  position: absolute;
-  top: -100%;
-  right: 0;
-}
+
 #planner::-webkit-scrollbar {
   width: 0px;
 }

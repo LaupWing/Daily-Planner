@@ -8,7 +8,12 @@
             :data-begin="task.begin"
             :data-end="task.end"
         >
-            {{task.task}}
+            <p v-if="edit !== task">{{task.task}}</p>
+            <i class="far fa-edit" @click="editTask(task)"></i>
+            <TaskEdit
+                v-if="edit === task"
+                :task="task"
+            />
         </div>
     </div>
 </template>
@@ -18,8 +23,14 @@ import firebase from 'firebase'
 import db from '@/firebase/init'
 import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
+import TaskEdit from '@/components/Planner/TaskEdit'
+
+
 export default {
     name: 'Tasks',
+    components:{
+        TaskEdit
+    },
     props:['days'],
     data(){
         return{
@@ -46,7 +57,8 @@ export default {
                 }
             ],
             allTasks: null,
-            currentTask: null
+            currentTask: null,
+            edit: null
         }
     },
     methods:{
@@ -141,6 +153,13 @@ export default {
             const calcMinutes = ((li.offsetHeight*2)/60)*state.split(':')[1]
             const point = li.offsetTop + (li.offsetHeight/2) + calcMinutes
             return point
+        },
+        editTask(task){
+            if(this.edit === task){
+                this.edit = null
+            }else{
+                this.edit = task
+            }
         }
     },
     computed:{
@@ -189,7 +208,11 @@ export default {
     position: relative;
 }
 
-.task{
+#Tasks .task{
     position: absolute;
+    width: 100%
+}
+#Tasks .days{
+    display: flex;
 }
 </style>
