@@ -90,6 +90,7 @@ export default {
                 minutes: null
             },
             feedback: [],
+            feedbackMsg: null,
             user: null,
             dailyTasks: []
         }
@@ -122,6 +123,7 @@ export default {
                                     beginNewTask >= beginCurrentTask && 
                                     endNewTask <= endCurrentTask   
                                 ){
+                                    this.feedbackMsg = `This task overlaps with the task ${task.task} from ${task.begin} - ${task.end}`
                                     return task
                                 }
                                 else if(
@@ -129,6 +131,7 @@ export default {
                                     endNewTask >= endCurrentTask     &&
                                     beginNewTask < endCurrentTask   
                                 ){
+                                    this.feedbackMsg = `This task begins within the task ${task.task} from ${task.begin} - ${task.end}`
                                     return task
                                 }
                                 else if(
@@ -136,12 +139,14 @@ export default {
                                     endNewTask <= endCurrentTask     &&
                                     endNewTask > beginCurrentTask
                                 ){
+                                    this.feedbackMsg = `This task ends within the task ${task.task} from ${task.begin} - ${task.end}`
                                     return task
                                 }
                                 else if(
                                     beginNewTask < beginCurrentTask &&
                                     endNewTask > endCurrentTask     
                                 ){
+                                    this.feedbackMsg = `This task is to long therfore it is within the task ${task.task} from ${task.begin} - ${task.end}`
                                     return task
                                 }
                             }
@@ -149,6 +154,7 @@ export default {
                     }
                 })
                 if(findOverlap.length > 0){
+                    this.feedback = []
                     findOverlap.forEach(task=>{
                         const overlappingDays = task.days.filter(day=>{
                             if(taskObj.days.includes(day)){
@@ -156,11 +162,11 @@ export default {
                             }
                         })
                         overlappingDays.forEach(day=>{
-                            const msg = `Your new taks is to long therfore it is within the task ${task.task} in between ${task.begin} - ${task.end} on a ${day}`
-                            this.feedback.push(msg)
+                            this.feedback.push(`${this.feedbackMsg} on a ${day}`)
                         })
                     })
                 }else{
+                    this.feedback = []
                     this.dailyTasks.push(taskObj)
                     db
                         .collection('planner')
@@ -177,7 +183,12 @@ export default {
             }
         },
         checkboxValues(){
-            this.days.push(event.target.id)
+            this.days =[]
+            this.$el.day.forEach(input=>{
+                if(input.checked){
+                    this.days.push(input.id)
+                }
+            })
         },
         setTaskTime(state, time){
             this[state][time] = addZero(event.target.value)
