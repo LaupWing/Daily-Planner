@@ -82,7 +82,9 @@ export default {
                 hours: null,
                 minutes: null
             },
-            feedback: null
+            feedback: null,
+            user: null,
+            dailyTasks: []
         }
     },
     methods:{
@@ -97,12 +99,20 @@ export default {
             ){
                 const taskObj = {
                     task: this.task,
-                    begin: `${this.begin.hours}:${this.begin.minutes}`, 
-                    end: `${this.end.hours}:${this.end.minutes}`,
+                    begin: `${this.begin.hours.substring(0,2)}:${this.begin.minutes.substring(0,2)}`, 
+                    end: `${this.end.hours.substring(0,2)}:${this.end.minutes.substring(0,2)}`,
                     days: this.days
                 }
-                console.log(firebase.auth().currentUser)
-                db.collection('tasks')
+                this.dailyTasks.push(taskObj)
+                db
+                    .collection('planner')
+                    .doc(this.user.uid)
+                    .update({
+                        dailyTasks: this.dailyTasks
+                    })
+                    .then(()=>{
+                        this.$router.push({name:'Home'})
+                    })
             }else{
                 this.feedback = 'You have to fill in all the fields'
             }
@@ -113,6 +123,17 @@ export default {
         setTaskTime(state, time){
             this[state][time] = addZero(event.target.value)
         }
+    },
+    created(){
+        this.user = firebase.auth().currentUser 
+        db
+            .collection('planner')
+            .doc(this.user.uid)
+            .get()
+            .then(doc=>{
+                const data = doc.data()
+                this.currentTasks = data.dailyTasks 
+            })
     }
 }
 </script>
