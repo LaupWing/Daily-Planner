@@ -67,6 +67,29 @@ function addDayToMsg(overlapArray, feedbackMsg, taskObj){
 
 export {checkOverlap, addDayToMsg}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ############# old code #############
  // const findOverlap = this.dailyTasks.filter(task=>{
                 //     for(let dayInCurrentTask of task.days){

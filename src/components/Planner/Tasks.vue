@@ -13,6 +13,7 @@
             <TaskEdit
                 v-if="edit === task"
                 :task="task"
+                :allTasks='allTasks'
             />
         </div>
     </div>

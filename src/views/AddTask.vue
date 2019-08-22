@@ -71,7 +71,6 @@
 
 <script>
 import {addZero} from '@/components/helpers/timeFormat'
-import {converDateToMS} from '@/components/helpers/timeFormat'
 import {checkOverlap} from '@/components/helpers/overlap'
 import {addDayToMsg} from '@/components/helpers/overlap'
 

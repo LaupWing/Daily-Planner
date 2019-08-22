@@ -1,5 +1,5 @@
 function addZero(number){
-    if(number<10) return '0'+number
+    if(Number(number)<10 && Number(number)>0) return '0'+number
     else          return number
 }
 
