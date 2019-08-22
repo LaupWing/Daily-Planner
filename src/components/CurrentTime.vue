@@ -1,19 +1,22 @@
 <template>
     <div id="Current-Time">
         <h2 class="date">{{day}} {{month}} {{year}}</h2>
-        <h2 class="time">{{hours}}:{{minutes}}</h2>
+        <h2 class="time">{{hours}}<span>:</span>{{minutes}}</h2>
+        <p class="task">Current Task: {{currentTask}}</p>
         <i 
             v-if="$route.name === 'Home'" 
             class="far fa-calendar-plus"
             @click="addTask"
         ></i>
-        <p>Current Task: {{currentTask}}</p>
     </div>
 </template>
 
 <script>
 import {addZero} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'
+import firebase from 'firebase'
+
+
 export default {
     name: 'CurrentTime',
     props:['currentTask'],
@@ -23,7 +26,8 @@ export default {
             minutes: null,
             day: null,
             month: null,
-            year: null
+            year: null,
+            user: null
         }
     },
     methods:{
@@ -40,6 +44,9 @@ export default {
             this.month = monthNames[date.getMonth()]
             this.year = date.getFullYear()
         },1000)
+        firebase.auth().onAuthStateChanged(user=>{
+            console.log(user)
+        })
     }
 }
 </script>
@@ -54,8 +61,35 @@ export default {
     text-align: center;
 }    
 
+#Current-Time h2.date{
+    font-size: 1em;
+    margin-top: 5px;
+}
+
+#Current-Time h2.time{
+    font-size: 2.5em;
+    margin-top: 10px;
+}
+
 #Current-Time i{
     font-size: 1.2em;
     cursor: pointer;
+}
+
+#Current-Time .time span{
+    animation: blink 2s infinite;
+}
+
+@keyframes blink{
+    0%{
+        opacity: 0;
+    }
+
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
 }
 </style>

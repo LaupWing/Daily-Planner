@@ -96,6 +96,8 @@ ul#Timeline{
 #Timeline li.opacity{
   opacity: 1;
 }
+
+
 /* width */
 /* ul#Timeline::-webkit-scrollbar {
   width: 10px;

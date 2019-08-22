@@ -98,7 +98,7 @@ export default {
       this.timeoutInSec = 0
       this.timeoutInterval = setInterval(()=>{
         this.timeoutInSec += 1
-        if(this.timeoutInSec === 60){
+        if(this.timeoutInSec === 10){
           this.assignInterval()
           this.timeoutInSec = 0
           clearInterval(this.timeoutInterval)
@@ -210,6 +210,7 @@ export default {
 <style>
 #planner{
   margin: auto;
+  margin-right: 50px;
   width: 500px;
   display: flex;
   max-height: 60vh;
