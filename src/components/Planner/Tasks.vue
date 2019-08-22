@@ -8,16 +8,19 @@
             :data-begin="task.begin"
             :data-end="task.end"
         >
-            <p v-if="edit !== task">{{task.task}}</p>
             <i 
                 class="far fa-edit" 
                 v-if="edit !== task" 
                 @click="editTask(task)"></i>
+            <p v-if="edit !== task">{{task.task}}</p>
+            <p v-if="edit !== task">{{task.begin}}</p>
+            <p v-if="edit !== task">{{task.end}}</p>
             <TaskEdit
                 v-if="edit === task"
                 :task="task"
                 :allTasks='allTasks'
                 v-on:toggleEdit='editTask'
+                v-on:updateTasks='updateTasks'
             />
         </div>
     </div>
@@ -165,6 +168,42 @@ export default {
             }else{
                 this.edit = task
             }
+        },
+        getTasks(extraCallback){
+            db
+                .collection('planner')
+                .doc(firebase.auth().currentUser.uid)
+                .get()
+                .then(doc=>{
+                    if(doc.exists){
+                        this.allTasks = doc
+                            .data()
+                            .dailyTasks
+                        
+                        this.tasks = doc
+                            .data()
+                            .dailyTasks
+                            .filter(task=>{
+                                const date = new Date()
+                                const day = days[date.getDay()-1]
+                                if(task.days.includes(day)){
+                                    return task
+                                }
+                            })
+                    }
+                })
+                .then(()=>{
+                        this.taskHeightAndPosition()
+                        this.checkCurrentTask()
+                        if(extraCallback){
+                            extraCallback()
+                        }
+                })
+        },
+        updateTasks(task){
+            this.getTasks(()=>{
+                this.editTask(task)
+            })
         }
     },
     computed:{
@@ -174,35 +213,8 @@ export default {
             }
         }
     },
-    created(){
-    },
     mounted(){
-        db
-            .collection('planner')
-            .doc(firebase.auth().currentUser.uid)
-            .get()
-            .then(doc=>{
-                if(doc.exists){
-                    this.allTasks = doc
-                        .data()
-                        .dailyTasks
-                    
-                    this.tasks = doc
-                        .data()
-                        .dailyTasks
-                        .filter(task=>{
-                            const date = new Date()
-                            const day = days[date.getDay()-1]
-                            if(task.days.includes(day)){
-                                return task
-                            }
-                        })
-                }
-            })
-            .then(()=>{
-                    this.taskHeightAndPosition()
-                    this.checkCurrentTask()
-            })
+        this.getTasks()
     }
 }
 </script>
@@ -215,7 +227,7 @@ export default {
 
 #Tasks .task{
     position: absolute;
-    width: 100%
+    width: 90%
 }
 #Tasks .days{
     display: flex;

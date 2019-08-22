@@ -84,6 +84,8 @@
 import {checkOverlap} from '@/components/helpers/overlap'
 import {addDayToMsg} from '@/components/helpers/overlap'
 import {addZero} from '@/components/helpers/timeFormat'
+import firebase from 'firebase'
+import db from '@/firebase/init'
 
 export default {
     name: 'TaskEdit',
@@ -103,7 +105,8 @@ export default {
                    minutes: this.task.end.split(':')[1]
                }
            },
-           feedback: [] 
+           feedback: [],
+           user: null
         }
     },
     methods:{
@@ -133,7 +136,23 @@ export default {
                 const feedbackMsg = overlapCheck.feedbackMsg
                 this.feedback = []
                 this.feedback = addDayToMsg(overlapArray, feedbackMsg, taskObj)
-                console.log(this.feedback)
+            }else{
+                const newDailyTasks = this.allTasks.map(task=>{
+                    if(JSON.stringify(this.task)=== JSON.stringify(task)){
+                        return taskObj
+                    }else{
+                        return task
+                    }
+                })
+                db
+                    .collection('planner')
+                    .doc(this.user.uid)
+                    .update({
+                        dailyTasks: newDailyTasks
+                    })
+                    .then(()=>{
+                        this.$emit('updateTasks', this.task)
+                    })
             }
         },
         submit(){
@@ -145,7 +164,7 @@ export default {
         }
     },
     created(){
-        
+        this.user = firebase.auth().currentUser
     }
 }
 </script>
