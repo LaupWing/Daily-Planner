@@ -92,7 +92,6 @@ export default {
     props:['task', 'allTasks'],
     data(){
         return{
-           editTask: Object.assign({},this.task),
            editTask:{
                task: this.task.task,
                days: this.task.days,
@@ -126,7 +125,7 @@ export default {
 
             const taskObj = {
                 task: this.editTask.task,
-                days: this.editTask.days,
+                days: this.getCheckedValues(),
                 begin: `${addZero(this.editTask.begin.hours)}:${addZero(this.editTask.begin.minutes)}`,
                 end: `${addZero(this.editTask.end.hours)}:${addZero(this.editTask.end.minutes)}`
             }
@@ -154,6 +153,12 @@ export default {
                         this.$emit('updateTasks', this.task)
                     })
             }
+        },
+        getCheckedValues(){
+            const days = Array.from(this.$el.day)
+                .filter(input=>input.checked)
+                .map(input=>input.id)
+            return days
         },
         submit(){
             if(document.activeElement.textContent.trim() === 'Accept'){

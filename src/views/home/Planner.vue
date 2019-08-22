@@ -212,7 +212,6 @@ export default {
   margin: auto;
   width: 500px;
   display: flex;
-  height: 600px;
   max-height: 60vh;
   overflow-y: auto;
   position: relative;

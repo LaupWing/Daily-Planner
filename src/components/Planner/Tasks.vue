@@ -203,6 +203,7 @@ export default {
         updateTasks(task){
             this.getTasks(()=>{
                 this.editTask(task)
+                this.taskWatcher()
             })
         }
     },
