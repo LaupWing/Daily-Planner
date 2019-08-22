@@ -9,11 +9,15 @@
             :data-end="task.end"
         >
             <p v-if="edit !== task">{{task.task}}</p>
-            <i class="far fa-edit" @click="editTask(task)"></i>
+            <i 
+                class="far fa-edit" 
+                v-if="edit !== task" 
+                @click="editTask(task)"></i>
             <TaskEdit
                 v-if="edit === task"
                 :task="task"
                 :allTasks='allTasks'
+                v-on:toggleEdit='editTask'
             />
         </div>
     </div>

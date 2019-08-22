@@ -1,5 +1,5 @@
 <template>
-    <div class="task-edit">
+    <form @submit.prevent="submit" class="task-edit">
         <input type="text" v-model="editTask.task">
         <div class="days">
             <div class="day">
@@ -64,11 +64,20 @@
                     v-model="editTask.end.minutes">
             </div>
         </div>
+        <div class="feedback-container" v-if="feedback.length>0">
+            <p 
+                v-for="(feed, index) in feedback" 
+                :key='index' 
+                class="feedback"
+            >
+                {{feed}}
+            </p>
+        </div>
         <div class="buttons">
             <button>Cancel</button>
-            <button @click="accept">Accept</button>
+            <button>Accept</button>
         </div>
-    </div>
+    </form>
 </template>
 
 <script>
@@ -93,7 +102,8 @@ export default {
                    hours: this.task.end.split(':')[0],
                    minutes: this.task.end.split(':')[1]
                }
-           } 
+           },
+           feedback: [] 
         }
     },
     methods:{
@@ -103,7 +113,6 @@ export default {
             }
         },
         accept(){
-            
             const filterThisTask = this.allTasks
                 .slice()
                 .filter(task=>{
@@ -118,9 +127,21 @@ export default {
                 begin: `${addZero(this.editTask.begin.hours)}:${addZero(this.editTask.begin.minutes)}`,
                 end: `${addZero(this.editTask.end.hours)}:${addZero(this.editTask.end.minutes)}`
             }
-            console.log(taskObj)
-            const overlapcheck = checkOverlap(filterThisTask, taskObj)
-            console.log(overlapcheck)
+            const overlapCheck = checkOverlap(filterThisTask, taskObj)
+             if(overlapCheck.findOverlap.length > 0){
+                const overlapArray = overlapCheck.findOverlap
+                const feedbackMsg = overlapCheck.feedbackMsg
+                this.feedback = []
+                this.feedback = addDayToMsg(overlapArray, feedbackMsg, taskObj)
+                console.log(this.feedback)
+            }
+        },
+        submit(){
+            if(document.activeElement.textContent.trim() === 'Accept'){
+                this.accept()
+            }else{
+                this.$emit('toggleEdit', this.task)
+            }
         }
     },
     created(){

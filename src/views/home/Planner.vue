@@ -98,7 +98,7 @@ export default {
       this.timeoutInSec = 0
       this.timeoutInterval = setInterval(()=>{
         this.timeoutInSec += 1
-        if(this.timeoutInSec === 10){
+        if(this.timeoutInSec === 60){
           this.assignInterval()
           this.timeoutInSec = 0
           clearInterval(this.timeoutInterval)
@@ -212,7 +212,8 @@ export default {
   margin: auto;
   width: 500px;
   display: flex;
-  max-height: 600px;
+  height: 600px;
+  max-height: 60vh;
   overflow-y: auto;
   position: relative;
   position: relative;
