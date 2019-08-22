@@ -88,6 +88,7 @@ ul#Timeline{
   transform-origin: right;
   opacity: .2;
   transition: 2s;
+  position: relative;
 }
 #Timeline li.highlight{
   transform: scale(1.2);
@@ -95,6 +96,28 @@ ul#Timeline{
 }
 #Timeline li.opacity{
   opacity: 1;
+}
+
+#Timeline li:nth-of-type(odd)::after{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  content: '';
+  width: 5px;
+  height: 2px;
+  display: block;
+  background: black;
+}
+
+#Timeline li:nth-of-type(odd)::before{
+  position: absolute;
+  top: 0;
+  right: 0;
+  content: '';
+  width: 5px;
+  height: 2px;
+  display: block;
+  background: black;
 }
 
 

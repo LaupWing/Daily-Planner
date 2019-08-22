@@ -250,4 +250,9 @@ export default {
 #planner::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+@media only screen and (min-height: 1000px) {
+  #planner {
+    max-height:600px;
+  }
+}
 </style>

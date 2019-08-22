@@ -133,6 +133,17 @@ export default {
                         .then(()=>{
                             this.$router.push({name:'Home'})
                         })
+                        .catch(err=>{
+                            db
+                                .collection('planner')
+                                .doc(this.user.uid)
+                                .set({
+                                    dailyTasks: this.dailyTasks
+                                })
+                                .then(()=>{
+                                    this.$router.push({name:'Home'})
+                                })
+                        })
                 }
             }else{
                 this.feedback = 'You have to fill in all the fields'
@@ -157,8 +168,10 @@ export default {
             .doc(this.user.uid)
             .get()
             .then(doc=>{
-                const data = doc.data()
-                this.dailyTasks = data.dailyTasks 
+                if(doc.exists){
+                    const data = doc.data()
+                    this.dailyTasks = data.dailyTasks 
+                }
             })
     }
 }

@@ -2,7 +2,7 @@
     <div id="Current-Time">
         <h2 class="date">{{day}} {{month}} {{year}}</h2>
         <h2 class="time">{{hours}}<span>:</span>{{minutes}}</h2>
-        <p class="task">Current Task: {{currentTask}}</p>
+        <p v-if="user" class="task">Current Task: {{currentTask}}</p>
         <i 
             v-if="$route.name === 'Home'" 
             class="far fa-calendar-plus"
@@ -45,7 +45,7 @@ export default {
             this.year = date.getFullYear()
         },1000)
         firebase.auth().onAuthStateChanged(user=>{
-            console.log(user)
+            this.user = user
         })
     }
 }
@@ -69,6 +69,7 @@ export default {
 #Current-Time h2.time{
     font-size: 2.5em;
     margin-top: 10px;
+    font-weight: normal;
 }
 
 #Current-Time i{

@@ -48,21 +48,21 @@ export default {
                 //     begin: '02:00',
                 //     end: '02:30'
                 // },
-                {
-                    task:'Cleaning Room',
-                    begin: '01:40',
-                    end: '02:00'
-                },
-                {
-                    task:'Cleaning Room',
-                    begin: '16:15',
-                    end: '19:59'
-                },
-                {
-                    task:'Cleaning Room',
-                    begin: '12:15',
-                    end: '14:30'
-                }
+                // {
+                //     task:'Cleaning Room',
+                //     begin: '01:40',
+                //     end: '02:00'
+                // },
+                // {
+                //     task:'Cleaning Room',
+                //     begin: '16:15',
+                //     end: '19:59'
+                // },
+                // {
+                //     task:'Cleaning Room',
+                //     begin: '12:15',
+                //     end: '14:30'
+                // }
             ],
             allTasks: null,
             currentTask: null,
