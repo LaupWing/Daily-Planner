@@ -42,22 +42,26 @@
             <label for="task">Begin:</label>
             <div class="hours">
                 <label for="hours">Hours</label>
-                <input type="number" name="hours" min="00" max="23" v-model="editTask.begin.hours">
+                <input type="number" name="hours" min="00" max="23" 
+                    v-model="editTask.begin.hours">
             </div>
             <div class="minutes">
                 <label for="minutes">Minutes</label>
-                <input type="number" name="minutes" min="00" max="59" v-model="editTask.begin.minutes">
+                <input type="number" name="minutes" min="00" max="59" 
+                    v-model="editTask.begin.minutes">
             </div>
         </div>
         <div class="field">
             <label for="task">End:</label>
             <div class="hours">
                 <label for="hours">Hours</label>
-                <input type="number" name="hours" min="00" max="23" v-model="editTask.end.hours">
+                <input type="number" name="hours" min="00" max="23" 
+                    v-model="editTask.end.hours">
             </div>
             <div class="minutes">
                 <label for="minutes">Minutes</label>
-                <input type="number" name="minutes" min="00" max="59" v-model="editTask.end.minutes">
+                <input type="number" name="minutes" min="00" max="59" 
+                    v-model="editTask.end.minutes">
             </div>
         </div>
         <div class="buttons">
