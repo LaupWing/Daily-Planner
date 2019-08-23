@@ -128,6 +128,7 @@ export default {
         connectedLi.forEach(li=>{
           li.classList.add('opacity')
         })
+        
       }
       else{
         document.querySelectorAll('#Timeline li').forEach(li=>{

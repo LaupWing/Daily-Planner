@@ -35,7 +35,7 @@ import db from '@/firebase/init'
 import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
 import TaskEdit from '@/components/Planner/TaskEdit'
-
+import {checkConnectedLi} from '@/components/helpers/timeline'
 
 export default {
     name: 'Tasks',
@@ -186,13 +186,19 @@ export default {
                 }) 
             const el = event.target.parentElement
             if(el.offsetHeight <200){
-                this.adjustTimeline(task.end)
-                this.adjustTopValues(el.style.height, el.style.top)
+                const diffrence = 200 - Number(el.style.height.split('px')[0])
+                this.adjustTimeline(el, diffrence)
+                this.adjustTopValues(diffrence, el.style.top)
                 el.style.removeProperty('height')
             }
             this.editTask(task)
         },
         applyPrevStyles(){
+            document.querySelectorAll('#Timeline li').forEach(li=>{
+                console.log(li.style)
+                li.style.removeProperty('margin-bottom')
+                li.style.removeProperty('margin-top')
+            })
             this.$el.querySelectorAll('.task').forEach(task=>{
                 for(let preveTask of this.taskHeights){
                     if(preveTask.task===task){
@@ -202,11 +208,19 @@ export default {
                 }
             })
         },
-        adjustTimeline(time){
-            
+        adjustTimeline(el, diffrence){
+            const connectedLi = checkConnectedLi(el)
+            const adjustLi = connectedLi[connectedLi.length-1]
+            const bottomOfsetTask = el.offsetTop + el.offsetHeight
+            const bottomOfLi = adjustLi.offsetTop + adjustLi.offsetHeight
+            if(bottomOfsetTask >= bottomOfLi){
+                adjustLi.style.marginBottom = `${diffrence}px`
+            }else{
+                adjustLi.style.marginTop = `${diffrence}px`
+            }
+
         },
-        adjustTopValues(height, top){
-            const diffrence = 200 - Number(height.split('px')[0])
+        adjustTopValues(diffrence, top){
             this.$el.querySelectorAll('.task').forEach(task=>{
                 const numberIterationTop = Number(task.style.top.split('px')[0])
                 const compareTop = Number(top.split('px')[0])
