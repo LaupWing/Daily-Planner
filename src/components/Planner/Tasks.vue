@@ -197,7 +197,6 @@ export default {
                 this.adjustTopValues(diffrence, el.style.top)
                 el.style.removeProperty('height')
             }
-            // this.editTask(task)
         },
         applyPrevStyles(){
             document.querySelectorAll('#Timeline li').forEach(li=>{
