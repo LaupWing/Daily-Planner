@@ -43,9 +43,6 @@ export default {
             this.day = addZero(date.getDate())
             this.month = monthNames[date.getMonth()]
             this.year = date.getFullYear()
-            
-                // .style
-                // .setProperty('--time', `${this.hours}:${this.minutes}`)
         },1000)
         firebase.auth().onAuthStateChanged(user=>{
             this.user = user

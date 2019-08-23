@@ -12,7 +12,7 @@
             <i 
                 class="far fa-edit" 
                 v-if="edit !== task" 
-                @click="expandTask(task)"></i>
+                @click="editTask(task)"></i>
             <p class="task-name" v-if="edit !== task">{{task.task}}</p>
             <div class="time">
                 <p class="task-begin" v-if="edit !== task">{{task.begin}}-</p>
@@ -171,8 +171,14 @@ export default {
                 // If the user clicks cancel this will be triggerd
                 this.applyPrevStyles()
                 this.edit = null
-            }else{
+            }else if(this.edit === null){
                 this.edit = task
+                this.expandTask()
+            }
+            else{
+                this.applyPrevStyles()
+                this.edit = task
+                this.expandTask()
             }
         },
         expandTask(task){
@@ -191,11 +197,10 @@ export default {
                 this.adjustTopValues(diffrence, el.style.top)
                 el.style.removeProperty('height')
             }
-            this.editTask(task)
+            // this.editTask(task)
         },
         applyPrevStyles(){
             document.querySelectorAll('#Timeline li').forEach(li=>{
-                console.log(li.style)
                 li.style.removeProperty('margin-bottom')
                 li.style.removeProperty('margin-top')
             })

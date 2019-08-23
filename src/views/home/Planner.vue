@@ -167,7 +167,7 @@ export default {
             let liTimeHours =  Number(liTime.split(':')[0])
             let liTimeMinutes = Number(liTime.split(':')[1])
             if(liTimeMinutes === 0 ){
-              liTimeHours = liTimeHours-1
+              liTimeHours = (liTimeHours !== 0) ? liTimeHours - 1 : 23
               liTimeMinutes = 60-minutesDiffrence
               time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes)}`
             }else{
