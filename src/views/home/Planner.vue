@@ -19,10 +19,10 @@
 <script>
 import Timeline from '@/components/Planner/Timeline'
 import Tasks from '@/components/Planner/Tasks'
-// import debounce from '@/components/helpers/debounce'
-// import IntervalTimer from '@/components/helpers/intervalTimer'
+import {checkConnectedLi} from '@/components/helpers/timeline'
 import firebase from 'firebase'
 import db from '@/firebase/init'
+
 export default {
   name: '',
   props: ['days'],
@@ -124,21 +124,9 @@ export default {
       })
 
       if(findTask){
-        document.querySelectorAll('#Timeline li').forEach(li=>{
-          const taskHeight = findTask.offsetHeight
-          const taskOffsetTop = findTask.offsetTop
-          const taskMaxpoint = taskHeight+taskOffsetTop
-          const quarterInPx = li.offsetHeight/2 // Because one li represents half an hour
-
-          const min = taskOffsetTop - (quarterInPx*1.2) 
-          const max = taskMaxpoint  + (quarterInPx*1.2)  
-
-          const liMin = li.offsetTop
-          const liMax = li.offsetTop + li.offsetHeight
-          li.classList.remove('opacity')
-          if(liMin >= min && liMax <= max){
-            li.classList.add('opacity')
-          }
+        const connectedLi = checkConnectedLi(findTask)
+        connectedLi.forEach(li=>{
+          li.classList.add('opacity')
         })
       }
       else{

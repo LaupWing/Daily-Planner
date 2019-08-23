@@ -69,10 +69,11 @@ export default {
 #Current-Time h2.date{
     font-size: 1em;
     margin-top: 5px;
+    font-weight: normal;
 }
 
 #Current-Time h2.time{
-    font-size: 2.5em;
+    font-size: 3.5em;
     margin-top: 10px;
     font-weight: normal;
 }

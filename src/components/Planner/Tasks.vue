@@ -3,6 +3,7 @@
         <div 
             class="task"
             v-for="(task, index) in tasks"
+            :class="{'expanded':edit === task}"
             :key="index"
             :style="styleObj"
             :data-begin="task.begin"
@@ -11,10 +12,12 @@
             <i 
                 class="far fa-edit" 
                 v-if="edit !== task" 
-                @click="editTask(task)"></i>
-            <p v-if="edit !== task">{{task.task}}</p>
-            <p v-if="edit !== task">{{task.begin}}</p>
-            <p v-if="edit !== task">{{task.end}}</p>
+                @click="expandTask(task)"></i>
+            <p class="task-name" v-if="edit !== task">{{task.task}}</p>
+            <div class="time">
+                <p class="task-begin" v-if="edit !== task">{{task.begin}}-</p>
+                <p class="task-end" v-if="edit !== task">{{task.end}}</p>
+            </div>
             <TaskEdit
                 v-if="edit === task"
                 :task="task"
@@ -66,7 +69,8 @@ export default {
             ],
             allTasks: null,
             currentTask: null,
-            edit: null
+            edit: null,
+            taskHeights:[]
         }
     },
     methods:{
@@ -164,10 +168,52 @@ export default {
         },
         editTask(task){
             if(this.edit === task){
+                // If the user clicks cancel this will be triggerd
+                this.applyPrevStyles()
                 this.edit = null
             }else{
                 this.edit = task
             }
+        },
+        expandTask(task){
+            this.taskHeights = Array.from(this.$el.querySelectorAll('.task'))
+                .map((task)=>{
+                    return{
+                        task: task,
+                        height: task.style.height,
+                        top: task.style.top
+                    }
+                }) 
+            const el = event.target.parentElement
+            if(el.offsetHeight <200){
+                this.adjustTimeline(task.end)
+                this.adjustTopValues(el.style.height, el.style.top)
+                el.style.removeProperty('height')
+            }
+            this.editTask(task)
+        },
+        applyPrevStyles(){
+            this.$el.querySelectorAll('.task').forEach(task=>{
+                for(let preveTask of this.taskHeights){
+                    if(preveTask.task===task){
+                        task.style.height = preveTask.height
+                        task.style.top = preveTask.top
+                    }
+                }
+            })
+        },
+        adjustTimeline(time){
+            
+        },
+        adjustTopValues(height, top){
+            const diffrence = 200 - Number(height.split('px')[0])
+            this.$el.querySelectorAll('.task').forEach(task=>{
+                const numberIterationTop = Number(task.style.top.split('px')[0])
+                const compareTop = Number(top.split('px')[0])
+                if(numberIterationTop > compareTop){
+                    task.style.top = numberIterationTop + diffrence + 'px'
+                }
+            })
         },
         getTasks(extraCallback){
             db
@@ -228,9 +274,30 @@ export default {
 
 #Tasks .task{
     position: absolute;
-    width: 90%
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    transition: .5s;
+}
+
+#Tasks .task i{
+    position: absolute;
+    right: 5px;
+    top: 5px;
 }
 #Tasks .days{
     display: flex;
+}
+
+#Tasks .task .task-name{
+    max-width: 90%;
+}
+#Tasks .task .time{
+    display: flex;
+    font-size: .7em;
+}
+#Tasks .task.expanded{
+    height: 200px;
 }
 </style>

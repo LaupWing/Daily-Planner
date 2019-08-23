@@ -36,6 +36,7 @@ export default {
 <style>
 *{
   margin: 0;
+  box-sizing: border-box;
   padding: 0;
 }
 body{
