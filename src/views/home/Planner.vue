@@ -87,6 +87,7 @@ export default {
       // clearInterval(this.settingDistanceAndAdjust)
     },
     scrollEvent(){
+      this.setTimeIndicator()
       if(this.scrollByCode){
         setTimeout(()=>{
           this.scrollByCode = false
@@ -111,7 +112,6 @@ export default {
       const scrolled = this.$el.querySelector('#planner').scrollTop
       const height = this.$el.querySelector('#planner').offsetHeight
       const midpoint = scrolled + (height/2)
-      
       if(document.querySelectorAll('.task')===undefined) return
       const tasks = Array.from(document.querySelectorAll('.task'))
       const findTask = tasks.find(task=>{
@@ -128,7 +128,7 @@ export default {
         connectedLi.forEach(li=>{
           li.classList.add('opacity')
         })
-        
+
       }
       else{
         document.querySelectorAll('#Timeline li').forEach(li=>{
@@ -140,6 +140,45 @@ export default {
           }
         })
       }
+    },
+    setTimeIndicator(){
+      const scrolled = this.$el.querySelector('#planner').scrollTop
+      const height = this.$el.querySelector('#planner').offsetHeight
+      const midpoint = Math.round(scrolled + (height/2))
+      this.$el.querySelectorAll('#Timeline li').forEach(li=>{
+        const max = li.offsetTop + li.offsetHeight
+        const min = li.offsetTop
+        if(midpoint >= min && midpoint <= max){
+          const liTime = li.dataset.time
+          const comparePoint = Math.round(li.offsetTop + (li.offsetHeight/2))
+          const oneMinuteInPx = li.offsetHeight/30
+          let time = '00:00'
+          if(midpoint===comparePoint){
+            time = liTime
+          }
+          else if(midpoint > comparePoint){
+            const minutesDiffrence = Math.round((midpoint-comparePoint)/oneMinuteInPx)
+            const liTimeHours =  Number(liTime.split(':')[0])
+            const liTimeMinutes = Number(liTime.split(':')[1])
+            time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes+minutesDiffrence)}` 
+          }
+          else if(midpoint < comparePoint){
+            const minutesDiffrence = Math.round((comparePoint-midpoint)/oneMinuteInPx)
+            let liTimeHours =  Number(liTime.split(':')[0])
+            let liTimeMinutes = Number(liTime.split(':')[1])
+            if(liTimeMinutes === 0 ){
+              liTimeHours = liTimeHours-1
+              liTimeMinutes = 60-minutesDiffrence
+              time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes)}`
+            }else{
+              time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes-minutesDiffrence)}`
+            }
+          }
+          document
+                .querySelector('#planner .indicator')
+                .setAttribute('time', `${time}`)
+        }
+      })
     },
     assignInterval(){
       this.settingDistanceAndAdjust = setInterval(()=>{

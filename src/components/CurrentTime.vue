@@ -43,9 +43,7 @@ export default {
             this.day = addZero(date.getDate())
             this.month = monthNames[date.getMonth()]
             this.year = date.getFullYear()
-            document
-                .querySelector('#planner .indicator')
-                .setAttribute('time', `${this.hours}:${this.minutes}`)
+            
                 // .style
                 // .setProperty('--time', `${this.hours}:${this.minutes}`)
         },1000)
