@@ -1,16 +1,18 @@
 <template>
-  <div 
-    id="planner"
-    @scroll="scrollEvent"
-  >
-    <div class="overlay" @click="turnoff"></div>
-    <Timeline
-      :hours="hours"
-      :minutes="minutes"
-    />
-    <Tasks
-      v-on:setTask='setTask'
-    />
+  <div class="planner-container">
+    <div 
+      id="planner"
+      @scroll="scrollEvent"
+    >
+      <div class="indicator" @click="turnoff"></div>
+      <Timeline
+        :hours="hours"
+        :minutes="minutes"
+      />
+      <Tasks
+        v-on:setTask='setTask'
+      />
+    </div>
   </div>
 </template>
 
@@ -51,7 +53,7 @@ export default {
     },
     adjustPosition(){
       this.scrollByCode = true
-      this.$el.scrollTo(0,(this.distanceHours+this.distanceMinutes))
+      this.$el.querySelector('#planner').scrollTo(0,(this.distanceHours+this.distanceMinutes))
     },
     addZero(number){
       if(number<10) return '0'+number
@@ -64,7 +66,7 @@ export default {
       const parentElOffset = currentElTime.parentElement.offsetTop
       const distance = 
         (currentElTime.offsetTop-parentElOffset) - 
-        (this.$el.offsetHeight/2) + 
+        (this.$el.querySelector('#planner').offsetHeight/2) + 
         (currentElTime.offsetHeight/2)
       // console.log(distance)
       return distance
@@ -82,7 +84,7 @@ export default {
       this.minutes = this.addZero(date.getMinutes())
     },
     turnoff(){
-      clearInterval(this.settingDistanceAndAdjust)
+      // clearInterval(this.settingDistanceAndAdjust)
     },
     scrollEvent(){
       if(this.scrollByCode){
@@ -106,8 +108,8 @@ export default {
       },1000)
     },
     checkTaskByScroll(){
-      const scrolled = this.$el.scrollTop
-      const height = this.$el.offsetHeight
+      const scrolled = this.$el.querySelector('#planner').scrollTop
+      const height = this.$el.querySelector('#planner').offsetHeight
       const midpoint = scrolled + (height/2)
       
       if(document.querySelectorAll('.task')===undefined) return
@@ -222,16 +224,54 @@ export default {
 #planner.smooth{
   scroll-behavior: smooth;
 }
-#planner .overlay{
-  height: 50%;
-  width: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: purple;
-  opacity: .1;
+.planner-container{
+  position: relative;
 }
-
+.planner-container::before{
+  content  : "";
+  position : absolute;
+  z-index  : 1;
+  top   : 0;
+  left     : 0;
+  pointer-events   : none;
+  background-image : linear-gradient(to bottom, 
+                    rgba(255,255,255, 1), 
+                    rgba(255,255,255, 0) 90%);
+  width    : 100%;
+  height   : 5em;
+}
+.planner-container::after{
+  content  : "";
+  position : absolute;
+  z-index  : 1;
+  bottom   : 0;
+  left     : 0;
+  pointer-events   : none;
+  background-image : linear-gradient(to bottom, 
+                    rgba(255,255,255, 0), 
+                    rgba(255,255,255, 1) 90%);
+  width    : 100%;
+  height   : 5em;
+}
+#planner .indicator{
+  --time: '00:00';
+  height: 1px;
+  width: 300px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -300px;
+  background: black;
+  opacity: .4;
+}
+#planner .indicator::before{
+  content: 'Time';
+  top:-20px;
+  position: absolute;
+}
+#planner .indicator::after{
+  content: attr(time);
+}
 #planner::-webkit-scrollbar {
   width: 0px;
 }

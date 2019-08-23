@@ -35,7 +35,7 @@ export default {
             this.$router.push({name:'AddTask'})
         }
     },
-    created(){
+    mounted(){
         setInterval(()=>{
             const date = new Date()
             this.hours = addZero(date.getHours())
@@ -43,6 +43,11 @@ export default {
             this.day = addZero(date.getDate())
             this.month = monthNames[date.getMonth()]
             this.year = date.getFullYear()
+            document
+                .querySelector('#planner .indicator')
+                .setAttribute('time', `${this.hours}:${this.minutes}`)
+                // .style
+                // .setProperty('--time', `${this.hours}:${this.minutes}`)
         },1000)
         firebase.auth().onAuthStateChanged(user=>{
             this.user = user

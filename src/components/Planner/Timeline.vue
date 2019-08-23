@@ -98,7 +98,7 @@ ul#Timeline{
   opacity: 1;
 }
 
-#Timeline li:nth-of-type(odd)::after{
+/* #Timeline li:nth-of-type(odd)::after{
   position: absolute;
   bottom: 0;
   right: 0;
@@ -118,7 +118,7 @@ ul#Timeline{
   height: 2px;
   display: block;
   background: black;
-}
+} */
 
 
 /* width */
