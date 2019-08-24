@@ -7,10 +7,20 @@
         >
             {{label}}
         </p>
-        <form action=" "></form>
-        <div class="field">
-            <input type="text" v-model="newLabel">
-        </div>
+        <form @submit.prevent="submit">
+            <div class="field">
+                <label for="lable">Label </label>
+                <input type="text" v-model="newLabel" name="label">
+            </div>
+            <div class="field">
+                <label for="color">Color</label>
+                <input type="text" v-model="color" name="color">
+            </div>
+            <div class="example">
+                <p :style="{background: color}" class="label">{{newLabel}}</p>
+            </div>
+            <button>Add</button>
+        </form>
     </div>
 </template>
 
@@ -23,11 +33,14 @@ export default {
     data(){
         return{
             colorLabels: [],
-            newLabel: null
+            newLabel: null,
+            color: null
         }
     },
     methods:{
+        submit(){
 
+        }
     },
     created(){
         db
@@ -37,7 +50,7 @@ export default {
             .then(doc=>{
                 const data = doc.data()
                 if(data.colorLabels){
-                    this.colorLabels = colorLabels
+                    this.colorLabels = data.colorLabels
                 }   
             })
     }
@@ -45,5 +58,26 @@ export default {
 </script>
 
 <style>
-
+#Color-Label p.label{
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 2px;
+    margin: 5px auto;
+}
+#Color-Label .example{
+    display: flex;
+    justify-content: center;
+}
+#Color-Label button{
+    margin: auto;
+    display: block;
+    padding: 5px 15px;
+}
+#Color-Label .example{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 </style>
