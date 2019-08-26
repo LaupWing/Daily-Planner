@@ -46,4 +46,7 @@ body{
   align-items: center;
   font-family: 'Montserrat', sans-serif;
 }
+input{
+  outline: none;
+}
 </style>

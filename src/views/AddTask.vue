@@ -3,63 +3,71 @@
         <h2>AddTask</h2>
         <div class="info">
             <div class="color-labels-container">
-                <ColorLabels/>
+                <ColorLabels
+                    :addTask='true'
+                />
             </div>
             <div class="general">
+                <h2>General Info</h2>
                 <div class="field">
                     <label for="task">Task:</label>
                     <input type="text" name="task" v-model="task">
                 </div>
                 <div class="field">
                     <label for="task">Begin:</label>
-                    <div class="hours">
-                        <label for="hours">Hours</label>
-                        <input @input="setTaskTime('begin', 'hours')" type="number" name="hours" min="00" max="23" value="00">
-                    </div>
-                    <div class="minutes">
-                        <label for="minutes">Minutes</label>
-                        <input @input="setTaskTime('begin', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
+                    <div class="time">
+                        <div class="hours">
+                            <!-- <label for="hours">Hours</label> -->
+                            <input @input="setTaskTime('begin', 'hours')" type="number" name="hours" min="00" max="23" value="00">
+                        </div>
+                        <div class="minutes">
+                            <!-- <label for="minutes">Minutes</label> -->
+                            <input @input="setTaskTime('begin', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
+                        </div>
                     </div>
                 </div>
                 <div class="field">
                     <label for="task">End:</label>
-                    <div class="hours">
-                        <label for="hours">Hours</label>
-                        <input @input="setTaskTime('end', 'hours')" type="number" name="hours" min="00" max="23" value="00">
-                    </div>
-                    <div class="minutes">
-                        <label for="minutes">Minutes</label>
-                        <input @input="setTaskTime('end', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
+                    <div class="time">
+                        <div class="hours">
+                            <!-- <label for="hours">Hours</label> -->
+                            <input @input="setTaskTime('end', 'hours')" type="number" name="hours" min="00" max="23" value="00">
+                        </div>
+                        <div class="minutes">
+                            <!-- <label for="minutes">Minutes</label> -->
+                            <input @input="setTaskTime('end', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
+                        </div>
                     </div>
                 </div>
-                <div class="field">
+                <div class="field days">
+                    <label>Days:</label>
                     <div class="day">
                         <input type="checkbox" @input="checkboxValues" name="day" id="monday">
-                        <label for="monday">Monday</label>
+                        <label for="monday">Mon</label>
                     </div>
                     <div class="day">
                         <input type="checkbox" @input="checkboxValues" name="day" id="tuesday">
-                        <label for="tuesday">Tuesday</label>
+                        <label for="tuesday">Tue</label>
                     </div>
                     <div class="day">
                         <input type="checkbox" @input="checkboxValues" name="day" id="wednesday">
-                        <label for="wednesday">Wednesday</label>
+                        <label for="wednesday">Wed</label>
                     </div>
                     <div class="day">
                         <input type="checkbox" @input="checkboxValues" name="day" id="thursday">
-                        <label for="thursday">Thursday</label>
+                        <label for="thursday">Thu</label>
                     </div>
                     <div class="day">
                         <input type="checkbox" @input="checkboxValues" name="day" id="friday">
-                        <label for="friday">Friday</label>
+                        <label for="friday">Fri</label>
                     </div>
                     <div class="day">
                         <input type="checkbox" @input="checkboxValues" name="day" id="saturday">
-                        <label for="saturday">Saturday</label>
+                        <label for="saturday">Sat</label>
                     </div>
                     <div class="day">
                         <input type="checkbox" @input="checkboxValues" name="day" id="sunday">
-                        <label for="sunday">Sunday</label>
+                        <label for="sunday">Sun</label>
                     </div>
                 </div>
                 <div class="field">
@@ -204,10 +212,13 @@ export default {
     top: 0;
     left: 0;
 }
-#AddTask #Color-Label h2{
+#AddTask #Color-Label h2,
+#AddTask .general h2{
     text-align: center;
     margin: 10px;
     width: 100%;
+    font-weight: 500;
+    font-size: 1.2em;
 }
 #AddTask #Color-Label .label-container{
     flex-direction: row;
@@ -221,5 +232,68 @@ export default {
     display: flex;
     width: 100%;
     justify-content: space-between;
+}
+#AddTask .general{
+    width: 45%;
+}
+#AddTask .field{
+    margin: 10px 0;
+}
+#AddTask .general input[type='text']{
+    border: none;
+    border-bottom: solid 1px rgba(0,0,0,.2);
+}
+#AddTask input[type='checkbox']{
+    display: none;
+}
+#AddTask .field.days{
+    display: flex;
+    flex-wrap: wrap;
+}
+#AddTask .field.days >label{
+    width: 100%;
+}
+#AddTask .day label{
+    border: solid 1px black;
+    padding: 3px 10px;
+    display: inline-block;
+    border-radius: 3px;
+    margin: 5px;
+    transition: .5s;
+}
+#AddTask .day input[type='checkbox']:checked+label{
+    color: white;
+    background: black;
+}
+#AddTask .time{
+    display: flex;
+    justify-content: center;
+}
+#AddTask input[type='number']{
+    font-size: 1.5em;
+    width: 50px;
+}
+#AddTask .hours,
+#AddTask .minutes{
+    position: relative;
+    margin-top: 15px; 
+}
+#AddTask .hours::before{
+    content: 'H';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+}
+#AddTask .minutes::before{
+    content: 'M';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
 }
 </style>
