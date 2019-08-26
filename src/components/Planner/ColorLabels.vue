@@ -117,6 +117,8 @@ export default {
             this.editLabel = null
             this.addLabel = false
             this.nonEditedLabel = null
+            this.color = null
+            this.newLabel = null
         }
     },
     created(){
@@ -169,7 +171,18 @@ export default {
     margin: auto;
     display: block;
     width: 50%;
-    /* padding: 5px 15px; */
+    border: none;
+    background: transparent;
+    border: solid 1px rgba(0, 0, 0, .3);
+    color: rgba(0, 0, 0, .7);
+    padding: 5px;
+    border-radius: 0 20px 20px 0;
+    outline: none;
+    cursor: pointer;
+}
+#Color-Label button:first-of-type{
+    border-right: none;
+    border-radius: 20px 0 0 20px;
 }
 #Color-Label .example{
     width: 100%;
@@ -188,6 +201,7 @@ export default {
     margin: auto;
     text-align: center;
     font-size: 1.5em;
+    color: rgba(0, 0, 0, .3);
     cursor: pointer;
 }
 #Color-Label .form-container{
@@ -195,6 +209,11 @@ export default {
 }
 #Color-Label form input[type='text']{
     width: 140px;
+    border: none;
+    padding: 5px;
+    padding-left: 0;
+    border-bottom: rgba(0, 0, 0, .3) solid 1px;
+    outline: none;
 }
 /* #Color-Label form button{
     width: 70px;
