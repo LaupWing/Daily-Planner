@@ -1,10 +1,11 @@
 <template>
     <div id="Color-Label">
+        <h2>Color Labels</h2>
         <div class="label-container">
             <p 
                 v-for="(label, index) in colorLabels" 
                 :key="index"
-                :style="{background:label.color}"
+                :style="{color:label.color, borderColor: label.color}"
                 class="label"
                 :class="{'active':nonEditedLabel === label}"
                 @click="edit(label)"
@@ -13,35 +14,32 @@
             </p>
         </div>
         <div class="form-container">
-            <i v-if="!addLabel && !editLabel" class="far fa-plus-square" @click="add"></i>
+            <!-- <i v-if="!addLabel && !editLabel" class="far fa-plus-square" @click="add"></i> -->
+            <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="add"></i>
             <form @submit.prevent="submit" v-if="addLabel">
                 <div class="field">
-                    <label for="lable">Label </label>
-                    <input type="text" v-model="newLabel" name="label">
+                    <input type="text" v-model="newLabel" name="label" placeholder="label" required>
                 </div>
                 <div class="field">
-                    <label for="color">Color</label>
-                    <input type="text" v-model="color" name="color">
+                    <input type="text" v-model="color" name="color" placeholder="color" required>
                 </div>
                 <div class="example">
-                    <p :style="{background: color}" class="label">{{newLabel}}</p>
+                    <p :style="{borderColor: color, color: color}" class="label">{{newLabel}}</p>
                 </div>
                 <div class="field">
                     <button type="button" @click="cancel">Cancel</button>
-                    <button @click="change">Change</button>
+                    <button @click="change">Add</button>
                 </div>
             </form>
             <form @submit.prevent="submit" v-if="editLabel">
                 <div class="field">
-                    <label for="lable">Label </label>
-                    <input type="text" v-model="editLabel.label" name="label">
+                    <input type="text" v-model="editLabel.label" name="label" required>
                 </div>
                 <div class="field">
-                    <label for="color">Color</label>
-                    <input type="text" v-model="editLabel.color" name="color">
+                    <input type="text" v-model="editLabel.color" name="color" required>
                 </div>
                 <div class="example">
-                    <p :style="{background: editLabel.color}" class="label">{{editLabel.label}}</p>
+                    <p :style="{color: editLabel.color, borderColor:editLabel.color}" class="label">{{editLabel.label}}</p>
                 </div>
                 <div class="field">
                     <button type="button" @click="cancel">Cancel</button>
@@ -139,16 +137,29 @@ export default {
 
 <style>
 #Color-Label{
-    height: 500px;
+    position: fixed;
+    top: 10px;
+    left: 20px;
+}
+#Color-Label h2{
+    font-weight: normal;
+    font-size: 1.2em;
+    text-align: center;
+    width: 140px;
 }
 #Color-Label p.label{
     display: inline-block;
     padding: 5px 15px;
     border-radius: 2px;
     margin: 5px auto;
+    border: black solid 1px;
+    position: relative;
+    cursor: pointer;
 }
-#Color-Label p.label.active{
-    border: solid 2px grey;
+#Color-Label p.label.active::before{
+    content: '>';
+    position: absolute;
+    left: -15px;
 }
 #Color-Label .example{
     display: flex;
@@ -157,7 +168,8 @@ export default {
 #Color-Label button{
     margin: auto;
     display: block;
-    padding: 5px 15px;
+    width: 50%;
+    /* padding: 5px 15px; */
 }
 #Color-Label .example{
     width: 100%;
@@ -167,20 +179,28 @@ export default {
     align-items: center;
 }
 #Color-Label .label-container{
-    height: 400px;
-    width: 300px;
-    /* display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: left; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 #Color-Label i{
     display: block;
     margin: auto;
     text-align: center;
-    font-size: 2em;
+    font-size: 1.5em;
+    cursor: pointer;
 }
 #Color-Label .form-container{
     height: 100px;
+}
+#Color-Label form input[type='text']{
+    width: 140px;
+}
+/* #Color-Label form button{
+    width: 70px;
+    text-align: center;
+} */
+#Color-Label .field{
+    display: flex;
 }
 </style>

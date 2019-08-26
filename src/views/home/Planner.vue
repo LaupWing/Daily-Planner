@@ -1,9 +1,6 @@
 <template>
   <div class="planner-container">
-    <nav>
-      <!-- <a href="">Color Labels</a> -->
-      <router-link :to="{name:'ColorLabels'}">Color Labels</router-link>
-    </nav>
+    <ColorLabels/>
     <div 
       id="planner"
       @scroll="scrollEvent"
@@ -24,6 +21,7 @@
 <script>
 import Timeline from '@/components/Planner/Timeline'
 import Tasks from '@/components/Planner/Tasks'
+import ColorLabels from '@/components/Planner/ColorLabels'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import firebase from 'firebase'
 import db from '@/firebase/init'
@@ -50,7 +48,8 @@ export default {
   },
   components:{
     Timeline,
-    Tasks
+    Tasks,
+    ColorLabels
   },
   methods:{
     setTask(task){
@@ -257,11 +256,7 @@ export default {
 #planner.smooth{
   scroll-behavior: smooth;
 }
-.planner-container nav{
-  position: fixed;
-  top: 10px;
-  left: 10px;
-}
+
 .planner-container{
   position: relative;
 }

@@ -4,7 +4,6 @@ import Planner from './views/home/Planner.vue'
 import AddTask from './views/AddTask.vue'
 import Signup from './views/auth/Signup'
 import Login from './views/auth/Login'
-import ColorLabels from './views/home/ColorLabels'
 
 import firebase from 'firebase'
 Vue.use(Router)
@@ -35,11 +34,6 @@ const router =  new Router({
       path: '/login',
       name: 'Login',
       component: Login
-    },
-    {
-      path: '/color-labels',
-      name: 'ColorLabels',
-      component: ColorLabels
     }
   ]
 })

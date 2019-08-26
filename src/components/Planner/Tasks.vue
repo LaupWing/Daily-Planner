@@ -257,11 +257,11 @@ export default {
                     }
                 })
                 .then(()=>{
-                        this.taskHeightAndPosition()
-                        this.checkCurrentTask()
-                        if(extraCallback){
-                            extraCallback()
-                        }
+                    if(extraCallback){
+                        extraCallback()
+                    }
+                    this.taskHeightAndPosition()
+                    this.checkCurrentTask()
                 })
         },
         updateTasks(task){
