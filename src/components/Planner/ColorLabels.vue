@@ -19,7 +19,7 @@
                 :key="index"
                 :label='label'
                 :addTask='addTask'
-                :colorLabelToAdd='colorLabelToAdd'
+                :taskColor='taskColor'
                 class="label"
                 v-on:addColorLabel='addColorLabel'
             />
@@ -115,7 +115,6 @@ export default {
             this.addLabel = !this.addLabel
         },
         addColorLabel(label){
-            console.log(label)
             this.colorLabelToAdd = label
         },
         change(){

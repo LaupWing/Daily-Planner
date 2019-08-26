@@ -18,7 +18,7 @@ export default {
             if(this.addTask){
                 this.$emit('addColorLabel', this.label)
                 document.querySelectorAll('#Color-Label p.label').forEach(label=>{
-                    label.style.removeProperty('backgound')
+                    label.style.removeProperty('backgound-color')
                     label.classList.remove('add')
                 })
                 this.$el.classList.add('add')
