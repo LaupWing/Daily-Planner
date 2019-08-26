@@ -1,6 +1,8 @@
 <template>
   <div class="planner-container">
-    <ColorLabels/>
+    <ColorLabels
+      :taskColor='taskColor'
+    />
     <div 
       id="planner"
       @scroll="scrollEvent"
@@ -43,7 +45,8 @@ export default {
       geolocation:{
         lat: 52.370216,
         lng: 4.895168
-      }
+      },
+      taskColor: null
     }
   },
   components:{
@@ -132,9 +135,10 @@ export default {
         connectedLi.forEach(li=>{
           li.classList.add('opacity')
         })
-
+        this.taskColor = findTask.style.background
       }
       else{
+        this.taskColor = null
         document.querySelectorAll('#Timeline li').forEach(li=>{
           const liMin = li.offsetTop
           const liMax = li.offsetTop + li.offsetHeight

@@ -2,19 +2,18 @@
     <div id="Color-Label">
         <h2>Color Labels</h2>
         <div class="label-container">
-            <p 
+            <Label 
                 v-for="(label, index) in colorLabels" 
                 :key="index"
-                :style="{color:label.color, borderColor: label.color}"
+                :label='label'
+                :taskColor='taskColor'
                 class="label"
                 :class="{'active':nonEditedLabel === label}"
-                @click="edit(label)"
-            >
-                {{label.label}}
-            </p>
+                v-on:edit='edit'
+            />
+            
         </div>
         <div class="form-container">
-            <!-- <i v-if="!addLabel && !editLabel" class="far fa-plus-square" @click="add"></i> -->
             <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="add"></i>
             <form @submit.prevent="submit" v-if="addLabel">
                 <div class="field">
@@ -53,9 +52,13 @@
 <script>
 import db from '@/firebase/init'
 import firebase from 'firebase'
-
+import Label from '@/components/Planner/ColorLabels/Label'
 export default {
     name: 'ColorLabels',
+    props:['taskColor'],
+    components:{
+        Label
+    },
     data(){
         return{
             colorLabels: [],
@@ -157,6 +160,7 @@ export default {
     border: black solid 1px;
     position: relative;
     cursor: pointer;
+    transition: .5s;
 }
 #Color-Label p.label.active::before{
     content: '>';
