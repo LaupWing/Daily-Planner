@@ -181,7 +181,7 @@ export default {
                 this.expandTask()
             }
         },
-        expandTask(task){
+        expandTask(){
             this.taskHeights = Array.from(this.$el.querySelectorAll('.task'))
                 .map((task)=>{
                     return{

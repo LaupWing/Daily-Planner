@@ -151,7 +151,7 @@ export default {
                         .then(()=>{
                             this.$router.push({name:'Home'})
                         })
-                        .catch(err=>{
+                        .catch(()=>{
                             db
                                 .collection('planner')
                                 .doc(this.user.uid)

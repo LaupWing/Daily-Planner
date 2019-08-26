@@ -7,19 +7,17 @@
                 :key="index"
                 :label='label'
                 :taskColor='taskColor'
-                :addTask='addTask'
                 class="label"
                 :class="{'active':nonEditedLabel === label}"
                 v-on:edit='edit'
             />
         </div>
         <div class="label-container" v-if="addTask">
-            <Label 
+            <AddTaskLabel 
                 v-for="(label, index) in colorLabels" 
                 :key="index"
                 :label='label'
-                :addTask='addTask'
-                :taskColor='taskColor'
+                :colorLabelToAdd='colorLabelToAdd'
                 class="label"
                 v-on:addColorLabel='addColorLabel'
             />
@@ -64,11 +62,13 @@
 import db from '@/firebase/init'
 import firebase from 'firebase'
 import Label from '@/components/Planner/ColorLabels/Label'
+import AddTaskLabel from '@/components/Planner/ColorLabels/AddTaskLabel'
 export default {
     name: 'ColorLabels',
     props:['taskColor' ,'addTask'],
     components:{
-        Label
+        Label,
+        AddTaskLabel
     },
     data(){
         return{
@@ -99,8 +99,8 @@ export default {
                     .then(()=>{
                         this.cancel()
                     })
-                    .catch(err=>{
-                        console.log(err)
+                    .catch(()=>{
+                        // console.log(err)
                     })
             }
         },

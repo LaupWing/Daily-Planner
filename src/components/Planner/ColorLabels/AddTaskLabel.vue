@@ -7,7 +7,7 @@
 <script>
 export default {
     name: 'Label',
-    props:['label' ,'taskColor'],
+    props:['label' ,'colorLabelToAdd'],
     data(){
         return{
 
@@ -15,19 +15,19 @@ export default {
     },
     methods:{
         clickAction(){
-            this.$emit('edit', this.label)
+            this.$emit('addColorLabel', this.label)
         }
     },
     computed:{
         checkTaskColor(){
-            if(this.taskColor === null || this.taskColor === undefined){
+            if(this.colorLabelToAdd === null || this.colorLabelToAdd === undefined){
                 return {
                     color: this.label.color,
                     background:'transparent',
                     border: `solid 1px ${this.label.color}`
                 }
             }
-            else if(this.label.color.toLowerCase() === this.taskColor.toLowerCase()){
+            else if(JSON.stringify(this.colorLabelToAdd) === JSON.stringify(this.label)){
                 return {
                     background: this.label.color,
                     color: 'white',
