@@ -20,7 +20,7 @@ export default {
     },
     computed:{
         checkTaskColor(){
-            if(this.taskColor === null){
+            if(this.taskColor === null || this.taskColor === undefined){
                 return {
                     color: this.label.color,
                     background:'transparent',

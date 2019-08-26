@@ -42,6 +42,7 @@ export default {
       timeoutInterval: null,
       scrollByCode: false,
       user: null,
+      timeToReturnInSec: 300,
       geolocation:{
         lat: 52.370216,
         lng: 4.895168
@@ -108,7 +109,7 @@ export default {
       this.timeoutInSec = 0
       this.timeoutInterval = setInterval(()=>{
         this.timeoutInSec += 1
-        if(this.timeoutInSec === 10){
+        if(this.timeoutInSec === this.timeToReturnInSec){
           this.assignInterval()
           this.timeoutInSec = 0
           clearInterval(this.timeoutInterval)

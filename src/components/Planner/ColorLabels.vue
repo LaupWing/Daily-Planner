@@ -11,10 +11,9 @@
                 :class="{'active':nonEditedLabel === label}"
                 v-on:edit='edit'
             />
-            
         </div>
         <div class="form-container">
-            <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="add"></i>
+            <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i>
             <form @submit.prevent="submit" v-if="addLabel">
                 <div class="field">
                     <input type="text" v-model="newLabel" name="label" placeholder="label" required>
@@ -27,10 +26,10 @@
                 </div>
                 <div class="field">
                     <button type="button" @click="cancel">Cancel</button>
-                    <button @click="change">Add</button>
+                    <button>Add</button>
                 </div>
             </form>
-            <form @submit.prevent="submit" v-if="editLabel">
+            <form @submit.prevent="change" v-if="editLabel">
                 <div class="field">
                     <input type="text" v-model="editLabel.label" name="label" required>
                 </div>
@@ -42,7 +41,7 @@
                 </div>
                 <div class="field">
                     <button type="button" @click="cancel">Cancel</button>
-                    <button @click="change">Change</button>
+                    <button >Change</button>
                 </div>
             </form>
         </div>
@@ -84,6 +83,9 @@ export default {
                     .update({
                         colorLabels: this.colorLabels
                     })
+                    .then(()=>{
+                        this.cancel()
+                    })
                     .catch(err=>{
                         console.log(err)
                     })
@@ -96,7 +98,7 @@ export default {
             this.editLabel = Object.assign({},label)
             this.nonEditedLabel = label
         },
-        add(){
+        toggleAdd(){
             this.addLabel = !this.addLabel
         },
         change(){
@@ -114,6 +116,7 @@ export default {
                 })
                 .then(()=>{
                     this.colorLabels = updatedLabels
+                    this.cancel()
                 })
         },
         cancel(){
@@ -198,7 +201,6 @@ export default {
 #Color-Label .label-container{
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 #Color-Label i{
     display: block;
