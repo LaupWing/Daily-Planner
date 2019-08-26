@@ -116,6 +116,7 @@ export default {
         },
         addColorLabel(label){
             this.colorLabelToAdd = label
+            this.$emit('addColorLabel', this.colorLabelToAdd)
         },
         change(){
             const updatedLabels = this.colorLabels.map(label=>{

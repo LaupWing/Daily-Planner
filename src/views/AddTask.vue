@@ -5,6 +5,7 @@
             <div class="color-labels-container">
                 <ColorLabels
                     :addTask='true'
+                    v-on:addColorLabel='addColorLabel'
                 />
             </div>
             <div class="general">
@@ -112,7 +113,8 @@ export default {
             feedback: [],
             feedbackMsg: null,
             user: null,
-            dailyTasks: []
+            dailyTasks: [],
+            color: null
         }
     },
     methods:{
@@ -123,13 +125,15 @@ export default {
                 this.begin.hours       &&
                 this.begin.minutes     &&
                 this.end.hours         &&
-                this.end.minutes       
+                this.end.minutes       &&
+                this.color
             ){
                 const taskObj = {
                     task: this.task,
                     begin: `${this.begin.hours.substring(0,2)}:${this.begin.minutes.substring(0,2)}`, 
                     end: `${this.end.hours.substring(0,2)}:${this.end.minutes.substring(0,2)}`,
-                    days: this.days
+                    days: this.days,
+                    color: this.color
                 }
 
                 const overlapCheck = checkOverlap(this.dailyTasks, taskObj)
@@ -177,6 +181,9 @@ export default {
         },
         setTaskTime(state, time){
             this[state][time] = addZero(event.target.value)
+        },
+        addColorLabel(color){
+            this.color = color
         }
     },
     created(){
