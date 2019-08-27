@@ -296,12 +296,14 @@ export default {
     padding: 2px;
     transition: .5s;
     background: orange;
+    color: white;
 }
 
 #Tasks .task i{
     position: absolute;
     right: 5px;
     top: 5px;
+    cursor: pointer;
 }
 #Tasks .days{
     display: flex;

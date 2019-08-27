@@ -14,25 +14,27 @@
                     <label for="task">Task:</label>
                     <input type="text" name="task" v-model="task">
                 </div>
-                <div class="field">
-                    <label for="task">Begin:</label>
-                    <div class="time">
-                        <div class="hours">
-                            <input @input="setTaskTime('begin', 'hours')" type="number" name="hours" min="00" max="23" value="00">
-                        </div>
-                        <div class="minutes">
-                            <input @input="setTaskTime('begin', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
+                <div class="task-time">
+                    <div class="field">
+                        <label for="task">Begin:</label>
+                        <div class="time">
+                            <div class="hours">
+                                <input @input="setTaskTime('begin', 'hours')" type="number" name="hours" min="00" max="23" value="00">
+                            </div>
+                            <div class="minutes">
+                                <input @input="setTaskTime('begin', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="field">
-                    <label for="task">End:</label>
-                    <div class="time">
-                        <div class="hours">
-                            <input @input="setTaskTime('end', 'hours')" type="number" name="hours" min="00" max="23" value="00">
-                        </div>
-                        <div class="minutes">
-                            <input @input="setTaskTime('end', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
+                    <div class="field">
+                        <label for="task">End:</label>
+                        <div class="time">
+                            <div class="hours">
+                                <input @input="setTaskTime('end', 'hours')" type="number" name="hours" min="00" max="23" value="00">
+                            </div>
+                            <div class="minutes">
+                                <input @input="setTaskTime('end', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,16 +69,17 @@
                         <label for="sunday">Sun</label>
                     </div>
                 </div>
-                <div class="field">
-                    <div class="feedback" v-if="feedback.length>0">
-                        <p  
-                            v-for="(feed, index) in feedback"
-                            :key="index"
-                        >{{feed}}</p>
-                    </div>
-                    <button>Submit</button>
-                </div>
             </div>
+        </div>
+        <div class="field">
+            <div class="feedback" v-if="feedback.length>0">
+                <p  
+                    v-for="(feed, index) in feedback"
+                    :key="index"
+                >{{feed}}</p>
+            </div>
+            <button>Cancel</button>
+            <button>Submit</button>
         </div>
     </form>
 </template>
@@ -203,14 +206,14 @@ export default {
 
 <style>
 #AddTask{
-    width: 500px;
+    width: 600px;
 }
 #AddTask > h2{
     text-align: center;
     margin: 10px;
 }
 #AddTask .color-labels-container{
-    width: 50%;
+    width: 40%;
 }
 #AddTask .color-labels-container #Color-Label{
     position: relative;
@@ -240,13 +243,26 @@ export default {
     justify-content: space-between;
 }
 #AddTask .general{
-    width: 45%;
+    width: 55%;
 }
 #AddTask .field{
     margin: 10px 0;
 }
+#AddTask .task-time{
+    display: flex;
+}
+#AddTask .task-time .field{
+    width: 50%;
+}
+#AddTask .task-time .field label{
+    margin: auto;
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+}
 #AddTask .general input[type='text']{
     border: none;
+    width: 80%;
     border-bottom: solid 1px rgba(0,0,0,.2);
 }
 #AddTask input[type='checkbox']{
