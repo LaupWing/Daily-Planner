@@ -5,9 +5,9 @@
             v-for="(task, index) in tasks"
             :class="{'expanded':edit === task}"
             :key="index"
-            :style="styleObj"
             :data-begin="task.begin"
             :data-end="task.end"
+            :style="{background: task.color.color}"
         >
             <i 
                 class="far fa-edit" 
@@ -240,20 +240,22 @@ export default {
                 .get()
                 .then(doc=>{
                     if(doc.exists){
-                        this.allTasks = doc
-                            .data()
-                            .dailyTasks
-                        
-                        this.tasks = doc
-                            .data()
-                            .dailyTasks
-                            .filter(task=>{
-                                const date = new Date()
-                                const day = days[date.getDay()-1]
-                                if(task.days.includes(day)){
-                                    return task
-                                }
-                            })
+                        if(doc.data().dailyTasks){
+                            this.allTasks = doc
+                                .data()
+                                .dailyTasks
+                            
+                            this.tasks = doc
+                                .data()
+                                .dailyTasks
+                                .filter(task=>{
+                                    const date = new Date()
+                                    const day = days[date.getDay()-1]
+                                    if(task.days.includes(day)){
+                                        return task
+                                    }
+                                })
+                        }
                     }
                 })
                 .then(()=>{
@@ -272,11 +274,7 @@ export default {
         }
     },
     computed:{
-        styleObj:function(){
-            return {
-                background: 'orange'
-            }
-        }
+        
     },
     mounted(){
         this.getTasks()
@@ -297,6 +295,7 @@ export default {
     flex-direction: column;
     padding: 2px;
     transition: .5s;
+    background: orange;
 }
 
 #Tasks .task i{

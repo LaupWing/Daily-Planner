@@ -18,11 +18,9 @@
                     <label for="task">Begin:</label>
                     <div class="time">
                         <div class="hours">
-                            <!-- <label for="hours">Hours</label> -->
                             <input @input="setTaskTime('begin', 'hours')" type="number" name="hours" min="00" max="23" value="00">
                         </div>
                         <div class="minutes">
-                            <!-- <label for="minutes">Minutes</label> -->
                             <input @input="setTaskTime('begin', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
                         </div>
                     </div>
@@ -31,11 +29,9 @@
                     <label for="task">End:</label>
                     <div class="time">
                         <div class="hours">
-                            <!-- <label for="hours">Hours</label> -->
                             <input @input="setTaskTime('end', 'hours')" type="number" name="hours" min="00" max="23" value="00">
                         </div>
                         <div class="minutes">
-                            <!-- <label for="minutes">Minutes</label> -->
                             <input @input="setTaskTime('end', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
                         </div>
                     </div>
@@ -103,12 +99,12 @@ export default {
             days:[],
             task: null,
             begin: {
-                hours: null,
-                minutes: null
+                hours: '00',
+                minutes: '00'
             },
             end: {
-                hours: null,
-                minutes: null
+                hours: '00',
+                minutes: '00'
             },
             feedback: [],
             feedbackMsg: null,
@@ -168,7 +164,8 @@ export default {
                         })
                 }
             }else{
-                this.feedback = 'You have to fill in all the fields'
+                this.feedback = []
+                this.feedback.push( 'You have to fill in all the fields')
             }
         },
         checkboxValues(){
@@ -195,7 +192,9 @@ export default {
             .then(doc=>{
                 if(doc.exists){
                     const data = doc.data()
-                    this.dailyTasks = data.dailyTasks 
+                    if(data.dailyTasks){
+                        this.dailyTasks = data.dailyTasks 
+                    }
                 }
             })
     }
