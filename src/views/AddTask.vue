@@ -30,10 +30,10 @@
                         <label for="task">End:</label>
                         <div class="time">
                             <div class="hours">
-                                <input @input="setTaskTime('end', 'hours')" type="number" name="hours" min="00" max="23" value="00">
+                                <input @input="setTaskTime('end', 'hours')" type="number" name="hours" min="00" max="23" value="00" v-model="end.hours">
                             </div>
                             <div class="minutes">
-                                <input @input="setTaskTime('end', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
+                                <input @input="setTaskTime('end', 'minutes')" type="number" name="minutes" min="00" max="59" value="00" v-model="end.minutes">
                             </div>
                         </div>
                     </div>
@@ -180,6 +180,7 @@ export default {
             })
         },
         setTaskTime(state, time){
+            console.log(event)
             this[state][time] = addZero(event.target.value)
         },
         addColorLabel(color){

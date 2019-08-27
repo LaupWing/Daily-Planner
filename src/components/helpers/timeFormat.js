@@ -1,6 +1,8 @@
 function addZero(number){
     if(Number(number)<10&& number !=='00') return '0'+number
     else          return number
+    // const formatted = number < 10 ? '0' : '' + number
+    // console.log(formatted) 
 }
 
 function converDateToMS(time){

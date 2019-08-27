@@ -16,6 +16,21 @@
         v-on:setTask='setTask'
       />
     </div>
+    <form class="buttons">
+      <h3>Go to</h3>
+      <button type="button" @click="assignInterval">Current Time</button>
+      <div class="field">
+        <div class="time">
+            <div class="hours">
+                <input type="number" name="hours" min="00" max="23" value="00">
+            </div>
+            <div class="minutes">
+                <input type="number" name="minutes" min="00" max="59" value="00">
+            </div>
+        </div>
+        <button>Go</button>
+      </div>
+    </form>
   </div>
   
 </template>
@@ -25,6 +40,7 @@ import Timeline from '@/components/Planner/Timeline'
 import Tasks from '@/components/Planner/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels'
 import {checkConnectedLi} from '@/components/helpers/timeline'
+import {addZero} from '@/components/helpers/timeFormat'
 import firebase from 'firebase'
 import db from '@/firebase/init'
 
@@ -291,6 +307,55 @@ export default {
   width    : 100%;
   height   : 5em;
 }
+
+.planner-container .buttons{
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  justify-content: center;
+}
+.planner-container .buttons > button,
+.planner-container .buttons .field{
+  margin: 0 20px;
+}
+.planner-container .buttons .field,
+.planner-container .buttons .time{
+  align-items: flex-end;
+  display: flex;
+}
+.planner-container .buttons .time{
+  margin-right: 5px;
+}
+.planner-container .buttons input[type='number']{
+    font-size: 1.5em;
+    width: 50px;
+}
+.planner-container .buttons .hours,
+.planner-container .buttons .minutes{
+    position: relative;
+    margin-top: 15px; 
+}
+.planner-container .buttons .hours::before{
+    content: 'H';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+}
+.planner-container .buttons .minutes::before{
+    content: 'M';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+}
+
 #planner .indicator{
   --time: '00:00';
   height: 1px;
