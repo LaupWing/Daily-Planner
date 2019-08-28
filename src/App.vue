@@ -54,6 +54,7 @@ export default {
           return res.json()
         })
         .then(data=>{
+          console.log('Setting up the weather data')
           this.weatherData = data
           this.setBackground()
         })
@@ -63,6 +64,7 @@ export default {
     },
     setBackground(){
       document.body.style.setProperty('--weather-background', `url(https://source.unsplash.com/1600x900/?${this.weatherData.currently.summary})`)
+      document.body.style.background = `linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(https://source.unsplash.com/1600x900/?${this.weatherData.currently.summary})`
     }
   },
   created(){
