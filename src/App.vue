@@ -55,11 +55,14 @@ export default {
         })
         .then(data=>{
           this.weatherData = data
-          console.log(this.weatherData)
+          this.setBackground()
         })
         .catch(err=>{
           this.weatherData = err.message
         })
+    },
+    setBackground(){
+      document.body.style.setProperty('--weather-background', `url(https://source.unsplash.com/1600x900/?${this.weatherData.currently.summary})`)
     }
   },
   created(){
@@ -83,11 +86,15 @@ export default {
   padding: 0;
 }
 body{
+  --weather-background: url(https://images.unsplash.com/photo-1459679749680-18eb1eb37418?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Montserrat', sans-serif;
+  background:linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),var(--weather-background);
+  background-size:cover;
+  color: white;
 }
 input,
 button{

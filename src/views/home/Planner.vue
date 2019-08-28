@@ -282,7 +282,7 @@ export default {
   position: relative;
 }
 .planner-container::before{
-  content  : "";
+  /* content  : "";
   position : absolute;
   z-index  : 1;
   top   : 0;
@@ -292,10 +292,10 @@ export default {
                     rgba(255,255,255, 1), 
                     rgba(255,255,255, 0) 90%);
   width    : 100%;
-  height   : 5em;
+  height   : 5em; */
 }
 .planner-container::after{
-  content  : "";
+  /* content  : "";
   position : absolute;
   z-index  : 1;
   bottom   : 0;
@@ -305,7 +305,7 @@ export default {
                     rgba(255,255,255, 0), 
                     rgba(255,255,255, 1) 90%);
   width    : 100%;
-  height   : 5em;
+  height   : 5em; */
 }
 
 .planner-container .buttons{
@@ -364,8 +364,8 @@ export default {
   top: 50%;
   left: 50%;
   margin-left: -300px;
-  background: black;
-  opacity: .4;
+  background: white;
+  opacity: .8;
 }
 #planner .indicator::before{
   content: 'Time';

@@ -86,7 +86,7 @@ ul#Timeline{
   display: inline;
   font-size: 2em;
   transform-origin: right;
-  opacity: .2;
+  opacity: .3;
   transition: 2s;
   position: relative;
 }

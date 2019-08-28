@@ -178,15 +178,17 @@ export default {
     padding: 5px 15px;
     border-radius: 2px;
     margin: 5px auto;
-    border: black solid 1px;
+    border: black solid 2px;
     position: relative;
     cursor: pointer;
     transition: .5s;
+    font-weight: bold;
 }
 #Color-Label p.label.active::before{
     content: '>';
     position: absolute;
     left: -15px;
+    color: white;
 }
 #Color-Label .example{
     display: flex;
@@ -198,8 +200,8 @@ export default {
     width: 50%;
     border: none;
     background: transparent;
-    border: solid 1px rgba(0, 0, 0, .3);
-    color: rgba(0, 0, 0, .7);
+    border: solid 1px white;
+    color: white;
     padding: 5px;
     border-radius: 0 20px 20px 0;
     outline: none;
@@ -225,7 +227,7 @@ export default {
     margin: auto;
     text-align: center;
     font-size: 1.5em;
-    color: rgba(0, 0, 0, .3);
+    color: white;
     cursor: pointer;
 }
 #Color-Label .form-container{
@@ -236,8 +238,10 @@ export default {
     border: none;
     padding: 5px;
     padding-left: 0;
-    border-bottom: rgba(0, 0, 0, .3) solid 1px;
+    border-bottom: white solid 1px;
     outline: none;
+    background: transparent;
+    color: white
 }
 /* #Color-Label form button{
     width: 70px;
