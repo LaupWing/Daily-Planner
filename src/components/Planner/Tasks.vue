@@ -36,6 +36,7 @@ import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
 import TaskEdit from '@/components/Planner/TaskEdit'
 import {checkConnectedLi} from '@/components/helpers/timeline'
+import { setTimeout } from 'timers';
 
 export default {
     name: 'Tasks',
@@ -233,7 +234,7 @@ export default {
                 }
             })
         },
-        getTasks(extraCallback){
+        getTasks(activate, extraCallback){
             db
                 .collection('planner')
                 .doc(firebase.auth().currentUser.uid)
@@ -262,14 +263,30 @@ export default {
                     if(extraCallback){
                         extraCallback()
                     }
-                    this.taskHeightAndPosition()
-                    this.checkCurrentTask()
+                    if(activate){
+                        this.taskHeightAndPosition()
+                        this.checkCurrentTask()
+                    }
+                    // setTimeout(()=>{
+                    // },500)
                 })
         },
         updateTasks(task){
-            this.getTasks(()=>{
+            let flag = true
+            const bridge = (e)=>{
+                if(e.propertyName==='margin-top'||e.propertyName==='margin-bottom'){
+                    this.taskHeightAndPosition()
+                    this.checkCurrentTask()
+                    document.querySelectorAll('#Timeline li').forEach(li=>{
+                        li.removeEventListener('transitionend', bridge)
+                    })
+                }
+            }
+            this.getTasks(false,()=>{
                 this.editTask(task)
-                this.taskWatcher()
+            })
+            document.querySelectorAll('#Timeline li').forEach(li=>{
+                li.addEventListener('transitionend', bridge)
             })
         }
     },
@@ -277,7 +294,7 @@ export default {
         
     },
     mounted(){
-        this.getTasks()
+        this.getTasks(true,null)
         // let ref = db.collection('planner')
         // ref.onSnapshot(snapshot=>{
         //     snapshot.docChanges().forEach(change=>{

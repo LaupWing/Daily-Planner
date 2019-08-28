@@ -123,7 +123,6 @@ export default {
                         return task
                     }
                 })
-
             const taskObj = {
                 task: this.editTask.task,
                 days: this.getCheckedValues(),
