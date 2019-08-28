@@ -119,29 +119,31 @@ export default {
             this.$emit('addColorLabel', this.colorLabelToAdd)
         },
         change(){
-            const updatedLabels = this.colorLabels.map(label=>{
-                if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(label)){
-                    return this.editLabel
-                }
-                return label
-            })
-            const updatedTasks = this.dailyTasks.map(task=>{
-                if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(task.color)){
-                    task.color = this.editLabel
-                }
-                return task
-            })
-            db
-                .collection('planner')
-                .doc(this.user.uid)
-                .update({
-                    colorLabels: updatedLabels,
-                    dailyTasks: updatedTasks
-                })
+            this.getData()
                 .then(()=>{
-                    this.colorLabels = updatedLabels
-                    // this.$emit('updateDailyTasks', updatedTasks)
-                    this.cancel()
+                    const updatedLabels = this.colorLabels.map(label=>{
+                        if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(label)){
+                            return this.editLabel
+                        }
+                        return label
+                    })
+                    const updatedTasks = this.dailyTasks.map(task=>{
+                        if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(task.color)){
+                            task.color = this.editLabel
+                        }
+                        return task
+                    })
+                    db
+                        .collection('planner')
+                        .doc(this.user.uid)
+                        .update({
+                            colorLabels: updatedLabels,
+                            dailyTasks: updatedTasks
+                        })
+                        .then(()=>{
+                            this.colorLabels = updatedLabels
+                            this.cancel()
+                        })
                 })
         },
         cancel(){
@@ -150,25 +152,25 @@ export default {
             this.nonEditedLabel = null
             this.color = null
             this.newLabel = null
+        },
+        getData(){
+            return db
+                .collection('planner')
+                .doc(firebase.auth().currentUser.uid)
+                .get()
+                .then(doc=>{
+                    const data = doc.data()
+                    if(data.colorLabels){
+                        this.colorLabels = data.colorLabels
+                    }   
+                    if(data.dailyTasks){
+                        this.dailyTasks = data.dailyTasks
+                    }
+                })
         }
     },
     created(){
-        db
-            .collection('planner')
-            .doc(firebase.auth().currentUser.uid)
-            .get()
-            .then(doc=>{
-                const data = doc.data()
-                if(data.colorLabels){
-                    this.colorLabels = data.colorLabels
-                }   
-                if(data.dailyTasks){
-                    this.dailyTasks = data.dailyTasks
-                }
-            })
-
-        
-        
+        this.getData()
     }
 }
 </script>
