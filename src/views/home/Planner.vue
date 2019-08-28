@@ -37,6 +37,7 @@
 
 <script>
 import Timeline from '@/components/Planner/Timeline'
+import AddTask from '@/components/Planner/AddTask'
 import Tasks from '@/components/Planner/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels'
 import {checkConnectedLi} from '@/components/helpers/timeline'
@@ -244,8 +245,7 @@ export default {
     }
   },
   created(){
-    
-  },
+    },
   mounted(){
     this.assignInterval()
     if(navigator.geolocation){

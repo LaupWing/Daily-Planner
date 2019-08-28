@@ -32,7 +32,7 @@ export default {
     },
     methods:{
         addTask(){
-            this.$router.push({name:'AddTask'})
+            this.$emit('addTask')
         }
     },
     mounted(){

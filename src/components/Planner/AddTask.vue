@@ -1,4 +1,5 @@
 <template>
+<div class="add-task-bg">
     <form @submit.prevent="submit" id="AddTask"> 
         <h2>AddTask</h2>
         <div class="info">
@@ -78,10 +79,11 @@
                     :key="index"
                 >{{feed}}</p>
             </div>
-            <button>Cancel</button>
+            <button type="button" @click="toggle">Cancel</button>
             <button>Submit</button>
         </div>
     </form>
+</div>            
 </template>
 
 <script>
@@ -183,8 +185,12 @@ export default {
             console.log(event)
             this[state][time] = addZero(event.target.value)
         },
-        addColorLabel(color){
-            this.color = color
+        addColorLabel(label){
+            this.$el.querySelector('#AddTask').style.setProperty('--chosen-color', label.color)
+            this.color = label
+        },
+        toggle(){
+            this.$emit('toggle')
         }
     },
     created(){
@@ -206,15 +212,32 @@ export default {
 </script>
 
 <style>
+.add-task-bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 #AddTask{
-    width: 600px;
+    --chosen-color: black;
+    width: 650px;
+    background: white;
 }
 #AddTask > h2{
-    text-align: center;
-    margin: 10px;
+    text-align: left;
+    padding: 10px;
+    background: var(--chosen-color);
+    color: white;
 }
 #AddTask .color-labels-container{
     width: 40%;
+    padding: 10px;
 }
 #AddTask .color-labels-container #Color-Label{
     position: relative;
@@ -245,6 +268,7 @@ export default {
 }
 #AddTask .general{
     width: 55%;
+    padding: 10px;
 }
 #AddTask .field{
     margin: 10px 0;
@@ -277,7 +301,7 @@ export default {
     width: 100%;
 }
 #AddTask .day label{
-    border: solid 1px black;
+    border: solid 1px var(--chosen-color);
     padding: 3px 10px;
     display: inline-block;
     border-radius: 3px;
@@ -286,7 +310,7 @@ export default {
 }
 #AddTask .day input[type='checkbox']:checked+label{
     color: white;
-    background: black;
+    background: var(--chosen-color);
 }
 #AddTask .time{
     display: flex;
@@ -318,5 +342,25 @@ export default {
     right: 0;
     margin: auto;
     text-align: center;
+}
+
+#AddTask > .field{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+#AddTask > .field button{
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: solid 1px var(--chosen-color);
+    margin: 10px;
+    background: white;
+    cursor: pointer;
+    transition: .25s;
+}
+#AddTask > .field button:hover{
+    background: var(--chosen-color);
+    color: white;
 }
 </style>

@@ -163,8 +163,9 @@ export default {
 <style>
 #Color-Label{
     position: fixed;
-    top: 10px;
+    top: 50%;
     left: 20px;
+    transform:translate(0,-50%);
 }
 #Color-Label h2{
     font-weight: normal;

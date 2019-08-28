@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Planner from './views/home/Planner.vue'
-import AddTask from './views/AddTask.vue'
 import Signup from './views/auth/Signup'
 import Login from './views/auth/Login'
 
@@ -19,11 +18,6 @@ const router =  new Router({
       meta:{
         requiresAuth: true
       }
-    },
-    {
-      path: '/add-task',
-      name: 'AddTask',
-      component: AddTask
     },
     {
       path: '/signup',
