@@ -63,8 +63,14 @@ export default {
         })
     },
     setBackground(){
-      document.body.style.setProperty('--weather-background', `url(https://source.unsplash.com/1600x900/?${this.weatherData.currently.summary})`)
-      document.body.style.background = `linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(https://source.unsplash.com/1600x900/?${this.weatherData.currently.summary})`
+      // document.querySelector('body').style.background = 'orange'
+      document.querySelector('body').style.setProperty('--weather-background', `url(https://source.unsplash.com/1600x900/?${this.weatherData.currently.summary})`)
+      // For some reaseon the css var doesnt work
+      fetch(`https://source.unsplash.com/1600x900/?${this.weatherData.currently.summary}`)
+        .then(data=>{
+          document.querySelector('body').style.background = `linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(${data.url})`
+          document.querySelector('body').style.backgroundSize = 'cover'
+        })
     }
   },
   created(){
@@ -95,6 +101,7 @@ body{
   align-items: center;
   font-family: 'Montserrat', sans-serif;
   background:linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),var(--weather-background);
+  background: black;
   background-size:cover;
   color: white;
 }
