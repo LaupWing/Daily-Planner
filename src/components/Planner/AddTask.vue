@@ -164,22 +164,31 @@ export default {
                                     dailyTasks: this.dailyTasks
                                 })
                                 .then(()=>{
-                                    this.$router.push({name:'Home'})
+                                    this.$emit('toggle')
                                 })
                         })
                 }
             }else{
+                const taskObj = {
+                    task: this.task,
+                    begin: `${this.begin.hours.substring(0,2)}:${this.begin.minutes.substring(0,2)}`, 
+                    end: `${this.end.hours.substring(0,2)}:${this.end.minutes.substring(0,2)}`,
+                    days: this.days,
+                    color: this.color
+                }
+                console.log(taskObj)
                 this.feedback = []
                 this.feedback.push( 'You have to fill in all the fields')
             }
         },
         checkboxValues(){
             this.days =[]
-            this.$el.day.forEach(input=>{
+            this.$el.querySelector('form#AddTask').day.forEach(input=>{
                 if(input.checked){
                     this.days.push(input.id)
                 }
             })
+            console.log(this.days)
         },
         setTaskTime(state, time){
             console.log(event)
@@ -219,7 +228,7 @@ export default {
     right: 0;
     bottom: 0;
     background: rgba(0,0,0,.5);
-    z-index: 10;
+    z-index: 15;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -228,6 +237,7 @@ export default {
     --chosen-color: black;
     width: 650px;
     background: white;
+    color: black;
 }
 #AddTask > h2{
     text-align: left;
@@ -244,6 +254,7 @@ export default {
     width: 100%;
     top: 0;
     left: 0;
+    transform: translate(0,0);
 }
 #AddTask #Color-Label h2,
 #AddTask .general h2{
@@ -289,6 +300,7 @@ export default {
     border: none;
     width: 80%;
     border-bottom: solid 1px rgba(0,0,0,.2);
+    padding: 5px;
 }
 #AddTask input[type='checkbox']{
     display: none;
