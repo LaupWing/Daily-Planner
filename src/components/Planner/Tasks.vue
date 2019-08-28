@@ -272,7 +272,13 @@ export default {
                 })
         },
         updateTasks(task){
-            let flag = true
+            const findLiWithMargin = Array.from(document.querySelectorAll('#Timeline li'))
+                .find(li=>{
+                    if(li.style.marginTop || li.style.marginBottom){
+                        return li
+                    }
+                })
+            
             const bridge = (e)=>{
                 if(e.propertyName==='margin-top'||e.propertyName==='margin-bottom'){
                     this.taskHeightAndPosition()
@@ -282,12 +288,19 @@ export default {
                     })
                 }
             }
-            this.getTasks(false,()=>{
-                this.editTask(task)
-            })
-            document.querySelectorAll('#Timeline li').forEach(li=>{
-                li.addEventListener('transitionend', bridge)
-            })
+            // If there is a li with inline style margins we need adjust the positions according the li positions
+            if(findLiWithMargin){
+                this.getTasks(false,()=>{
+                    this.editTask(task)
+                })
+                document.querySelectorAll('#Timeline li').forEach(li=>{
+                    li.addEventListener('transitionend', bridge)
+                })
+            }else{
+                this.getTasks(true,()=>{
+                    this.editTask(task)
+                })
+            }
         }
     },
     computed:{
