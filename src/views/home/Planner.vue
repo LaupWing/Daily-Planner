@@ -315,6 +315,7 @@ export default {
   align-items: flex-end;
   width: 100%;
   justify-content: center;
+  margin-top: 10px;
 }
 .planner-container .buttons > button,
 .planner-container .buttons .field{

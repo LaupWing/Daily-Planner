@@ -322,6 +322,8 @@ export default {
     transition: .5s;
     background: orange;
     color: white;
+    border-radius: 4px;
+    border: white solid 2px;
 }
 
 #Tasks .task i{

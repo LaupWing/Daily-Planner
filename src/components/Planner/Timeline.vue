@@ -87,7 +87,7 @@ ul#Timeline{
   font-size: 2em;
   transform-origin: right;
   opacity: .3;
-  transition: 2s;
+  transition: 1s;
   position: relative;
 }
 #Timeline li.highlight{
