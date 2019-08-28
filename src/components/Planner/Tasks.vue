@@ -24,6 +24,7 @@
                 :allTasks='allTasks'
                 v-on:toggleEdit='editTask'
                 v-on:updateTasks='updateTasks'
+                v-on:preventStateChange='preventStateChange'
             />
         </div>
     </div>
@@ -46,35 +47,18 @@ export default {
     props:['days'],
     data(){
         return{
-            tasks:[
-                // {
-                //     task:'Cleaning Room',
-                //     begin: '02:00',
-                //     end: '02:30'
-                // },
-                // {
-                //     task:'Cleaning Room',
-                //     begin: '01:40',
-                //     end: '02:00'
-                // },
-                // {
-                //     task:'Cleaning Room',
-                //     begin: '16:15',
-                //     end: '19:59'
-                // },
-                // {
-                //     task:'Cleaning Room',
-                //     begin: '12:15',
-                //     end: '14:30'
-                // }
-            ],
+            tasks:[],
             allTasks: null,
             currentTask: null,
             edit: null,
-            taskHeights:[]
+            taskHeights:[],
+            preventStateChangeFlag: false
         }
     },
     methods:{
+        preventStateChange(){
+            this.preventStateChangeFlag = true
+        },
         checkCurrentTask(){
             setTimeout(()=>{
                 this.taskWatcher()
@@ -267,8 +251,6 @@ export default {
                         this.taskHeightAndPosition()
                         this.checkCurrentTask()
                     }
-                    // setTimeout(()=>{
-                    // },500)
                 })
         },
         updateTasks(task){
@@ -289,6 +271,7 @@ export default {
                 }
             }
             // If there is a li with inline style margins we need adjust the positions according the li positions
+            this.preventStateChangeFlag = false
             if(findLiWithMargin){
                 this.getTasks(false,()=>{
                     this.editTask(task)
@@ -308,16 +291,18 @@ export default {
     },
     mounted(){
         this.getTasks(true,null)
-        // let ref = db.collection('planner')
-        // ref.onSnapshot(snapshot=>{
-        //     snapshot.docChanges().forEach(change=>{
-        //         const userId = firebase.auth().currentUser.uid
-        //         console.log(change)
-        //         if(change.type === 'modified' && change.doc.id === userId){
-        //             this.getTasks()
-        //         }
-        //     })
-        // })
+        let ref = db.collection('planner')
+        // This Snapchot change is currntly only use for checking the color label changes
+        ref.onSnapshot(snapshot=>{
+            snapshot.docChanges().forEach(change=>{
+                const userId = firebase.auth().currentUser.uid
+                if(change.type === 'modified' && change.doc.id === userId){
+                    if(!this.preventStateChangeFlag){
+                        this.getTasks()
+                    }
+                }
+            })
+        })
     }
 }
 </script>

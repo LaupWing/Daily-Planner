@@ -144,6 +144,8 @@ export default {
                         return task
                     }
                 })
+                // Prevent the state change from activating
+                this.$emit('preventStateChange')
                 db
                     .collection('planner')
                     .doc(this.user.uid)
