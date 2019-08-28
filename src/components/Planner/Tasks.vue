@@ -244,7 +244,7 @@ export default {
                             this.allTasks = doc
                                 .data()
                                 .dailyTasks
-                            
+                                
                             this.tasks = doc
                                 .data()
                                 .dailyTasks
@@ -278,6 +278,16 @@ export default {
     },
     mounted(){
         this.getTasks()
+        // let ref = db.collection('planner')
+        // ref.onSnapshot(snapshot=>{
+        //     snapshot.docChanges().forEach(change=>{
+        //         const userId = firebase.auth().currentUser.uid
+        //         console.log(change)
+        //         if(change.type === 'modified' && change.doc.id === userId){
+        //             this.getTasks()
+        //         }
+        //     })
+        // })
     }
 }
 </script>

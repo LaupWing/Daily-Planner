@@ -102,7 +102,8 @@ export default {
                end:{
                    hours: this.task.end.split(':')[0],
                    minutes: this.task.end.split(':')[1]
-               }
+               },
+               color: this.task.color
            },
            feedback: [],
            user: null
@@ -127,7 +128,8 @@ export default {
                 task: this.editTask.task,
                 days: this.getCheckedValues(),
                 begin: `${addZero(this.editTask.begin.hours)}:${addZero(this.editTask.begin.minutes)}`,
-                end: `${addZero(this.editTask.end.hours)}:${addZero(this.editTask.end.minutes)}`
+                end: `${addZero(this.editTask.end.hours)}:${addZero(this.editTask.end.minutes)}`,
+                color: this.editTask.color
             }
             const overlapCheck = checkOverlap(filterThisTask, taskObj)
              if(overlapCheck.findOverlap.length > 0){

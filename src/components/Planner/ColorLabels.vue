@@ -125,14 +125,22 @@ export default {
                 }
                 return label
             })
+            const updatedTasks = this.dailyTasks.map(task=>{
+                if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(task.color)){
+                    task.color = this.editLabel
+                }
+                return task
+            })
             db
                 .collection('planner')
                 .doc(this.user.uid)
                 .update({
-                    colorLabels: updatedLabels
+                    colorLabels: updatedLabels,
+                    dailyTasks: updatedTasks
                 })
                 .then(()=>{
                     this.colorLabels = updatedLabels
+                    // this.$emit('updateDailyTasks', updatedTasks)
                     this.cancel()
                 })
         },
@@ -154,7 +162,12 @@ export default {
                 if(data.colorLabels){
                     this.colorLabels = data.colorLabels
                 }   
+                if(data.dailyTasks){
+                    this.dailyTasks = data.dailyTasks
+                }
             })
+
+        
         
     }
 }
