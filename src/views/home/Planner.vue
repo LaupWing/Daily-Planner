@@ -276,7 +276,7 @@ export default {
 
 .planner-container{
   position: relative;
-  margin-top: 50px;
+  /* padding-top: 50px; */
 }
 .planner-container::before{
   /* content  : "";

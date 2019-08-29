@@ -26,15 +26,19 @@
             <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i>
             <form @submit.prevent="submit" v-if="addLabel">
                 <div class="field">
-                    <div class="feedback-wrapper" v-if="feedback">
-                        <Feedback v-if="feedback.type === 'label'"/>
-                    </div>
+                    <Feedback 
+                        v-if="feedbackLabel" 
+                        :feedback='{message:feedbackLabel, type:"label"}'
+                        v-on:turnOffFeedback="turnOffFeedback"
+                    />
                     <input type="text" v-model="newLabel" name="label" placeholder="label" required>
                 </div>
                 <div class="field">
-                    <div class="feedback-wrapper" v-if="feedback">
-                        <Feedback v-if="feedback.type === 'color'"/>
-                    </div>
+                    <Feedback 
+                        v-if="feedbackColor" 
+                        :feedback='{message:feedbackColor, type: "color"}'
+                        v-on:turnOffFeedback="turnOffFeedback"
+                    />
                     <input type="text" v-model="color" name="color" placeholder="color" required>
                 </div>
                 <div class="example">
@@ -47,15 +51,19 @@
             </form>
             <form @submit.prevent="change" v-if="editLabel">
                 <div class="field">
-                    <div class="feedback-wrapper" v-if="feedback">
-                        <Feedback v-if="feedback.type === 'label'"/>
-                    </div>
+                    <Feedback 
+                        v-if="feedbackLabel" 
+                        :feedback='{message: feedbackLabel, type:"label"}'
+                        v-on:turnOffFeedback="turnOffFeedback"
+                    />
                     <input type="text" v-model="editLabel.label" name="label" required>
                 </div>
                 <div class="field">
-                    <div class="feedback-wrapper" v-if="feedback">
-                        <Feedback v-if="feedback.type === 'color'"/>
-                    </div>
+                    <Feedback 
+                        v-if="feedbackColor" 
+                        :feedback='{message: feedbackColor, type:"color"}'
+                        v-on:turnOffFeedback="turnOffFeedback"
+                    />
                     <input type="text" v-model="editLabel.color" name="color" required>
                 </div>
                 <div class="example">
@@ -94,7 +102,8 @@ export default {
             editLabel: null,
             nonEditedLabel: null,
             colorLabelToAdd: null,
-            feedback: null
+            feedbackColor: null,
+            feedbackLabel: null
         }
     },
     methods:{
@@ -105,19 +114,19 @@ export default {
                         color: this.color,
                         label: this.newLabel
                     }
-                    this.colorLabels.push(colorLabel)
-                    db
-                        .collection('planner')
-                        .doc(this.user.uid)
-                        .update({
-                            colorLabels: this.colorLabels
-                        })
-                        .then(()=>{
-                            this.cancel()
-                        })
-                        .catch(()=>{
-                            // console.log(err)
-                        })
+                    // this.colorLabels.push(colorLabel)
+                    // db
+                    //     .collection('planner')
+                    //     .doc(this.user.uid)
+                    //     .update({
+                    //         colorLabels: this.colorLabels
+                    //     })
+                    //     .then(()=>{
+                    //         this.cancel()
+                    //     })
+                    //     .catch(()=>{
+                    //         // console.log(err)
+                    //     })
                 }
             }
         },
@@ -135,21 +144,15 @@ export default {
             this.colorLabelToAdd = label
             this.$emit('addColorLabel', this.colorLabelToAdd)
         },
-        duplicateCheck(array, colorProp, labelProp){
-            const findColor = array.find(label=>label.color === this[colorProp])
-            const findLabel = array.find(label=>label.label === this[labelProp])
+        duplicateCheck(array,labelProp, colorProp){
+            const findColor = array.find(label=>label.color.toLowerCase() === this[colorProp].toLowerCase())
+            const findLabel = array.find(label=> label.label.toLowerCase() === this[labelProp].toLowerCase())
             if(findColor || findLabel){
                 if(findColor){
-                    this.feedback = {
-                        message:`The color ${this.color} is already in use`,
-                        type: 'color'
-                    }
+                    this.feedbackColor = `The color ${this.color} is already in use`
                 }
-                if(newLabel){
-                    this.feedback = {
-                        message:`The label named ${this.color} is already in use`,
-                        type: 'label'
-                    }
+                if(findLabel){
+                    this.feedbackLabel = `The label named ${this.newLabel} is already in use`
                 }
                 return false
             }else{
@@ -211,6 +214,14 @@ export default {
                         this.dailyTasks = data.dailyTasks
                     }
                 })
+        },
+        turnOffFeedback(feedback){
+            if(feedback.type === 'color'){
+                this.feedbackColor = null
+            }
+            if(feedback.type === 'label'){
+                this.feedbackLabel = null
+            }
         }
     },
     created(){
@@ -308,5 +319,6 @@ export default {
 } */
 #Color-Label .field{
     display: flex;
+    position: relative;
 }
 </style>
