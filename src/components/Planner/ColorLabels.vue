@@ -100,6 +100,7 @@ export default {
     methods:{
         submit(){
             if(this.newLabel && this.color){
+                if(this.duplicateCheck(this.colorLabels, 'label', 'color'))
                 const colorLabel = {
                     color: this.color,
                     label: this.newLabel
@@ -133,10 +134,10 @@ export default {
             this.colorLabelToAdd = label
             this.$emit('addColorLabel', this.colorLabelToAdd)
         },
-        change(){
-            const findColor = this.colorLabels.find(label=>label.color === this.color)
-            const findLabel = this.colorLabels.find(label=>label.label === this.newLabel)
-            if(findColor || newLabel){
+        duplicateCheck(array, colorProp, labelProp){
+            const findColor = array.find(label=>label.color === this[colorProp])
+            const findLabel = array.find(label=>label.label === this[labelProp])
+            if(findColor || findLabel){
                 if(findColor){
                     this.feedback = {
                         message:`The color ${this.color} is already in use`,
@@ -149,7 +150,16 @@ export default {
                         type: 'label'
                     }
                 }
+                return false
             }else{
+                return true
+            }
+        },
+        change(){
+            const removeSelf = this.colorLabels.filter(label=>{
+                return JSON.stringify(label) !== JSON.stringify(this.nonEditedLabel)
+            })
+            if(this.duplicateCheck(removeSelf, 'editLabel.label', 'editLabel.color')){
                 this.getData()
                     .then(()=>{
                         const updatedLabels = this.colorLabels.map(label=>{
@@ -177,6 +187,7 @@ export default {
                             })
                     })
             }
+            
         },
         cancel(){
             this.editLabel = null
