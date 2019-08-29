@@ -16,27 +16,16 @@
         v-on:setTask='setTask'
       />
     </div>
-    <form class="buttons">
-      <h3>Go to</h3>
-      <button type="button" @click="assignInterval">Current Time</button>
-      <div class="field">
-        <div class="time">
-            <div class="hours">
-                <input type="number" name="hours" min="00" max="23" value="00">
-            </div>
-            <div class="minutes">
-                <input type="number" name="minutes" min="00" max="59" value="00">
-            </div>
-        </div>
-        <button>Go</button>
-      </div>
-    </form>
+    <GoTo
+      v-on:setupCurrentPos='setupCurrentPos'  
+    />
   </div>
   
 </template>
 
 <script>
 import Timeline from '@/components/Planner/Timeline'
+import GoTo from '@/components/Planner/GoTo'
 import AddTask from '@/components/Planner/AddTask'
 import Tasks from '@/components/Planner/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels'
@@ -70,7 +59,8 @@ export default {
   components:{
     Timeline,
     Tasks,
-    ColorLabels
+    ColorLabels,
+    GoTo
   },
   methods:{
     setTask(task){
@@ -206,12 +196,15 @@ export default {
         }
       })
     },
-    assignInterval(){
-      this.settingDistanceAndAdjust = setInterval(()=>{
+    setupCurrentPos(){
         this.setTime()
         this.distanceMinutes = this.getMinutesDistance()
         this.distanceHours = this.getDistanceHours()
         this.adjustPosition()
+    },
+    assignInterval(){
+      this.settingDistanceAndAdjust = setInterval(()=>{
+        this.setupCurrentPos()
       },1000)
     },
     updateAndGetUserData(){
@@ -308,7 +301,7 @@ export default {
   height   : 5em; */
 }
 
-.planner-container .buttons{
+/* .planner-container .buttons{
   position: absolute;
   z-index: 10;
   display: flex;
@@ -355,7 +348,7 @@ export default {
     right: 0;
     margin: auto;
     text-align: center;
-}
+} */
 
 #planner .indicator{
   --time: '00:00';

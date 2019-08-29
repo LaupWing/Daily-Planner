@@ -44,7 +44,6 @@ export default {
     },
     toggle(prop){
       this[prop] = !this[prop]
-      console.log(this[prop])
     },
     getWeather(){
       const proxy = "https://cors-anywhere.herokuapp.com/"
@@ -101,7 +100,7 @@ body{
   align-items: center;
   font-family: 'Montserrat', sans-serif;
   background:linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),var(--weather-background);
-  background: black;
+  /* background: black; */
   background-size:cover;
   color: white;
 }

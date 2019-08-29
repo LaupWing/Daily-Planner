@@ -250,6 +250,7 @@ export default {
                     if(activate){
                         this.taskHeightAndPosition()
                         this.checkCurrentTask()
+                        this.taskWatcher()
                     }
                 })
         },
@@ -265,6 +266,7 @@ export default {
                 if(e.propertyName==='margin-top'||e.propertyName==='margin-bottom'){
                     this.taskHeightAndPosition()
                     this.checkCurrentTask()
+                    this.taskWatcher()
                     document.querySelectorAll('#Timeline li').forEach(li=>{
                         li.removeEventListener('transitionend', bridge)
                     })
