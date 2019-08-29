@@ -71,6 +71,21 @@ export default {
   justify-content: center;
   margin-top: 10px;
 }
+
+#GoTo button{
+    border: none;
+    border: solid white 2px;
+    padding: 5px 15px;
+    background: transparent;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    transition: .25s;
+}
+#GoTo button:hover{
+    background: white;
+    color: black;
+}
 #GoTo > button,
 #GoTo .field{
   margin: 0 20px;

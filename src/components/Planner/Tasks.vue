@@ -324,7 +324,7 @@ export default {
     transition: .5s;
     background: orange;
     color: white;
-    border-radius: 4px;
+    border-radius: 6px;
     border: white solid 2px;
 }
 

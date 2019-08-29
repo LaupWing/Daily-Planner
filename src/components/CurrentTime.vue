@@ -74,8 +74,9 @@ export default {
 }
 
 #Current-Time i{
-    font-size: 1.2em;
+    font-size: 1.4em;
     cursor: pointer;
+    margin: 5px;
 }
 
 #Current-Time .time span{
