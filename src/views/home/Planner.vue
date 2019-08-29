@@ -18,6 +18,7 @@
     </div>
     <GoTo
       v-on:setupCurrentPos='setupCurrentPos'  
+      v-on:goToSpecifikTime='goToSpecifikTime'
     />
   </div>
   
@@ -61,6 +62,10 @@ export default {
     GoTo
   },
   methods:{
+    goToSpecifikTime(point){
+      this.scrollByCode = false
+      this.$el.querySelector('#planner').scrollTo(0,point)
+    },
     setTask(task){
       this.$emit('setTask', task)
     },

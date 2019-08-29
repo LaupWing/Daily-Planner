@@ -49,10 +49,12 @@ export default {
                 const midpoint = (correspondingLi.offsetTop + (correspondingLi.offsetHeight/2)) - (document.querySelector('#planner').offsetHeight/2)
                 const pxPerMinutes = correspondingLi.offsetHeight/30
                 const scrollToPoint = midpoint + (diffrence*pxPerMinutes)
-                document.querySelector('#planner').scrollTo(0,scrollToPoint)
+                this.$emit('goToSpecifikTime', scrollToPoint)
+                // document.querySelector('#planner').scrollTo(0,scrollToPoint)
             }else{
                 const midpoint = (correspondingTime.offsetTop + (correspondingTime.offsetHeight/2)) - (document.querySelector('#planner').offsetHeight/2)
-                document.querySelector('#planner').scrollTo(0,midpoint)
+                this.$emit('goToSpecifikTime', midpoint)
+                // document.querySelector('#planner').scrollTo(0,midpoint)
             }
         }
     }
