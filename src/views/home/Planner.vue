@@ -26,11 +26,9 @@
 <script>
 import Timeline from '@/components/Planner/Timeline'
 import GoTo from '@/components/Planner/GoTo'
-import AddTask from '@/components/Planner/AddTask'
 import Tasks from '@/components/Planner/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels'
 import {checkConnectedLi} from '@/components/helpers/timeline'
-import {addZero} from '@/components/helpers/timeFormat'
 import firebase from 'firebase'
 import db from '@/firebase/init'
 

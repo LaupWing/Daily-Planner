@@ -53,7 +53,6 @@ export default {
           return res.json()
         })
         .then(data=>{
-          console.log('Setting up the weather data')
           this.weatherData = data
           this.setBackground()
         })
