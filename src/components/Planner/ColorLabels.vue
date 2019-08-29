@@ -26,9 +26,15 @@
             <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i>
             <form @submit.prevent="submit" v-if="addLabel">
                 <div class="field">
+                    <div class="feedback-wrapper" v-if="feedback">
+                        <Feedback v-if="feedback.type === 'label'"/>
+                    </div>
                     <input type="text" v-model="newLabel" name="label" placeholder="label" required>
                 </div>
                 <div class="field">
+                    <div class="feedback-wrapper" v-if="feedback">
+                        <Feedback v-if="feedback.type === 'color'"/>
+                    </div>
                     <input type="text" v-model="color" name="color" placeholder="color" required>
                 </div>
                 <div class="example">
@@ -41,9 +47,15 @@
             </form>
             <form @submit.prevent="change" v-if="editLabel">
                 <div class="field">
+                    <div class="feedback-wrapper" v-if="feedback">
+                        <Feedback v-if="feedback.type === 'label'"/>
+                    </div>
                     <input type="text" v-model="editLabel.label" name="label" required>
                 </div>
                 <div class="field">
+                    <div class="feedback-wrapper" v-if="feedback">
+                        <Feedback v-if="feedback.type === 'color'"/>
+                    </div>
                     <input type="text" v-model="editLabel.color" name="color" required>
                 </div>
                 <div class="example">
@@ -63,12 +75,14 @@ import db from '@/firebase/init'
 import firebase from 'firebase'
 import Label from '@/components/Planner/ColorLabels/Label'
 import AddTaskLabel from '@/components/Planner/ColorLabels/AddTaskLabel'
+import Feedback from '@/components/feedback/Feedback'
 export default {
     name: 'ColorLabels',
     props:['taskColor' ,'addTask'],
     components:{
         Label,
-        AddTaskLabel
+        AddTaskLabel,
+        Feedback
     },
     data(){
         return{
@@ -79,7 +93,8 @@ export default {
             addLabel: false,
             editLabel: null,
             nonEditedLabel: null,
-            colorLabelToAdd: null
+            colorLabelToAdd: null,
+            feedback: null
         }
     },
     methods:{
@@ -119,32 +134,49 @@ export default {
             this.$emit('addColorLabel', this.colorLabelToAdd)
         },
         change(){
-            this.getData()
-                .then(()=>{
-                    const updatedLabels = this.colorLabels.map(label=>{
-                        if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(label)){
-                            return this.editLabel
-                        }
-                        return label
-                    })
-                    const updatedTasks = this.dailyTasks.map(task=>{
-                        if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(task.color)){
-                            task.color = this.editLabel
-                        }
-                        return task
-                    })
-                    db
-                        .collection('planner')
-                        .doc(this.user.uid)
-                        .update({
-                            colorLabels: updatedLabels,
-                            dailyTasks: updatedTasks
+            const findColor = this.colorLabels.find(label=>label.color === this.color)
+            const findLabel = this.colorLabels.find(label=>label.label === this.newLabel)
+            if(findColor || newLabel){
+                if(findColor){
+                    this.feedback = {
+                        message:`The color ${this.color} is already in use`,
+                        type: 'color'
+                    }
+                }
+                if(newLabel){
+                    this.feedback = {
+                        message:`The label named ${this.color} is already in use`,
+                        type: 'label'
+                    }
+                }
+            }else{
+                this.getData()
+                    .then(()=>{
+                        const updatedLabels = this.colorLabels.map(label=>{
+                            if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(label)){
+                                return this.editLabel
+                            }
+                            return label
                         })
-                        .then(()=>{
-                            this.colorLabels = updatedLabels
-                            this.cancel()
+                        const updatedTasks = this.dailyTasks.map(task=>{
+                            if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(task.color)){
+                                task.color = this.editLabel
+                            }
+                            return task
                         })
-                })
+                        db
+                            .collection('planner')
+                            .doc(this.user.uid)
+                            .update({
+                                colorLabels: updatedLabels,
+                                dailyTasks: updatedTasks
+                            })
+                            .then(()=>{
+                                this.colorLabels = updatedLabels
+                                this.cancel()
+                            })
+                    })
+            }
         },
         cancel(){
             this.editLabel = null
