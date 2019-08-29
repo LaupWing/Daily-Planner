@@ -100,24 +100,25 @@ export default {
     methods:{
         submit(){
             if(this.newLabel && this.color){
-                if(this.duplicateCheck(this.colorLabels, 'label', 'color'))
-                const colorLabel = {
-                    color: this.color,
-                    label: this.newLabel
+                if(this.duplicateCheck(this.colorLabels, 'newLabel', 'color')){
+                    const colorLabel = {
+                        color: this.color,
+                        label: this.newLabel
+                    }
+                    this.colorLabels.push(colorLabel)
+                    db
+                        .collection('planner')
+                        .doc(this.user.uid)
+                        .update({
+                            colorLabels: this.colorLabels
+                        })
+                        .then(()=>{
+                            this.cancel()
+                        })
+                        .catch(()=>{
+                            // console.log(err)
+                        })
                 }
-                this.colorLabels.push(colorLabel)
-                db
-                    .collection('planner')
-                    .doc(this.user.uid)
-                    .update({
-                        colorLabels: this.colorLabels
-                    })
-                    .then(()=>{
-                        this.cancel()
-                    })
-                    .catch(()=>{
-                        // console.log(err)
-                    })
             }
         },
         edit(label){
