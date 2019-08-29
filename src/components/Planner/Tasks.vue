@@ -321,11 +321,16 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 2px;
-    transition: .5s;
+    transition: 1s ease-in;
     background: orange;
     color: white;
     border-radius: 6px;
     border: white solid 2px;
+    opacity: .3;
+}
+
+#Tasks .task.opacity{
+    opacity: 1;
 }
 
 #Tasks .task i{

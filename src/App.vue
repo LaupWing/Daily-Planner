@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <Temperature
+      :weatherData='weatherData'
+    />
     <CurrentTime
       :currentTask='currentTask'
       v-on:addTask="toggle('addTask')"
@@ -18,6 +21,7 @@
 
 <script>
 import CurrentTime from '@/components/CurrentTime.vue'
+import Temperature from '@/components/Temperature.vue'
 import AddTask from '@/components/Planner/AddTask'
 import Nav from '@/components/Nav.vue'
 export default {
@@ -36,7 +40,8 @@ export default {
   components:{
     CurrentTime,
     Nav,
-    AddTask
+    AddTask,
+    Temperature
   },
   methods:{
     setTask(task){
