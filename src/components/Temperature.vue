@@ -27,7 +27,8 @@ export default {
             console.log(this.icon)
         },
         getIcon(){
-            // const skycon = new Skycons
+            const skycon = new Skycons({'color': 'white'})
+            console.log(skycon)
         }
     },
     watch:{
