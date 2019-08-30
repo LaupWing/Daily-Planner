@@ -159,8 +159,10 @@ export default {
             }else if(this.edit === null){
                 this.edit = task
                 this.expandTask()
+                this.$emit('checkActiveTask')
             }
             else{
+                // When the user clicks on another task to edit and keeps one open
                 this.applyPrevStyles()
                 this.edit = task
                 this.expandTask()
@@ -352,5 +354,6 @@ export default {
 }
 #Tasks .task.expanded{
     height: 200px;
+    opacity: 1;
 }
 </style>

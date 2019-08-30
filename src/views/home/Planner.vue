@@ -14,6 +14,7 @@
       />
       <Tasks
         v-on:setTask='setTask'
+        v-on:checkTaskByScroll='checkTaskByScroll'
       />
     </div>
     <GoTo
