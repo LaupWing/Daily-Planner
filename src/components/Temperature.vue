@@ -1,11 +1,11 @@
 <template>
     <div id="Temperature" @click="check">
         <div class="celcius">
-            <canvas id="icon" width="80px" height="80px"></canvas>
+            <canvas id="icon" width="60px" height="60px"></canvas>
             <h2>{{temperature}} &deg</h2>
         </div>
+        <p class="summary">{{summary}}</p>
         
-        {{summary}}
     </div>
 </template>
 
@@ -64,5 +64,9 @@ export default {
 #Temperature h2{
     font-size: 3.5em;
     font-weight: normal;
+}
+#Temperature .summary{
+    width: 100%;
+    text-align: center;
 }
 </style>

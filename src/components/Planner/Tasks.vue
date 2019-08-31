@@ -323,7 +323,7 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 2px;
-    transition: 1s ease-in;
+    transition: .5s ease-out;
     background: orange;
     color: white;
     border-radius: 6px;
