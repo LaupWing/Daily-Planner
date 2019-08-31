@@ -143,6 +143,9 @@ export default {
       })
 
       if(findTask){
+        document.querySelectorAll('#Tasks .task').forEach(task=>{
+          task.classList.remove('opacity')
+        })
         findTask.classList.add('opacity')
         const connectedLi = checkConnectedLi(findTask)
         connectedLi.forEach(li=>{
