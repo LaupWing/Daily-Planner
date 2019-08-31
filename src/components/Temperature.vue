@@ -1,6 +1,10 @@
 <template>
     <div id="Temperature" @click="check">
-        {{temperature}}
+        <div class="celcius">
+            <canvas id="icon" width="80px" height="80px"></canvas>
+            <h2>{{temperature}} &deg</h2>
+        </div>
+        
         {{summary}}
     </div>
 </template>
@@ -26,9 +30,11 @@ export default {
         check(){
             console.log(this.icon)
         },
-        getIcon(){
+        setIcon(icon, iconId){
             const skycon = new Skycons({'color': 'white'})
-            console.log(skycon)
+            const currentIcon = icon.replace(/-/g,'_').toUpperCase()
+            skycon.play()
+            return skycon.set(iconId, Skycons[currentIcon])
         }
     },
     watch:{
@@ -38,7 +44,7 @@ export default {
                 this.timezone = this.weatherData.timezone
                 this.summary = this.weatherData.currently.summary
                 this.icon = this.weatherData.currently.icon
-                this.getIcon()
+                this.setIcon(this.icon, this.$el.querySelector('#icon'))
             }
         }
     }
@@ -50,5 +56,13 @@ export default {
     position: fixed;
     top: 10px;
     left: 10px;
+}
+#Temperature .celcius{
+    display: flex;
+    justify-content: flex-start;
+}
+#Temperature h2{
+    font-size: 3.5em;
+    font-weight: normal;
 }
 </style>
