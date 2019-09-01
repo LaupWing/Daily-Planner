@@ -1,5 +1,10 @@
 <template>
     <form @submit.prevent="submit" class="task-edit">
+        <nav>
+            <li>General</li>
+            <li>Colors</li>
+            <li>Notes</li>
+        </nav>
         <input type="text" v-model="editTask.task">
         <div class="days">
             <div class="day">
@@ -187,6 +192,16 @@ export default {
 .task-edit{
     position: relative;
     height: 100%;
+}
+.task-edit nav{
+    position: relative;
+    right: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.task-edit nav li{
+    margin: 0 3px;
 }
 .task-edit .field{
     display: flex;
