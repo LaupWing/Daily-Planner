@@ -237,15 +237,13 @@ export default {
                                 .dailyTasks
                                 .filter(task=>{
                                     const date = new Date()
-                                    const dateNumber =  date.getDay() !== 0 ? date.getDay()-1 : date.getDay()
+                                    const dateNumber =  date.getDay()
                                     const day = days[dateNumber]
-                                    console.log(day)
                                     if(task.days.includes(day)){
                                         return task
                                     }
                                 })
                         }
-                        console.log(doc.data().dailyTasks)
                     }
                 })
                 .then(()=>{

@@ -1,8 +1,8 @@
 <template>
-    <div id="Temperature" @click="check">
+    <div id="Temperature">
         <div class="celcius">
             <canvas id="icon" width="60px" height="60px"></canvas>
-            <h2>{{temperature}} &deg</h2>
+            <h2>{{temperature}} &deg;</h2>
         </div>
         <p class="summary">{{summary}}</p>
         <p class="timezone">{{timezone}}</p>
@@ -27,9 +27,6 @@ export default {
         fromFahrenheitToCelcius(valNum){
             valNum = parseFloat(valNum)
             return (valNum-32) / 1.8
-        },
-        check(){
-            console.log(this.icon)
         },
         setIcon(icon, iconId){
             const skycon = new Skycons({'color': 'white'})

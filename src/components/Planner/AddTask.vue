@@ -77,7 +77,7 @@
                 <p  
                     v-for="(feed, index) in feedback"
                     :key="index"
-                >{{feed}} <i class="fas fa-times"></i></p>
+                >{{feed}} <i @click="deleteFeedback(index)" class="fas fa-times"></i></p>
             </div>
             <div class="buttons">
                 <button type="button" @click="toggle">Cancel</button>
@@ -139,18 +139,15 @@ export default {
                     color: this.color
                 }
                 const overlapCheck = checkOverlap(this.dailyTasks, taskObj)
-                console.log('adding')
                
                 if(overlapCheck.findOverlap.length > 0){
                     const overlapArray = overlapCheck.findOverlap
                     const feedbackMsg = overlapCheck.feedbackMsg
                     this.feedback = []
                     this.feedback = addDayToMsg(overlapArray, feedbackMsg, taskObj)
-                    console.log('overlapping', overlapArray)
                 }else{
                     this.feedback = []
                     this.dailyTasks.push(taskObj)
-                    console.log('adding ot parray')
                     db
                         .collection('planner')
                         .doc(this.user.uid)
@@ -180,7 +177,6 @@ export default {
                     days: this.days,
                     color: this.color
                 }
-                console.log(taskObj)
                 this.feedback = []
                 this.feedback.push( 'You have to fill in all the fields')
             }
@@ -192,10 +188,8 @@ export default {
                     this.days.push(input.id)
                 }
             })
-            console.log(this.days)
         },
         setTaskTime(state, time){
-            console.log(event)
             this[state][time] = addZero(event.target.value)
         },
         addColorLabel(label){
@@ -204,6 +198,9 @@ export default {
         },
         toggle(){
             this.$emit('toggle')
+        },
+        deleteFeedback(index){
+            this.feedback = this.feedback.filter((feed, i)=>i!==index)
         }
     },
     created(){
@@ -378,6 +375,8 @@ export default {
     width: auto;
     margin: 0 20px;
     margin-bottom: 10px;
+    position: relative;
+    left: 0;
 }
 #AddTask > .field .feedback p{
     text-align: center;

@@ -177,7 +177,7 @@ export default {
         const min = li.offsetTop
         if(midpoint >= min && midpoint <= max){
           const liTime = li.dataset.time
-          const comparePoint = Math.round(li.offsetTop + (li.offsetHeight/2))sss
+          const comparePoint = Math.round(li.offsetTop + (li.offsetHeight/2))
           const oneMinuteInPx = li.offsetHeight/30
           let time = '00:00'
           if(midpoint===comparePoint){
