@@ -77,10 +77,12 @@
                 <p  
                     v-for="(feed, index) in feedback"
                     :key="index"
-                >{{feed}}</p>
+                >{{feed}} <i class="fas fa-times"></i></p>
             </div>
-            <button type="button" @click="toggle">Cancel</button>
-            <button>Submit</button>
+            <div class="buttons">
+                <button type="button" @click="toggle">Cancel</button>
+                <button>Submit</button>
+            </div>
         </div>
     </form>
 </div>            
@@ -136,17 +138,19 @@ export default {
                     days: this.days,
                     color: this.color
                 }
-
                 const overlapCheck = checkOverlap(this.dailyTasks, taskObj)
+                console.log('adding')
                
                 if(overlapCheck.findOverlap.length > 0){
                     const overlapArray = overlapCheck.findOverlap
                     const feedbackMsg = overlapCheck.feedbackMsg
                     this.feedback = []
                     this.feedback = addDayToMsg(overlapArray, feedbackMsg, taskObj)
+                    console.log('overlapping', overlapArray)
                 }else{
                     this.feedback = []
                     this.dailyTasks.push(taskObj)
+                    console.log('adding ot parray')
                     db
                         .collection('planner')
                         .doc(this.user.uid)
@@ -361,6 +365,34 @@ export default {
     display: flex;
     justify-content: center;
     margin-top: 10px;
+    flex-direction: column;
+}
+#AddTask > .field .buttons{
+    margin: auto;
+}
+#AddTask > .field .feedback{
+    text-align: center;
+    max-height: 200px;
+    overflow-y: scroll;
+    display: inline-block;
+    width: auto;
+    margin: 0 20px;
+    margin-bottom: 10px;
+}
+#AddTask > .field .feedback p{
+    text-align: center;
+    border: solid 2px red;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+#AddTask > .field .feedback p i{
+    color: red;
+    font-size: 1.5em;
+    margin-left: 10px;
+    cursor: pointer;
 }
 #AddTask > .field button{
     padding: 8px 15px;

@@ -5,6 +5,7 @@
             <h2>{{temperature}} &deg</h2>
         </div>
         <p class="summary">{{summary}}</p>
+        <p class="timezone">{{timezone}}</p>
         
     </div>
 </template>
@@ -68,5 +69,11 @@ export default {
 #Temperature .summary{
     width: 100%;
     text-align: center;
+}
+#Temperature .timezone{
+    width: 100%;
+    font-size: .8em;
+    text-align: center;
+    opacity: .6;
 }
 </style>
