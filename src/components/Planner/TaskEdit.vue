@@ -38,30 +38,36 @@
                 <label for="sunday">Sun</label>
             </div>
         </div>
-        <div class="field">
-            <label for="task">Begin:</label>
-            <div class="hours">
-                <label for="hours">Hours</label>
-                <input type="number" name="hours" min="00" max="23" 
-                    v-model="editTask.begin.hours">
+        <div class="time-span-container">
+            <div class="field time-span">
+                <label for="task">Begin:</label>
+                <div class="time">
+                    <div class="hours">
+                        <label for="hours">Hours</label>
+                        <input type="number" name="hours" min="00" max="23" 
+                            v-model="editTask.begin.hours">
+                    </div>
+                    <div class="minutes">
+                        <label for="minutes">Minutes</label>
+                        <input type="number" name="minutes" min="00" max="59" 
+                            v-model="editTask.begin.minutes">
+                    </div>
+                </div>
             </div>
-            <div class="minutes">
-                <label for="minutes">Minutes</label>
-                <input type="number" name="minutes" min="00" max="59" 
-                    v-model="editTask.begin.minutes">
-            </div>
-        </div>
-        <div class="field">
-            <label for="task">End:</label>
-            <div class="hours">
-                <label for="hours">Hours</label>
-                <input type="number" name="hours" min="00" max="23" 
-                    v-model="editTask.end.hours">
-            </div>
-            <div class="minutes">
-                <label for="minutes">Minutes</label>
-                <input type="number" name="minutes" min="00" max="59" 
-                    v-model="editTask.end.minutes">
+            <div class="field time-span">
+                <label for="task">End:</label>
+                <div class="time">
+                    <div class="hours">
+                        <label for="hours">Hours</label>
+                        <input type="number" name="hours" min="00" max="23" 
+                            v-model="editTask.end.hours">
+                    </div>
+                    <div class="minutes">
+                        <label for="minutes">Minutes</label>
+                        <input type="number" name="minutes" min="00" max="59" 
+                            v-model="editTask.end.minutes">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="feedback-container" v-if="feedback.length>0">
@@ -178,7 +184,92 @@ export default {
 </script>
 
 <style>
+.task-edit{
+    position: relative;
+    height: 100%;
+}
 .task-edit .field{
     display: flex;
+}
+.task-edit input[type="text"]{
+    width: 80%;
+    margin: 6px auto;
+    display: block;
+}
+.task-edit input[type="checkbox"]{
+    display: none;
+}
+.task-edit .days{
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+    font-size: .6em;
+}
+.task-edit .days label{
+    border: solid 1px white;
+    padding: 5px;
+    width: 40px;
+    text-align: center;
+    border-radius: 5px;
+    margin: 5px 0;
+    display: inline-block;
+    transition: .25s;
+}
+.task-edit input[type="checkbox"]:checked + label{
+    background: white;
+    color: black;
+}
+.task-edit .time-span-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+.task-edit .field.time-span{
+    display: flex;
+    flex-direction: column;
+    font-size: 1em;
+    width: 48%;
+}
+.task-edit .field.time-span > label{
+    width: 100%;
+    text-align: center; 
+}
+.task-edit .field.time-span .time{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.task-edit .field.time-span .hours,
+.task-edit .field.time-span .minutes{
+    display: flex;
+    flex-direction: column;
+}
+.task-edit .buttons{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+}
+.task-edit .buttons button{
+    background: transparent;
+    border: none;
+    color: white;
+    border-top: white solid 1px;
+    transition: .25s;
+    width: 50%;
+    font-size: .7em;
+    letter-spacing: 2px;
+    padding: 5px 0;
+    cursor: pointer; 
+    display: inline-block;
+}
+.task-edit .buttons button:first-of-type{
+    border-right: solid white 1px;
+}
+.task-edit .buttons button:hover{
+    background: white;
+    color: black;   
 }
 </style>

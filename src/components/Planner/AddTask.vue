@@ -170,13 +170,6 @@ export default {
                         })
                 }
             }else{
-                const taskObj = {
-                    task: this.task,
-                    begin: `${this.begin.hours.substring(0,2)}:${this.begin.minutes.substring(0,2)}`, 
-                    end: `${this.end.hours.substring(0,2)}:${this.end.minutes.substring(0,2)}`,
-                    days: this.days,
-                    color: this.color
-                }
                 this.feedback = []
                 this.feedback.push( 'You have to fill in all the fields')
             }
