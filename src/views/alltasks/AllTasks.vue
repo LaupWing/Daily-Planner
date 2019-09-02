@@ -4,6 +4,9 @@
             <input @input="search" type="text" placeholder="search">
             <i class="fas fa-search"></i>
         </div>
+        <div class="sorting">
+            
+        </div>
         <div class="tasks">
             <Task 
                 v-for="(task, index) in tasks" 
