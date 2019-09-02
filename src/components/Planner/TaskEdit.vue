@@ -1,9 +1,24 @@
 <template>
     <form @submit.prevent="submit" class="task-edit">
         <nav>
-            <li :style="[part === 'general' ? {'background': task.color.color} : {'background': 'transparent'}]">General</li>
-            <li>Colors</li>
-            <li>Notes</li>
+            <li 
+                :style="[part === 'general' ? {'background': task.color.color} : {'background': 'transparent'}]"
+                @click="changePart"
+            >
+                General
+            </li>
+            <li
+                :style="[part === 'colors' ? {'background': task.color.color} : {'background': 'transparent'}]"
+                @click="changePart"
+            >
+                Colors
+            </li>
+            <li
+                :style="[part === 'notes' ? {'background': task.color.color} : {'background': 'transparent'}]"
+                @click="changePart"
+            >
+                Notes
+            </li>
         </nav>
         <General
             :task="task"
@@ -114,6 +129,9 @@ export default {
             }else{
                 this.$emit('toggleEdit', this.task)
             }
+        },
+        changePart(){
+            this.part = event.target.textContent.trim().toLowerCase()
         }
     },
     created(){
@@ -140,8 +158,10 @@ export default {
     font-size: .8em;
 }
 .task-edit nav li{
-    padding: 3px 5px;
+    padding: 3px 20px;
     margin: 0;
+    cursor: pointer;
+    transition: .25s;
 }
 .task-edit .field{
     display: flex;
