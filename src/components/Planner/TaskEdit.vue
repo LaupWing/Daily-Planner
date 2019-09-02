@@ -20,9 +20,14 @@
                 Notes
             </li>
         </nav>
+        <Colors
+            v-if="part === 'colors'"
+            :task="task"
+        />
         <General
             :task="task"
             :editTask="editTask"
+            v-if="part === 'general'"
         />
         <div class="feedback-container" v-if="feedback.length>0">
             <p 
@@ -47,11 +52,13 @@ import {addZero} from '@/components/helpers/timeFormat'
 import firebase from 'firebase'
 import db from '@/firebase/init'
 import General from '@/components/Planner/TaskEdit/General'
+import Colors from '@/components/Planner/TaskEdit/Colors'
 
 export default {
     name: 'TaskEdit',
     components:{
-        General
+        General,
+        Colors
     },
     props:['task', 'allTasks'],
     data(){
@@ -154,7 +161,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     left: 0;
-    background: rgba(0,0,0,.5);
+    background: rgba(0,0,0,.7);
     font-size: .8em;
 }
 .task-edit nav li{
@@ -163,61 +170,8 @@ export default {
     cursor: pointer;
     transition: .25s;
 }
-.task-edit .field{
-    display: flex;
-}
-.task-edit input[type="text"]{
-    width: 80%;
-    margin: 6px auto;
-    display: block;
-}
 .task-edit input[type="checkbox"]{
     display: none;
-}
-.task-edit .days{
-    display: flex;
-    justify-content: space-around;
-    margin: 10px 0;
-    font-size: .6em;
-}
-.task-edit .days label{
-    border: solid 1px white;
-    padding: 5px;
-    width: 40px;
-    text-align: center;
-    border-radius: 5px;
-    margin: 5px 0;
-    display: inline-block;
-    transition: .25s;
-}
-.task-edit input[type="checkbox"]:checked + label{
-    background: white;
-    color: black;
-}
-.task-edit .time-span-container{
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-}
-.task-edit .field.time-span{
-    display: flex;
-    flex-direction: column;
-    font-size: 1em;
-    width: 48%;
-}
-.task-edit .field.time-span > label{
-    width: 100%;
-    text-align: center; 
-}
-.task-edit .field.time-span .time{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-.task-edit .field.time-span .hours,
-.task-edit .field.time-span .minutes{
-    display: flex;
-    flex-direction: column;
 }
 .task-edit .buttons{
     position: absolute;

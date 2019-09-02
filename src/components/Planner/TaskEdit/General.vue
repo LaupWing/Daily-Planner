@@ -89,5 +89,58 @@ export default {
 </script>
 
 <style>
+.general-info .field{
+    display: flex;
+}
+.general-info input[type="text"]{
+    width: 80%;
+    margin: 6px auto;
+    display: block;
+}
 
+.general-info .days{
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+    font-size: .6em;
+}
+.general-info .days label{
+    border: solid 1px white;
+    padding: 5px;
+    width: 40px;
+    text-align: center;
+    border-radius: 5px;
+    margin: 5px 0;
+    display: inline-block;
+    transition: .25s;
+}
+.general-info input[type="checkbox"]:checked + label{
+    background: white;
+    color: black;
+}
+.general-info .time-span-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+.general-info .field.time-span{
+    display: flex;
+    flex-direction: column;
+    font-size: 1em;
+    width: 48%;
+}
+.general-info .field.time-span > label{
+    width: 100%;
+    text-align: center; 
+}
+.general-info .field.time-span .time{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.general-info .field.time-span .hours,
+.general-info .field.time-span .minutes{
+    display: flex;
+    flex-direction: column;
+}
 </style>
