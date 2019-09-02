@@ -1,5 +1,11 @@
 <template>
     <form id="GoTo" @submit.prevent="goTo">
+        <div class="addTask">
+            <button type="button" @click="addTask">
+                Add New Task
+                <i class="far fa-calendar-plus"></i>
+            </button>
+        </div>    
         <h3>Go to</h3>
         <button type="button" @click="setupCurrentPos">Current Time</button>
         <div class="field">
@@ -56,6 +62,9 @@ export default {
                 this.$emit('goToSpecifikTime', midpoint)
                 // document.querySelector('#planner').scrollTo(0,midpoint)
             }
+        },
+        addTask(){
+            this.$emit('addTask')
         }
     }
 }
@@ -63,15 +72,26 @@ export default {
 
 <style>
 #GoTo{
-  position: absolute;
-  z-index: 10;
-  display: flex;
-  align-items: flex-end;
-  width: 100%;
-  justify-content: center;
-  margin-top: 10px;
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
 }
-
+#GoTo .addTask{
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+#GoTo .addTask button{
+    font-size: .6em;
+    width: 60%;
+    border-radius: 0 0 20px 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 #GoTo button{
     border: none;
     border: solid white 2px;
@@ -88,15 +108,15 @@ export default {
 }
 #GoTo > button,
 #GoTo .field{
-  margin: 0 20px;
+    margin: 0 20px;
 }
 #GoTo .field,
 #GoTo .time{
-  align-items: flex-end;
-  display: flex;
+    align-items: flex-end;
+    display: flex;
 }
 #GoTo .time{
-  margin-right: 5px;
+    margin-right: 5px;
 }
 #GoTo input[type='number']{
     font-size: 1.5em;

@@ -328,7 +328,7 @@ export default {
     color: white;
     border-radius: 6px;
     border: white solid 2px;
-    opacity: .3;
+    opacity: .2;
     overflow: hidden;
     padding: 2px 5px;
 }

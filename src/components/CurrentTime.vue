@@ -3,11 +3,6 @@
         <h2 class="date">{{day}} {{month}} {{year}}</h2>
         <h2 class="time">{{hours}}<span>:</span>{{minutes}}</h2>
         <p v-if="user" class="task">Current Task: {{currentTask}}</p>
-        <i 
-            v-if="$route.name === 'Home'" 
-            class="far fa-calendar-plus"
-            @click="addTask"
-        ></i>
     </div>
 </template>
 
@@ -31,9 +26,6 @@ export default {
         }
     },
     methods:{
-        addTask(){
-            this.$emit('addTask')
-        }
     },
     mounted(){
         setInterval(()=>{

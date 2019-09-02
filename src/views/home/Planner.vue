@@ -1,5 +1,9 @@
 <template>
   <div class="planner-container">
+    <AddTask 
+      v-if="addTask"
+      v-on:toggle="toggle('addTask')"
+    />
     <ColorLabels
       :taskColor='taskColor'
     />
@@ -20,6 +24,7 @@
     <GoTo
       v-on:setupCurrentPos='setupCurrentPos'  
       v-on:goToSpecifikTime='goToSpecifikTime'
+      v-on:addTask="toggle('addTask')"
     />
   </div>
   
@@ -31,6 +36,7 @@ import GoTo from '@/components/Planner/GoTo'
 import Tasks from '@/components/Planner/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels'
 import {checkConnectedLi} from '@/components/helpers/timeline'
+import AddTask from '@/components/Planner/AddTask'
 import firebase from 'firebase'
 import db from '@/firebase/init'
 
@@ -53,16 +59,21 @@ export default {
         lat: 52.370216,
         lng: 4.895168
       },
-      taskColor: null
+      taskColor: null,
+      addTask: null
     }
   },
   components:{
     Timeline,
     Tasks,
     ColorLabels,
-    GoTo
+    GoTo,
+    AddTask
   },
   methods:{
+    toggle(prop){
+      this[prop] = !this[prop]
+    },
     goToSpecifikTime(point){
       this.scrollByCode = false
       this.$el.querySelector('#planner').scrollTo(0,point)
