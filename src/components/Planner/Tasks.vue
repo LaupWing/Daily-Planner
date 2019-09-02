@@ -330,6 +330,7 @@ export default {
     border: white solid 2px;
     opacity: .3;
     overflow: hidden;
+    padding: 2px 5px;
 }
 
 #Tasks .task.opacity{
@@ -356,5 +357,6 @@ export default {
 #Tasks .task.expanded{
     height: 200px;
     opacity: 1;
+    padding: 0;
 }
 </style>

@@ -147,10 +147,18 @@ export default {
             return days
         },
         submit(){
-            if(document.activeElement.textContent.trim() === 'Accept'){
-                this.accept()
+            if(this.part === 'delete'){
+                if(document.activeElement.textContent.trim() === 'Yes'){
+                    console.log('delete')
+                }else{
+                    this.$emit('toggleEdit', this.task)
+                }
             }else{
-                this.$emit('toggleEdit', this.task)
+                if(document.activeElement.textContent.trim() === 'Accept'){
+                    this.accept()
+                }else{
+                    this.$emit('toggleEdit', this.task)
+                }
             }
         },
         changePart(part){
