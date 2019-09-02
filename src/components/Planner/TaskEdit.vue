@@ -108,7 +108,7 @@ export default {
                 })
             const taskObj = {
                 task: this.editTask.task,
-                days: this.getCheckedValues(),
+                days: this.editTask.days,
                 begin: `${addZero(this.editTask.begin.hours)}:${addZero(this.editTask.begin.minutes)}`,
                 end: `${addZero(this.editTask.end.hours)}:${addZero(this.editTask.end.minutes)}`,
                 color: this.editTask.color

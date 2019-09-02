@@ -4,37 +4,44 @@
         <div class="days">
             <div class="day">
                 <input type="checkbox" name="day" id="monday"
-                    :checked="checkDay(editTask.days, 'monday')">
+                    :checked="checkDay(editTask.days, 'monday')"
+                    @change="changeDays">
                 <label for="monday">Mon</label>
             </div>
             <div class="day">
                 <input type="checkbox" name="day" id="tuesday"
-                    :checked="checkDay(editTask.days, 'tuesday')">
+                    :checked="checkDay(editTask.days, 'tuesday')"
+                    @change="changeDays">
                 <label for="tuesday">Tues</label>
             </div>
             <div class="day">
                 <input type="checkbox" name="day" id="wednesday"
-                    :checked="checkDay(editTask.days, 'wednesday')">
+                    :checked="checkDay(editTask.days, 'wednesday')"
+                    @change="changeDays">
                 <label for="wednesday">Wed</label>
             </div>
             <div class="day">
                 <input type="checkbox" name="day" id="thursday"
-                    :checked="checkDay(editTask.days, 'thursday')">
+                    :checked="checkDay(editTask.days, 'thursday')"
+                    @change="changeDays">
                 <label for="thursday">Thu</label>
             </div>
             <div class="day">
                 <input type="checkbox" name="day" id="friday"
-                    :checked="checkDay(editTask.days, 'friday')">
+                    :checked="checkDay(editTask.days, 'friday')"
+                    @change="changeDays">
                 <label for="friday">Fri</label>
             </div>
             <div class="day">
                 <input type="checkbox" name="day" id="saturday"
-                    :checked="checkDay(editTask.days, 'saturday')">
+                    :checked="checkDay(editTask.days, 'saturday')"
+                    @change="changeDays">
                 <label for="saturday">Sat</label>
             </div>
             <div class="day">
                 <input type="checkbox" name="day" id="sunday" 
-                    :checked="checkDay(editTask.days, 'sunday')">
+                    :checked="checkDay(editTask.days, 'sunday')"
+                    @change="changeDays">
                 <label for="sunday">Sun</label>
             </div>
         </div>
@@ -83,8 +90,11 @@ export default {
                 return true
             }
         },
+        changeDays(){
+            this.editTask.days = this.getCheckedValues()
+        },
         getCheckedValues(){
-            const days = Array.from(this.$el.day)
+            const days = Array.from(this.$el.querySelectorAll('input[type="checkbox"]'))
                 .filter(input=>input.checked)
                 .map(input=>input.id)
             return days

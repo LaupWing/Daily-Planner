@@ -36,7 +36,7 @@ export default {
             }
         },
         updateColorlabel(color){
-            this.$emit('updateColorlabel', color)
+            this.editTask.color = color 
         }
     },
     created(){
