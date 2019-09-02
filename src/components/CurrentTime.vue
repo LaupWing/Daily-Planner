@@ -4,9 +4,9 @@
         <h2 class="time">{{hours}}<span>:</span>{{minutes}}</h2>
         <p v-if="user" class="task">Current Task: {{currentTask}}</p>
         <nav>
-                <router-link :to="{name: 'Home'}">Daily Planner</router-link>
-                <a>All Tasks</a>
-                <a>Habit Tracker</a>
+            <router-link :to="{name: 'Home'}">Daily Planner</router-link>
+            <router-link :to="{name: 'AllTasks'}">All Tasks</router-link>
+            <a>Habit Tracker</a>
         </nav>
     </div>
 </template>

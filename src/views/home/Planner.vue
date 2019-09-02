@@ -18,7 +18,7 @@
       />
       <Tasks
         v-on:setTask='setTask'
-        v-on:checkTaskByScroll='checkTaskByScroll'
+        v-on:checkActiveTask='checkTaskByScroll'
       />
     </div>
     <GoTo
@@ -152,7 +152,6 @@ export default {
           return task
         }
       })
-
       if(findTask){
         document.querySelectorAll('#Tasks .task').forEach(task=>{
           task.classList.remove('opacity')

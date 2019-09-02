@@ -1,5 +1,5 @@
 <template>
-    <form id="GoTo" @submit.prevent="goTo">
+    <form id="GoTo" @submit.prevent="goTo" @mouseover="active(true)" @mouseout="active(false)"> 
         <div class="addTask">
             <button type="button" @click="addTask">
                 Add New Task
@@ -65,6 +65,13 @@ export default {
         },
         addTask(){
             this.$emit('addTask')
+        },
+        active(active){
+            if(active){
+                this.$el.classList.add('active')
+            }else{
+                this.$el.classList.remove('active')
+            }
         }
     }
 }
@@ -79,6 +86,12 @@ export default {
     width: 100%;
     justify-content: center;
     flex-wrap: wrap;
+    opacity: .2;
+    transition: .25s;
+    padding-bottom: 50px;
+}
+#GoTo.active{
+    opacity: 1;
 }
 #GoTo .addTask{
     margin-bottom: 20px;

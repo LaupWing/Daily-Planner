@@ -112,4 +112,7 @@ input,
 button{
   outline: none;
 }
+li{
+  list-style: none;
+}
 </style>

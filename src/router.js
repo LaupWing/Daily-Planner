@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Planner from './views/home/Planner.vue'
 import Signup from './views/auth/Signup'
 import Login from './views/auth/Login'
+import AllTasks from './views/alltasks/AllTasks'
 
 import firebase from 'firebase'
 Vue.use(Router)
@@ -28,6 +29,11 @@ const router =  new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/allTasks',
+      name: 'AllTasks',
+      component: AllTasks
     }
   ]
 })

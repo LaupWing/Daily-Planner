@@ -156,10 +156,10 @@ export default {
                 // If the user clicks cancel this will be triggerd
                 this.applyPrevStyles()
                 this.edit = null
+                this.$emit('checkActiveTask')
             }else if(this.edit === null){
                 this.edit = task
                 this.expandTask()
-                this.$emit('checkActiveTask')
             }
             else{
                 // When the user clicks on another task to edit and keeps one open
