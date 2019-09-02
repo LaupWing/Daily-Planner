@@ -3,32 +3,44 @@
         <nav>
             <li 
                 :style="[part === 'general' ? {'background': task.color.color} : {'background': 'transparent'}]"
-                @click="changePart"
+                @click="changePart('general')"
             >
                 General
             </li>
             <li
                 :style="[part === 'colors' ? {'background': task.color.color} : {'background': 'transparent'}]"
-                @click="changePart"
+                @click="changePart('colors')"
             >
                 Colors
             </li>
             <li
                 :style="[part === 'notes' ? {'background': task.color.color} : {'background': 'transparent'}]"
-                @click="changePart"
+                @click="changePart('notes')"
             >
                 Notes
+            </li>
+            <li
+                class="delete"
+                 :style="[part === 'delete' ? {'background': task.color.color} : {'background': 'transparent'}]"
+                @click="changePart('delete')"
+            >
+                <i class="fas fa-trash-alt"></i>
             </li>
         </nav>
         <Colors
             v-if="part === 'colors'"
-            :task="task"
+            :editTask="editTask"
+            v-on:updateColorlabel="updateColorlabel"
         />
         <General
-            :task="task"
             :editTask="editTask"
             v-if="part === 'general'"
         />
+        <div class="delete"
+            v-if="part === 'delete'"
+        >
+            <h3>You sure you want to Delete this task?</h3>
+        </div>
         <div class="feedback-container" v-if="feedback.length>0">
             <p 
                 v-for="(feed, index) in feedback" 
@@ -38,9 +50,13 @@
                 {{feed}}
             </p>
         </div>
-        <div class="buttons">
+        <div class="buttons" v-if="part !== 'delete'">
             <button>Cancel</button>
             <button>Accept</button>
+        </div>
+        <div class="buttons" v-if="part === 'delete'">
+            <button>No</button>
+            <button>Yes</button>
         </div>
     </form>
 </template>
@@ -137,8 +153,11 @@ export default {
                 this.$emit('toggleEdit', this.task)
             }
         },
-        changePart(){
-            this.part = event.target.textContent.trim().toLowerCase()
+        changePart(part){
+            this.part = part
+        },
+        updateColorlabel(color){
+            this.editTask.color = color
         }
     },
     created(){
@@ -169,6 +188,18 @@ export default {
     margin: 0;
     cursor: pointer;
     transition: .25s;
+}
+#Tasks .task-edit nav li i{
+    position: relative;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+.task-edit .delete h3{
+    font-weight: normal;
+    font-size: 1em;
+    text-align: center;
+    margin-top: 15%;
 }
 .task-edit input[type="checkbox"]{
     display: none;

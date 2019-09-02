@@ -5,7 +5,7 @@
             v-for="(color, index) in colors" 
             :key="index"
         >
-            <input type="radio" name="label" :id="color.label+index" :checked="checkActive(color)">
+            <input @change="updateColorlabel(color)" type="radio" name="label" :id="color.label+index" :checked="checkActive(color)">
             <label 
                 :style="{background: color.color}" 
                 :for="color.label+index"
@@ -21,7 +21,7 @@ import firebase from 'firebase'
 import db from '@/firebase/init'
 export default {
     name: 'Edit-Color',
-    props:['task'],
+    props:['editTask'],
     data(){
         return{
             colors: null
@@ -29,11 +29,14 @@ export default {
     },
     methods:{
         checkActive(color){
-            if(JSON.stringify(color)== JSON.stringify(this.task.color)){
+            if(JSON.stringify(color)== JSON.stringify(this.editTask.color)){
                 return true
             }else{
                 return false
             }
+        },
+        updateColorlabel(color){
+            this.$emit('updateColorlabel', color)
         }
     },
     created(){
@@ -75,5 +78,6 @@ export default {
 .colors-container input[type="radio"]:checked + label{
     transform: scale(1.1);
     color: white;
+    box-shadow: 0px 0px 16px 1px rgba(255,255,255,0.48);
 }
 </style>

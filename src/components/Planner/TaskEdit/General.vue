@@ -4,37 +4,37 @@
         <div class="days">
             <div class="day">
                 <input type="checkbox" name="day" id="monday"
-                    :checked="checkDay(task.days, 'monday')">
+                    :checked="checkDay(editTask.days, 'monday')">
                 <label for="monday">Mon</label>
             </div>
             <div class="day">
                 <input type="checkbox" name="day" id="tuesday"
-                    :checked="checkDay(task.days, 'tuesday')">
+                    :checked="checkDay(editTask.days, 'tuesday')">
                 <label for="tuesday">Tues</label>
             </div>
             <div class="day">
                 <input type="checkbox" name="day" id="wednesday"
-                    :checked="checkDay(task.days, 'wednesday')">
+                    :checked="checkDay(editTask.days, 'wednesday')">
                 <label for="wednesday">Wed</label>
             </div>
             <div class="day">
                 <input type="checkbox" name="day" id="thursday"
-                    :checked="checkDay(task.days, 'thursday')">
+                    :checked="checkDay(editTask.days, 'thursday')">
                 <label for="thursday">Thu</label>
             </div>
             <div class="day">
                 <input type="checkbox" name="day" id="friday"
-                    :checked="checkDay(task.days, 'friday')">
+                    :checked="checkDay(editTask.days, 'friday')">
                 <label for="friday">Fri</label>
             </div>
             <div class="day">
                 <input type="checkbox" name="day" id="saturday"
-                    :checked="checkDay(task.days, 'saturday')">
+                    :checked="checkDay(editTask.days, 'saturday')">
                 <label for="saturday">Sat</label>
             </div>
             <div class="day">
                 <input type="checkbox" name="day" id="sunday" 
-                    :checked="checkDay(task.days, 'sunday')">
+                    :checked="checkDay(editTask.days, 'sunday')">
                 <label for="sunday">Sun</label>
             </div>
         </div>
@@ -76,12 +76,18 @@
 <script>
 export default {
     name: 'General',
-    props:['editTask', 'task'],
+    props:['editTask'],
     methods:{
         checkDay(days, day){
             if(days.includes(day)){
                 return true
             }
+        },
+        getCheckedValues(){
+            const days = Array.from(this.$el.day)
+                .filter(input=>input.checked)
+                .map(input=>input.id)
+            return days
         },
         
     }
