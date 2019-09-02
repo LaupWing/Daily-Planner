@@ -39,8 +39,6 @@ export default {
         setInterval(()=>{
             const date = new Date()
             this.hours = addZero(date.getHours())
-            if(this.day !== addZero(date.getDate()) && this.day !==null){
-            }
             this.minutes = addZero(date.getMinutes())
             this.day = addZero(date.getDate())
             this.month = monthNames[date.getMonth()]

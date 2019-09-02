@@ -1,80 +1,14 @@
 <template>
     <form @submit.prevent="submit" class="task-edit">
         <nav>
-            <li>General</li>
+            <li :style="[part === 'general' ? {'background': task.color.color} : {'background': 'transparent'}]">General</li>
             <li>Colors</li>
             <li>Notes</li>
         </nav>
-        <input type="text" v-model="editTask.task">
-        <div class="days">
-            <div class="day">
-                <input type="checkbox" name="day" id="monday"
-                    :checked="checkDay(task.days, 'monday')">
-                <label for="monday">Mon</label>
-            </div>
-            <div class="day">
-                <input type="checkbox" name="day" id="tuesday"
-                    :checked="checkDay(task.days, 'tuesday')">
-                <label for="tuesday">Tues</label>
-            </div>
-            <div class="day">
-                <input type="checkbox" name="day" id="wednesday"
-                    :checked="checkDay(task.days, 'wednesday')">
-                <label for="wednesday">Wed</label>
-            </div>
-            <div class="day">
-                <input type="checkbox" name="day" id="thursday"
-                    :checked="checkDay(task.days, 'thursday')">
-                <label for="thursday">Thu</label>
-            </div>
-            <div class="day">
-                <input type="checkbox" name="day" id="friday"
-                    :checked="checkDay(task.days, 'friday')">
-                <label for="friday">Fri</label>
-            </div>
-            <div class="day">
-                <input type="checkbox" name="day" id="saturday"
-                    :checked="checkDay(task.days, 'saturday')">
-                <label for="saturday">Sat</label>
-            </div>
-            <div class="day">
-                <input type="checkbox" name="day" id="sunday" 
-                    :checked="checkDay(task.days, 'sunday')">
-                <label for="sunday">Sun</label>
-            </div>
-        </div>
-        <div class="time-span-container">
-            <div class="field time-span">
-                <label for="task">Begin:</label>
-                <div class="time">
-                    <div class="hours">
-                        <label for="hours">Hours</label>
-                        <input type="number" name="hours" min="00" max="23" 
-                            v-model="editTask.begin.hours">
-                    </div>
-                    <div class="minutes">
-                        <label for="minutes">Minutes</label>
-                        <input type="number" name="minutes" min="00" max="59" 
-                            v-model="editTask.begin.minutes">
-                    </div>
-                </div>
-            </div>
-            <div class="field time-span">
-                <label for="task">End:</label>
-                <div class="time">
-                    <div class="hours">
-                        <label for="hours">Hours</label>
-                        <input type="number" name="hours" min="00" max="23" 
-                            v-model="editTask.end.hours">
-                    </div>
-                    <div class="minutes">
-                        <label for="minutes">Minutes</label>
-                        <input type="number" name="minutes" min="00" max="59" 
-                            v-model="editTask.end.minutes">
-                    </div>
-                </div>
-            </div>
-        </div>
+        <General
+            :task="task"
+            :editTask="editTask"
+        />
         <div class="feedback-container" v-if="feedback.length>0">
             <p 
                 v-for="(feed, index) in feedback" 
@@ -97,9 +31,13 @@ import {addDayToMsg} from '@/components/helpers/overlap'
 import {addZero} from '@/components/helpers/timeFormat'
 import firebase from 'firebase'
 import db from '@/firebase/init'
+import General from '@/components/Planner/TaskEdit/General'
 
 export default {
     name: 'TaskEdit',
+    components:{
+        General
+    },
     props:['task', 'allTasks'],
     data(){
         return{
@@ -117,15 +55,11 @@ export default {
                color: this.task.color
            },
            feedback: [],
-           user: null
+           user: null,
+           part: 'general'
         }
     },
     methods:{
-        checkDay(days, day){
-            if(days.includes(day)){
-                return true
-            }
-        },
         accept(){
             const filterThisTask = this.allTasks
                 .slice()
@@ -184,6 +118,8 @@ export default {
     },
     created(){
         this.user = firebase.auth().currentUser
+    },
+    computed:{
     }
 }
 </script>
@@ -199,9 +135,13 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    left: 0;
+    background: rgba(0,0,0,.5);
+    font-size: .8em;
 }
 .task-edit nav li{
-    margin: 0 3px;
+    padding: 3px 5px;
+    margin: 0;
 }
 .task-edit .field{
     display: flex;

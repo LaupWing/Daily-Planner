@@ -114,19 +114,19 @@ export default {
                         color: this.color,
                         label: this.newLabel
                     }
-                    // this.colorLabels.push(colorLabel)
-                    // db
-                    //     .collection('planner')
-                    //     .doc(this.user.uid)
-                    //     .update({
-                    //         colorLabels: this.colorLabels
-                    //     })
-                    //     .then(()=>{
-                    //         this.cancel()
-                    //     })
-                    //     .catch(()=>{
-                    //         // console.log(err)
-                    //     })
+                    this.colorLabels.push(colorLabel)
+                    db
+                        .collection('planner')
+                        .doc(this.user.uid)
+                        .update({
+                            colorLabels: this.colorLabels
+                        })
+                        .then(()=>{
+                            this.cancel()
+                        })
+                        .catch(()=>{
+                            // console.log(err)
+                        })
                 }
             }
         },

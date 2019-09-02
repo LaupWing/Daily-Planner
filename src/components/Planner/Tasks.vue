@@ -329,6 +329,7 @@ export default {
     border-radius: 6px;
     border: white solid 2px;
     opacity: .3;
+    overflow: hidden;
 }
 
 #Tasks .task.opacity{
