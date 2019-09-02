@@ -59,13 +59,18 @@ export default {
 
 <style>
 #AllTasks{
-    height: 65vh;
-    background: rgba(255, 255, 255, .2);
+    /* background: rgba(255, 255, 255, .2); */
     width: 600px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+}
+#AllTasks .tasks{
+    margin: 20px;
+    height: 60vh;
+    overflow-y: auto;
+    padding: 0 10px;
 }
 #AllTasks input[type="text"]{
     border: none;
