@@ -1,5 +1,5 @@
 <template>
-    <nav>
+    <nav class="auth">
         <ul>
             <li v-if="!user">
                 <router-link :to="{name: 'Signup'}">Signup</router-link>
@@ -47,21 +47,21 @@ export default {
 </script>
 
 <style>
-nav{
+nav.auth{
     position: fixed;
     top: 0;
     right: 10px;
 }    
-nav li{
+nav.auth li{
     list-style: none;
     margin: 5px;
 }
-nav a{
+nav.auth a{
     color: black;
     text-decoration: none;
     cursor: pointer;
 }
-nav ul{
+nav.auth ul{
     display: flex;
 }
 </style>

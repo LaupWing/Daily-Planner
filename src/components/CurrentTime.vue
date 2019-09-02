@@ -3,6 +3,11 @@
         <h2 class="date">{{day}} {{month}} {{year}}</h2>
         <h2 class="time">{{hours}}<span>:</span>{{minutes}}</h2>
         <p v-if="user" class="task">Current Task: {{currentTask}}</p>
+        <nav>
+                <router-link :to="{name: 'Home'}">Daily Planner</router-link>
+                <a>All Tasks</a>
+                <a>Habit Tracker</a>
+        </nav>
     </div>
 </template>
 
@@ -74,7 +79,39 @@ export default {
 #Current-Time .time span{
     animation: blink 2s infinite;
 }
-
+#Current-Time nav{
+    display: flex;
+    margin: 20px auto;
+    justify-content: center;
+    align-items: center;
+}
+#Current-Time nav li{
+    list-style: none;
+}
+#Current-Time nav a{
+    text-decoration: none;
+    color: white;
+    padding: 5px 12px;
+    opacity: .5;
+    display: inline-block;
+    border: solid white 1px;
+    font-size: .8em;
+}
+#Current-Time nav a.router-link-exact-active{
+    opacity: 1;
+    background: white;
+    color: black;
+}
+#Current-Time nav a:nth-child(even){
+    border-left: none;
+    border-right: none;
+}
+#Current-Time nav a:first-of-type{
+    border-radius: 10px 0 0 10px;
+}
+#Current-Time nav a:last-of-type{
+    border-radius: 0 10px 10px 0;
+}
 @keyframes blink{
     0%{
         opacity: 0;
