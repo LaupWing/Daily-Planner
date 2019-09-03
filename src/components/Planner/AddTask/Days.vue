@@ -67,14 +67,30 @@
                 <!-- <button>set time</button> -->
             </div>          
         </div>
-        <button>Set time</button>
+        <TimePopup v-if="setTime"/>
+        <button @click="activateTime">Set time</button>
     </div>
 </template>
 
 <script>
+import TimePopup from '@/components/Planner/AddTask/Days/TimePopup'
+
 export default {
     name: 'days-addTask',
-    props:['period']
+    props:['period'],
+    data(){
+        return{
+            setTime: false
+        }
+    },
+    methods:{
+        activateTime(){
+            this.setTime = !this.setTime
+        }
+    },
+    components:{
+        TimePopup
+    }
 }
 </script>
 

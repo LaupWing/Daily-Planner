@@ -1,12 +1,12 @@
 <template>
     <div class="time-popup">
-        </div>  
+    </div>  
 </template>
 
 <script>
 export default {
     nasme:'Time-Popup',
-    props:[],
+    props:['period'],
     data(){
         return{
 
