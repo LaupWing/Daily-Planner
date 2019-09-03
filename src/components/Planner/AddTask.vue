@@ -1,10 +1,11 @@
 <template>
 <div class="add-task-bg">
     <form @submit.prevent="submit" id="AddTask"> 
-        <h2>Add Task <span>step</span> </h2>
+        <h2 v-if="!task">Add Task</h2>
+        <h2 v-else>{{task}}</h2>
         <main>
             <div class="info">
-                <h3>Task Info:</h3>
+                <!-- <h3>Task Info:</h3>
                 <div class="task-name">
                     <p>Task:</p> <p class="input">{{task}}</p>
                 </div>
@@ -16,20 +17,21 @@
                 </div>
                 <div class="color">
                     <p>Colorlabel:</p>
-                </div>
+                </div> -->
                 <!-- <div class="color-labels-container">
                     <ColorLabels
                         :addTask='true'
                         v-on:addColorLabel='addColorLabel'
                     />
                 </div> -->
-                <!-- <div class="general">
-                    <h2>General Info</h2>
-                    <div class="field">
-                        <label for="task">Task:</label>
-                        <input type="text" name="task" v-model="task">
-                    </div>
-                    <div class="task-time">
+                <input type="text" name="task" v-model="task" placeholder="Name your task" autocomplete="off">
+                <div class="field notes">
+                    <label for="notes">Notes</label>
+                    <textarea name="notes" cols="30" rows="10" placeholder="Insert your notes here. This is not a must!"></textarea>
+                </div>
+                <div class="general">
+                    <!-- <h2>General Info</h2> -->
+                    <!-- <div class="task-time">
                         <div class="field">
                             <label for="task">Begin:</label>
                             <div class="time">
@@ -52,8 +54,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="field days">
+                    </div> -->
+                    <!-- <div class="field days">
                         <label>Days:</label>
                         <div class="day">
                             <input type="checkbox" @input="checkboxValues" name="day" id="monday">
@@ -83,14 +85,21 @@
                             <input type="checkbox" @input="checkboxValues" name="day" id="sunday">
                             <label for="sunday">Sun</label>
                         </div>
-                    </div>
-                </div> -->
+                    </div> -->
+                </div>
             </div>
-            <div class="user-input">
-                <General
+            <div class="extra-info">
+                <div class="field period-choice">
+                    <input type="radio" name="period" id="daily">
+                    <label for="daily">Daily</label>
+                    <input type="radio" name="period" id="weekly">
+                    <label for="weekly">Weekly</label>
+                </div>
+                <!-- <General
+                    v-if="state===1"
                     v-on:sendingInput="settingData"
                     v-on:nextInput="nextInput"
-                />
+                /> -->
             </div>
         </main>
         <!-- <div class="field">
@@ -105,6 +114,7 @@
                 <button>Submit</button>
             </div>
         </div> -->
+        <button type="submit">Submit</button>
     </form>
 </div>            
 </template>
@@ -116,12 +126,10 @@ import {addDayToMsg} from '@/components/helpers/overlap'
 import ColorLabels from '@/components/Planner/ColorLabels'
 import firebase from 'firebase'
 import db from '@/firebase/init'
-import General from '@/components/Planner/AddTask/General'
 export default {
     name: 'AddTask',
     components:{
-        ColorLabels,
-        General
+        ColorLabels
     },
     data(){
         return{
@@ -140,12 +148,13 @@ export default {
             user: null,
             dailyTasks: [],
             color: null,
-            notes: null
+            notes: null,
+            state: 1
         }
     },
     methods:{
-        nextInput(){
-
+        nextInput(state){
+            this.state = state
         },
         submit(){
             if(
@@ -257,8 +266,10 @@ export default {
     align-items: center;
 }
 #AddTask{
+    border-radius: 5px;
+    overflow: hidden;
     --chosen-color: black;
-    width: 800px;
+    width: 600px;
     background: white;
     color: black;
 }
@@ -270,7 +281,15 @@ export default {
 }
 #AddTask > h2 span{
     font-weight: normal;
-    color: rgba(255,255,255,.6)
+    color: rgba(255,255,255,.6);
+}
+#AddTask button[type="submit"]{
+    width: 100%;
+    margin: 0;
+    border: none;
+    padding: 10px;
+    background: rgba(0,0,0,.05);
+    color: rgba(0,0,0,.3);
 }
 #AddTask .color-labels-container{
     width: 40%;
@@ -303,17 +322,100 @@ export default {
     width: 100%;
     display: flex;
 }
-#AddTask .info{
+#AddTask .info,
+#AddTask .extra-info{
     display: flex;
     width: 50%;
     justify-content: flex-start;
     flex-direction: column;
     padding: 20px;
-    border-right: solid 1px black;
+}
+#AddTask .info{
+    border-right: solid 1px rgba(0,0,0,.2);
     /* background: orange; */
 }
 #AddTask .info h3{
     margin-bottom: 5px;
+}
+#AddTask .info input[type='text'],
+#AddTask .info textarea{
+    border-radius: 3px;
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif
+}
+#AddTask .info input[type='text']{
+    border: none;
+    width: 100%;
+    font-size: 1.5em;
+    font-weight: bold;
+    transition: .25s;
+    opacity: .5;
+}
+#AddTask .info input[type='text']:focus,
+#AddTask .info input[type='text']:hover,
+#AddTask .info textarea:focus,
+#AddTask .info textarea:hover{
+    background: rgba(0,0,0,.075);
+}
+#AddTask .info input[type='text']::placeholder{
+    font-weight: bold;
+    opacity: .5;
+}
+
+#AddTask .info .field.notes{
+    display: flex;
+    flex-direction: column;
+}
+
+#AddTask .extra-info input{
+    display: none;
+}
+#AddTask .extra-info input[type="radio"]:checked + label{
+    opacity: 1;
+}
+#AddTask .extra-info label{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: solid 1px black;
+    display: inline-block;
+    font-size: .5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-align: center;
+    line-height: 50px;
+    vertical-align: middle;
+    opacity: .3;
+    cursor: pointer;
+    transition: .25s;
+}
+#AddTask .extra-info label:hover{
+    opacity: 1;
+}
+#AddTask .extra-info .field.period-choice{
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: space-around;
+}
+
+
+
+
+#AddTask .field.notes label{
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px;
+    font-size: .8em;
+}
+#AddTask .field.notes textarea{
+    resize: none;
+    border: none;
+    opacity: .7;
+}
+#AddTask .field.notes textarea::placeholder{
+    opacity: .5;
 }
 #AddTask .info > div{
     margin: 2px 0;
@@ -343,12 +445,6 @@ export default {
     display: block;
     text-align: center;
     margin-bottom: 5px;
-}
-#AddTask .general input[type='text']{
-    border: none;
-    width: 80%;
-    border-bottom: solid 1px rgba(0,0,0,.2);
-    padding: 5px;
 }
 #AddTask input[type='checkbox']{
     display: none;

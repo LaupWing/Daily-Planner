@@ -74,8 +74,8 @@ export default {
         },
         taskWatcher(){
             const findTask = this.tasks.find((task)=>{
-                const begin = converDateToMS(task.begin)
-                const end = converDateToMS(task.end)
+                const begin = converDateToMS(this.getTimeOfThisDay('begin', task))
+                const end = converDateToMS(this.getTimeOfThisDay('end', task))
                 const currentTimeInMS = converDateToMS()
                 if(begin<=currentTimeInMS && end>=currentTimeInMS){
                     return task
@@ -100,8 +100,8 @@ export default {
         changeTimeSize(task){
             const quarterInMs = 900000
             const allLi = Array.from(document.querySelectorAll('#Timeline li'))
-            const taskBegin = converDateToMS(task.begin)
-            const taskEnd = converDateToMS(task.end)
+            const taskBegin = converDateToMS(this.getTimeOfThisDay('begin', task))
+            const taskEnd = converDateToMS(this.getTimeOfThisDay('end', task))
             let beginLi = null
             let endLi = null
             

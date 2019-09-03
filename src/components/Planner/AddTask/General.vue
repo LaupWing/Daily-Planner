@@ -28,7 +28,8 @@ export default {
             this.$emit('sendingInput', {type, value: this[type]})
         },
         nextInput(){
-            if(!this.task){
+            console.log('test')
+            if(this.task === null){
                 this.feedback = 'You have to fill in the name of this task'
             }else{
                 this.$emit('nextInput', 2)
@@ -42,7 +43,7 @@ export default {
 #AddTask .general textarea{
     width: 80%;
     margin: auto;
-    display: inline-block;
+    display: block;
 }
 #AddTask .field.notes label{
     width: 100%;

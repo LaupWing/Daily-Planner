@@ -79,6 +79,7 @@ export default {
       this.$el.querySelector('#planner').scrollTo(0,point)
     },
     setTask(task){
+      console.log(task)
       this.$emit('setTask', task)
     },
     adjustPosition(){

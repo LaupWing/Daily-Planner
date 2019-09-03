@@ -109,7 +109,8 @@ body{
   color: white;
 }
 input,
-button{
+button,
+textarea{
   outline: none;
 }
 li{
