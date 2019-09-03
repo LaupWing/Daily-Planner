@@ -5,8 +5,8 @@
             v-for="(task, index) in tasks"
             :class="{'expanded':edit === task}"
             :key="index"
-            :data-begin="task.begin"
-            :data-end="task.end"
+            :data-begin="getTimeOfThisDay('begin', task)"
+            :data-end="getTimeOfThisDay('end', task)"
             :style="{background: task.color.color}"
         >
             <i 
@@ -15,8 +15,8 @@
                 @click="editTask(task)"></i>
             <p class="task-name" v-if="edit !== task">{{task.task}}</p>
             <div class="time">
-                <p class="task-begin" v-if="edit !== task">{{task.begin}}-</p>
-                <p class="task-end" v-if="edit !== task">{{task.end}}</p>
+                <p class="task-begin" v-if="edit !== task">{{getTimeOfThisDay('begin', task)}}-</p>
+                <p class="task-end" v-if="edit !== task">{{getTimeOfThisDay('end', task)}}</p>
             </div>
             <TaskEdit
                 v-if="edit === task"
@@ -52,10 +52,15 @@ export default {
             currentTask: null,
             edit: null,
             taskHeights:[],
-            preventStateChangeFlag: false
+            preventStateChangeFlag: false,
+            today: null
         }
     },
     methods:{
+        getTimeOfThisDay(state, task){
+            return task.days
+                .find(day=>day.day===this.today)[state]
+        },
         preventStateChange(){
             this.preventStateChangeFlag = true
         },
@@ -232,14 +237,17 @@ export default {
                                 .data()
                                 .dailyTasks
                                 
+                            const date = new Date()
+                            const dateNumber =  date.getDay()
+                            const currentDay = days[dateNumber]
+                            this.today = currentDay
                             this.tasks = doc
                                 .data()
                                 .dailyTasks
                                 .filter(task=>{
-                                    const date = new Date()
-                                    const dateNumber =  date.getDay()
-                                    const day = days[dateNumber]
-                                    if(task.days.includes(day)){
+                                    const checkDay = task.days.some(day=>day.day===currentDay)
+                                    console.log(checkDay)
+                                    if(checkDay){
                                         return task
                                     }
                                 })
