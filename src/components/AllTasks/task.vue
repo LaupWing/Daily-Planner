@@ -25,7 +25,7 @@ export default {
         getRgb(color){
             const rgbaArray = colorString.get.rgb(this.task.color.color.toLowerCase())
             return {
-                background: `rgba(${rgbaArray[0]},${rgbaArray[1]},${rgbaArray[2]},.2)`
+                background: `rgba(${rgbaArray[0]},${rgbaArray[1]},${rgbaArray[2]},.4)`
             }
         },
         activeDay(day){
