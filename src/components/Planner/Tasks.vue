@@ -84,12 +84,14 @@ export default {
             })
             if(findTask){
                 this.changeTimeSize(findTask)
+                // For the message under the current time
                 this.currentTask = findTask.task
                 this.$emit('setTask', this.currentTask)
             }else{
                 document.querySelectorAll('#Timeline li').forEach(li=>{
                     li.classList.remove('highlight')
                 })
+                // For the message under the current time
                 this.currentTask = 'No Tasks Right now!'
                 this.$emit('setTask', this.currentTask)
             }

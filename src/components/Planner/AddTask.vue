@@ -1,78 +1,99 @@
 <template>
 <div class="add-task-bg">
     <form @submit.prevent="submit" id="AddTask"> 
-        <h2>AddTask</h2>
-        <div class="info">
-            <div class="color-labels-container">
-                <ColorLabels
-                    :addTask='true'
-                    v-on:addColorLabel='addColorLabel'
+        <h2>Add Task <span>step</span> </h2>
+        <main>
+            <div class="info">
+                <h3>Task Info:</h3>
+                <div class="task-name">
+                    <p>Task:</p> <p class="input">{{task}}</p>
+                </div>
+                <div class="notes">
+                    <p>Notes:</p><p class="input">{{notes}}</p>
+                </div>
+                <div class="days">
+                    <p>Days: </p>
+                </div>
+                <div class="color">
+                    <p>Colorlabel:</p>
+                </div>
+                <!-- <div class="color-labels-container">
+                    <ColorLabels
+                        :addTask='true'
+                        v-on:addColorLabel='addColorLabel'
+                    />
+                </div> -->
+                <!-- <div class="general">
+                    <h2>General Info</h2>
+                    <div class="field">
+                        <label for="task">Task:</label>
+                        <input type="text" name="task" v-model="task">
+                    </div>
+                    <div class="task-time">
+                        <div class="field">
+                            <label for="task">Begin:</label>
+                            <div class="time">
+                                <div class="hours">
+                                    <input @input="setTaskTime('begin', 'hours')" type="number" name="hours" min="00" max="23" value="00">
+                                </div>
+                                <div class="minutes">
+                                    <input @input="setTaskTime('begin', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="task">End:</label>
+                            <div class="time">
+                                <div class="hours">
+                                    <input @input="setTaskTime('end', 'hours')" type="number" name="hours" min="00" max="23" value="00" v-model="end.hours">
+                                </div>
+                                <div class="minutes">
+                                    <input @input="setTaskTime('end', 'minutes')" type="number" name="minutes" min="00" max="59" value="00" v-model="end.minutes">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field days">
+                        <label>Days:</label>
+                        <div class="day">
+                            <input type="checkbox" @input="checkboxValues" name="day" id="monday">
+                            <label for="monday">Mon</label>
+                        </div>
+                        <div class="day">
+                            <input type="checkbox" @input="checkboxValues" name="day" id="tuesday">
+                            <label for="tuesday">Tue</label>
+                        </div>
+                        <div class="day">
+                            <input type="checkbox" @input="checkboxValues" name="day" id="wednesday">
+                            <label for="wednesday">Wed</label>
+                        </div>
+                        <div class="day">
+                            <input type="checkbox" @input="checkboxValues" name="day" id="thursday">
+                            <label for="thursday">Thu</label>
+                        </div>
+                        <div class="day">
+                            <input type="checkbox" @input="checkboxValues" name="day" id="friday">
+                            <label for="friday">Fri</label>
+                        </div>
+                        <div class="day">
+                            <input type="checkbox" @input="checkboxValues" name="day" id="saturday">
+                            <label for="saturday">Sat</label>
+                        </div>
+                        <div class="day">
+                            <input type="checkbox" @input="checkboxValues" name="day" id="sunday">
+                            <label for="sunday">Sun</label>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="user-input">
+                <General
+                    v-on:sendingInput="settingData"
+                    v-on:nextInput="nextInput"
                 />
             </div>
-            <div class="general">
-                <h2>General Info</h2>
-                <div class="field">
-                    <label for="task">Task:</label>
-                    <input type="text" name="task" v-model="task">
-                </div>
-                <div class="task-time">
-                    <div class="field">
-                        <label for="task">Begin:</label>
-                        <div class="time">
-                            <div class="hours">
-                                <input @input="setTaskTime('begin', 'hours')" type="number" name="hours" min="00" max="23" value="00">
-                            </div>
-                            <div class="minutes">
-                                <input @input="setTaskTime('begin', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="task">End:</label>
-                        <div class="time">
-                            <div class="hours">
-                                <input @input="setTaskTime('end', 'hours')" type="number" name="hours" min="00" max="23" value="00" v-model="end.hours">
-                            </div>
-                            <div class="minutes">
-                                <input @input="setTaskTime('end', 'minutes')" type="number" name="minutes" min="00" max="59" value="00" v-model="end.minutes">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="field days">
-                    <label>Days:</label>
-                    <div class="day">
-                        <input type="checkbox" @input="checkboxValues" name="day" id="monday">
-                        <label for="monday">Mon</label>
-                    </div>
-                    <div class="day">
-                        <input type="checkbox" @input="checkboxValues" name="day" id="tuesday">
-                        <label for="tuesday">Tue</label>
-                    </div>
-                    <div class="day">
-                        <input type="checkbox" @input="checkboxValues" name="day" id="wednesday">
-                        <label for="wednesday">Wed</label>
-                    </div>
-                    <div class="day">
-                        <input type="checkbox" @input="checkboxValues" name="day" id="thursday">
-                        <label for="thursday">Thu</label>
-                    </div>
-                    <div class="day">
-                        <input type="checkbox" @input="checkboxValues" name="day" id="friday">
-                        <label for="friday">Fri</label>
-                    </div>
-                    <div class="day">
-                        <input type="checkbox" @input="checkboxValues" name="day" id="saturday">
-                        <label for="saturday">Sat</label>
-                    </div>
-                    <div class="day">
-                        <input type="checkbox" @input="checkboxValues" name="day" id="sunday">
-                        <label for="sunday">Sun</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="field">
+        </main>
+        <!-- <div class="field">
             <div class="feedback" v-if="feedback.length>0">
                 <p  
                     v-for="(feed, index) in feedback"
@@ -83,7 +104,7 @@
                 <button type="button" @click="toggle">Cancel</button>
                 <button>Submit</button>
             </div>
-        </div>
+        </div> -->
     </form>
 </div>            
 </template>
@@ -95,11 +116,12 @@ import {addDayToMsg} from '@/components/helpers/overlap'
 import ColorLabels from '@/components/Planner/ColorLabels'
 import firebase from 'firebase'
 import db from '@/firebase/init'
-
+import General from '@/components/Planner/AddTask/General'
 export default {
     name: 'AddTask',
     components:{
-        ColorLabels
+        ColorLabels,
+        General
     },
     data(){
         return{
@@ -117,10 +139,14 @@ export default {
             feedbackMsg: null,
             user: null,
             dailyTasks: [],
-            color: null
+            color: null,
+            notes: null
         }
     },
     methods:{
+        nextInput(){
+
+        },
         submit(){
             if(
                 this.days.length !== 0 &&
@@ -173,6 +199,9 @@ export default {
                 this.feedback = []
                 this.feedback.push( 'You have to fill in all the fields')
             }
+        },
+        settingData(obj){
+            this[obj.type] = obj.value
         },
         checkboxValues(){
             this.days =[]
@@ -229,7 +258,7 @@ export default {
 }
 #AddTask{
     --chosen-color: black;
-    width: 650px;
+    width: 800px;
     background: white;
     color: black;
 }
@@ -238,6 +267,10 @@ export default {
     padding: 10px;
     background: var(--chosen-color);
     color: white;
+}
+#AddTask > h2 span{
+    font-weight: normal;
+    color: rgba(255,255,255,.6)
 }
 #AddTask .color-labels-container{
     width: 40%;
@@ -266,14 +299,35 @@ export default {
     width: 140px;
     margin: 10px auto;
 }
+#AddTask main{
+    width: 100%;
+    display: flex;
+}
 #AddTask .info{
     display: flex;
-    width: 100%;
-    justify-content: space-between;
+    width: 50%;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 20px;
+    border-right: solid 1px black;
+    /* background: orange; */
 }
-#AddTask .general{
-    width: 55%;
+#AddTask .info h3{
+    margin-bottom: 5px;
+}
+#AddTask .info > div{
+    margin: 2px 0;
+    display: flex;
+}
+#AddTask .info .input{
+    margin-left: 10px;
+    color: rgba(0,0,0,.5);
+    max-width: 80%;
+    word-break:break-all;
+}
+#AddTask .user-input{
     padding: 10px;
+    width: 50%;
 }
 #AddTask .field{
     margin: 10px 0;
