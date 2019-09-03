@@ -90,10 +90,16 @@
             </div>
             <div class="extra-info">
                 <div class="field period-choice">
-                    <input type="radio" name="period" id="daily">
+                    <input type="radio" name="period" id="daily" @input="setPeriod">
                     <label for="daily">Daily</label>
-                    <input type="radio" name="period" id="weekly">
+                    <input type="radio" name="period" id="weekly" @input="setPeriod">
                     <label for="weekly">Weekly</label>
+                </div>
+                <div class="time" v-if="period">
+                    <Days
+                        :period="period"
+                    />
+                    <!-- <button>Set Time</button> -->
                 </div>
                 <!-- <General
                     v-if="state===1"
@@ -124,12 +130,15 @@ import {addZero} from '@/components/helpers/timeFormat'
 import {checkOverlap} from '@/components/helpers/overlap'
 import {addDayToMsg} from '@/components/helpers/overlap'
 import ColorLabels from '@/components/Planner/ColorLabels'
+import Days from '@/components/Planner/AddTask/Days'
+
 import firebase from 'firebase'
 import db from '@/firebase/init'
 export default {
     name: 'AddTask',
     components:{
-        ColorLabels
+        ColorLabels,
+        Days
     },
     data(){
         return{
@@ -149,12 +158,17 @@ export default {
             dailyTasks: [],
             color: null,
             notes: null,
-            state: 1
+            state: 1,
+            period: null
         }
     },
     methods:{
         nextInput(state){
             this.state = state
+        },
+        setPeriod(){
+            this.period = event.target.id
+            console.log(this.period)
         },
         submit(){
             if(
@@ -399,7 +413,19 @@ export default {
     margin: 0 auto;
     justify-content: space-around;
 }
-
+#AddTask .extra-info .time{
+    margin-top: 10px;
+}
+#AddTask .extra-info button{
+    border: solid 1px black;
+    padding: 3px 7px;
+    background: transparent;
+    border-radius: 5px;
+    opacity: .4;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    /* font-size: .5em; */
+}
 
 
 
@@ -536,7 +562,7 @@ export default {
     margin-left: 10px;
     cursor: pointer;
 }
-#AddTask > .field button{
+/* #AddTask > .field button{
     padding: 8px 15px;
     border-radius: 20px;
     border: solid 1px var(--chosen-color);
@@ -544,7 +570,7 @@ export default {
     background: white;
     cursor: pointer;
     transition: .25s;
-}
+} */
 #AddTask > .field button:hover{
     background: var(--chosen-color);
     color: white;
