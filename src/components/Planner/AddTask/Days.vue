@@ -96,10 +96,13 @@ export default {
 .days-addTask .field p{
     font-size: .8em;
     text-align: center;
-    width: 100%;
+    margin: auto;
+    border-bottom: solid 1px rgba(0,0,0,.2);
 }
 #AddTask .days-addTask  button{
-    margin: auto;
+    margin: 10px auto;
+    display: block;
+    font-size: .7em;
 }
 #AddTask .days-addTask label{
 
