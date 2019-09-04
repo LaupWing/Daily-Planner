@@ -2,37 +2,37 @@
     <div class="time-popup-bg" @click="closePopup">
         <div class="time-popup">
             <div class="days-choice">
-                <div class="field">
+                <div class="field" v-if="display==='all'">
                     <input type="checkbox" name="day" id="all-choice" @input="userDaySelection">
-                    <label for="all-choice" v-if="display==='all'">all</label>
+                    <label for="all-choice">all</label>
                 </div>
-                <div class="field">
+                <div class="field" v-if="display==='all' || display==='mon'">
                     <input type="checkbox" name="day" id="mon-choice" @input="userDaySelection">
-                    <label for="mon-choice" v-if="display==='all' || display==='mon'">mon</label>
+                    <label for="mon-choice">mon</label>
                 </div>
-                <div class="field">
+                <div class="field" v-if="display==='all' || display==='tue'">
                     <input type="checkbox" name="day" id="tue-choice" @input="userDaySelection">
-                    <label for="tue-choice" v-if="display==='all' || display==='tue'">tue</label>
+                    <label for="tue-choice">tue</label>
                 </div>
-                <div class="field">
+                <div class="field" v-if="display==='all' || display==='wed'">
                     <input type="checkbox" name="day" id="wed-choice" @input="userDaySelection">
-                    <label for="wed-choice" v-if="display==='all' || display==='wed'">wed</label>
+                    <label for="wed-choice">wed</label>
                 </div>
-                <div class="field">
+                <div class="field" v-if="display==='all' || display==='thu'">
                     <input type="checkbox" name="day" id="thu-choice" @input="userDaySelection">
-                    <label for="thu-choice" v-if="display==='all' || display==='thu'">thu</label>
+                    <label for="thu-choice">thu</label>
                 </div>
-                <div class="field">
+                <div class="field" v-if="display==='all' || display==='fri'">
                     <input type="checkbox" name="day" id="fri-choice" @input="userDaySelection">
-                    <label for="fri-choice" v-if="display==='all' || display==='fri'">fri</label>
+                    <label for="fri-choice">fri</label>
                 </div>
-                <div class="field">
+                <div class="field" v-if="display==='all' || display==='sat'">
                     <input type="checkbox" name="day" id="sat-choice" @input="userDaySelection">
-                    <label for="sat-choice" v-if="display==='all' || display==='sat'">sat</label>
+                    <label for="sat-choice">sat</label>
                 </div>
-                <div class="field">
+                <div class="field" v-if="display==='all' || display==='sun'">
                     <input type="checkbox" name="day" id="sun-choice" @input="userDaySelection" >
-                    <label for="sun-choice" v-if="display==='all' || display==='sun'">sun</label>
+                    <label for="sun-choice">sun</label>
                 </div>
             </div>
             <div class="time">
@@ -47,7 +47,8 @@
                     <input type="number" name="minutes" min="00" max="59" value="00" v-model="end.minutes">
                 </div>
             </div>
-            <button @click="addDaysAndTime">Add Time</button>
+            <button @click="addDaysAndTime" v-if="display ==='all'">Add Time</button>
+            <button v-else>Change Time</button>
         </div>
     </div>  
 </template>
@@ -56,7 +57,7 @@
 import {addZero} from '@/components/helpers/timeFormat'
 export default {
     name:'TimePopup',
-    props:['period', 'days', 'display'],
+    props:['period', 'days', 'display', 'timeToEdit'],
     data(){
         return{
             daysArray: [],
@@ -130,6 +131,12 @@ export default {
     },
     created(){
         this.allDays = this.days
+        if(this.timeToEdit){
+            this.begin.hours = this.timeToEdit.begin.split(':')[0]
+            this.begin.minutes = this.timeToEdit.begin.split(':')[1]
+            this.end.hours = this.timeToEdit.end.split(':')[0]
+            this.end.minutes = this.timeToEdit.end.split(':')[1]
+        }
     },
     mounted(){
         this.$el.querySelectorAll('input[type="checkbox"]').forEach(input=>{

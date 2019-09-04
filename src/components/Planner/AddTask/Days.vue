@@ -4,67 +4,67 @@
             <div class="field" >
                 <input type="checkbox" name="days" id="mon" checked>
                 <label for="mon">mon</label>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('mon')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('mon')">{{setTimePeroid('mon')}}</p>
             </div>
             <div class="field">
                 <input type="checkbox" name="days" id="tue" checked>
                 <label for="tue">tue</label>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('tue')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('tue')">{{setTimePeroid('tue')}}</p>
             </div>
             <div class="field">
                 <input type="checkbox" name="days" id="wed" checked>
                 <label for="wed">wed</label>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('wed')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('wed')">{{setTimePeroid('wed')}}</p>
             </div>
             <div class="field">
                 <input type="checkbox" name="days" id="thu" checked>
                 <label for="thu">thu</label>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('thu')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('thu')">{{setTimePeroid('thu')}}</p>
             </div>
             <div class="field">
                 <input type="checkbox" name="days" id="fri" checked>
                 <label for="fri">fri</label>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('fri')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('fri')">{{setTimePeroid('fri')}}</p>
             </div>
             <div class="field">
                 <input type="checkbox" name="days" id="sat" checked>
                 <label for="sat">sat</label>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('sat')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('sat')">{{setTimePeroid('sat')}}</p>
             </div>
             <div class="field">
                 <input type="checkbox" name="days" id="sun" checked>
                 <label for="sun">sun</label>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('sun')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('sun')">{{setTimePeroid('sun')}}</p>
             </div>        
         </div>
         <div class="days" :class="{'selected':days.length>0}" v-else>
             <div class="field">
                 <p class="day">mon</p>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('mon')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('mon')">{{setTimePeroid('mon')}}</p>
             </div>
             <div class="field">
                 <p class="day">tue</p>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('tue')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('tue')">{{setTimePeroid('tue')}}</p>
             </div>
             <div class="field">
                 <p class="day">wed</p>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('wed')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('wed')">{{setTimePeroid('wed')}}</p>
             </div>
             <div class="field">
                 <p class="day">thu</p>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('thu')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('thu')">{{setTimePeroid('thu')}}</p>
             </div>
             <div class="field">
                 <p class="day">fri</p>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('fri')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('fri')">{{setTimePeroid('fri')}}</p>
             </div>
             <div class="field">
                 <p class="day">sat</p>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('sat')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('sat')">{{setTimePeroid('sat')}}</p>
             </div>
             <div class="field">
                 <p class="day">sun</p>
-                <p class="time-span" v-if="days.length>0">{{setTimePeroid('sun')}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime('sun')">{{setTimePeroid('sun')}}</p>
             </div>          
         </div>
         <div class="set-time">
@@ -72,6 +72,7 @@
                 :period="period"
                 :days="days"
                 :display="display"
+                :timeToEdit="timeToEdit"
                 v-on:toggleTime="activateTime"
                 v-if="setTime"
                 v-on:userSelectedTime="userSelectedTime"
@@ -93,12 +94,31 @@ export default {
     data(){
         return{
             setTime: false,
-            display: null
+            display: null,
+            timeToEdit:null
         }
     },
     methods:{
         activateTime(display){
             this.display = display
+            if(this.display !== 'all'){
+                const time = this.days.find(day=>day.day === display)
+                if(time){
+                    this.timeToEdit = {
+                        begin:{
+                            hours: null,
+                            minutes: null
+                        },
+                        end:{
+                            hours: null,
+                            minutes: null
+                        }
+                    }
+                    this.timeToEdit.begin = time.begin
+                    this.timeToEdit.end = time.end
+                }
+            }
+            // this.timeToEdit.begin.hours =
             this.setTime = !this.setTime
         },
         userSelectedTime(days){
