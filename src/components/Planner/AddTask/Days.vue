@@ -9,7 +9,13 @@
                 v-for="(day,index) in daysName"
                 :key="index"
             >
-                <input v-if="period==='weekly'" type="checkbox" name="days" :id="day" checked>
+                <input 
+                    type="checkbox" 
+                    name="days" 
+                    :id="day" 
+                    v-if="period==='weekly'"
+                    @input="toggleDay"
+                >
                 <label v-if="period==='weekly'" :for="day">{{day}}</label>
                 <p v-if="period==='daily'" class="day">{{day}}</p>
                 <p class="time-span" v-if="days.length>0"  @click="activateTime(day)">{{setTimePeroid(day)}}</p>
@@ -67,22 +73,32 @@ export default {
                     this.timeToEdit.end = time.end
                 }
             }
-            // this.timeToEdit.begin.hours =
             this.setTime = !this.setTime
         },
         userSelectedTime(days){
             this.activateTime()
-            this.$emit('userSelectedTime', days)
+            this.$emit('updateDaysAndTime', days)
         },
         setTimePeroid(day){
             const findDay = this.days.find(d=>d.day===day)
             if(findDay){
                 return `${findDay.begin} - ${findDay.end}`
             }
+        },
+        toggleDay(){
+            if(event.target.checked){
+            }else{
+                const findDay = this.days.find(day=>day.day === event.target.id)
+                if(findDay){
+                    const updatedDays = this.days.filter(day=>{
+                        if(JSON.stringify(day)!==JSON.stringify(findDay)){
+                            return day
+                        }
+                    })
+                    this.$emit('updateDaysAndTime', updatedDays)
+                }
+            }
         }
-    },
-    created(){
-        console.log(this.period)
     }
 }
 </script>
@@ -116,7 +132,10 @@ export default {
 #AddTask .days .field p{
     margin: 5px 0;
 }
-#AddTask .days .field p.day,
+#AddTask .days .field p.day{
+    width: 100%;
+}
+
 #AddTask .days .field label{
     width: 20%;
 }
@@ -133,6 +152,9 @@ export default {
 }
 #AddTask .days-addTask .days.selected{
     flex-direction: column;
+}
+#AddTask .days-addTask .days.selected p.day{
+    width: 20%;
 }
 #AddTask .days-addTask .days label{
     font-size: .4em;

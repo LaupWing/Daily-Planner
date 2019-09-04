@@ -24,7 +24,7 @@
                     <Days
                         :period="period"
                         :days="days"
-                        v-on:userSelectedTime="userSelectedTime"
+                        v-on:updateDaysAndTime="updateDaysAndTime"
                     />
                 </div>
                 
@@ -86,7 +86,8 @@ export default {
         }
     },
     methods:{
-        userSelectedTime(days){
+        updateDaysAndTime(days){
+            console.log(days, this.days)
             this.days = days
             console.log(this.days)
         },

@@ -156,6 +156,24 @@ export default {
         }
     },
     mounted(){
+        const setCheckbox = (input, state)=>{
+            this.$el.querySelectorAll('input[type="checkbox"]').forEach(input2=>{
+                const day = input2.id.split('-choice')[0].trim()
+                if(input.id === day){
+                    // console.log(input2, state)
+                    input2.disabled = state
+                }
+            })
+        }
+        if(this.period === "weekly"){
+            document.querySelectorAll('.days.checkbox input[type="checkbox"]').forEach(input=>{
+                if(!input.checked){
+                    setCheckbox(input, true)
+                }else{
+                    setCheckbox(input, false)
+                }
+            })
+        }
         this.$el.querySelectorAll('input[type="checkbox"]').forEach(input=>{
             const day = input.id.split('-choice')[0].trim()
             const findDay = this.days.find(d=>d.day===day)
