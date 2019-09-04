@@ -100,6 +100,7 @@
                 <div class="time" v-if="period">
                     <Days
                         :period="period"
+                        v-on:userSelectedTime="userSelectedTime"
                     />
                     <!-- <button>Set Time</button> -->
                 </div>
@@ -166,6 +167,9 @@ export default {
         }
     },
     methods:{
+        userSelectedTime(days){
+            
+        },
         nextInput(state){
             this.state = state
         },

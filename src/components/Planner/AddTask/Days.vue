@@ -1,7 +1,7 @@
 <template>
     <div class="days-addTask">
-        <div class="days">
-            <div class="field">
+        <div class="days" v-if="period === 'weekly'">
+            <div class="field" >
                 <input type="checkbox" name="days" id="mon">
                 <label for="mon">mon</label>
                 <!-- <button>set time</button> -->
@@ -37,63 +37,77 @@
                 <!-- <button>set time</button> -->
             </div>        
         </div>
-        <!-- <div class="days" v-else>
+        <div class="days" :class="{'selected':daysAndTime.length>0}" v-else>
             <div class="field">
                 <p class="day">mon</p>
-                <button>set time</button>
+                <!-- <button>set time</button> -->
             </div>
             <div class="field">
                 <p class="day">tue</p>
-                <button>set time</button>
+                <!-- <button>set time</button> -->
             </div>
             <div class="field">
                 <p class="day">wed</p>
-                <button>set time</button>
+                <!-- <button>set time</button> -->
             </div>
             <div class="field">
                 <p class="day">thu</p>
-                <button>set time</button>
+                <!-- <button>set time</button> -->
             </div>
             <div class="field">
                 <p class="day">fri</p>
-                <button>set time</button>
+                <!-- <button>set time</button> -->
             </div>
             <div class="field">
                 <p class="day">sat</p>
-                <button>set time</button>
+                <!-- <button>set time</button> -->
             </div>
             <div class="field">
                 <p class="day">sun</p>
-                <button>set time</button>
+                <!-- <button>set time</button> -->
             </div>          
-        </div> -->
+        </div>
         <div class="set-time">
-            <p for="task">Begin: </p>
-            <input type="number" name="hours" min="00" max="23" value="00">
+            <TimePopup
+                :period="period"
+                v-if="setTime"
+                v-on:userSelectedTime="userSelectedTime"
+            />
+            <!-- <p for="task">Begin: </p> -->
+            <!-- <input type="number" name="hours" min="00" max="23" value="00">
             <input type="number" name="minutes" min="00" max="59" value="00">
             <p for="task">End: </p>
             <input type="number" name="hours" min="00" max="23" value="00">
-            <input type="number" name="minutes" min="00" max="59" value="00">
-            <button @click="activateTime">Set</button>
+            <input type="number" name="minutes" min="00" max="59" value="00"> -->
+            <button @click="activateTime">Set Time</button>
         </div>
     </div>
 </template>
 
 <script>
+import TimePopup from '@/components/Planner/AddTask/Days/TimePopup'
+
 export default {
-    name: 'days-addTask',
+    name: 'Days',
     props:['period'],
+    components:{
+        TimePopup
+    },
     data(){
         return{
-            setTime: false
+            setTime: false,
+            daysAndTime: []
         }
     },
     methods:{
         activateTime(){
             this.setTime = !this.setTime
+        },
+        userSelectedTime(days){
+            console.log(days)
+            this.activateTime()
+            this.daysAndTime = days
         }
-    },
-    components:{
     }
 }
 </script>
@@ -117,6 +131,8 @@ export default {
 }
 #AddTask .days-addTask .days{
     display: flex;
+}
+#AddTask .days-addTask .days.selected{
     flex-direction: column;
 }
 #AddTask .days-addTask .days label{
@@ -137,11 +153,11 @@ export default {
     font-size: .8em;
     text-align: center;
     margin: auto;
-    border-bottom: solid 1px rgba(0,0,0,.2);
+    /* border-bottom: solid 1px rgba(0,0,0,.2); */
 }
 #AddTask .days-addTask  button{
-    /* margin: 10px auto;
-    display: block; */
+    margin: 10px auto;
+    display: block;
     font-size: .7em;
 }
 #AddTask .days-addTask label{
@@ -160,8 +176,8 @@ export default {
     color: white;
     opacity: 1;
 }
-#AddTask .days-addTask input[type='number']{
+/* #AddTask .days-addTask input[type='number']{
     font-size: .8em;
     width: 35px;
-}
+} */
 </style>
