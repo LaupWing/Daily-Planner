@@ -1,7 +1,7 @@
 <template>
     <div class="time-popup-bg" @click="closePopup">
         <div class="time-popup">
-            <div class="days-choice">
+            <div class="days-choice" :class="{'single':display!=='all'}">
                 <div class="field" v-if="display==='all'">
                     <input type="checkbox" name="day" id="all-choice" @input="userDaySelection">
                     <label for="all-choice">all</label>
@@ -174,6 +174,10 @@ export default {
 .time-popup .days-choice{
     display: flex;
     margin: 10px;
+}
+#AddTask .time-popup .days-choice.single .field{
+    width: 100%;
+    justify-content: center;
 }
 #AddTask .time-popup .field label{
     width: 30px;
