@@ -116,6 +116,15 @@ export default {
                 
             }
         }
+    },
+    mounted(){
+        this.$el.querySelectorAll('input[type="checkbox"]').forEach(input=>{
+            const day = input.id.split('-choice')[0].trim()
+            const findDay = this.daysAndTime.find(d=>d.day===day)
+            if(findDay){
+                input.disabled = true
+            }
+        })
     }
 }
 </script>
@@ -154,6 +163,12 @@ export default {
     background: black;
     color: white;
     opacity: 1;
+}
+#AddTask .time-popup input[type="checkbox"]:disabled + label{
+    background: black;
+    color: white;
+    opacity: .2;
+    cursor:auto;
 }
 .time-popup .time > div{
     margin: 10px;
