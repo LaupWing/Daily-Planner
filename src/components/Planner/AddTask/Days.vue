@@ -71,11 +71,12 @@
             <TimePopup
                 :period="period"
                 :days="days"
+                :display="display"
                 v-on:toggleTime="activateTime"
                 v-if="setTime"
                 v-on:userSelectedTime="userSelectedTime"
             />
-            <button @click="activateTime">Set Time</button>
+            <button @click="activateTime('all')">Set Time</button>
         </div>
     </div>
 </template>
@@ -91,11 +92,13 @@ export default {
     },
     data(){
         return{
-            setTime: false
+            setTime: false,
+            display: null
         }
     },
     methods:{
-        activateTime(){
+        activateTime(display){
+            this.display = display
             this.setTime = !this.setTime
         },
         userSelectedTime(days){
@@ -147,6 +150,11 @@ export default {
 }
 #AddTask .days .field p.time-span{
     border-bottom: solid 1px rgba(0,0,0,.2);
+    cursor: pointer;
+    transition: .5s;
+}
+#AddTask .days .field p.time-span:hover{
+    background: rgba(0,0,0,.2);
 }
 #AddTask .days.checkbox .field p.time-span{
     opacity: .2;

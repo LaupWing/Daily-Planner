@@ -4,35 +4,35 @@
             <div class="days-choice">
                 <div class="field">
                     <input type="checkbox" name="day" id="all-choice" @input="userDaySelection">
-                    <label for="all-choice">all</label>
+                    <label for="all-choice" v-if="display==='all'">all</label>
                 </div>
                 <div class="field">
                     <input type="checkbox" name="day" id="mon-choice" @input="userDaySelection">
-                    <label for="mon-choice">mon</label>
+                    <label for="mon-choice" v-if="display==='all' || display==='mon'">mon</label>
                 </div>
                 <div class="field">
                     <input type="checkbox" name="day" id="tue-choice" @input="userDaySelection">
-                    <label for="tue-choice">tue</label>
+                    <label for="tue-choice" v-if="display==='all' || display==='tue'">tue</label>
                 </div>
                 <div class="field">
                     <input type="checkbox" name="day" id="wed-choice" @input="userDaySelection">
-                    <label for="wed-choice">wed</label>
+                    <label for="wed-choice" v-if="display==='all' || display==='wed'">wed</label>
                 </div>
                 <div class="field">
                     <input type="checkbox" name="day" id="thu-choice" @input="userDaySelection">
-                    <label for="thu-choice">thu</label>
+                    <label for="thu-choice" v-if="display==='all' || display==='thu'">thu</label>
                 </div>
                 <div class="field">
                     <input type="checkbox" name="day" id="fri-choice" @input="userDaySelection">
-                    <label for="fri-choice">fri</label>
+                    <label for="fri-choice" v-if="display==='all' || display==='fri'">fri</label>
                 </div>
                 <div class="field">
                     <input type="checkbox" name="day" id="sat-choice" @input="userDaySelection">
-                    <label for="sat-choice">sat</label>
+                    <label for="sat-choice" v-if="display==='all' || display==='sat'">sat</label>
                 </div>
                 <div class="field">
-                    <input type="checkbox" name="day" id="sun-choice" @input="userDaySelection">
-                    <label for="sun-choice">sun</label>
+                    <input type="checkbox" name="day" id="sun-choice" @input="userDaySelection" >
+                    <label for="sun-choice" v-if="display==='all' || display==='sun'">sun</label>
                 </div>
             </div>
             <div class="time">
@@ -56,7 +56,7 @@
 import {addZero} from '@/components/helpers/timeFormat'
 export default {
     name:'TimePopup',
-    props:['period', 'days'],
+    props:['period', 'days', 'display'],
     data(){
         return{
             daysArray: [],
