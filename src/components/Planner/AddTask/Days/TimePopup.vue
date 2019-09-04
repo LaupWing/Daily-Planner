@@ -82,9 +82,15 @@ export default {
         },
         userDaySelection(){
             const choice = event.target.id.split('-choice')[0].trim()
-            const checkboxes = this.$el.querySelectorAll('input[type="checkbox"]')
+            const checkboxes = Array.from(this.$el.querySelectorAll('input[type="checkbox"]'))
             if(choice === 'all' && event.target.checked){
                 this.daysArray = []
+                const checkAllDisabled = checkboxes
+                    .filter(cb=>cb.id!=='all-choice')
+                    .every(cb=>{return cb.disabled})
+                if(checkAllDisabled){
+                    event.target.checked = false
+                }
                 checkboxes.forEach(cb=>{
                     if(cb.disabled)  return
                     cb.checked=true
@@ -164,7 +170,7 @@ export default {
 <style>
 .time-popup-bg{
     width: 100vw;
-    height: 100vw;
+    height: 100vh;
     background: rgba(0,0,0,.4);
     position: fixed;
     top: 0;

@@ -1,6 +1,21 @@
 <template>
     <div class="days-addTask">
-        <div class="days checkbox" :class="{'selected':days.length>0}" v-if="period === 'weekly'">
+        <div 
+            class="days" 
+            :class="{'checkbox': period ==='weekly','selected':days.length>0}"
+        >
+            <div 
+                class="field"
+                v-for="(day,index) in daysName"
+                :key="index"
+            >
+                <input v-if="period==='weekly'" type="checkbox" name="days" :id="day" checked>
+                <label v-if="period==='weekly'" :for="day">{{day}}</label>
+                <p v-if="period==='daily'" class="day">{{day}}</p>
+                <p class="time-span" v-if="days.length>0"  @click="activateTime(day)">{{setTimePeroid(day)}}</p>
+            </div>      
+        </div>
+        <!-- <div class="days checkbox" :class="{'selected':days.length>0}" v-if="period === 'weekly'">
             <div class="field" >
                 <input type="checkbox" name="days" id="mon" checked>
                 <label for="mon">mon</label>
@@ -66,7 +81,7 @@
                 <p class="day">sun</p>
                 <p class="time-span" v-if="days.length>0"  @click="activateTime('sun')">{{setTimePeroid('sun')}}</p>
             </div>          
-        </div>
+        </div> -->
         <div class="set-time">
             <TimePopup
                 :period="period"
@@ -95,7 +110,8 @@ export default {
         return{
             setTime: false,
             display: null,
-            timeToEdit:null
+            timeToEdit:null,
+            daysName:['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
         }
     },
     methods:{
@@ -131,6 +147,9 @@ export default {
                 return `${findDay.begin} - ${findDay.end}`
             }
         }
+    },
+    created(){
+        console.log(this.period)
     }
 }
 </script>
