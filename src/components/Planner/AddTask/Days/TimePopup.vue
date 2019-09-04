@@ -48,7 +48,7 @@
                 </div>
             </div>
             <button @click="addDaysAndTime" v-if="display ==='all'">Add Time</button>
-            <button v-else>Change Time</button>
+            <button @click="changeTime" v-else>Change Time</button>
         </div>
     </div>  
 </template>
@@ -102,6 +102,17 @@ export default {
                     this.daysArray = this.daysArray.filter(day=>day!==choice)
                 }
             }
+        },
+        changeTime(){
+            const updatedArray = this.days.map(day=>{
+                if(day.day === this.display){
+                    day.begin = `${addZero(this.begin.hours)}:${addZero(this.begin.minutes)}`
+                    day.end = `${addZero(this.end.hours)}:${addZero(this.end.minutes)}`
+                    return day
+                }
+                return day
+            })
+            this.$emit('userSelectedTime', updatedArray)
         },
         addDaysAndTime(){
             const userinput = this.daysArray
