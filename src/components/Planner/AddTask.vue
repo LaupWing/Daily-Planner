@@ -27,7 +27,7 @@
                 <input type="text" name="task" v-model="task" placeholder="Name your task" autocomplete="off">
                 <div class="field notes">
                     <label for="notes">Notes</label>
-                    <textarea name="notes" cols="30" rows="10" placeholder="Insert your notes here. This is not a must!"></textarea>
+                    <textarea name="notes" cols="30" rows="15" placeholder="Insert your notes here. This is not a must!"></textarea>
                 </div>
                 <div class="general">
                     <!-- <h2>General Info</h2> -->
@@ -94,6 +94,8 @@
                     <label for="daily">Daily</label>
                     <input type="radio" name="period" id="weekly" @input="setPeriod">
                     <label for="weekly">Weekly</label>
+                    <input type="radio" name="period" id="once" @input="setPeriod">
+                    <label for="once">Once</label>
                 </div>
                 <div class="time" v-if="period">
                     <Days
@@ -382,7 +384,7 @@ export default {
     flex-direction: column;
 }
 
-#AddTask .extra-info input{
+#AddTask .extra-info input[type="radio"]{
     display: none;
 }
 #AddTask .extra-info input[type="radio"]:checked + label{
@@ -499,16 +501,16 @@ export default {
     display: flex;
     justify-content: center;
 }
-#AddTask input[type='number']{
+/* #AddTask input[type='number']{
     font-size: 1.5em;
     width: 50px;
-}
-#AddTask .hours,
+} */
+/* #AddTask .hours,
 #AddTask .minutes{
     position: relative;
     margin-top: 15px; 
-}
-#AddTask .hours::before{
+} */
+/* #AddTask .hours::before{
     content: 'H';
     position: absolute;
     top: -18px;
@@ -525,7 +527,7 @@ export default {
     right: 0;
     margin: auto;
     text-align: center;
-}
+} */
 
 #AddTask > .field{
     width: 100%;

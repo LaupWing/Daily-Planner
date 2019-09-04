@@ -1,80 +1,85 @@
 <template>
     <div class="days-addTask">
-        <div class="days" v-if="period==='weekly'">
+        <div class="days">
             <div class="field">
-                <input type="checkbox" name="days" id="">
-                <label for="">mon</label>
-                <button>set time</button>
+                <input type="checkbox" name="days" id="mon">
+                <label for="mon">mon</label>
+                <!-- <button>set time</button> -->
             </div>
             <div class="field">
-                <input type="checkbox" name="days" id="">
-                <label for="">tue</label>
-                <button>set time</button>
+                <input type="checkbox" name="days" id="tue">
+                <label for="tue">tue</label>
+                <!-- <button>set time</button> -->
             </div>
             <div class="field">
-                <input type="checkbox" name="days" id="">
-                <label for="">wed</label>
-                <button>set time</button>
+                <input type="checkbox" name="days" id="wed">
+                <label for="wed">wed</label>
+                <!-- <button>set time</button> -->
             </div>
             <div class="field">
-                <input type="checkbox" name="days" id="">
-                <label for="">thu</label>
-                <button>set time</button>
+                <input type="checkbox" name="days" id="thu">
+                <label for="thu">thu</label>
+                <!-- <button>set time</button> -->
             </div>
             <div class="field">
-                <input type="checkbox" name="days" id="">
-                <label for="">fri</label>
-                <button>set time</button>
+                <input type="checkbox" name="days" id="fri">
+                <label for="fri">fri</label>
+                <!-- <button>set time</button> -->
             </div>
             <div class="field">
-                <input type="checkbox" name="days" id="">
-                <label for="">sat</label>
-                <button>set time</button>
+                <input type="checkbox" name="days" id="sat">
+                <label for="sat">sat</label>
+                <!-- <button>set time</button> -->
             </div>
             <div class="field">
-                <input type="checkbox" name="days" id="">
-                <label for="">sun</label>
-                <button>set time</button>
+                <input type="checkbox" name="days" id="sun">
+                <label for="sun">sun</label>
+                <!-- <button>set time</button> -->
             </div>        
         </div>
-        <div class="days" v-else>
+        <!-- <div class="days" v-else>
             <div class="field">
                 <p class="day">mon</p>
-                <!-- <button>set time</button> -->
+                <button>set time</button>
             </div>
             <div class="field">
                 <p class="day">tue</p>
-                <!-- <button>set time</button> -->
+                <button>set time</button>
             </div>
             <div class="field">
                 <p class="day">wed</p>
-                <!-- <button>set time</button> -->
+                <button>set time</button>
             </div>
             <div class="field">
                 <p class="day">thu</p>
-                <!-- <button>set time</button> -->
+                <button>set time</button>
             </div>
             <div class="field">
                 <p class="day">fri</p>
-                <!-- <button>set time</button> -->
+                <button>set time</button>
             </div>
             <div class="field">
                 <p class="day">sat</p>
-                <!-- <button>set time</button> -->
+                <button>set time</button>
             </div>
             <div class="field">
                 <p class="day">sun</p>
-                <!-- <button>set time</button> -->
+                <button>set time</button>
             </div>          
+        </div> -->
+        <div class="set-time">
+            <p for="task">Begin: </p>
+            <input type="number" name="hours" min="00" max="23" value="00">
+            <input type="number" name="minutes" min="00" max="59" value="00">
+            <p for="task">End: </p>
+            <input type="number" name="hours" min="00" max="23" value="00">
+            <input type="number" name="minutes" min="00" max="59" value="00">
+            <button @click="activateTime">Set</button>
         </div>
-        <TimePopup v-if="setTime"/>
-        <button @click="activateTime">Set time</button>
     </div>
 </template>
 
 <script>
-import TimePopup from '@/components/Planner/AddTask/Days/TimePopup'
-
 export default {
     name: 'days-addTask',
     props:['period'],
@@ -89,24 +94,43 @@ export default {
         }
     },
     components:{
-        TimePopup
     }
 }
 </script>
 
 <style>
+#AddTask .days-addTask{
+    animation: heightAnim 2s forwards;
+    max-height: 0;
+}
+@keyframes heightAnim{
+    from{
+        max-height: 0;
+    }
+    to{
+        max-height: 10000px;
+    }
+}
 #AddTask .days-addTask,
 #AddTask .days-addTask .days{
     width: 100%
 }
 #AddTask .days-addTask .days{
     display: flex;
+    flex-direction: column;
+}
+#AddTask .days-addTask .days label{
+    font-size: .5em;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    letter-spacing: 1px;
 }
 #AddTask .days-addTask .field{
     display: flex;
     align-items: center;
     width: 50%;
-    /* margin: 10px auto; */
+    margin: 5px 0;
     justify-content: space-between;
 }
 .days-addTask .field p{
@@ -116,11 +140,28 @@ export default {
     border-bottom: solid 1px rgba(0,0,0,.2);
 }
 #AddTask .days-addTask  button{
-    margin: 10px auto;
-    display: block;
+    /* margin: 10px auto;
+    display: block; */
     font-size: .7em;
 }
 #AddTask .days-addTask label{
 
+}
+#AddTask .days-addTask .set-time{
+    display: flex;
+    align-items: center;
+}
+#AddTask .set-time p{
+    font-size: .7em;
+}
+
+#AddTask .days input[type="checkbox"]:checked + label{
+    background: black;
+    color: white;
+    opacity: 1;
+}
+#AddTask .days-addTask input[type='number']{
+    font-size: .8em;
+    width: 35px;
 }
 </style>
