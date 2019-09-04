@@ -56,10 +56,10 @@
 import {addZero} from '@/components/helpers/timeFormat'
 export default {
     name:'TimePopup',
-    props:['period', 'daysAndTime'],
+    props:['period', 'days'],
     data(){
         return{
-            days: [],
+            daysArray: [],
             begin:{
                 hours: '00',
                 minutes: '00'
@@ -68,6 +68,7 @@ export default {
                 hours: '00',
                 minutes: '00'
             },
+            allDays:null
         }
     },
     methods:{
@@ -79,32 +80,30 @@ export default {
             }
         },
         userDaySelection(){
-            console.log(this.days)
             const choice = event.target.id.split('-choice')[0].trim()
             const checkboxes = this.$el.querySelectorAll('input[type="checkbox"]')
             if(choice === 'all' && event.target.checked){
-                this.days = []
+                this.daysArray = []
                 checkboxes.forEach(cb=>{
                     if(cb.disabled)  return
                     cb.checked=true
-                    this.days.push(cb.id.split('-choice')[0].trim())
+                    this.daysArray.push(cb.id.split('-choice')[0].trim())
                 })
             }
             else if(choice === 'all' && !event.target.checked){
-                this.days = []
+                this.daysArray = []
                 checkboxes.forEach(cb=>cb.checked=false)
             }
             else{
                 if(event.target.checked){
-                    this.days.push(choice)
+                    this.daysArray.push(choice)
                 }else{
-                    this.days = this.days.filter(day=>day!==choice)
+                    this.daysArray = this.daysArray.filter(day=>day!==choice)
                 }
             }
-            console.log(this.days)
         },
         addDaysAndTime(){
-            const userinput = this.days
+            const userinput = this.daysArray
                 .filter(day=>day!=='all')
                 .map(day=>{
                     return{
@@ -113,9 +112,11 @@ export default {
                         end: `${addZero(this.end.hours)}:${addZero(this.end.minutes)}`
                     }
                 })
-            
+            for(let uInput of userinput){
+                this.allDays.push(uInput)
+            }
             if(userinput.length >0){
-                this.$emit('userSelectedTime', userinput)
+                this.$emit('userSelectedTime', this.allDays)
             }else{
                 const disabledCheck = Array
                     .from(this.$el.querySelectorAll('input[type="checkbox"]'))
@@ -127,10 +128,13 @@ export default {
             }
         }
     },
+    created(){
+        this.allDays = this.days
+    },
     mounted(){
         this.$el.querySelectorAll('input[type="checkbox"]').forEach(input=>{
             const day = input.id.split('-choice')[0].trim()
-            const findDay = this.daysAndTime.find(d=>d.day===day)
+            const findDay = this.days.find(d=>d.day===day)
             if(findDay){
                 input.disabled = true
             }

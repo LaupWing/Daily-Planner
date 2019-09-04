@@ -8,7 +8,7 @@
                 <input type="text" name="task" v-model="task" placeholder="Name your task" autocomplete="off">
                 <div class="field notes">
                     <label for="notes">Notes</label>
-                    <textarea name="notes" cols="30" rows="15" placeholder="Insert your notes here. This is not a must!"></textarea>
+                    <textarea name="notes" cols="30" rows="10" placeholder="Insert your notes here. This is not a must!"></textarea>
                 </div>
             </div>
             <div class="extra-info">
@@ -23,6 +23,7 @@
                 <div class="time" v-if="period">
                     <Days
                         :period="period"
+                        :days="days"
                         v-on:userSelectedTime="userSelectedTime"
                     />
                 </div>
@@ -86,7 +87,8 @@ export default {
     },
     methods:{
         userSelectedTime(days){
-
+            this.days = days
+            console.log(this.days)
         },
         nextInput(state){
             this.state = state
@@ -273,6 +275,7 @@ export default {
 #AddTask .info .field.notes{
     display: flex;
     flex-direction: column;
+    margin-top: 10px;
 }
 
 #AddTask .extra-info input[type="radio"]{
@@ -388,6 +391,7 @@ export default {
     color: white;
     background: var(--chosen-color);
 }
+
 
 #AddTask > .field .feedback{
     text-align: center;
