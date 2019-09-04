@@ -56,7 +56,7 @@
 import {addZero} from '@/components/helpers/timeFormat'
 export default {
     name:'TimePopup',
-    props:['period'],
+    props:['period', 'daysAndTime'],
     data(){
         return{
             days: [],

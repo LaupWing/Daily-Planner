@@ -40,36 +40,44 @@
         <div class="days" :class="{'selected':daysAndTime.length>0}" v-else>
             <div class="field">
                 <p class="day">mon</p>
+                <p class="time-span" v-if="daysAndTime.length>0">{{setTimePeroid('mon')}}</p>
                 <!-- <button>set time</button> -->
             </div>
             <div class="field">
                 <p class="day">tue</p>
+                <p class="time-span" v-if="daysAndTime.length>0">{{setTimePeroid('tue')}}</p>
                 <!-- <button>set time</button> -->
             </div>
             <div class="field">
                 <p class="day">wed</p>
+                <p class="time-span" v-if="daysAndTime.length>0">{{setTimePeroid('wed')}}</p>
                 <!-- <button>set time</button> -->
             </div>
             <div class="field">
                 <p class="day">thu</p>
+                <p class="time-span" v-if="daysAndTime.length>0">{{setTimePeroid('thu')}}</p>
                 <!-- <button>set time</button> -->
             </div>
             <div class="field">
                 <p class="day">fri</p>
+                <p class="time-span" v-if="daysAndTime.length>0">{{setTimePeroid('fri')}}</p>
                 <!-- <button>set time</button> -->
             </div>
             <div class="field">
                 <p class="day">sat</p>
+                <p class="time-span" v-if="daysAndTime.length>0">{{setTimePeroid('sat')}}</p>
                 <!-- <button>set time</button> -->
             </div>
             <div class="field">
                 <p class="day">sun</p>
+                <p class="time-span" v-if="daysAndTime.length>0">{{setTimePeroid('sun')}}</p>
                 <!-- <button>set time</button> -->
             </div>          
         </div>
         <div class="set-time">
             <TimePopup
                 :period="period"
+                :daysAndTime="daysAndTime"
                 v-if="setTime"
                 v-on:userSelectedTime="userSelectedTime"
             />
@@ -107,6 +115,13 @@ export default {
             console.log(days)
             this.activateTime()
             this.daysAndTime = days
+        },
+        setTimePeroid(day){
+            console.log(this.daysAndTime.length)
+            const findDay = this.daysAndTime.find(d=>d.day===day)
+            if(findDay){
+                return `${findDay.begin} - ${findDay.end}`
+            }
         }
     }
 }
@@ -126,11 +141,26 @@ export default {
     }
 }
 #AddTask .days-addTask,
-#AddTask .days-addTask .days{
-    width: 100%
+#AddTask .days-addTask .days,
+#AddTask .days .field{
+    width: 100%;
+}
+#AddTask .days-addTask .days .field{
+    width: 60%;
+    margin: 5px auto;
 }
 #AddTask .days-addTask .days{
     display: flex;
+}
+
+#AddTask .days .field p{
+    margin: 0;
+}
+#AddTask .days .field p.day{
+    width: 20%;
+}
+#AddTask .days .field p.time-span{
+    border-bottom: solid 1px rgba(0,0,0,.2);
 }
 #AddTask .days-addTask .days.selected{
     flex-direction: column;
@@ -153,7 +183,7 @@ export default {
     font-size: .8em;
     text-align: center;
     margin: auto;
-    /* border-bottom: solid 1px rgba(0,0,0,.2); */
+    
 }
 #AddTask .days-addTask  button{
     margin: 10px auto;
