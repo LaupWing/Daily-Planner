@@ -5,87 +5,10 @@
         <h2 v-else>{{task}}</h2>
         <main>
             <div class="info">
-                <!-- <h3>Task Info:</h3>
-                <div class="task-name">
-                    <p>Task:</p> <p class="input">{{task}}</p>
-                </div>
-                <div class="notes">
-                    <p>Notes:</p><p class="input">{{notes}}</p>
-                </div>
-                <div class="days">
-                    <p>Days: </p>
-                </div>
-                <div class="color">
-                    <p>Colorlabel:</p>
-                </div> -->
-                <!-- <div class="color-labels-container">
-                    <ColorLabels
-                        :addTask='true'
-                        v-on:addColorLabel='addColorLabel'
-                    />
-                </div> -->
                 <input type="text" name="task" v-model="task" placeholder="Name your task" autocomplete="off">
                 <div class="field notes">
                     <label for="notes">Notes</label>
                     <textarea name="notes" cols="30" rows="15" placeholder="Insert your notes here. This is not a must!"></textarea>
-                </div>
-                <div class="general">
-                    <!-- <h2>General Info</h2> -->
-                    <!-- <div class="task-time">
-                        <div class="field">
-                            <label for="task">Begin:</label>
-                            <div class="time">
-                                <div class="hours">
-                                    <input @input="setTaskTime('begin', 'hours')" type="number" name="hours" min="00" max="23" value="00">
-                                </div>
-                                <div class="minutes">
-                                    <input @input="setTaskTime('begin', 'minutes')" type="number" name="minutes" min="00" max="59" value="00">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label for="task">End:</label>
-                            <div class="time">
-                                <div class="hours">
-                                    <input @input="setTaskTime('end', 'hours')" type="number" name="hours" min="00" max="23" value="00" v-model="end.hours">
-                                </div>
-                                <div class="minutes">
-                                    <input @input="setTaskTime('end', 'minutes')" type="number" name="minutes" min="00" max="59" value="00" v-model="end.minutes">
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <div class="field days">
-                        <label>Days:</label>
-                        <div class="day">
-                            <input type="checkbox" @input="checkboxValues" name="day" id="monday">
-                            <label for="monday">Mon</label>
-                        </div>
-                        <div class="day">
-                            <input type="checkbox" @input="checkboxValues" name="day" id="tuesday">
-                            <label for="tuesday">Tue</label>
-                        </div>
-                        <div class="day">
-                            <input type="checkbox" @input="checkboxValues" name="day" id="wednesday">
-                            <label for="wednesday">Wed</label>
-                        </div>
-                        <div class="day">
-                            <input type="checkbox" @input="checkboxValues" name="day" id="thursday">
-                            <label for="thursday">Thu</label>
-                        </div>
-                        <div class="day">
-                            <input type="checkbox" @input="checkboxValues" name="day" id="friday">
-                            <label for="friday">Fri</label>
-                        </div>
-                        <div class="day">
-                            <input type="checkbox" @input="checkboxValues" name="day" id="saturday">
-                            <label for="saturday">Sat</label>
-                        </div>
-                        <div class="day">
-                            <input type="checkbox" @input="checkboxValues" name="day" id="sunday">
-                            <label for="sunday">Sun</label>
-                        </div>
-                    </div> -->
                 </div>
             </div>
             <div class="extra-info">
@@ -102,13 +25,8 @@
                         :period="period"
                         v-on:userSelectedTime="userSelectedTime"
                     />
-                    <!-- <button>Set Time</button> -->
                 </div>
-                <!-- <General
-                    v-if="state===1"
-                    v-on:sendingInput="settingData"
-                    v-on:nextInput="nextInput"
-                /> -->
+                
             </div>
         </main>
         <!-- <div class="field">
@@ -168,7 +86,7 @@ export default {
     },
     methods:{
         userSelectedTime(days){
-            
+
         },
         nextInput(state){
             this.state = state
@@ -300,10 +218,6 @@ export default {
     background: var(--chosen-color);
     color: white;
 }
-#AddTask > h2 span{
-    font-weight: normal;
-    color: rgba(255,255,255,.6);
-}
 #AddTask button[type="submit"]{
     width: 100%;
     margin: 0;
@@ -311,33 +225,6 @@ export default {
     padding: 10px;
     background: rgba(0,0,0,.05);
     color: rgba(0,0,0,.3);
-}
-#AddTask .color-labels-container{
-    width: 40%;
-    padding: 10px;
-}
-#AddTask .color-labels-container #Color-Label{
-    position: relative;
-    width: 100%;
-    top: 0;
-    left: 0;
-    transform: translate(0,0);
-}
-#AddTask #Color-Label h2,
-#AddTask .general h2{
-    text-align: center;
-    margin: 10px;
-    width: 100%;
-    font-weight: 500;
-    font-size: 1.2em;
-}
-#AddTask #Color-Label .label-container{
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-#AddTask #Color-Label .form-container{
-    width: 140px;
-    margin: 10px auto;
 }
 #AddTask main{
     width: 100%;
@@ -501,48 +388,7 @@ export default {
     color: white;
     background: var(--chosen-color);
 }
-#AddTask .time{
-    display: flex;
-    justify-content: center;
-}
-/* #AddTask input[type='number']{
-    font-size: 1.5em;
-    width: 50px;
-} */
-/* #AddTask .hours,
-#AddTask .minutes{
-    position: relative;
-    margin-top: 15px; 
-} */
-/* #AddTask .hours::before{
-    content: 'H';
-    position: absolute;
-    top: -18px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    text-align: center;
-}
-#AddTask .minutes::before{
-    content: 'M';
-    position: absolute;
-    top: -18px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    text-align: center;
-} */
 
-#AddTask > .field{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    flex-direction: column;
-}
-#AddTask > .field .buttons{
-    margin: auto;
-}
 #AddTask > .field .feedback{
     text-align: center;
     max-height: 200px;
@@ -569,15 +415,6 @@ export default {
     margin-left: 10px;
     cursor: pointer;
 }
-/* #AddTask > .field button{
-    padding: 8px 15px;
-    border-radius: 20px;
-    border: solid 1px var(--chosen-color);
-    margin: 10px;
-    background: white;
-    cursor: pointer;
-    transition: .25s;
-} */
 #AddTask > .field button:hover{
     background: var(--chosen-color);
     color: white;

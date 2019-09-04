@@ -78,15 +78,10 @@
             <TimePopup
                 :period="period"
                 :daysAndTime="daysAndTime"
+                v-on:toggleTime="activateTime"
                 v-if="setTime"
                 v-on:userSelectedTime="userSelectedTime"
             />
-            <!-- <p for="task">Begin: </p> -->
-            <!-- <input type="number" name="hours" min="00" max="23" value="00">
-            <input type="number" name="minutes" min="00" max="59" value="00">
-            <p for="task">End: </p>
-            <input type="number" name="hours" min="00" max="23" value="00">
-            <input type="number" name="minutes" min="00" max="59" value="00"> -->
             <button @click="activateTime">Set Time</button>
         </div>
     </div>
@@ -112,12 +107,10 @@ export default {
             this.setTime = !this.setTime
         },
         userSelectedTime(days){
-            console.log(days)
             this.activateTime()
             this.daysAndTime = days
         },
         setTimePeroid(day){
-            console.log(this.daysAndTime.length)
             const findDay = this.daysAndTime.find(d=>d.day===day)
             if(findDay){
                 return `${findDay.begin} - ${findDay.end}`

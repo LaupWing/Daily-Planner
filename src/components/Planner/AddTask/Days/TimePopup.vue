@@ -74,16 +74,18 @@ export default {
         closePopup(){
             if(event.target.classList.length >0){
                 if(event.target.classList[0].includes('bg')){
-                    console.log(this.days)
+                    this.$emit('toggleTime')
                 }
             }
         },
         userDaySelection(){
+            console.log(this.days)
             const choice = event.target.id.split('-choice')[0].trim()
             const checkboxes = this.$el.querySelectorAll('input[type="checkbox"]')
             if(choice === 'all' && event.target.checked){
                 this.days = []
                 checkboxes.forEach(cb=>{
+                    if(cb.disabled)  return
                     cb.checked=true
                     this.days.push(cb.id.split('-choice')[0].trim())
                 })
@@ -99,6 +101,7 @@ export default {
                     this.days = this.days.filter(day=>day!==choice)
                 }
             }
+            console.log(this.days)
         },
         addDaysAndTime(){
             const userinput = this.days
@@ -110,10 +113,17 @@ export default {
                         end: `${addZero(this.end.hours)}:${addZero(this.end.minutes)}`
                     }
                 })
+            
             if(userinput.length >0){
                 this.$emit('userSelectedTime', userinput)
             }else{
-                
+                const disabledCheck = Array
+                    .from(this.$el.querySelectorAll('input[type="checkbox"]'))
+                    .filter(input=>input.id!=='all-choice')
+                    .every(input=>input.disabled = true)
+                if(disabledCheck){
+                    this.$emit('toggleTime')
+                }
             }
         }
     },
@@ -171,6 +181,10 @@ export default {
     color: white;
     opacity: .2;
     cursor:auto;
+}
+#AddTask .time{
+    display: flex;
+    justify-content: center;
 }
 .time-popup .time > div{
     margin: 10px;
