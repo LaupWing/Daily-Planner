@@ -29,6 +29,11 @@
                 </div>
                 
             </div>
+            <div class="color-labels-bg">
+                <ColorLabels
+                    :addTask="true"
+                />
+            </div>
         </main>
         <!-- <div class="field">
             <div class="feedback" v-if="feedback.length>0">
@@ -322,10 +327,55 @@ export default {
     opacity: .4;
     text-transform: uppercase;
     letter-spacing: 2px;
-    /* font-size: .5em; */
 }
 
+/* Color Labels Styling */
+#AddTask .color-labels-bg{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.4);
+}
 
+#AddTask .color-labels-bg #Color-Label{
+    transform: translate(0,0);
+    position: relative;
+    top: auto;
+    left: auto;
+    background: white;
+    width: 400px;
+    height: 350px;
+}
+
+#AddTask #Color-Label h2{
+    padding: 5px 10px;
+    background: var(--chosen-color);
+    color: white;
+    width: 100%;
+    text-align: left;
+}
+
+#AddTask #Color-Label .label-container{
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+
+#AddTask #Color-Label p.label{
+    margin: 10px;
+}
+#AddTask #Color-Label i{
+    color: black;
+}
+
+#AddTask #Color-Label .form-container{
+    position: fixed;
+}
 
 #AddTask .field.notes label{
     letter-spacing: 2px;

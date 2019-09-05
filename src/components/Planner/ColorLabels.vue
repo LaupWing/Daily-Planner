@@ -25,6 +25,7 @@
         <div class="form-container">
             <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i>
             <form @submit.prevent="submit" v-if="addLabel">
+                <h2 v-if="addTask">Adding Label</h2>
                 <div class="field">
                     <Feedback 
                         v-if="feedbackLabel" 
@@ -294,14 +295,14 @@ export default {
 }
 #Color-Label i{
     display: block;
-    margin: auto;
+    margin: 10px auto;
     text-align: center;
     font-size: 1.5em;
     color: white;
     cursor: pointer;
 }
 #Color-Label .form-container{
-    height: 100px;
+    /* height: 100px; */
 }
 #Color-Label form input[type='text']{
     width: 140px;
