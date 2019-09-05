@@ -31,7 +31,7 @@
                 v-if="setTime"
                 v-on:userSelectedTime="userSelectedTime"
             />
-            <button @click="activateTime('all')">Set Time</button>
+            <button type="button" @click="activateTime('all')">Set Time</button>
         </div>
     </div>
 </template>

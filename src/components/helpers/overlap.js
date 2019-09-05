@@ -1,5 +1,6 @@
 import {converDateToMS} from './timeFormat'
 function checkOverlap(array, taskObj){
+    console.log(array, taskObj)
     let feedbackMsg = null
     const findOverlap = array.filter(task=>{
         for(let dayInCurrentTask of task.days){

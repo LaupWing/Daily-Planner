@@ -10,8 +10,8 @@
                     <label for="notes">Notes</label>
                     <textarea name="notes" cols="30" rows="10" placeholder="Insert your notes here. This is not a must!"></textarea>
                 </div>
-                <button class="set-color" @click="setColor" v-if="!color">Set Colorlabel</button>
-                <button class="set-color" @click="setColor" :style="buttonStyling" v-else>{{color.label}}</button>
+                <button type="button" class="set-color" @click="setColor" v-if="!color">Set Colorlabel</button>
+                <button type="button" class="set-color" @click="setColor" :style="buttonStyling" v-else>{{color.label}}</button>
             </div>
             <div class="extra-info">
                 <div class="field period-choice">
@@ -107,16 +107,15 @@ export default {
             this.period = event.target.id
         },
         submit(){
+            console.log(this.days.length, this.task,this.color)
             if(this.days.length !== 0 && this.task && this.color){
                 const taskObj = {
                     task: this.task,
-                    begin: `${this.begin.hours.substring(0,2)}:${this.begin.minutes.substring(0,2)}`, 
-                    end: `${this.end.hours.substring(0,2)}:${this.end.minutes.substring(0,2)}`,
                     days: this.days,
                     color: this.color
                 }
                 const overlapCheck = checkOverlap(this.dailyTasks, taskObj)
-               
+                console.log(overlapCheck)
                 if(overlapCheck.findOverlap.length > 0){
                     const overlapArray = overlapCheck.findOverlap
                     const feedbackMsg = overlapCheck.feedbackMsg
@@ -124,27 +123,27 @@ export default {
                     this.feedback = addDayToMsg(overlapArray, feedbackMsg, taskObj)
                 }else{
                     this.feedback = []
-                    this.dailyTasks.push(taskObj)
-                    db
-                        .collection('planner')
-                        .doc(this.user.uid)
-                        .update({
-                            dailyTasks: this.dailyTasks
-                        })
-                        .then(()=>{
-                            this.$router.push({name:'Home'})
-                        })
-                        .catch(()=>{
-                            db
-                                .collection('planner')
-                                .doc(this.user.uid)
-                                .set({
-                                    dailyTasks: this.dailyTasks
-                                })
-                                .then(()=>{
-                                    this.$emit('toggle')
-                                })
-                        })
+                    // this.dailyTasks.push(taskObj)
+                    // db
+                    //     .collection('planner')
+                    //     .doc(this.user.uid)
+                    //     .update({
+                    //         dailyTasks: this.dailyTasks
+                    //     })
+                    //     .then(()=>{
+                    //         this.$router.push({name:'Home'})
+                    //     })
+                    //     .catch(()=>{
+                    //         db
+                    //             .collection('planner')
+                    //             .doc(this.user.uid)
+                    //             .set({
+                    //                 dailyTasks: this.dailyTasks
+                    //             })
+                    //             .then(()=>{
+                    //                 this.$emit('toggle')
+                    //             })
+                    //     })
                 }
             }else{
                 this.feedback = []
