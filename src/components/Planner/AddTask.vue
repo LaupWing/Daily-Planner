@@ -266,6 +266,7 @@ export default {
     border: var(--chosen-color) 1.2px solid;
     color: var(--chosen-color);
     background: white;
+    opacity: .5;
     cursor: pointer;
     transition: .25s;
 }
