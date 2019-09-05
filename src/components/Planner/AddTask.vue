@@ -93,7 +93,8 @@ export default {
             notes: null,
             state: 1,
             period: null,
-            colorPopup: false
+            colorPopup: false,
+            daysFullName:['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
         }
     },
     methods:{
@@ -107,11 +108,19 @@ export default {
             this.period = event.target.id
         },
         submit(){
-            console.log(this.days.length, this.task,this.color)
             if(this.days.length !== 0 && this.task && this.color){
+                const reformatDays = this.days.map(day=>{
+                    const dayFormatted = this.daysFullName.find(fullDay=>fullDay.slice(0,3)===day.day)
+                    return{
+                        day: dayFormatted,
+                        begin: day.begin,
+                        end: day.end
+                    }
+                })
+                console.log(reformatDays)
                 const taskObj = {
                     task: this.task,
-                    days: this.days,
+                    days: reformatDays,
                     color: this.color
                 }
                 const overlapCheck = checkOverlap(this.dailyTasks, taskObj)
