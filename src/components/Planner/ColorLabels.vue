@@ -79,7 +79,7 @@
             </form>
         </div>
         <div class="buttons" v-if="addTask">
-            <button>Cancel</button>
+            <button @click="closePopup">Cancel</button>
             <button>Accept</button>
         </div>
     </div>
@@ -230,6 +230,9 @@ export default {
             if(feedback.type === 'label'){
                 this.feedbackLabel = null
             }
+        },
+        closePopup(){
+            this.$emit('closePopup')
         }
     },
     created(){

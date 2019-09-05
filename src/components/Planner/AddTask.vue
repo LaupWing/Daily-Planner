@@ -33,6 +33,7 @@
             <div class="color-labels-bg" v-if="colorPopup">
                 <ColorLabels
                     :addTask="true"
+                    v-on:closePopup="setColor"
                 />
             </div>
         </main>
