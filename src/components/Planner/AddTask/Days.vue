@@ -123,7 +123,7 @@ export default {
 }
 #AddTask .days-addTask .days .field{
     width: 60%;
-    margin: 5px auto;
+    margin: 5px;
 }
 #AddTask .days-addTask .days{
     display: flex;

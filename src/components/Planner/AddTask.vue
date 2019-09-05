@@ -10,6 +10,7 @@
                     <label for="notes">Notes</label>
                     <textarea name="notes" cols="30" rows="10" placeholder="Insert your notes here. This is not a must!"></textarea>
                 </div>
+                <button class="set-color" @click="setColor">Set Colorlabel</button>
             </div>
             <div class="extra-info">
                 <div class="field period-choice">
@@ -29,7 +30,7 @@
                 </div>
                 
             </div>
-            <div class="color-labels-bg">
+            <div class="color-labels-bg" v-if="colorPopup">
                 <ColorLabels
                     :addTask="true"
                 />
@@ -87,21 +88,19 @@ export default {
             color: null,
             notes: null,
             state: 1,
-            period: null
+            period: null,
+            colorPopup: false
         }
     },
     methods:{
         updateDaysAndTime(days){
-            console.log(days, this.days)
             this.days = days
-            console.log(this.days)
         },
         nextInput(state){
             this.state = state
         },
         setPeriod(){
             this.period = event.target.id
-            console.log(this.period)
         },
         submit(){
             if(
@@ -174,6 +173,9 @@ export default {
             this.$el.querySelector('#AddTask').style.setProperty('--chosen-color', label.color)
             this.color = label
         },
+        setColor(){
+            this.colorPopup = !this.colorPopup
+        },
         toggle(){
             this.$emit('toggle')
         },
@@ -234,6 +236,17 @@ export default {
     background: rgba(0,0,0,.05);
     color: rgba(0,0,0,.3);
 }
+#AddTask button.set-color{
+    background: transparent;
+    border-radius: 5px;
+    border: solid 1px black;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    font-size: .6em;
+    letter-spacing: 1px;
+    margin: 10px;
+    opacity: .7;
+}
 #AddTask main{
     width: 100%;
     display: flex;
@@ -245,6 +258,7 @@ export default {
     justify-content: flex-start;
     flex-direction: column;
     padding: 20px;
+    align-items: center;
 }
 #AddTask .info{
     border-right: solid 1px rgba(0,0,0,.2);
@@ -282,6 +296,7 @@ export default {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
+    width: 100%;
 }
 
 #AddTask .extra-info input[type="radio"]{

@@ -149,6 +149,7 @@ export default {
         },
         addColorLabel(label){
             this.colorLabelToAdd = label
+            console.log(label)
             this.$emit('addColorLabel', this.colorLabelToAdd)
         },
         duplicateCheck(array,labelProp, colorProp){
