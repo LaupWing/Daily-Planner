@@ -107,15 +107,7 @@ export default {
             this.period = event.target.id
         },
         submit(){
-            if(
-                this.days.length !== 0 &&
-                this.task              &&
-                this.begin.hours       &&
-                this.begin.minutes     &&
-                this.end.hours         &&
-                this.end.minutes       &&
-                this.color
-            ){
+            if(this.days.length !== 0 && this.task && this.color){
                 const taskObj = {
                     task: this.task,
                     begin: `${this.begin.hours.substring(0,2)}:${this.begin.minutes.substring(0,2)}`, 

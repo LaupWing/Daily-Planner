@@ -4,16 +4,16 @@ function checkOverlap(array, taskObj){
     const findOverlap = array.filter(task=>{
         for(let dayInCurrentTask of task.days){
             for(let dayInNewTask of taskObj.days){
-                if(dayInNewTask === dayInCurrentTask){
-                    const beginCurrentTask = converDateToMS(task.begin)
-                    const endCurrentTask = converDateToMS(task.end)
-                    const beginNewTask = converDateToMS(taskObj.begin)
-                    const endNewTask = converDateToMS(taskObj.end)
+                if(dayInNewTask.day === dayInCurrentTask.day){
+                    const beginCurrentTask = converDateToMS(dayInCurrentTask.begin)
+                    const endCurrentTask = converDateToMS(dayInCurrentTask.end)
+                    const beginNewTask = converDateToMS(dayInNewTask.begin)
+                    const endNewTask = converDateToMS(dayInNewTask.end)
                     if(
                         beginNewTask >= beginCurrentTask && 
                         endNewTask <= endCurrentTask   
                     ){
-                        feedbackMsg = `This task overlaps with the task ${task.task} from ${task.begin} - ${task.end}`
+                        feedbackMsg = `This task overlaps with the task ${task.task} from ${dayInCurrentTask.begin} - ${dayInCurrentTask.end}`
                         return task
                     }
                     else if(
@@ -21,7 +21,7 @@ function checkOverlap(array, taskObj){
                         endNewTask >= endCurrentTask     &&
                         beginNewTask < endCurrentTask   
                     ){
-                        feedbackMsg = `This task begins within the task ${task.task} from ${task.begin} - ${task.end}`
+                        feedbackMsg = `This task begins within the task ${task.task} from ${dayInCurrentTask.begin} - ${dayInCurrentTask.end}`
                         return task
                     }
                     else if(
@@ -29,14 +29,14 @@ function checkOverlap(array, taskObj){
                         endNewTask <= endCurrentTask     &&
                         endNewTask > beginCurrentTask
                     ){
-                        feedbackMsg = `This task ends within the task ${task.task} from ${task.begin} - ${task.end}`
+                        feedbackMsg = `This task ends within the task ${task.task} from ${dayInCurrentTask.begin} - ${dayInCurrentTask.end}`
                         return task
                     }
                     else if(
                         beginNewTask < beginCurrentTask &&
                         endNewTask > endCurrentTask     
                     ){
-                        feedbackMsg = `This task is to long therfore it is within the task ${task.task} from ${task.begin} - ${task.end}`
+                        feedbackMsg = `This task is to long therfore it is within the task ${task.task} from ${dayInCurrentTask.begin} - ${dayInCurrentTask.end}`
                         return task
                     }
                 }
