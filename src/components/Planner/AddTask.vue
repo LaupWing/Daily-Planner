@@ -10,7 +10,8 @@
                     <label for="notes">Notes</label>
                     <textarea name="notes" cols="30" rows="10" placeholder="Insert your notes here. This is not a must!"></textarea>
                 </div>
-                <button class="set-color" @click="setColor">Set Colorlabel</button>
+                <button class="set-color" @click="setColor" v-if="!color">Set Colorlabel</button>
+                <button class="set-color" @click="setColor" :style="buttonStyling" v-else>{{color.label}}</button>
             </div>
             <div class="extra-info">
                 <div class="field period-choice">
@@ -33,6 +34,8 @@
             <div class="color-labels-bg" v-if="colorPopup">
                 <ColorLabels
                     :addTask="true"
+                    :chosenColorLabel="color"
+                    v-on:chosenColor="addColorLabel"
                     v-on:closePopup="setColor"
                 />
             </div>
@@ -171,6 +174,7 @@ export default {
             this[state][time] = addZero(event.target.value)
         },
         addColorLabel(label){
+            this.setColor()
             this.$el.querySelector('#AddTask').style.setProperty('--chosen-color', label.color)
             this.color = label
         },
@@ -182,7 +186,16 @@ export default {
         },
         deleteFeedback(index){
             this.feedback = this.feedback.filter((feed, i)=>i!==index)
+        },
+    },
+    computed:{
+        buttonStyling(){
+            return{
+                borderColor: this.color.color,
+                color: this.color.color
+            }
         }
+
     },
     created(){
         this.user = firebase.auth().currentUser 

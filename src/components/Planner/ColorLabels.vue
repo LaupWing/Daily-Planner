@@ -80,7 +80,7 @@
         </div>
         <div class="buttons" v-if="addTask">
             <button @click="closePopup">Cancel</button>
-            <button>Accept</button>
+            <button @click="chosenColor">Accept</button>
         </div>
     </div>
 </template>
@@ -93,7 +93,7 @@ import AddTaskLabel from '@/components/Planner/ColorLabels/AddTaskLabel'
 import Feedback from '@/components/feedback/Feedback'
 export default {
     name: 'ColorLabels',
-    props:['taskColor' ,'addTask'],
+    props:['taskColor' ,'addTask', 'chosenColorLabel'],
     components:{
         Label,
         AddTaskLabel,
@@ -132,7 +132,6 @@ export default {
                             this.cancel()
                         })
                         .catch(()=>{
-                            // console.log(err)
                         })
                 }
             }
@@ -149,8 +148,6 @@ export default {
         },
         addColorLabel(label){
             this.colorLabelToAdd = label
-            console.log(label)
-            this.$emit('addColorLabel', this.colorLabelToAdd)
         },
         duplicateCheck(array,labelProp, colorProp){
             const findColor = array.find(label=>label.color.toLowerCase() === this[colorProp].toLowerCase())
@@ -233,10 +230,16 @@ export default {
         },
         closePopup(){
             this.$emit('closePopup')
+        },
+        chosenColor(){
+            this.$emit('chosenColor', this.colorLabelToAdd)
         }
     },
     created(){
         this.getData()
+        if(this.chosenColorLabel){
+            this.colorLabelToAdd = this.chosenColorLabel
+        }
     }
 }
 </script>
