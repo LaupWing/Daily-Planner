@@ -52,7 +52,7 @@
                 <button>Submit</button>
             </div>
         </div> -->
-        <button type="submit">Submit</button>
+        <button :style="submitButtonStyling" type="submit">Submit</button>
     </form>
 </div>            
 </template>
@@ -193,6 +193,15 @@ export default {
             return{
                 borderColor: this.color.color,
                 color: this.color.color
+            }
+        },
+        submitButtonStyling(){
+            if(this.days && this.color &&  this.task){
+                return{
+                    border: `${this.color.color} 1px solid`,
+                    color: this.color.color,
+                    background: 'white'
+                }
             }
         }
 
