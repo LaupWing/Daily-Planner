@@ -31,7 +31,7 @@
                 </div>
                 
             </div>
-            <div class="color-labels-bg" v-if="colorPopup">
+            <div class="color-labels-bg" v-if="colorPopup" @click="closePopupByBG">
                 <ColorLabels
                     :addTask="true"
                     :chosenColorLabel="color"
@@ -52,7 +52,7 @@
                 <button>Submit</button>
             </div>
         </div> -->
-        <button :style="submitButtonStyling" type="submit">Submit</button>
+        <button :class="submitButtonStyling" type="submit">Submit</button>
     </form>
 </div>            
 </template>
@@ -181,6 +181,13 @@ export default {
         setColor(){
             this.colorPopup = !this.colorPopup
         },
+        closePopupByBG(){   
+            if(event.target.classList.length > 0){
+                if(event.target.classList[0].includes('bg')){
+                    this.setColor()
+                }
+            }
+        },
         toggle(){
             this.$emit('toggle')
         },
@@ -197,11 +204,7 @@ export default {
         },
         submitButtonStyling(){
             if(this.days && this.color &&  this.task){
-                return{
-                    border: `${this.color.color} 1px solid`,
-                    color: this.color.color,
-                    background: 'white'
-                }
+                return 'active'
             }
         }
 
@@ -259,6 +262,17 @@ export default {
     background: rgba(0,0,0,.05);
     color: rgba(0,0,0,.3);
 }
+#AddTask button[type="submit"].active{
+    border: var(--chosen-color) 1.2px solid;
+    color: var(--chosen-color);
+    background: white;
+    cursor: pointer;
+    transition: .25s;
+}
+#AddTask button[type="submit"].active:hover{
+    color: white;
+    background: var(--chosen-color);
+}
 #AddTask button.set-color{
     background: transparent;
     border-radius: 5px;
@@ -267,7 +281,7 @@ export default {
     text-transform: uppercase;
     font-size: .6em;
     letter-spacing: 1px;
-    margin: 10px;
+    margin: auto;
     opacity: .7;
 }
 #AddTask main{
@@ -356,6 +370,7 @@ export default {
 }
 #AddTask .extra-info .time{
     margin-top: 10px;
+    width: 100%;
 }
 #AddTask .extra-info button{
     border: solid 1px black;
