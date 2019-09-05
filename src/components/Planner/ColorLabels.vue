@@ -11,6 +11,7 @@
                 :class="{'active':nonEditedLabel === label}"
                 v-on:edit='edit'
             />
+            <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i>
         </div>
         <div class="label-container" v-if="addTask">
             <AddTaskLabel 
@@ -21,9 +22,10 @@
                 class="label"
                 v-on:addColorLabel='addColorLabel'
             />
-        </div>
-        <div class="form-container">
             <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i>
+        </div>
+        <!-- <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i> -->
+        <div class="form-container"  v-if="addLabel || editLabel">
             <form @submit.prevent="submit" v-if="addLabel">
                 <h2 v-if="addTask">Adding Label</h2>
                 <div class="field">
@@ -75,6 +77,10 @@
                     <button >Change</button>
                 </div>
             </form>
+        </div>
+        <div class="buttons" v-if="addTask">
+            <button>Cancel</button>
+            <button>Accept</button>
         </div>
     </div>
 </template>
@@ -300,6 +306,7 @@ export default {
     font-size: 1.5em;
     color: white;
     cursor: pointer;
+    width: 100%;
 }
 #Color-Label .form-container{
     /* height: 100px; */
@@ -321,5 +328,16 @@ export default {
 #Color-Label .field{
     display: flex;
     position: relative;
+}
+
+#Color-Label .buttons{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+}
+#Color-Label .buttons button{
+    width: 50%;
 }
 </style>

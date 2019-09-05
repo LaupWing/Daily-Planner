@@ -374,8 +374,33 @@ export default {
 }
 
 #AddTask #Color-Label .form-container{
-    position: fixed;
+    position: absolute;
+    background: rgba(0,0,0,.4);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+#AddTask #Color-Label .form-container form{
+    background: white
+}
+#AddTask #Color-Label input[type="text"]{
+    border-color: rgba(0,0,0,.2);
+    margin: 5px 20px;
+    width: 200px;
+    color: black;
+}
+#AddTask #Color-Label button{
+    border-color: black;
+    border-radius: 0;
+    color: black;
+}
+
+
 
 #AddTask .field.notes label{
     letter-spacing: 2px;
@@ -406,7 +431,7 @@ export default {
     width: 50%;
 }
 #AddTask .field{
-    margin: 10px 0;
+    /* margin: 10px 0; */
 }
 #AddTask .task-time{
     display: flex;
