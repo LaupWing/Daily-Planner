@@ -1,6 +1,6 @@
 import {converDateToMS} from './timeFormat'
 function checkOverlap(array, taskObj){
-    const feedbackMsg = []
+    const feedback = []
     const findOverlap = array.filter(task=>{
         for(let dayInCurrentTask of task.days){
             for(let dayInNewTask of taskObj.days){
@@ -13,7 +13,7 @@ function checkOverlap(array, taskObj){
                         beginNewTask >= beginCurrentTask && 
                         endNewTask <= endCurrentTask   
                     ){
-                        feedbackMsg.push(feedbackMsg('overlap', dayInCurrentTask))
+                        feedback.push(feedbackMsg('overlaps', task, dayInCurrentTask))
                         return task
                     }
                     else if(
@@ -21,7 +21,7 @@ function checkOverlap(array, taskObj){
                         endNewTask >= endCurrentTask     &&
                         beginNewTask < endCurrentTask   
                     ){
-                        feedbackMsg.push(feedbackMsg('begins', dayInCurrentTask))
+                        feedback.push(feedbackMsg('begins', task, dayInCurrentTask))
                         return task
                     }
                     else if(
@@ -29,14 +29,14 @@ function checkOverlap(array, taskObj){
                         endNewTask <= endCurrentTask     &&
                         endNewTask > beginCurrentTask
                     ){
-                        feedbackMsg.push(feedbackMsg('ends', dayInCurrentTask))
+                        feedback.push(feedbackMsg('ends', task, dayInCurrentTask))
                         return task
                     }
                     else if(
                         beginNewTask < beginCurrentTask &&
                         endNewTask > endCurrentTask     
                     ){
-                        feedbackMsg.push(feedbackMsg('long', dayInCurrentTask))
+                        feedback.push(feedbackMsg('long', task, dayInCurrentTask))
                         return task
                     }
                 }
@@ -46,38 +46,38 @@ function checkOverlap(array, taskObj){
 
     return {
         findOverlap,
-        feedbackMsg
+        feedback
     }
 }
 
-function feedbackMsg(offense, currentTask){
+function feedbackMsg(offense,task, dayInCurrentTask){
     if(offense === 'overlaps'){
         return `
             <p>
-                This task overlaps with the task <span>${currentTask.task}</span> from <span>${currentTask.begin} - ${currentTask.end}</span> on a <span>${currentTask.day}</span>
+                This task overlaps with the task <span>${task.task}</span> from <span>${dayInCurrentTask.begin} - ${dayInCurrentTask.end}</span> on a <span>${dayInCurrentTask.day}</span>
             </p>
-        `
+        `.replace(/\s+/g, " ").trim()
     }
     else if (offense === 'begins'){
         return `
             <p>
-                This task begins within the task <span>${currentTask.task}</span> from <span>${currentTask.begin} - ${currentTask.end}</span> on a <span>${currentTask.day}</span>
+                This task begins within the task <span>${task.task}</span> from <span>${dayInCurrentTask.begin} - ${dayInCurrentTask.end}</span> on a <span>${dayInCurrentTask.day}</span>
             </p>
-        `
+        `.replace(/\s+/g, " ").trim()
     }
     else if (offense === 'ends'){
         return `
             <p>
-                This task ends within the task <span>${currentTask.task}</span> from <span>${currentTask.begin} - ${currentTask.end}</span> on a <span>${currentTask.day}</span>
+                This task ends within the task <span>${task.task}</span> from <span>${dayInCurrentTask.begin} - ${dayInCurrentTask.end}</span> on a <span>${dayInCurrentTask.day}</span>
             </p>
-        `
+        `.replace(/\s+/g, " ").trim()
     }
     else if (offense === 'long'){
         return `
             <p>
-                This task is to long therfore it is within the task <span> ${currentTask.task} <span/> from <span> ${currentTask.begin} - ${currentTask.end} </span> on a <span>${currentTask.day}</span>
+                This task is to long therfore it is within the task <span> ${task.task} <span/> from <span> ${dayInCurrentTask.begin} - ${dayInCurrentTask.end} </span> on a <span>${dayInCurrentTask.day}</span>
             </p>
-        `
+        `.replace(/\s+/g, " ").trim()
     }
 }
 
@@ -98,4 +98,4 @@ function addDayToMsg(overlapArray, feedbackMsg, taskObj){
     return feedback
 }
 
-export {checkOverlap, addDayToMsg, feedbackMsg}
+export {checkOverlap, addDayToMsg}

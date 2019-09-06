@@ -108,6 +108,7 @@ export default {
             this.period = event.target.id
         },
         submit(){
+            console.log('submit')
             if(this.days.length !== 0 && this.task && this.color){
                 const reformatDays = this.days.map(day=>{
                     const dayFormatted = this.daysFullName.find(fullDay=>fullDay.slice(0,3)===day.day)
