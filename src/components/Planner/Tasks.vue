@@ -260,11 +260,6 @@ export default {
                     if(extraCallback){
                         extraCallback()
                     }
-                    // if(activate){
-                    //     this.taskHeightAndPosition()
-                    //     this.checkCurrentTask()
-                    //     this.taskWatcher()
-                    // }
                 })
         },
         updateTasks(task){

@@ -1,5 +1,5 @@
 <template>
-<div class="add-task-bg" @click="closeAddTask">
+<div class="add-task-bg">
     <form @submit.prevent="submit" id="AddTask"> 
         <h2 v-if="!task">Add Task</h2>
         <h2 v-else>{{task}}</h2>
@@ -103,13 +103,6 @@ export default {
         }
     },
     methods:{
-        closeAddTask(){
-            if(event.target.classList.length>0){
-                if(event.target.classList[0].includes('bg')){
-                    this.toggle()
-                }
-            }
-        },
         updateDaysAndTime(days){
             this.days = days
         },
