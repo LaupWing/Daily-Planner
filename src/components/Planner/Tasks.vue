@@ -227,7 +227,7 @@ export default {
                 }
             })
         },
-        getTasks(activate, extraCallback){
+        getTasks(extraCallback){
             db
                 .collection('planner')
                 .doc(firebase.auth().currentUser.uid)
@@ -260,11 +260,11 @@ export default {
                     if(extraCallback){
                         extraCallback()
                     }
-                    if(activate){
-                        this.taskHeightAndPosition()
-                        this.checkCurrentTask()
-                        this.taskWatcher()
-                    }
+                    // if(activate){
+                    //     this.taskHeightAndPosition()
+                    //     this.checkCurrentTask()
+                    //     this.taskWatcher()
+                    // }
                 })
         },
         updateTasks(task){
@@ -305,7 +305,11 @@ export default {
         
     },
     mounted(){
-        this.getTasks(true,null)
+        this.getTasks(()=>{
+            this.taskHeightAndPosition()
+            this.checkCurrentTask()
+            this.taskWatcher()
+        })
         let ref = db.collection('planner')
         // This Snapchot change is currntly only use for checking the color label changes
         ref.onSnapshot(snapshot=>{
@@ -313,7 +317,9 @@ export default {
                 const userId = firebase.auth().currentUser.uid
                 if(change.type === 'modified' && change.doc.id === userId){
                     if(!this.preventStateChangeFlag){
-                        this.getTasks()
+                        this.getTasks(()=>{
+                            this.taskHeightAndPosition()
+                        })
                     }
                 }
             })
