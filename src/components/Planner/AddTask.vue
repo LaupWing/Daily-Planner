@@ -1,5 +1,5 @@
 <template>
-<div class="add-task-bg">
+<div class="add-task-bg" @click="closeAddTask">
     <form @submit.prevent="submit" id="AddTask"> 
         <h2 v-if="!task">Add Task</h2>
         <h2 v-else>{{task}}</h2>
@@ -43,19 +43,21 @@
                 />
             </div>
         </main>
-            <div class="feedback-container" v-if="feedback.length>0">
-                <div  
-                    v-for="(feed, index) in feedback"
-                    :key="index"
-                    class="feedback"
-                >
-                    <div class="message" v-html="feed"></div>
-                    <i @click="deleteFeedback(index)" class="fas fa-times"></i>
-                
-                </div>
+        <div class="feedback-container" v-if="feedback.length>0">
+            <div  
+                v-for="(feed, index) in feedback"
+                :key="index"
+                class="feedback"
+            >
+                <div class="message" v-html="feed"></div>
+                <i @click="deleteFeedback(index)" class="fas fa-times"></i>
+            
             </div>
-       
-        <button :class="submitButtonStyling" type="submit">Submit</button>
+        </div>
+        <div class="buttons">
+            <button @click="toggle" type="button">Cancel</button>
+            <button :class="submitButtonStyling" type="submit">Submit</button>
+        </div>
     </form>
 </div>            
 </template>
@@ -101,6 +103,13 @@ export default {
         }
     },
     methods:{
+        closeAddTask(){
+            if(event.target.classList.length>0){
+                if(event.target.classList[0].includes('bg')){
+                    this.toggle()
+                }
+            }
+        },
         updateDaysAndTime(days){
             this.days = days
         },
@@ -111,7 +120,6 @@ export default {
             this.period = event.target.id
         },
         submit(){
-            console.log('submit')
             if(this.days.length !== 0 && this.task && this.color){
                 const reformatDays = this.days.map(day=>{
                     const dayFormatted = this.daysFullName.find(fullDay=>fullDay.slice(0,3)===day.day)
@@ -127,39 +135,58 @@ export default {
                     color: this.color
                 }
                 const overlapCheck = checkOverlap(this.dailyTasks, taskObj)
+                const dailyCheck = (callback)=>{
+                    if(this.period === 'daily'){
+                        if(this.days.length<6){
+                            const msg = 'If you chose daily as your period you need to fill in every day'
+                            this.feedback.push(msg)
+                        }else{
+                            if(callback){
+                                callback()
+                            }
+                        }
+                    }else{
+                        callback()
+                    }
+                }
                 if(overlapCheck.feedback.length > 0){
                     const overlapArray = overlapCheck.findOverlap
                     this.feedback = []
                     this.feedback = overlapCheck.feedback
-                    console.log(this.feedback)
+                    dailyCheck()
                 }else{
                     this.feedback = []
-                    // this.dailyTasks.push(taskObj)
-                    // db
-                    //     .collection('planner')
-                    //     .doc(this.user.uid)
-                    //     .update({
-                    //         dailyTasks: this.dailyTasks
-                    //     })
-                    //     .then(()=>{
-                    //         this.$router.push({name:'Home'})
-                    //     })
-                    //     .catch(()=>{
-                    //         db
-                    //             .collection('planner')
-                    //             .doc(this.user.uid)
-                    //             .set({
-                    //                 dailyTasks: this.dailyTasks
-                    //             })
-                    //             .then(()=>{
-                    //                 this.$emit('toggle')
-                    //             })
-                    //     })
+                    dailyCheck(()=>{this.updateDailyTasks(taskObj)})
                 }
             }else{
                 this.feedback = []
                 this.feedback.push( 'You have to fill in all the fields')
             }
+        },
+        updateDailyTasks(taskObj){
+            this.dailyTasks.push(taskObj)
+            console.log(this.dailyTasks)
+            db
+                .collection('planner')
+                .doc(this.user.uid)
+                .update({
+                    dailyTasks: this.dailyTasks
+                })
+                .then(()=>{
+                    console.log('updated')
+                    this.toggle()
+                })
+                .catch(()=>{
+                    db
+                        .collection('planner')
+                        .doc(this.user.uid)
+                        .set({
+                            dailyTasks: this.dailyTasks
+                        })
+                        .then(()=>{
+                            this.toggle()
+                        })
+                })
         },
         settingData(obj){
             this[obj.type] = obj.value
@@ -258,8 +285,28 @@ export default {
     background: var(--chosen-color);
     color: white;
 }
-#AddTask button[type="submit"]{
-    width: 100%;
+#AddTask .buttons{
+    display: flex;
+}
+
+#AddTask .buttons button{
+    width: 50%;
+    margin: 0;
+    border: none;
+    padding: 10px;
+    background: white;
+    color: black;
+    border-right: solid 1px rgba(0,0,0,.2);
+    border-top: solid 1px rgba(0,0,0,.2);
+    cursor: pointer;
+}
+#AddTask .buttons button:hover{
+    background: black;
+    color: white;
+}
+
+#AddTask .buttons button[type="submit"]{
+    width: 50%;
     margin: 0;
     border: none;
     padding: 10px;
@@ -270,7 +317,6 @@ export default {
     border: var(--chosen-color) 1.2px solid;
     color: var(--chosen-color);
     background: white;
-    opacity: .5;
     cursor: pointer;
     transition: .25s;
 }
@@ -286,7 +332,7 @@ export default {
     text-transform: uppercase;
     font-size: .6em;
     letter-spacing: 1px;
-    margin: auto;
+    margin: 10px auto;
     opacity: .7;
 }
 #AddTask main{
