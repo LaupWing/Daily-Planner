@@ -10,8 +10,11 @@
                     <label for="notes">Notes</label>
                     <textarea name="notes" cols="30" rows="10" placeholder="Insert your notes here. This is not a must!"></textarea>
                 </div>
-                <button type="button" class="set-color" @click="setColor" v-if="!color">Set Colorlabel</button>
-                <button type="button" class="set-color" @click="setColor" :style="buttonStyling" v-else>{{color.label}}</button>
+                <div class="field color-label">
+                    <label>Color Label:</label>
+                    <button type="button" class="set-color" @click="setColor" v-if="!color">Set Colorlabel</button>
+                    <button type="button" class="set-color" @click="setColor" :style="buttonStyling" v-else>{{color.label}}</button>
+                </div>
             </div>
             <div class="extra-info">
                 <div class="field period-choice">
@@ -40,18 +43,18 @@
                 />
             </div>
         </main>
-        <!-- <div class="field">
-            <div class="feedback" v-if="feedback.length>0">
-                <p  
+            <div class="feedback-container" v-if="feedback.length>0">
+                <div  
                     v-for="(feed, index) in feedback"
                     :key="index"
-                >{{feed}} <i @click="deleteFeedback(index)" class="fas fa-times"></i></p>
+                    class="feedback"
+                >
+                    <div class="message" v-html="feed"></div>
+                    <i @click="deleteFeedback(index)" class="fas fa-times"></i>
+                
+                </div>
             </div>
-            <div class="buttons">
-                <button type="button" @click="toggle">Cancel</button>
-                <button>Submit</button>
-            </div>
-        </div> -->
+       
         <button :class="submitButtonStyling" type="submit">Submit</button>
     </form>
 </div>            
@@ -118,19 +121,17 @@ export default {
                         end: day.end
                     }
                 })
-                console.log(reformatDays)
                 const taskObj = {
                     task: this.task,
                     days: reformatDays,
                     color: this.color
                 }
                 const overlapCheck = checkOverlap(this.dailyTasks, taskObj)
-                console.log(overlapCheck)
-                if(overlapCheck.findOverlap.length > 0){
+                if(overlapCheck.feedback.length > 0){
                     const overlapArray = overlapCheck.findOverlap
-                    const feedbackMsg = overlapCheck.feedbackMsg
                     this.feedback = []
-                    this.feedback = addDayToMsg(overlapArray, feedbackMsg, taskObj)
+                    this.feedback = overlapCheck.feedback
+                    console.log(this.feedback)
                 }else{
                     this.feedback = []
                     // this.dailyTasks.push(taskObj)
@@ -200,7 +201,9 @@ export default {
         buttonStyling(){
             return{
                 borderColor: this.color.color,
-                color: this.color.color
+                color: this.color.color,
+                borderWidth: '2px',
+                fontSize: '1em'
             }
         },
         submitButtonStyling(){
@@ -331,7 +334,8 @@ export default {
     opacity: .5;
 }
 
-#AddTask .info .field.notes{
+#AddTask .info .field.notes,
+#AddTask .field.color-label{
     display: flex;
     flex-direction: column;
     margin-top: 10px;
@@ -457,7 +461,8 @@ export default {
 
 
 
-#AddTask .field.notes label{
+#AddTask .field.notes label,
+#AddTask .field.color-label label{
     letter-spacing: 2px;
     text-transform: uppercase;
     padding: 5px;
@@ -524,34 +529,29 @@ export default {
 }
 
 
-#AddTask > .field .feedback{
-    text-align: center;
-    max-height: 200px;
-    overflow-y: scroll;
-    display: inline-block;
-    width: auto;
-    margin: 0 20px;
-    margin-bottom: 10px;
-    position: relative;
-    left: 0;
+#AddTask .feedback-container{
+    border-top: solid 1px rgba(0,0,0,.2);
 }
-#AddTask > .field .feedback p{
-    text-align: center;
-    border: solid 2px red;
-    display: inline-flex;
+
+#AddTask .feedback-container .feedback{
+    display: flex;
+    font-size: 0.7em;
     align-items: center;
-    padding: 8px 12px;
+    justify-content: space-between;
+    padding: 5px;
+    background: red;
     border-radius: 5px;
-    margin-bottom: 10px;
-}
-#AddTask > .field .feedback p i{
-    color: red;
-    font-size: 1.5em;
-    margin-left: 10px;
-    cursor: pointer;
-}
-#AddTask > .field button:hover{
-    background: var(--chosen-color);
     color: white;
+    opacity: .3;
+    transition: .25s;
+    cursor: pointer;
+    margin: 10px;
+}
+#AddTask .feedback-container .feedback:hover{
+    opacity: 1;
+}
+#AddTask .feedback-container .feedback span{
+    font-weight: bold;
+    color: black;
 }
 </style>

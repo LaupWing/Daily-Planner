@@ -1,10 +1,11 @@
 import {converDateToMS} from './timeFormat'
 function checkOverlap(array, taskObj){
     const feedback = []
-    const findOverlap = array.filter(task=>{
+    array.forEach(task=>{
         for(let dayInCurrentTask of task.days){
             for(let dayInNewTask of taskObj.days){
                 if(dayInNewTask.day === dayInCurrentTask.day){
+                    console.log(dayInNewTask.day , dayInCurrentTask.day)
                     const beginCurrentTask = converDateToMS(dayInCurrentTask.begin)
                     const endCurrentTask = converDateToMS(dayInCurrentTask.end)
                     const beginNewTask = converDateToMS(dayInNewTask.begin)
@@ -14,7 +15,6 @@ function checkOverlap(array, taskObj){
                         endNewTask <= endCurrentTask   
                     ){
                         feedback.push(feedbackMsg('overlaps', task, dayInCurrentTask))
-                        return task
                     }
                     else if(
                         beginNewTask >= beginCurrentTask && 
@@ -22,7 +22,6 @@ function checkOverlap(array, taskObj){
                         beginNewTask < endCurrentTask   
                     ){
                         feedback.push(feedbackMsg('begins', task, dayInCurrentTask))
-                        return task
                     }
                     else if(
                         beginNewTask <= beginCurrentTask &&
@@ -30,20 +29,18 @@ function checkOverlap(array, taskObj){
                         endNewTask > beginCurrentTask
                     ){
                         feedback.push(feedbackMsg('ends', task, dayInCurrentTask))
-                        return task
                     }
                     else if(
                         beginNewTask < beginCurrentTask &&
                         endNewTask > endCurrentTask     
                     ){
                         feedback.push(feedbackMsg('long', task, dayInCurrentTask))
-                        return task
                     }
                 }
             }
         }
     })
-
+    const findOverlap = null
     return {
         findOverlap,
         feedback
