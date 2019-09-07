@@ -5,7 +5,6 @@ function checkOverlap(array, taskObj){
         for(let dayInCurrentTask of task.days){
             for(let dayInNewTask of taskObj.days){
                 if(dayInNewTask.day === dayInCurrentTask.day){
-                    console.log(dayInNewTask.day , dayInCurrentTask.day)
                     const beginCurrentTask = converDateToMS(dayInCurrentTask.begin)
                     const endCurrentTask = converDateToMS(dayInCurrentTask.end)
                     const beginNewTask = converDateToMS(dayInNewTask.begin)

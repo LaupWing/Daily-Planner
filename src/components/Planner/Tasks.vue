@@ -3,11 +3,12 @@
         <div 
             class="task"
             v-for="(task, index) in tasks"
-            :class="{'expanded':edit === task}"
+            :class="{'expanded':expanded === task}"
             :key="index"
             :data-begin="getTimeOfThisDay('begin', task)"
             :data-end="getTimeOfThisDay('end', task)"
             :style="{background: task.color.color}"
+            @click="expandTask(task)"
         >
             <i 
                 class="far fa-edit" 
@@ -53,10 +54,15 @@ export default {
             edit: null,
             taskHeights:[],
             preventStateChangeFlag: false,
-            today: null
+            today: null,
+            expanded: null
         }
     },
     methods:{
+        clickOnTask(task){
+            // this.expanded = task
+            console.log(event)
+        },
         getTimeOfThisDay(state, task){
             return task.days
                 .find(day=>day.day===this.today)[state]
@@ -175,7 +181,17 @@ export default {
                 this.expandTask()
             }
         },
-        expandTask(){
+        expandTask(task){
+            console.log(task, this.expanded)
+            if(this.expanded === task){
+                this.applyPrevStyles()
+                this.expanded = null
+                this.$el.querySelectorAll('.task').forEach(task=>{
+                    task.classList.remove('expanded')
+                })
+                return
+            }
+            this.expanded = task
             this.taskHeights = Array.from(this.$el.querySelectorAll('.task'))
                 .map((task)=>{
                     return{
@@ -184,7 +200,7 @@ export default {
                         top: task.style.top
                     }
                 }) 
-            const el = event.target.parentElement
+            let el = event.target.classList[0] === 'task' ? event.target : event.target.parentElement
             if(el.offsetHeight <200){
                 const diffrence = 200 - Number(el.style.height.split('px')[0])
                 this.adjustTimeline(el, diffrence)
