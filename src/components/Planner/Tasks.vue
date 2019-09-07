@@ -38,7 +38,6 @@ import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
 import TaskEdit from '@/components/Planner/TaskEdit'
 import {checkConnectedLi} from '@/components/helpers/timeline'
-import { setTimeout } from 'timers';
 
 export default {
     name: 'Tasks',
@@ -55,7 +54,8 @@ export default {
             taskHeights:[],
             preventStateChangeFlag: false,
             today: null,
-            expanded: null
+            expanded: null,
+            taskHeightWhenExpanded: 300
         }
     },
     methods:{
@@ -201,8 +201,8 @@ export default {
                     }
                 }) 
             let el = event.target.classList[0] === 'task' ? event.target : event.target.parentElement
-            if(el.offsetHeight <200){
-                const diffrence = 200 - Number(el.style.height.split('px')[0])
+            if(el.offsetHeight <this.taskHeightWhenExpanded){
+                const diffrence = this.taskHeightWhenExpanded - Number(el.style.height.split('px')[0])
                 this.adjustTimeline(el, diffrence)
                 this.adjustTopValues(diffrence, el.style.top)
                 el.style.removeProperty('height')
@@ -382,7 +382,7 @@ export default {
     font-size: .7em;
 }
 #Tasks .task.expanded{
-    height: 200px;
+    height: 300px;
     opacity: 1;
     padding: 0;
 }
