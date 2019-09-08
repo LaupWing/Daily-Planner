@@ -10,15 +10,26 @@
             :style="{background: task.color.color}"
             @click="expandTask(task)"
         >
+            <TaskNav
+                v-if="expanded === task"
+            />
             <i 
                 class="far fa-edit" 
                 v-if="edit !== task" 
-                @click="editTask(task)"></i>
-            <p class="task-name" v-if="edit !== task">{{task.task}}</p>
+                @click="editTask(task)">
+            </i>
+            <GeneralInfo
+                :task="task"
+                :edit="edit"
+                :today="today"
+                :expanded="expanded"
+
+            />
+            <!-- <p class="task-name" v-if="edit !== task">{{task.task}}</p>
             <div class="time">
                 <p class="task-begin" v-if="edit !== task">{{getTimeOfThisDay('begin', task)}}-</p>
                 <p class="task-end" v-if="edit !== task">{{getTimeOfThisDay('end', task)}}</p>
-            </div>
+            </div> -->
             <TaskEdit
                 v-if="edit === task"
                 :task="task"
@@ -38,11 +49,15 @@ import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
 import TaskEdit from '@/components/Planner/TaskEdit'
 import {checkConnectedLi} from '@/components/helpers/timeline'
+import GeneralInfo from '@/components/Planner/Task/General'
+import TaskNav from '@/components/Planner/Task/TaskNav'
 
 export default {
     name: 'Tasks',
     components:{
-        TaskEdit
+        TaskEdit,
+        GeneralInfo,
+        TaskNav
     },
     props:['days'],
     data(){
@@ -55,7 +70,7 @@ export default {
             preventStateChangeFlag: false,
             today: null,
             expanded: null,
-            taskHeightWhenExpanded: 300
+            taskHeightWhenExpanded: 250
         }
     },
     methods:{
@@ -382,8 +397,7 @@ export default {
     font-size: .7em;
 }
 #Tasks .task.expanded{
-    height: 300px;
+    height: 250px;
     opacity: 1;
-    padding: 0;
 }
 </style>
