@@ -10,26 +10,25 @@
             :style="{background: task.color.color}"
             @click="expandTask(task)"
         >
-            <TaskNav
-                v-if="expanded === task"
-            />
-            <i 
+            <!-- <i 
                 class="far fa-edit" 
                 v-if="edit !== task" 
                 @click="editTask(task)">
-            </i>
-            <GeneralInfo
+            </i> -->
+            <TaskMore
                 :task="task"
                 :edit="edit"
                 :today="today"
-                :expanded="expanded"
+                v-if="expanded === task"
 
             />
-            <!-- <p class="task-name" v-if="edit !== task">{{task.task}}</p>
-            <div class="time">
-                <p class="task-begin" v-if="edit !== task">{{getTimeOfThisDay('begin', task)}}-</p>
-                <p class="task-end" v-if="edit !== task">{{getTimeOfThisDay('end', task)}}</p>
-            </div> -->
+            <div class="info" v-else>
+                <p class="task-name" v-if="edit !== task">{{task.task}}</p>
+                <div class="time">
+                    <p class="task-begin" v-if="edit !== task">{{getTimeOfThisDay('begin', task)}}-</p>
+                    <p class="task-end" v-if="edit !== task">{{getTimeOfThisDay('end', task)}}</p>
+                </div>
+            </div>
             <TaskEdit
                 v-if="edit === task"
                 :task="task"
@@ -49,15 +48,13 @@ import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
 import TaskEdit from '@/components/Planner/TaskEdit'
 import {checkConnectedLi} from '@/components/helpers/timeline'
-import GeneralInfo from '@/components/Planner/Task/General'
-import TaskNav from '@/components/Planner/Task/TaskNav'
+import TaskMore from '@/components/Planner/Task/More/TaskMore'
 
 export default {
     name: 'Tasks',
     components:{
         TaskEdit,
-        GeneralInfo,
-        TaskNav
+        TaskMore
     },
     props:['days'],
     data(){
@@ -372,7 +369,7 @@ export default {
     border: white solid 2px;
     opacity: .2;
     overflow: hidden;
-    padding: 2px 5px;
+    /* padding: 2px 5px; */
 }
 
 #Tasks .task.opacity{
@@ -399,5 +396,9 @@ export default {
 #Tasks .task.expanded{
     height: 250px;
     opacity: 1;
+}
+#Tasks .task .info{
+    pointer-events: none;
+    padding: 2px 5px;
 }
 </style>
