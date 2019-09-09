@@ -4,10 +4,14 @@
             <nav>
                 <li
                     :class="{'active': section === 'change'}"
+                    @click="setSection('change')"
                 >Change</li>
-                <li>Delete</li>
+                <li
+                    :class="{'active': section === 'delete'}"
+                    @click="setSection('delete')"
+                >Delete</li>
             </nav>
-            <div class="change">
+            <div class="change" v-if="section === 'change'">
                 <label class="day">{{dayToEdit.day.slice(0,3).trim()}}</label>
                 <div class="time-span-container">
                     <div class="field time-span">
@@ -38,8 +42,11 @@
                     </div>
                 </div>
             </div>
+            <div class="delete" v-if="section === 'delete'">
+                <p>Are you sure you want to delete this task on a <span>{{dayToEdit.day}}</span>?</p>
+            </div>
             <div class="buttons">
-                <button>Cancel</button>
+                <button @click="cancel">Cancel</button>
                 <button>Accept</button>
             </div>
         </div>
@@ -56,8 +63,12 @@ export default {
         }
     },
     methods:{
-        checkSection(){
-
+        cancel(){
+            this.$emit('cancel')
+        },
+        setSection(section){
+            console.log(section)
+            this.section = section
         }
     }
 }
@@ -83,7 +94,7 @@ export default {
     position: fixed;
     left: 0;
     top: 0;
-    background: rgba(0, 0, 0,.4);
+    background: rgba(0, 0, 0,.6);
     z-index: 1000;
     display: flex;
     justify-content: center;
@@ -126,14 +137,16 @@ export default {
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
+    background: var(--task-color);
+    color: white;
 }
 .edit-day-bg .edit-day nav li:hover{
-    background: var(--task-color);
-    color: white;
+    background: white;
+    color: var(--task-color);
 }
 .edit-day-bg .edit-day nav li.active{
-    background: var(--task-color);
-    color: white;
+    background: white;
+    color: var(--task-color);
 }
 .edit-day-bg .edit-day label.day{
     width: 40px;
@@ -170,5 +183,16 @@ export default {
 .edit-day-bg .field.time-span .minutes{
     display: flex;
     flex-direction: column;
+}
+.edit-day-bg .edit-day .delete p{
+    font-size: .9em;
+    width: 70%;
+    text-align: center;
+    margin: auto;
+    color: black;
+}
+.edit-day-bg .edit-day .delete p span{
+    color: var(--task-color);
+    font-weight: bold;
 }
 </style>

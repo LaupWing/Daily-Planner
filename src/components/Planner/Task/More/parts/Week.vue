@@ -25,6 +25,7 @@
         <ChangeDay
             v-if="dayToEdit"
             :dayToEdit="dayToEdit"
+            v-on:cancel="reset"
         />
     </div>
 </template>
@@ -58,7 +59,9 @@ export default {
         },
         editDay(day){
             this.dayToEdit = this.task.days.find(d=>d.day === day)
-            console.log(this.dayToEdit)
+        },
+        reset(){
+            this.dayToEdit = null
         }
     }
 }

@@ -9,7 +9,7 @@
         <input 
             type="text" 
             v-if="edit"
-            v-model="task.task"
+            v-model="editTask.task"
         >
         <div class="notes">
             <h3>Notes</h3>
@@ -18,7 +18,7 @@
                 cols="30" 
                 rows="8" 
                 v-if="edit" 
-                v-model="task.notes"
+                v-model="editTask.notes"
             >
 
             </textarea>
@@ -29,10 +29,10 @@
 <script>
 export default {
     name: 'GeneralInfo',
-    props:['task', 'edit', 'today', 'expanded'],
+    props:['task','editTask', 'edit', 'today', 'expanded'],
     data(){
         return{
-
+            
         }
     },
     methods:{

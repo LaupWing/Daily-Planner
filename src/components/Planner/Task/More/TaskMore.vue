@@ -7,7 +7,8 @@
             v-on:setSection="setSection"
         />
         <General
-            :task="editTask"
+            :editTask="editTask"
+            :task="task"
             :edit="edit"
             v-if="section === 'general'"
         />
@@ -58,6 +59,9 @@ export default {
         },
         toggleEdit(state){
             this.edit = state
+            if(!state){
+                this.editTask = JSON.parse(JSON.stringify(this.task))
+            }
         },
         setSection(section){
             this.section = section
