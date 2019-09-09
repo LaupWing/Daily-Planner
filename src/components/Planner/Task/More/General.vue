@@ -1,9 +1,27 @@
 <template>
     <div class="general-info">
-        <p class="task-name">{{task.task}}</p>
+        <p 
+            class="task-name"
+            v-if="!edit"
+        >
+            {{task.task}}
+        </p>
+        <input 
+            type="text" 
+            v-if="edit"
+            v-model="task.task"
+        >
         <div class="notes">
             <h3>Notes</h3>
-            <p>{{task.notes}}</p>
+            <p v-if="!edit">{{task.notes}}</p>
+            <textarea 
+                cols="30" 
+                rows="8" 
+                v-if="edit" 
+                v-model="task.notes"
+            >
+
+            </textarea>
         </div>
     </div>
 </template>
@@ -44,24 +62,31 @@ export default {
     overflow-y: auto;
     font-style: italic;
 }
+.general-info .notes textarea{
+    width: 100%;
+}
 
 /* width */
-.general-info .notes p::-webkit-scrollbar {
+.general-info .notes p::-webkit-scrollbar,
+.general-info .notes textarea::-webkit-scrollbar {
   width: 5px;
 }
 
 /* Track */
-.general-info .notes p::-webkit-scrollbar-track {
+.general-info .notes p::-webkit-scrollbar-track,
+.general-info .notes textarea::-webkit-scrollbar-track {
   background: #f1f1f1; 
 }
  
 /* Handle */
-.general-info .notes p::-webkit-scrollbar-thumb {
+.general-info .notes p::-webkit-scrollbar-thumb,
+.general-info .notes textarea::-webkit-scrollbar-thumb {
   background: #888; 
 }
 
 /* Handle on hover */
-.general-info .notes p::-webkit-scrollbar-thumb:hover {
+.general-info .notes p::-webkit-scrollbar-thumb:hover,
+.general-info .notes textarea::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
 </style>

@@ -7,8 +7,12 @@
             v-for="(item, index) in navItems"
             :key="index"
             :class="{'active' : section === item}"
+            @click="setSection(item)"
         >
             {{item}}
+        </li>
+        <li>
+            <i class="far fa-trash-alt"></i>
         </li>
     </nav>
 </template>
@@ -19,35 +23,33 @@ export default {
     props:['section', 'task'],
     data(){
         return{
-            navItems:['general', 'time', 'delete']
+            navItems:['general', 'time', 'labels']
         }
     },
     methods:{
         contractTask(){
             this.$emit('contractTask')
+        },
+        setSection(section){
+            this.$emit('setSection', section)
         }
-    },
-    mounted(){
-        // this.$el.style.setProperty('--task-color', this.task.color.color)
     }
 }
 </script>
 
 <style>
 .task-nav{
-    /* --task-color: black; */
     display: flex;
     font-size: .6em;
     width: 100%;
     background: rgba(0,0,0,.4);
-    /* justify-content: center; */
 }
 .task-nav li i{
     font-size: 1.5em;
 }
 .task-nav li{
     padding: 5px;
-    width: 25%;
+    width: 20%;
     text-align: center;
     cursor: pointer;
     text-transform: uppercase;
