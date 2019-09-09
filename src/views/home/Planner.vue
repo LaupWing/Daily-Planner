@@ -33,7 +33,7 @@
 <script>
 import Timeline from '@/components/Planner/Timeline'
 import GoTo from '@/components/Planner/GoTo'
-import Tasks from '@/components/Planner/Tasks'
+import Tasks from '@/components/Planner/Task/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import AddTask from '@/components/Planner/AddTask'

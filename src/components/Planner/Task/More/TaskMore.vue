@@ -13,9 +13,10 @@
             v-if="section === 'general'"
         />
         <Week
-            :task="editTask"
+            :editTask="editTask"
             :edit="edit"
             v-if="section === 'time'"
+            v-on:changeDay="changeDay"
         />
         <i 
             class="far fa-edit"
@@ -28,7 +29,7 @@
             v-if="edit"
         >
             <button @click="toggleEdit(false)">Cancel</button>
-            <button>Accept</button>
+            <button @click="acceptChanges">Accept</button>
         </div>
     </div>
 </template>
@@ -37,6 +38,8 @@
 import General from '@/components/Planner/Task/More/parts/General'
 import Week from '@/components/Planner/Task/More/parts/Week'
 import TaskNav from '@/components/Planner/Task/More/parts/TaskNav'
+import db from '@/firebase/init'
+import firebase from 'firebase'
 
 export default {
     name:'TaskMore',
@@ -50,7 +53,8 @@ export default {
         return{
             section: 'general',
             edit: false,
-            editTask:JSON.parse(JSON.stringify(this.task))
+            editTask:JSON.parse(JSON.stringify(this.task)),
+            dailyTasks: []
         }
     },
     methods:{
@@ -65,7 +69,42 @@ export default {
         },
         setSection(section){
             this.section = section
+        },
+        changeDay(newDay){
+            this.editTask.days = this.editTask.days
+                .map(day=>{
+                    if(day.day === newDay.day){
+                        return newDay
+                    }
+                    return day
+                })
+        },
+        acceptChanges(){
+            this.dailyTasks = this.dailyTasks.map(task=>{
+                if(task.task === this.task.task){
+                    return this.editTask
+                }else{
+                    return task
+                }
+            })
+            db
+                .collection('planner')
+                .doc(firebase.auth().currentUser.uid)
+                .update({
+                    dailyTasks: this.dailyTasks
+                })
         }
+    },
+    created(){
+        db
+            .collection('planner')
+            .doc(firebase.auth().currentUser.uid)
+            .get()
+            .then(doc=>{
+                this.dailyTasks = doc.data().dailyTasks
+                console.log(this.dailyTasks)
+            })
+
     },
     mounted(){
         this.$el.style.setProperty('--task-color', this.task.color.color)

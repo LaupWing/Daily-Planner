@@ -289,7 +289,6 @@ export default {
                                 .dailyTasks
                                 .filter(task=>{
                                     const checkDay = task.days.some(day=>day.day===currentDay)
-                                    console.log(checkDay)
                                     if(checkDay){
                                         return task
                                     }

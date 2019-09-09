@@ -19,11 +19,11 @@
                         <div class="time">
                             <div class="hours">
                                 <label for="hours">Hours</label>
-                                <input type="number" name="hours" min="00" max="23" v-model="dayToEdit.begin.split(':')[0]">
+                                <input type="number" name="hours" min="00" max="23" v-model="day.begin.hours">
                             </div>
                             <div class="minutes">
                                 <label for="minutes">Minutes</label>
-                                <input type="number" name="minutes" min="00" max="59" v-model="dayToEdit.begin.split(':')[1]">
+                                <input type="number" name="minutes" min="00" max="59" v-model="day.begin.minutes">
                             </div>
                         </div>
                     </div>
@@ -32,11 +32,11 @@
                         <div class="time">
                             <div class="hours">
                                 <label for="hours">Hours</label>
-                                <input type="number" name="hours" min="00" max="23" v-model="dayToEdit.end.split(':')[0]">
+                                <input type="number" name="hours" min="00" max="23" v-model="day.end.hours">
                             </div>
                             <div class="minutes">
                                 <label for="minutes">Minutes</label>
-                                <input type="number" name="minutes" min="00" max="59" v-model="dayToEdit.end.split(':')[1]">
+                                <input type="number" name="minutes" min="00" max="59" v-model="day.end.minutes">
                             </div>
                         </div>
                     </div>
@@ -47,19 +47,31 @@
             </div>
             <div class="buttons">
                 <button @click="cancel">Cancel</button>
-                <button>Accept</button>
+                <button @click="accept">Accept</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import {addZero} from '@/components/helpers/timeFormat'
 export default {
     name: 'ChangeDay',
     props:['dayToEdit'],
     data(){
         return{
-            section: 'change'
+            section: 'change',
+            day:{
+                day:this.dayToEdit.day,
+                begin:{
+                    hours: this.dayToEdit.begin.split(':')[0],
+                    minutes: this.dayToEdit.begin.split(':')[1]
+                },
+                end:{
+                    hours: this.dayToEdit.end.split(':')[0],
+                    minutes: this.dayToEdit.end.split(':')[1]
+                }
+            }
         }
     },
     methods:{
@@ -67,8 +79,15 @@ export default {
             this.$emit('cancel')
         },
         setSection(section){
-            console.log(section)
             this.section = section
+        },
+        accept(){
+            const newDay = {
+                day: this.day.day,
+                begin: `${addZero(this.day.begin.hours)}:${addZero(this.day.begin.minutes)}`,
+                end: `${addZero(this.day.end.hours)}:${addZero(this.day.end.minutes)}`
+            }
+            this.$emit('accept', newDay)
         }
     }
 }

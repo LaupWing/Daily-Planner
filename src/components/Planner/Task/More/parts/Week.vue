@@ -26,6 +26,7 @@
             v-if="dayToEdit"
             :dayToEdit="dayToEdit"
             v-on:cancel="reset"
+            v-on:accept="changeEdit"
         />
     </div>
 </template>
@@ -34,7 +35,7 @@
 import ChangeDay from '@/components/Planner/Task/More/parts/Week/ChangeDay'
 export default {
     name: 'Week',
-    props:['task', 'edit'],
+    props:['editTask', 'edit'],
     components:{
         ChangeDay
     },
@@ -46,7 +47,7 @@ export default {
     },
     methods:{
         checkDay(day){
-            const findDay = this.task.days.find(d=>d.day === day)
+            const findDay = this.editTask.days.find(d=>d.day === day)
             if(findDay){
                 return true
             }else{
@@ -54,14 +55,18 @@ export default {
             }
         },
         setDuration(day){
-            const findDay = this.task.days.find(d=>d.day === day)
+            const findDay = this.editTask.days.find(d=>d.day === day)
             return `${findDay.begin} - ${findDay.end}`
         },
         editDay(day){
-            this.dayToEdit = this.task.days.find(d=>d.day === day)
+            this.dayToEdit = this.editTask.days.find(d=>d.day === day)
         },
         reset(){
             this.dayToEdit = null
+        },
+        changeEdit(newDay){
+            this.dayToEdit = null
+            this.$emit('changeDay', newDay)
         }
     }
 }
