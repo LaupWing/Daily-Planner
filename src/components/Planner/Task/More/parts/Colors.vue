@@ -46,6 +46,7 @@ export default {
     border-radius: 5px;
     margin: 5px;
     transform-origin: center;
+    font-size: .8em;
 }
 .task-color .color.chosen{
     transform: scale(1.15);

@@ -1,16 +1,18 @@
 <template>
     <div class="general-info">
-        <p 
-            class="task-name"
-            v-if="!edit"
-        >
-            {{task.task}}
-        </p>
-        <input 
-            type="text" 
-            v-if="edit"
-            v-model="editTask.task"
-        >
+        <div class="title">
+            <p 
+                class="task-name"
+                v-if="!edit"
+            >
+                {{task.task}}
+            </p>
+            <input
+                type="text" 
+                v-if="edit"
+                v-model="editTask.task"
+            >
+        </div>
         <div class="notes">
             <h3>Notes</h3>
             <p v-if="!edit">{{task.notes}}</p>
@@ -48,6 +50,12 @@ export default {
 </script>
 
 <style>
+.general-info .title{
+    padding: 5px;
+}
+.general-info .title input[type='text']{
+    width: 100%;
+}
 .general-info .notes{
     font-size: .8em;
     margin: 5px 0;
