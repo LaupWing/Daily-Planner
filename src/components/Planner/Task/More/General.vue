@@ -1,21 +1,7 @@
 <template>
     <div class="general-info">
-        <p class="task-name" v-if="edit !== task">{{task.task}}</p>
-        <div class="time" v-if="task !== expanded">
-            <p 
-                class="task-begin" 
-                v-if="edit !== task"
-            >
-                {{getTimeOfThisDay('begin', task)}}-
-            </p>
-            <p 
-                class="task-end" 
-                v-if="edit !== task"
-            >
-                {{getTimeOfThisDay('end', task)}}
-            </p>
-        </div>
-        <div class="notes" v-if="expanded === task">
+        <p class="task-name">{{task.task}}</p>
+        <div class="notes">
             <h3>Notes</h3>
             <p>{{task.notes}}</p>
         </div>
@@ -50,9 +36,32 @@ export default {
     user-select: none;
     padding: 5px;
 }
+.general-info .task-name{
+    padding: 5px;
+}
 .general-info .notes p{
     max-height: 120px;
     overflow-y: auto;
     font-style: italic;
+}
+
+/* width */
+.general-info .notes p::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.general-info .notes p::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.general-info .notes p::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.general-info .notes p::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
 </style>

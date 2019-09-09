@@ -20,6 +20,7 @@
                 :edit="edit"
                 :today="today"
                 v-if="expanded === task"
+                v-on:contractTask="contractTask"
 
             />
             <div class="info" v-else>
@@ -193,14 +194,20 @@ export default {
                 this.expandTask()
             }
         },
+        contractTask(){
+            this.applyPrevStyles()
+            this.expanded = null
+            this.$el.querySelectorAll('.task').forEach(task=>{
+                task.classList.remove('expanded')
+            })
+        },
         expandTask(task){
-            console.log(task, this.expanded)
             if(this.expanded === task){
-                this.applyPrevStyles()
-                this.expanded = null
-                this.$el.querySelectorAll('.task').forEach(task=>{
-                    task.classList.remove('expanded')
-                })
+                // this.applyPrevStyles()
+                // this.expanded = null
+                // this.$el.querySelectorAll('.task').forEach(task=>{
+                //     task.classList.remove('expanded')
+                // })
                 return
             }
             this.expanded = task
@@ -376,12 +383,12 @@ export default {
     opacity: 1;
 }
 
-#Tasks .task i{
+/* #Tasks .task i{
     position: absolute;
     right: 5px;
     top: 5px;
     cursor: pointer;
-}
+} */
 #Tasks .days{
     display: flex;
 }

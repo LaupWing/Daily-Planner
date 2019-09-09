@@ -3,10 +3,15 @@
         <TaskNav
             :section="section"
             :task="task"
+            v-on:contractTask="contractTask"
         />
-        <!-- <General
-
-        /> -->
+        <General
+            :task="task"
+            :edit="edit"
+        />
+        <i 
+            class="far fa-edit">
+        </i>
     </div>
 </template>
 
@@ -26,9 +31,14 @@ export default {
             section: 'general'
         }
     },
-     methods:{
-
-     }
+    methods:{
+        contractTask(){
+            this.$emit('contractTask')
+        }
+    },
+    mounted(){
+        this.$el.style.setProperty('--task-color', this.task.color.color)
+    }
 }
 </script>
 
@@ -36,5 +46,21 @@ export default {
 .task-more{
     width: 100%;
     height: 100%;
+    position: relative;
+    --task-color: black;
+}
+.task-more i.far.fa-edit{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    left:0;
+    bottom: 0;
+    padding: 5px;
+    transition: .25s;
+    cursor: pointer;
+}
+.task-more i:hover{
+    /* color: var(--task-color); */
+    background: rgba(0, 0, 0, .4);
 }
 </style>
