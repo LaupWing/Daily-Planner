@@ -80,6 +80,7 @@ export default {
                 })
         },
         acceptChanges(){
+            this.$emit('preventStateChange')
             this.dailyTasks = this.dailyTasks.map(task=>{
                 if(task.task === this.task.task){
                     return this.editTask
@@ -92,6 +93,10 @@ export default {
                 .doc(firebase.auth().currentUser.uid)
                 .update({
                     dailyTasks: this.dailyTasks
+                })
+                .then(()=>{
+                    this.edit = false
+                    this.$emit('updateFinished')
                 })
         }
     },

@@ -21,6 +21,8 @@
                 :today="today"
                 v-if="expanded === task"
                 v-on:contractTask="contractTask"
+                v-on:preventStateChange='preventStateChange'
+                v-on:updateFinished="updateFinished"
 
             />
             <div class="info" v-else>
@@ -30,14 +32,6 @@
                     <p class="task-end" v-if="edit !== task">{{getTimeOfThisDay('end', task)}}</p>
                 </div>
             </div>
-            <TaskEdit
-                v-if="edit === task"
-                :task="task"
-                :allTasks='allTasks'
-                v-on:toggleEdit='editTask'
-                v-on:updateTasks='updateTasks'
-                v-on:preventStateChange='preventStateChange'
-            />
         </div>
     </div>
 </template>
@@ -47,14 +41,12 @@ import firebase from 'firebase'
 import db from '@/firebase/init'
 import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
-import TaskEdit from '@/components/Planner/TaskEdit'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import TaskMore from '@/components/Planner/Task/More/TaskMore'
 
 export default {
     name: 'Tasks',
     components:{
-        TaskEdit,
         TaskMore
     },
     props:['days'],
@@ -72,9 +64,10 @@ export default {
         }
     },
     methods:{
-        clickOnTask(task){
-            // this.expanded = task
-            console.log(event)
+        updateFinished(){
+            this.expanded = null 
+            this.updateTasks()
+            this.applyPrevStyles()
         },
         getTimeOfThisDay(state, task){
             return task.days
@@ -302,7 +295,7 @@ export default {
                     }
                 })
         },
-        updateTasks(task){
+        updateTasks(){
             const findLiWithMargin = Array.from(document.querySelectorAll('#Timeline li'))
                 .find(li=>{
                     if(li.style.marginTop || li.style.marginBottom){
@@ -312,9 +305,10 @@ export default {
             
             const bridge = (e)=>{
                 if(e.propertyName==='margin-top'||e.propertyName==='margin-bottom'){
-                    this.taskHeightAndPosition()
-                    this.checkCurrentTask()
-                    this.taskWatcher()
+                    console.log('transitionended')
+                    this.getTasks(()=>{
+                        this.taskHeightAndPosition()
+                    })
                     document.querySelectorAll('#Timeline li').forEach(li=>{
                         li.removeEventListener('transitionend', bridge)
                     })
@@ -323,15 +317,12 @@ export default {
             // If there is a li with inline style margins we need adjust the positions according the li positions
             this.preventStateChangeFlag = false
             if(findLiWithMargin){
-                this.getTasks(false,()=>{
-                    this.editTask(task)
-                })
                 document.querySelectorAll('#Timeline li').forEach(li=>{
                     li.addEventListener('transitionend', bridge)
                 })
             }else{
-                this.getTasks(true,()=>{
-                    this.editTask(task)
+                this.getTasks(()=>{
+                    this.taskHeightAndPosition()
                 })
             }
         }
