@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import General from '@/components/Planner/Task/More/General'
-import Week from '@/components/Planner/Task/More/Week'
-import TaskNav from '@/components/Planner/Task/More/TaskNav'
+import General from '@/components/Planner/Task/More/parts/General'
+import Week from '@/components/Planner/Task/More/parts/Week'
+import TaskNav from '@/components/Planner/Task/More/parts/TaskNav'
 
 export default {
     name:'TaskMore',
