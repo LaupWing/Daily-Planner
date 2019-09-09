@@ -88,8 +88,8 @@
 <script>
 import db from '@/firebase/init'
 import firebase from 'firebase'
-import Label from '@/components/Planner/ColorLabels/Label'
-import AddTaskLabel from '@/components/Planner/ColorLabels/AddTaskLabel'
+import Label from '@/components/Planner/ColorLabels/Labels/Label'
+import AddTaskLabel from '@/components/Planner/ColorLabels/Labels/AddTaskLabel'
 import Feedback from '@/components/feedback/Feedback'
 export default {
     name: 'ColorLabels',

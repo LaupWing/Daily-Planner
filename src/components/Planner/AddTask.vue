@@ -66,7 +66,7 @@
 import {addZero} from '@/components/helpers/timeFormat'
 import {checkOverlap} from '@/components/helpers/overlap'
 import {addDayToMsg} from '@/components/helpers/overlap'
-import ColorLabels from '@/components/Planner/ColorLabels'
+import ColorLabels from '@/components/Planner/ColorLabels/ColorLabels'
 import Days from '@/components/Planner/AddTask/Days'
 
 

@@ -18,6 +18,12 @@
             v-if="section === 'time'"
             v-on:changeDay="changeDay"
         />
+        <Colors
+            :editTask="editTask"
+            :edit="edit"
+            :colors="colors"
+            v-if="section === 'labels'"
+        />
         <i 
             class="far fa-edit"
             v-if="!edit"
@@ -37,6 +43,7 @@
 <script>
 import General from '@/components/Planner/Task/More/parts/General'
 import Week from '@/components/Planner/Task/More/parts/Week'
+import Colors from '@/components/Planner/Task/More/parts/Colors'
 import TaskNav from '@/components/Planner/Task/More/parts/TaskNav'
 import db from '@/firebase/init'
 import firebase from 'firebase'
@@ -47,14 +54,16 @@ export default {
     components:{
         General,
         TaskNav,
-        Week
+        Week,
+        Colors
     },
     data(){
         return{
             section: 'general',
             edit: false,
             editTask:JSON.parse(JSON.stringify(this.task)),
-            dailyTasks: []
+            dailyTasks: [],
+            colors: []
         }
     },
     methods:{
@@ -68,6 +77,7 @@ export default {
             }
         },
         setSection(section){
+            console.log(section)
             this.section = section
         },
         changeDay(newDay){
@@ -107,7 +117,7 @@ export default {
             .get()
             .then(doc=>{
                 this.dailyTasks = doc.data().dailyTasks
-                console.log(this.dailyTasks)
+                this.colors = doc.data().colorLabels
             })
 
     },
