@@ -195,19 +195,25 @@ export default {
             }
         },
         contractTask(){
+            const liItems = document.querySelectorAll('ul#Timeline li')
+            const reset = ()=>{
+                this.expanded = null
+                liItems.forEach(li=>li.removeEventListener('transitionend', reset))
+            }
+            liItems.forEach(li=>{
+                if(li.style.marginTop || li.style.marginBottom){
+                    li.addEventListener('transitionend',reset)
+                }
+            })
             this.applyPrevStyles()
-            this.expanded = null
+            // Wait until the animation is ended
+            // TODO: change the code below to a transitionend event for more dynamic code
             this.$el.querySelectorAll('.task').forEach(task=>{
                 task.classList.remove('expanded')
             })
         },
         expandTask(task){
             if(this.expanded === task){
-                // this.applyPrevStyles()
-                // this.expanded = null
-                // this.$el.querySelectorAll('.task').forEach(task=>{
-                //     task.classList.remove('expanded')
-                // })
                 return
             }
             this.expanded = task

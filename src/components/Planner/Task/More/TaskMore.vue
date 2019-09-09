@@ -28,7 +28,8 @@ export default {
     },
     data(){
         return{
-            section: 'general'
+            section: 'general',
+            edit: false
         }
     },
     methods:{
