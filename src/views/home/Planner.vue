@@ -375,7 +375,7 @@ export default {
 
 #planner .indicator{
   --time: '00:00';
-  height: 1px;
+  height: 2px;
   width: 300px;
   position: fixed;
   top: 50%;
