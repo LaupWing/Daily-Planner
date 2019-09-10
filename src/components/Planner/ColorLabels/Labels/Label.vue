@@ -11,22 +11,46 @@
         >
             {{label.label}}
         </p>
+         <EditLabelForm 
+            v-if="editLabel"
+            :colorLabels="colorLabels"
+            :nonEditedLabel="nonEditedLabel"
+            :editLabel="editLabel"
+            :user="user"
+            v-on:cancel="cancel"
+        />
+        <div 
+            class="close-box"
+            v-if="editLabel"
+        >
+
+        </div>
     </div>
 </template>
 
 <script>
+import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
 export default {
     name: 'Label',
-    props:['label' ,'taskColor'],
+    props:['label' ,'taskColor', 'user', 'colorLabels'],
+    components:{
+        EditLabelForm
+    },
     data(){
         return{
-
+            editLabel: null,
+            nonEditedLabel: null
         }
     },
     methods:{
         clickAction(){
-            this.$emit('edit', this.label)
+            this.editLabel = Object.assign({},this.label)
+            this.nonEditedLabel = this.label
+            // this.$emit('edit', this.label)
         },
+        cancel(){
+
+        }
     },
     computed:{
         checkTaskColor(){
@@ -55,6 +79,7 @@ div.label{
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 div.label p.label-name{
     position: absolute;
@@ -68,5 +93,20 @@ div.label p.label-name{
 div.label p.label-name.show{
     padding: 2px 5px;
     max-width: 300px;
+}
+#Color-Label div.label form{
+    left: 150%;
+}
+#Color-Label div.label form::before{
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: white;
+    transform: translate(0,-100%);
+    display: block;
+    position: absolute;
+    left: -8px;
+    top: 6px;
+    transform: rotate(45deg);
 }
 </style>

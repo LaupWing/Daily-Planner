@@ -31,7 +31,7 @@ import Feedback from '@/components/feedback/Feedback'
 
 export default {
     name: 'EditLabelForm',
-    props:['editLabel', 'colorLabels', 'nonEditedLabel'],
+    props:['editLabel', 'colorLabels', 'nonEditedLabel', 'user'],
     components:{
         Feedback
     },

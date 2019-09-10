@@ -6,11 +6,12 @@
                 v-for="(label, index) in colorLabels" 
                 :key="index"
                 :label='label'
+                :colorLabels="colorLabels"
+                :user="user"
                 :taskColor='taskColor'
                 :class="{'active':nonEditedLabel === label}"
                 v-on:edit='edit'
             />
-            <!-- <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i> -->
         </div>
         <div class="label-container" v-if="addTask">
             <AddTaskLabel 
@@ -21,7 +22,6 @@
                 class="label"
                 v-on:addColorLabel='addColorLabel'
             />
-            <!-- <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i> -->
         </div>
         <div class="form-container">
             <i class="fas fa-plus-circle" @click="toggleAdd"></i>
@@ -203,7 +203,7 @@ export default {
 #Color-Label .form-container{
     position: relative;
 }
-#Color-Label .form-container form{
+#Color-Label form{
     position: absolute;
     left: 100%;
     top: 0;
