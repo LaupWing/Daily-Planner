@@ -1,6 +1,6 @@
 <template>
     <div id="Color-Label">
-        <h2>Color Labels</h2>
+        <h2>Labels</h2>
         <div class="label-container" v-if="!addTask">
             <Label 
                 v-for="(label, index) in colorLabels" 
@@ -24,7 +24,6 @@
             />
             <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i>
         </div>
-        <!-- <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i> -->
         <div class="form-container"  v-if="addLabel || editLabel">
             <form @submit.prevent="submit" v-if="addLabel">
                 <h2 v-if="addTask">Adding Label</h2>

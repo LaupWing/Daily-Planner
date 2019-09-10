@@ -36,7 +36,7 @@ import GoTo from '@/components/Planner/GoTo'
 import Tasks from '@/components/Planner/Task/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels/ColorLabels'
 import {checkConnectedLi} from '@/components/helpers/timeline'
-import AddTask from '@/components/Planner/AddTask'
+import AddTask from '@/components/Planner/AddTask/AddTask'
 import firebase from 'firebase'
 import db from '@/firebase/init'
 

@@ -86,5 +86,6 @@ export default {
     transform: scale(1.15);
     margin: 10px;
     font-weight: bold;
+    border-width: 2px;
 }
 </style>

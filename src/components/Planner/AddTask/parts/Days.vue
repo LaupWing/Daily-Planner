@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import TimePopup from '@/components/Planner/AddTask/Days/TimePopup'
+import TimePopup from '@/components/Planner/AddTask/parts/Days/TimePopup'
 
 export default {
     name: 'Days',

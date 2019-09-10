@@ -22,7 +22,7 @@
 <script>
 import CurrentTime from '@/components/CurrentTime.vue'
 import Temperature from '@/components/Temperature.vue'
-import AddTask from '@/components/Planner/AddTask'
+import AddTask from '@/components/Planner/AddTask/AddTask'
 import Nav from '@/components/Nav.vue'
 export default {
   name: 'App',

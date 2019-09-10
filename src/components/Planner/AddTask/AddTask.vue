@@ -67,7 +67,7 @@ import {addZero} from '@/components/helpers/timeFormat'
 import {checkOverlap} from '@/components/helpers/overlap'
 import {addDayToMsg} from '@/components/helpers/overlap'
 import ColorLabels from '@/components/Planner/ColorLabels/ColorLabels'
-import Days from '@/components/Planner/AddTask/Days'
+import Days from '@/components/Planner/AddTask/parts/Days'
 
 
 import firebase from 'firebase'
@@ -265,12 +265,14 @@ export default {
     align-items: center;
 }
 #AddTask{
+    --chosen-color: black;
+    --popup-boxShadow: 0px 0px 17px 3px rgba(255,255,255,0.35);
     border-radius: 5px;
     overflow: hidden;
-    --chosen-color: black;
     width: 600px;
     background: white;
     color: black;
+    box-shadow: var(--popup-boxShadow);
 }
 #AddTask > h2{
     text-align: left;
@@ -448,6 +450,7 @@ export default {
     background: white;
     width: 400px;
     height: 350px;
+    box-shadow: var(--popup-boxShadow);
 }
 
 #AddTask #Color-Label h2{
@@ -496,6 +499,9 @@ export default {
     border-color: black;
     border-radius: 0;
     color: black;
+}
+#AddTask #Color-Label button:hover{
+    color: white;
 }
 
 
