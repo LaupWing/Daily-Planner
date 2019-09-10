@@ -450,13 +450,13 @@ export default {
     background: white;
     width: 400px;
     height: 350px;
-    box-shadow: var(--popup-boxShadow);
+    box-shadow: 0px 0px 17px 3px rgba(0,0,0,0.35);;
 }
 
 #AddTask #Color-Label h2{
     padding: 5px 10px;
-    background: var(--chosen-color);
-    color: white;
+    /* background: var(--chosen-color); */
+    color: black;
     width: 100%;
     text-align: left;
 }
@@ -475,8 +475,7 @@ export default {
 }
 
 #AddTask #Color-Label .form-container{
-    position: absolute;
-    background: rgba(0,0,0,.4);
+    /* position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -484,7 +483,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 }
 #AddTask #Color-Label .form-container form{
     background: white
