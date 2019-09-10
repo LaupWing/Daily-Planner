@@ -24,57 +24,21 @@
             <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i>
         </div>
         <div class="form-container"  v-if="addLabel || editLabel">
-            <form @submit.prevent="submit" v-if="addLabel">
-                <h2 v-if="addTask">Adding Label</h2>
-                <div class="field">
-                    <Feedback 
-                        v-if="feedbackLabel" 
-                        :feedback='{message:feedbackLabel, type:"label"}'
-                        v-on:turnOffFeedback="turnOffFeedback"
-                    />
-                    <input type="text" v-model="newLabel" name="label" placeholder="label" required>
-                </div>
-                <div class="field">
-                    <Feedback 
-                        v-if="feedbackColor" 
-                        :feedback='{message:feedbackColor, type: "color"}'
-                        v-on:turnOffFeedback="turnOffFeedback"
-                    />
-                    <input type="text" v-model="color" name="color" placeholder="color" required>
-                </div>
-                <div class="example">
-                    <p :style="{borderColor: color, color: color}" class="label">{{newLabel}}</p>
-                </div>
-                <div class="field">
-                    <button type="button" @click="cancel">Cancel</button>
-                    <button>Add</button>
-                </div>
-            </form>
-            <form @submit.prevent="change" v-if="editLabel">
-                <div class="field">
-                    <Feedback 
-                        v-if="feedbackLabel" 
-                        :feedback='{message: feedbackLabel, type:"label"}'
-                        v-on:turnOffFeedback="turnOffFeedback"
-                    />
-                    <input type="text" v-model="editLabel.label" name="label" required>
-                </div>
-                <div class="field">
-                    <Feedback 
-                        v-if="feedbackColor" 
-                        :feedback='{message: feedbackColor, type:"color"}'
-                        v-on:turnOffFeedback="turnOffFeedback"
-                    />
-                    <input type="text" v-model="editLabel.color" name="color" required>
-                </div>
-                <div class="example">
-                    <p :style="{color: editLabel.color, borderColor:editLabel.color}" class="label">{{editLabel.label}}</p>
-                </div>
-                <div class="field">
-                    <button type="button" @click="cancel">Cancel</button>
-                    <button >Change</button>
-                </div>
-            </form>
+            <AddLabelForm 
+                v-if="addLabel"
+                :addTask="addTask"
+                :colorLabels="colorLabels"
+                :user="user"
+                v-on:cancel="cancel"
+            />
+            <EditLabelForm 
+                v-if="editLabel"
+                :colorLabels="colorLabels"
+                :nonEditedLabel="nonEditedLabel"
+                :editLabel="editLabel"
+                :user="user"
+                v-on:cancel="cancel"
+            />
         </div>
         <div class="buttons" v-if="addTask">
             <button @click="closePopup">Cancel</button>
@@ -89,6 +53,8 @@ import firebase from 'firebase'
 import Label from '@/components/Planner/ColorLabels/Labels/Label'
 import AddTaskLabel from '@/components/Planner/ColorLabels/Labels/AddTaskLabel'
 import Feedback from '@/components/feedback/Feedback'
+import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
+import AddLabelForm from '@/components/Planner/ColorLabels/ColorForms/AddLabelForm'
 
 export default {
     name: 'ColorLabels',
@@ -96,45 +62,21 @@ export default {
     components:{
         Label,
         AddTaskLabel,
-        Feedback
+        Feedback,
+        EditLabelForm,
+        AddLabelForm
     },
     data(){
         return{
             colorLabels: [],
-            newLabel: null,
-            color: null,
             user: firebase.auth().currentUser,
             addLabel: false,
             editLabel: null,
             nonEditedLabel: null,
-            colorLabelToAdd: null,
-            feedbackColor: null,
-            feedbackLabel: null
+            colorLabelToAdd: null
         }
     },
     methods:{
-        submit(){
-            if(this.newLabel && this.color){
-                if(this.duplicateCheck(this.colorLabels, 'newLabel', 'color')){
-                    const colorLabel = {
-                        color: this.color,
-                        label: this.newLabel
-                    }
-                    this.colorLabels.push(colorLabel)
-                    db
-                        .collection('planner')
-                        .doc(this.user.uid)
-                        .update({
-                            colorLabels: this.colorLabels
-                        })
-                        .then(()=>{
-                            this.cancel()
-                        })
-                        .catch(()=>{
-                        })
-                }
-            }
-        },
         edit(label){
             if(this.addLabel){
                 return
@@ -147,55 +89,6 @@ export default {
         },
         addColorLabel(label){
             this.colorLabelToAdd = label
-        },
-        duplicateCheck(array,labelProp, colorProp){
-            const findColor = array.find(label=>label.color.toLowerCase() === this[colorProp].toLowerCase())
-            const findLabel = array.find(label=> label.label.toLowerCase() === this[labelProp].toLowerCase())
-            if(findColor || findLabel){
-                if(findColor){
-                    this.feedbackColor = `The color ${this.color} is already in use`
-                }
-                if(findLabel){
-                    this.feedbackLabel = `The label named ${this.newLabel} is already in use`
-                }
-                return false
-            }else{
-                return true
-            }
-        },
-        change(){
-            const removeSelf = this.colorLabels.filter(label=>{
-                return JSON.stringify(label) !== JSON.stringify(this.nonEditedLabel)
-            })
-            if(this.duplicateCheck(removeSelf, 'editLabel.label', 'editLabel.color')){
-                this.getData()
-                    .then(()=>{
-                        const updatedLabels = this.colorLabels.map(label=>{
-                            if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(label)){
-                                return this.editLabel
-                            }
-                            return label
-                        })
-                        const updatedTasks = this.dailyTasks.map(task=>{
-                            if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(task.color)){
-                                task.color = this.editLabel
-                            }
-                            return task
-                        })
-                        db
-                            .collection('planner')
-                            .doc(this.user.uid)
-                            .update({
-                                colorLabels: updatedLabels,
-                                dailyTasks: updatedTasks
-                            })
-                            .then(()=>{
-                                this.colorLabels = updatedLabels
-                                this.cancel()
-                            })
-                    })
-            }
-            
         },
         cancel(){
             this.editLabel = null
@@ -218,14 +111,6 @@ export default {
                         this.dailyTasks = data.dailyTasks
                     }
                 })
-        },
-        turnOffFeedback(feedback){
-            if(feedback.type === 'color'){
-                this.feedbackColor = null
-            }
-            if(feedback.type === 'label'){
-                this.feedbackLabel = null
-            }
         },
         closePopup(){
             this.$emit('closePopup')
