@@ -46,7 +46,7 @@ export default {
     },
     methods:{
         cancel(){
-            this.emit('cancel')
+            this.$emit('cancel')
         },
         submit(){
             if(this.newLabel && this.color){

@@ -13,7 +13,7 @@
             {{label.label}}
         </p>
          <EditLabelForm 
-            v-if="JSON.stringify(nonEditedLabel) === JSON.stringify(label)"
+            v-if="nonEditedLabel === label"
             :colorLabels="colorLabels"
             :nonEditedLabel="nonEditedLabel"
             :editLabel="editLabel"
@@ -37,13 +37,15 @@ export default {
     },
     methods:{
         clickAction(){
-            console.log(this.label)
-            // this.editLabel = Object.assign({},this.label)
-            // this.nonEditedLabel = this.label
             this.$emit('edit', this.label)
         },
         cancel(){
-
+            this.$emit('cancel')
+        },
+    },
+    watch:{
+        nonEditedLabel: function(newLabel, oldLabel){
+            // console.log(newLabel, oldLabel, this.nonEditedLabel)
         }
     },
     computed:{
@@ -58,7 +60,7 @@ export default {
                 return false
             }
         }
-        },
+    },
     created(){
     }
 }
@@ -75,10 +77,6 @@ div.label{
     align-items: center;
     position: relative;
 }
-div.label.hover:hover p.label-name{
-    max-width: 300px;
-    padding-right: 10px;
-}
 div.label p.label-name{
     user-select: none;
     position: absolute;
@@ -89,8 +87,10 @@ div.label p.label-name{
     height: 100%;
     line-height: 30px;
 }
-div.label p.label-name.show{
-    /* padding: 2px 5px; */
+div.label p.label-name.show,
+div.label p.label-name.show-all,
+div.label.hover:hover p.label-name{
+    padding-left: 50px;
     padding-right: 10px;
     max-width: 300px;
 }

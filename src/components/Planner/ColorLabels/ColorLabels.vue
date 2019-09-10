@@ -1,6 +1,9 @@
 <template>
     <div id="Color-Label">
-        <h2>Labels</h2>
+        <h2
+            @mouseover="showAll(true)"
+            @mouseout="showAll(false)"
+        >Labels</h2>
         <div class="label-container" v-if="!addTask">
             <Label 
                 v-for="(label, index) in colorLabels" 
@@ -13,6 +16,7 @@
                 :editLabel="editLabel"
                 :class="{'active':nonEditedLabel === label}"
                 v-on:edit='edit'
+                v-on:cancel='cancel'
             />
         </div>
         <div class="label-container" v-if="addTask">
@@ -34,14 +38,6 @@
                 :user="user"
                 v-on:cancel="cancel"
             />
-            <!-- <EditLabelForm 
-                v-if="editLabel"
-                :colorLabels="colorLabels"
-                :nonEditedLabel="nonEditedLabel"
-                :editLabel="editLabel"
-                :user="user"
-                v-on:cancel="cancel"
-            /> -->
         </div>
         <div class="buttons" v-if="addTask">
             <button @click="closePopup">Cancel</button>
@@ -80,10 +76,25 @@ export default {
         }
     },
     methods:{
+        showAll(state){
+            if(state){
+                this.$el.querySelectorAll('.label-name').forEach(label=>{
+                    label.classList.add('show-all')
+                })
+            }else{
+                this.$el.querySelectorAll('.label-name').forEach(label=>{
+                    label.classList.remove('show-all')
+                })
+            }
+        },
         edit(label){
-            this.addLabel = false
-            this.editLabel = Object.assign({},label)
-            this.nonEditedLabel = label
+            if(event.target.classList.length>0){
+                if(event.target.classList.contains('label')||event.target.classList.contains('label-name')){
+                    this.addLabel = false
+                    this.editLabel = Object.assign({},label)
+                    this.nonEditedLabel = label
+                }
+            }
         },
         toggleAdd(){
             this.editLabel = null
@@ -97,8 +108,6 @@ export default {
             this.editLabel = null
             this.addLabel = false
             this.nonEditedLabel = null
-            this.color = null
-            this.newLabel = null
         },
         getData(){
             return db
