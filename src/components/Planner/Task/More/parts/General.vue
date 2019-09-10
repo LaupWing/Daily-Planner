@@ -63,7 +63,7 @@ export default {
     padding: 5px;
 }
 .general-info .task-name{
-    padding: 5px;
+    padding: 5px 0;
 }
 .general-info .notes p{
     max-height: 120px;
