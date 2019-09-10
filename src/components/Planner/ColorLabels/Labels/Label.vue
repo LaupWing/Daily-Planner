@@ -51,7 +51,7 @@ export default {
                 return
             }
             return {
-                'show': this.label.color.toLowerCase() === this.taskColor.toLowerCase() 
+                'show': this.label.color.toLowerCase() === this.taskColor.toLowerCase() && !this.nonEditedLabel
             }
             if(this.taskColor === null || this.taskColor === undefined){
                 return false

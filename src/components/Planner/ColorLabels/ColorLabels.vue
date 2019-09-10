@@ -81,13 +81,13 @@ export default {
     },
     methods:{
         edit(label){
-            if(this.addLabel){
-                return
-            }
+            this.addLabel = false
             this.editLabel = Object.assign({},label)
             this.nonEditedLabel = label
         },
         toggleAdd(){
+            this.editLabel = null
+            this.nonEditedLabel = null
             this.addLabel = !this.addLabel
         },
         addColorLabel(label){
