@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submit" v-if="addLabel">
+    <form @submit.prevent="submit">
         <h2 v-if="addTask">Adding Label</h2>
         <div class="field">
             <Feedback 
@@ -7,7 +7,7 @@
                 :feedback='{message:feedbackLabel, type:"label"}'
                 v-on:turnOffFeedback="turnOffFeedback"
             />
-            <input type="text" v-model="newLabel" name="label" placeholder="label" required>
+            <input type="text" v-model="newLabel" name="label" autocomplete="off" placeholder="label" required>
         </div>
         <div class="field">
             <Feedback 
@@ -15,7 +15,7 @@
                 :feedback='{message:feedbackColor, type: "color"}'
                 v-on:turnOffFeedback="turnOffFeedback"
             />
-            <input type="text" v-model="color" name="color" placeholder="color" required>
+            <input type="text" v-model="color" name="color" placeholder="color" autocomplete="off" required>
         </div>
         <div class="example">
             <p :style="{borderColor: color, color: color}" class="label">{{newLabel}}</p>

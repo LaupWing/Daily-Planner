@@ -10,7 +10,7 @@
                 :class="{'active':nonEditedLabel === label}"
                 v-on:edit='edit'
             />
-            <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i>
+            <!-- <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i> -->
         </div>
         <div class="label-container" v-if="addTask">
             <AddTaskLabel 
@@ -21,9 +21,10 @@
                 class="label"
                 v-on:addColorLabel='addColorLabel'
             />
-            <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i>
+            <!-- <i v-if="!addLabel && !editLabel"  class="fas fa-plus-circle" @click="toggleAdd"></i> -->
         </div>
-        <div class="form-container"  v-if="addLabel || editLabel">
+        <div class="form-container">
+            <i class="fas fa-plus-circle" @click="toggleAdd"></i>
             <AddLabelForm 
                 v-if="addLabel"
                 :addTask="addTask"
@@ -167,8 +168,8 @@ export default {
     width: 50%;
     border: none;
     background: transparent;
-    border: solid 1px white;
-    color: white;
+    border: solid 1px rgba(0,0,0,.6);
+    color: rgba(0,0,0,.6);
     padding: 5px;
     border-radius: 0 20px 20px 0;
     outline: none;
@@ -199,15 +200,30 @@ export default {
     cursor: pointer;
     width: 100%;
 }
+#Color-Label .form-container{
+    position: relative;
+}
+#Color-Label .form-container form{
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: white;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.37);
+}
 #Color-Label form input[type='text']{
     width: 140px;
     border: none;
     padding: 5px;
     padding-left: 0;
-    border-bottom: white solid 1px;
+    border-bottom: rgba(0,0,0,.2) solid 1px;
     outline: none;
     background: transparent;
-    color: white
+    color: rgba(0,0,0,.8);
+}
+#Color-Label form input[type='text']::placeholder{
+    color: rgba(0,0,0,.2);
 }
 #Color-Label .field{
     display: flex;

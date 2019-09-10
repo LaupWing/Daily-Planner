@@ -6,7 +6,7 @@
                 :feedback='{message: feedbackLabel, type:"label"}'
                 v-on:turnOffFeedback="turnOffFeedback"
             />
-            <input type="text" v-model="editLabel.label" name="label" required>
+            <input type="text" v-model="editLabel.label" name="label" autocomplete="off" required>
         </div>
         <div class="field">
             <Feedback 
@@ -14,7 +14,7 @@
                 :feedback='{message: feedbackColor, type:"color"}'
                 v-on:turnOffFeedback="turnOffFeedback"
             />
-            <input type="text" v-model="editLabel.color" name="color" required>
+            <input type="text" v-model="editLabel.color" name="color" autocomplete="off" required>
         </div>
         <div class="example">
             <p :style="{color: editLabel.color, borderColor:editLabel.color}" class="label">{{editLabel.label}}</p>
