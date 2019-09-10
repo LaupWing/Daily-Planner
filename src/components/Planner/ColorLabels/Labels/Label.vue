@@ -1,6 +1,7 @@
 <template>
     <div 
-        class="label" 
+        class="label"
+        :class="{'hover':!nonEditedLabel}" 
         :style='{background: label.color}' 
         @click="clickAction"
     >
@@ -74,7 +75,12 @@ div.label{
     align-items: center;
     position: relative;
 }
+div.label.hover:hover p.label-name{
+    max-width: 300px;
+    padding-right: 10px;
+}
 div.label p.label-name{
+    user-select: none;
     position: absolute;
     left: 50%;
     max-width: 0px;
