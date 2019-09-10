@@ -34,6 +34,7 @@
                     name="label" 
                     :id="label+index"
                     :checked="JSON.stringify(label)===JSON.stringify(editTask.color)"
+                    @input="changeColor(label)"
                 >
             </div>
         </div>
@@ -48,13 +49,13 @@ export default {
     },
     data(){
         return{
-
+            
         }
     },
     methods:{
-    },
-    created(){
-        console.log(this.colors)
+        changeColor(label){
+            this.$emit('changeColor', label)
+        }
     }
 }
 </script>

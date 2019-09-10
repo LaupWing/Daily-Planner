@@ -23,6 +23,7 @@
             :edit="edit"
             :colors="colors"
             v-if="section === 'labels'"
+            v-on:changeColor="changeColor"
         />
         <i 
             class="far fa-edit"
@@ -77,8 +78,10 @@ export default {
             }
         },
         setSection(section){
-            console.log(section)
             this.section = section
+        },
+        changeColor(label){
+            this.editTask.color = label
         },
         changeDay(newDay){
             this.editTask.days = this.editTask.days
