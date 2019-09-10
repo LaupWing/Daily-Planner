@@ -122,11 +122,4 @@ li{
   list-style: none;
 }
 
-.close-box{
-  background: transparent;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-}
 </style>

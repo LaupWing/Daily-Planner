@@ -6,25 +6,19 @@
     >
         <p 
             class="label-name" 
-            :style="{color: label.color}"
+            :style="{background: label.color}"
             :class="checkTaskColor"
         >
             {{label.label}}
         </p>
          <EditLabelForm 
-            v-if="editLabel"
+            v-if="JSON.stringify(nonEditedLabel) === JSON.stringify(label)"
             :colorLabels="colorLabels"
             :nonEditedLabel="nonEditedLabel"
             :editLabel="editLabel"
             :user="user"
             v-on:cancel="cancel"
-        />
-        <div 
-            class="close-box"
-            v-if="editLabel"
-        >
-
-        </div>
+        /> 
     </div>
 </template>
 
@@ -32,21 +26,20 @@
 import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
 export default {
     name: 'Label',
-    props:['label' ,'taskColor', 'user', 'colorLabels'],
+    props:['label' ,'taskColor', 'user', 'colorLabels', 'editLabel', 'nonEditedLabel'],
     components:{
         EditLabelForm
     },
     data(){
         return{
-            editLabel: null,
-            nonEditedLabel: null
         }
     },
     methods:{
         clickAction(){
-            this.editLabel = Object.assign({},this.label)
-            this.nonEditedLabel = this.label
-            // this.$emit('edit', this.label)
+            console.log(this.label)
+            // this.editLabel = Object.assign({},this.label)
+            // this.nonEditedLabel = this.label
+            this.$emit('edit', this.label)
         },
         cancel(){
 
@@ -83,15 +76,16 @@ div.label{
 }
 div.label p.label-name{
     position: absolute;
-    left: 110%;
-    top: 12%;
+    left: 50%;
     max-width: 0px;
     transition: .5s;
     overflow: hidden;
-    background: rgba(255,255,255,.7);
+    height: 100%;
+    line-height: 30px;
 }
 div.label p.label-name.show{
-    padding: 2px 5px;
+    /* padding: 2px 5px; */
+    padding-right: 10px;
     max-width: 300px;
 }
 #Color-Label div.label form{

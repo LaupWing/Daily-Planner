@@ -9,6 +9,8 @@
                 :colorLabels="colorLabels"
                 :user="user"
                 :taskColor='taskColor'
+                :nonEditedLabel="nonEditedLabel"
+                :editLabel="editLabel"
                 :class="{'active':nonEditedLabel === label}"
                 v-on:edit='edit'
             />
@@ -32,14 +34,14 @@
                 :user="user"
                 v-on:cancel="cancel"
             />
-            <EditLabelForm 
+            <!-- <EditLabelForm 
                 v-if="editLabel"
                 :colorLabels="colorLabels"
                 :nonEditedLabel="nonEditedLabel"
                 :editLabel="editLabel"
                 :user="user"
                 v-on:cancel="cancel"
-            />
+            /> -->
         </div>
         <div class="buttons" v-if="addTask">
             <button @click="closePopup">Cancel</button>
