@@ -7,7 +7,6 @@
                 :key="index"
                 :label='label'
                 :taskColor='taskColor'
-                class="label"
                 :class="{'active':nonEditedLabel === label}"
                 v-on:edit='edit'
             />
@@ -90,6 +89,7 @@ import firebase from 'firebase'
 import Label from '@/components/Planner/ColorLabels/Labels/Label'
 import AddTaskLabel from '@/components/Planner/ColorLabels/Labels/AddTaskLabel'
 import Feedback from '@/components/feedback/Feedback'
+
 export default {
     name: 'ColorLabels',
     props:['taskColor' ,'addTask', 'chosenColorLabel'],
@@ -254,7 +254,6 @@ export default {
     font-weight: normal;
     font-size: 1.2em;
     text-align: center;
-    width: 140px;
 }
 #Color-Label p.label{
     display: inline-block;
@@ -304,6 +303,7 @@ export default {
 #Color-Label .label-container{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 #Color-Label i{
     display: block;
@@ -313,9 +313,6 @@ export default {
     color: white;
     cursor: pointer;
     width: 100%;
-}
-#Color-Label .form-container{
-    /* height: 100px; */
 }
 #Color-Label form input[type='text']{
     width: 140px;
@@ -327,10 +324,6 @@ export default {
     background: transparent;
     color: white
 }
-/* #Color-Label form button{
-    width: 70px;
-    text-align: center;
-} */
 #Color-Label .field{
     display: flex;
     position: relative;
