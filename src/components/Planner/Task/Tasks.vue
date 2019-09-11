@@ -8,7 +8,7 @@
             :data-begin="getTimeOfThisDay('begin', task)"
             :data-end="getTimeOfThisDay('end', task)"
             :style="{background: task.color.color}"
-            @click="expandTask(task)"
+            @click="clickOnTask(task)"
         >
             <!-- <i 
                 class="far fa-edit" 
@@ -170,20 +170,19 @@ export default {
             const point = li.offsetTop + (li.offsetHeight/2) + calcMinutes
             return point
         },
-        editTask(task){
-            if(this.edit === task){
+        clickOnTask(task){
+            if(this.expanded === task){
                 // If the user clicks cancel this will be triggerd
-                this.applyPrevStyles()
-                this.edit = null
-                this.$emit('checkActiveTask')
-            }else if(this.edit === null){
-                this.edit = task
+                return
+            }else if(this.expanded === null){
+                this.expanded = task
                 this.expandTask()
             }
             else{
                 // When the user clicks on another task to edit and keeps one open
+                console.log('click on another task')
                 this.applyPrevStyles()
-                this.edit = task
+                this.expanded = task
                 this.expandTask()
             }
         },
@@ -206,10 +205,10 @@ export default {
             })
         },
         expandTask(task){
-            if(this.expanded === task){
-                return
-            }
-            this.expanded = task
+            // if(this.expanded === task){
+            //     return
+            // }
+            // this.expanded = task
             this.taskHeights = Array.from(this.$el.querySelectorAll('.task'))
                 .map((task)=>{
                     return{
@@ -370,7 +369,7 @@ export default {
     color: white;
     border-radius: 6px;
     border: white solid 2px;
-    opacity: .2;
+    opacity: .1;
     overflow: hidden;
     /* padding: 2px 5px; */
 }
