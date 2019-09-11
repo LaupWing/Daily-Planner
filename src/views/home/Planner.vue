@@ -25,6 +25,7 @@
       <Tasks
         v-on:setTask='setTask'
         v-on:checkActiveTask='checkTaskByScroll'
+        v-on:openCustonContext="openCustonContext"
       />
     </div>
     <GoTo
@@ -84,8 +85,10 @@ export default {
       this.$el.querySelector('#planner').scrollTo(0,point)
     },
     setTask(task){
-      console.log(task)
       this.$emit('setTask', task)
+    },
+    openCustonContext(settings){
+      this.$emit('openCustonContext', settings)
     },
     adjustPosition(){
       this.scrollByCode = true

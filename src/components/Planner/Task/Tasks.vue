@@ -9,6 +9,7 @@
             :data-end="getTimeOfThisDay('end', task)"
             :style="{background: task.color.color}"
             @click="clickOnTask(task)"
+            @contextmenu="openTab(task)"
         >
             <!-- <i 
                 class="far fa-edit" 
@@ -324,6 +325,18 @@ export default {
                     this.taskHeightAndPosition()
                 })
             }
+        },
+        openTab(task){
+            console.log('open')
+            event.preventDefault()
+            this.$emit('openCustonContext', {
+                type: 'task',
+                data: task,
+                coords:{
+                    x: event.x,
+                    y: event.y
+                }
+            })
         }
     },
     computed:{

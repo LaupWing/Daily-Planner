@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class="popup-disabler" v-if="popup"></div>
     <Temperature
       :weatherData='weatherData'
     />
@@ -13,8 +14,13 @@
       v-if="addTask"
       v-on:toggle="toggle('addTask')"
     />
+    <CustomContext 
+      v-if="customContext"
+      :settings="customContext"
+    />
     <router-view
       v-on:setTask='setTask'
+      v-on:openCustonContext='openCustonContext'
     />
   </div>
 </template>
@@ -23,6 +29,7 @@
 import CurrentTime from '@/components/CurrentTime.vue'
 import Temperature from '@/components/Temperature.vue'
 import AddTask from '@/components/Planner/AddTask/AddTask'
+import CustomContext from '@/components/CustomContext'
 import Nav from '@/components/Nav.vue'
 export default {
   name: 'App',
@@ -34,16 +41,23 @@ export default {
         lat: 52.370216,
         lng: 4.895168
       },
-      weatherData: null
+      weatherData: null,
+      customContext: false,
+      popup: null
     }
   },
   components:{
     CurrentTime,
     Nav,
     AddTask,
-    Temperature
+    Temperature,
+    CustomContext
   },
   methods:{
+    openCustonContext(settings){
+      this.popup = settings
+      this.customContext = settings
+    },
     setTask(task){
       this.currentTask = task
     },
@@ -67,7 +81,7 @@ export default {
     },
     setBackground(){
       // document.querySelector('body').style.background = 'orange'
-      document.querySelector('body').style.setProperty('--weather-background', `url(https://source.unsplash.com/1600x900/?${this.weatherData.currently.summary})`)
+      document.querySelector('body').style.setProperty('--weather-background', `url(https://source.unsplash.com/random/?${this.weatherData.currently.summary})`)
       // For some reaseon the css var doesnt work
       fetch(`https://source.unsplash.com/random/?${this.weatherData.currently.summary}`)
         .then(data=>{
