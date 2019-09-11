@@ -269,7 +269,7 @@ export default {
     --popup-boxShadow: 0px 0px 17px 3px rgba(255,255,255,0.35);
     border-radius: 5px;
     overflow: hidden;
-    width: 600px;
+    width: 600px; 
     background: white;
     color: black;
     box-shadow: var(--popup-boxShadow);
@@ -450,7 +450,8 @@ export default {
     background: white;
     width: 400px;
     height: 350px;
-    box-shadow: 0px 0px 17px 3px rgba(0,0,0,0.35);;
+    box-shadow: 0px 0px 17px 3px rgba(0,0,0,0.35);
+    border-radius: 10px;
 }
 
 #AddTask #Color-Label h2{
@@ -458,13 +459,18 @@ export default {
     /* background: var(--chosen-color); */
     color: black;
     width: 100%;
-    text-align: left;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 10px 0;
 }
 
 #AddTask #Color-Label .label-container{
     flex-direction: row;
     flex-wrap: wrap;
     padding: 5px;
+    /* max-height: 70%;
+    overflow-y: auto */
 }
 
 #AddTask #Color-Label p.label{
@@ -495,12 +501,20 @@ export default {
     color: black;
 }
 #AddTask #Color-Label button{
-    border-color: black;
     border-radius: 0;
     color: black;
 }
+#AddTask #Color-Label > .buttons button:first-of-type{
+    border-radius: 0 0 0 10px;
+}
+#AddTask #Color-Label > .buttons button:last-of-type{
+    border-radius: 0 0 10px 0;
+}
 #AddTask #Color-Label button:hover{
     color: white;
+}
+#AddTask #Color-Label form{
+    left: 50%;
 }
 
 

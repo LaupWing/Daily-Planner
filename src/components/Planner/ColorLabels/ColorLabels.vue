@@ -28,8 +28,18 @@
                 class="label"
                 v-on:addColorLabel='addColorLabel'
             />
+            <div class="form-container">
+            <i class="fas fa-plus-circle" @click="toggleAdd" v-if="!addLabel"></i>
+            <AddLabelForm 
+                v-if="addLabel"
+                :addTask="addTask"
+                :colorLabels="colorLabels"
+                :user="user"
+                v-on:cancel="cancel"
+            />
         </div>
-        <div class="form-container">
+        </div>
+        <div class="form-container" v-if="!addTask">
             <i class="fas fa-plus-circle" @click="toggleAdd"></i>
             <AddLabelForm 
                 v-if="addLabel"
@@ -222,6 +232,7 @@ export default {
     border-radius: 5px;
     padding: 10px;
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.37);
+    z-index: 1000;
 }
 #Color-Label form input[type='text']{
     width: 140px;
