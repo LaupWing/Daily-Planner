@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="popup-disabler" v-if="popup"></div>
+    <div class="popup-disabler" v-if="popup" @click="togglePopup"></div>
     <Temperature
       :weatherData='weatherData'
     />
@@ -15,8 +15,8 @@
       v-on:toggle="toggle('addTask')"
     />
     <CustomContext 
-      v-if="customContext"
-      :settings="customContext"
+      v-if="popup"
+      :settings="popup"
     />
     <router-view
       v-on:setTask='setTask'
@@ -42,7 +42,6 @@ export default {
         lng: 4.895168
       },
       weatherData: null,
-      customContext: false,
       popup: null
     }
   },
@@ -56,7 +55,6 @@ export default {
   methods:{
     openCustonContext(settings){
       this.popup = settings
-      this.customContext = settings
     },
     setTask(task){
       this.currentTask = task
@@ -88,6 +86,13 @@ export default {
           document.querySelector('body').style.background = `linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(${data.url})`
           document.querySelector('body').style.backgroundSize = 'cover'
         })
+    },
+    togglePopup(){
+      if(event.target.classList.length>0){
+        if(event.target.classList[0]==='popup-disabler'){
+          this.popup = null
+        }
+      }
     }
   },
   created(){
@@ -135,5 +140,15 @@ textarea{
 li{
   list-style: none;
 }
-
+.popup-disabler{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+}
+.popup{
+  z-index: 10010;
+}
 </style>

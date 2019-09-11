@@ -1,6 +1,7 @@
 <template>
     <div 
         id="Custom-Context"
+        class="popup"
         :style="setPosition"
     >
 

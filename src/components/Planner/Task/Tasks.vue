@@ -327,7 +327,6 @@ export default {
             }
         },
         openTab(task){
-            console.log('open')
             event.preventDefault()
             this.$emit('openCustonContext', {
                 type: 'task',

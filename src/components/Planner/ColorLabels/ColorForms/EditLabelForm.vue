@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="change" v-if="editLabel">
+    <form @submit.prevent="change" v-if="editLabel" class="popup">
         <div class="field">
             <Feedback 
                 v-if="feedbackLabel" 

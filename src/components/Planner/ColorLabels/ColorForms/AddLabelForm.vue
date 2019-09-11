@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit" class="popup">
         <h2 v-if="addTask">Adding Label</h2>
         <div class="field">
             <Feedback 
