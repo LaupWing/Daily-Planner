@@ -4,6 +4,12 @@
       v-if="addTask"
       v-on:toggle="toggle('addTask')"
     />
+    <div class="addTask">
+      <button type="button" @click="toggle('addTask')">
+        Add New Task
+        <i class="far fa-calendar-plus"></i>
+      </button>
+    </div>    
     <ColorLabels
       :taskColor='taskColor'
     />
@@ -24,7 +30,6 @@
     <GoTo
       v-on:setupCurrentPos='setupCurrentPos'  
       v-on:goToSpecifikTime='goToSpecifikTime'
-      v-on:addTask="toggle('addTask')"
     />
   </div>
   
@@ -280,7 +285,7 @@ export default {
 <style>
 #planner{
   margin: auto;
-  margin-right: 50px;
+  margin-right: 65px;
   width: 500px;
   display: flex;
   max-height: 60vh;
@@ -293,6 +298,29 @@ export default {
   scroll-behavior: smooth;
 }
 
+.planner-container .addTask{
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  transform: translate(0,-200%);
+}
+.planner-container .addTask button{
+  font-size: .6em;
+  width: 60%;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 5px;
+  background: white;
+  opacity: .35;
+  border: none;
+  transition: .25s;
+  cursor: pointer;
+} 
+.planner-container .addTask button:hover{
+  opacity: 1;
+}
 .planner-container{
   position: relative;
   /* padding-top: 50px; */
@@ -375,7 +403,7 @@ export default {
 
 #planner .indicator{
   --time: '00:00';
-  height: 2px;
+  height: 1.2px;
   width: 300px;
   position: fixed;
   top: 50%;

@@ -1,18 +1,19 @@
 <template>
-    <form id="GoTo" @submit.prevent="goTo" @mouseover="active(true)" @mouseout="active(false)"> 
-        <div class="addTask">
+    <form id="GoTo" @submit.prevent="goTo"> 
+        <!-- <div class="addTask">
             <button type="button" @click="addTask">
                 Add New Task
                 <i class="far fa-calendar-plus"></i>
             </button>
-        </div>    
-        <h3>Go to</h3>
+        </div>     -->
+        <!-- <h3>Go to</h3> -->
         <button type="button" @click="setupCurrentPos">Current Time</button>
         <div class="field">
             <div class="time">
                 <div class="hours">
                     <input type="number" name="hours" min="00" max="23" value="00">
                 </div>
+                <span>:</span>
                 <div class="minutes">
                     <input type="number" name="minutes" min="00" max="59" value="00">
                 </div>
@@ -63,9 +64,6 @@ export default {
                 // document.querySelector('#planner').scrollTo(0,midpoint)
             }
         },
-        addTask(){
-            this.$emit('addTask')
-        },
         active(active){
             if(active){
                 this.$el.classList.add('active')
@@ -82,35 +80,25 @@ export default {
     position: absolute;
     z-index: 10;
     display: flex;
-    align-items: flex-end;
     width: 100%;
     justify-content: center;
     flex-wrap: wrap;
-    opacity: .2;
     transition: .25s;
-    padding-bottom: 50px;
+    opacity: .35;
+}
+#GoTo:hover{
+    opacity: 1;
 }
 #GoTo.active{
     opacity: 1;
 }
-#GoTo .addTask{
-    margin-bottom: 20px;
-    width: 100%;
-    text-align: center;
-}
-#GoTo .addTask button{
-    font-size: .6em;
-    width: 60%;
-    border-radius: 0 0 20px 20px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
+
 #GoTo button{
     border: none;
     border: solid white 2px;
     padding: 5px 15px;
     background: transparent;
-    border-radius: 25px;
+    border-radius: 0 0 20px 20px;
     color: white;
     cursor: pointer;
     transition: .25s;
@@ -125,38 +113,31 @@ export default {
 }
 #GoTo .field,
 #GoTo .time{
-    align-items: flex-end;
     display: flex;
 }
 #GoTo .time{
-    margin-right: 5px;
+    border: white solid 2px;
+    padding-left: 20px;
+    border-radius: 0 0 0 20px;
+}
+#GoTo .time span{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 10px 0 -5px;
+}
+#GoTo .field button{
+    border-left: none;
+    border-radius: 0 0 20px 0;
 }
 #GoTo input[type='number']{
     font-size: 1.5em;
     width: 50px;
+    background: none;
+    color: white;
+    border: none;
 }
 #GoTo .hours,
 #GoTo .minutes{
     position: relative;
-    margin-top: 15px; 
 }
-#GoTo .hours::before{
-    content: 'H';
-    position: absolute;
-    top: -18px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    text-align: center;
-}
-#GoTo .minutes::before{
-    content: 'M';
-    position: absolute;
-    top: -18px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    text-align: center;
-}
-
 </style>
