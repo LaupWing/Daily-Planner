@@ -285,7 +285,7 @@ export default {
 <style>
 #planner{
   margin: auto;
-  margin-right: 65px;
+  margin-right: 55px;
   width: 500px;
   display: flex;
   max-height: 60vh;
