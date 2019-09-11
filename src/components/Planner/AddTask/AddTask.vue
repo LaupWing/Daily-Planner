@@ -469,8 +469,6 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     padding: 5px;
-    /* max-height: 70%;
-    overflow-y: auto */
 }
 
 #AddTask #Color-Label p.label{

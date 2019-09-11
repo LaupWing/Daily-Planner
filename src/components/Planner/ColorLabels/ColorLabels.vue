@@ -28,18 +28,18 @@
                 class="label"
                 v-on:addColorLabel='addColorLabel'
             />
-            <div class="form-container">
-            <i class="fas fa-plus-circle" @click="toggleAdd" v-if="!addLabel"></i>
-            <AddLabelForm 
-                v-if="addLabel"
-                :addTask="addTask"
-                :colorLabels="colorLabels"
-                :user="user"
-                v-on:cancel="cancel"
-            />
+            <!-- <div class="form-container">
+                <i class="fas fa-plus-circle" @click="toggleAdd" v-if="!addLabel"></i>
+                <AddLabelForm 
+                    v-if="addLabel"
+                    :addTask="addTask"
+                    :colorLabels="colorLabels"
+                    :user="user"
+                    v-on:cancel="cancel"
+                />
+            </div> -->
         </div>
-        </div>
-        <div class="form-container" v-if="!addTask">
+        <div class="form-container">
             <i class="fas fa-plus-circle" @click="toggleAdd"></i>
             <AddLabelForm 
                 v-if="addLabel"

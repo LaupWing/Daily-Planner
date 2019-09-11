@@ -29,7 +29,7 @@
 
 <script>
 import Feedback from '@/components/feedback/Feedback'
-
+import db from '@/firebase/init'
 export default {
     name: 'AddLabelForm',
     props:['addTask', 'addLabel' , 'colorLabels', 'user'],

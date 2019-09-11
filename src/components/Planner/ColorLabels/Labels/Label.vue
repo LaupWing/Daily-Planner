@@ -93,11 +93,19 @@ div.label.hover:hover p.label-name{
     padding-left: 50px;
     padding-right: 10px;
     max-width: 300px;
+    white-space: nowrap;
 }
-#Color-Label div.label form{
+#Color-Label div.label form,
+#Color-Label form{
     left: 150%;
+    padding: 20px;
 }
-#Color-Label div.label form::before{
+#Color-Label div.label form .field,
+#Color-Label form .field{
+    margin: 10px 15px;
+}
+#Color-Label div.label form::before,
+#Color-Label form::before{
     content: "";
     width: 20px;
     height: 20px;
