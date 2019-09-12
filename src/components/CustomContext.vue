@@ -5,6 +5,9 @@
         :style="setPosition"
 
     >
+        <div class="title">
+            <h2>{{settings.data.task}}</h2>
+        </div>
         <div class="notification">
             <h2>Notification</h2>
             <p class="switch" :class="{'active':checkSwitch('on')}"><i class="fas fa-check" v-if="checkSwitch('on')"></i>on</p>
@@ -19,6 +22,7 @@
                 :class="{'active':JSON.stringify(settings.data.color)===JSON.stringify(color)}"
             >
                 <i class="fas fa-check"></i>
+                <p class="label-name">{{color.label}}</p>
             </div>
         </div>
         <div class="delete">
@@ -85,9 +89,16 @@ export default {
     letter-spacing: 1px;
     text-transform: uppercase;
 }
-#Custom-Context .notification{
+#Custom-Context .notification,
+#Custom-Context .title{
     padding: 10px;
     border-bottom: solid rgba(0,0,0,.4) 1px;
+}
+#Custom-Context .title{
+    padding: 5px;
+}
+#Custom-Context .title h2{
+    opacity: .5;
 }
 #Custom-Context p.switch{
     color: rgba(0,0,0,.4);
@@ -143,10 +154,38 @@ export default {
     position: absolute;
     z-index: -2;
 }
+#Custom-Context .colors .color:hover .label-name{
+    opacity: 1;
+}
 #Custom-Context .colors .color i{
     position: absolute;
     opacity: 0;
     transition: .5s;
+}
+#Custom-Context .colors .color .label-name{
+    position: absolute;
+    opacity: 0;
+    color: white;
+    background: black;
+    z-index: 2;
+    padding: 10px 5px;
+    white-space: nowrap;
+    border-radius: 5px;
+    top: -180%;
+    user-select: none;
+    pointer-events: none;
+}
+#Custom-Context .colors .color .label-name::after{
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: black;
+    display: block;
+    position: absolute;
+    transform: rotate(45deg) translate(-50%,30%);
+    bottom: -10px;
+    left: 50%;
+    z-index: -1;
 }
 
 #Custom-Context .colors .color.color.active i{
