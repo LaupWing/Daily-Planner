@@ -16,6 +16,7 @@
     <div 
       id="planner"
       @scroll="scrollEvent"
+      @click="createTask"
     >
       <div class="indicator" @click="turnoff"></div>
       <Timeline
@@ -66,7 +67,8 @@ export default {
         lng: 4.895168
       },
       taskColor: null,
-      addTask: null
+      addTask: null,
+      userData: null
     }
   },
   components:{
@@ -77,6 +79,17 @@ export default {
     AddTask
   },
   methods:{
+    createTask(){
+      if(event.target.id){
+        if(event.target.id === 'Tasks' || event.target.id === 'planner'){
+          const container = this.$el.querySelector('#planner')
+          const clickYCoord = event.clientY
+          const zeroScrollCoord = container.getBoundingClientRect().top + (container.offsetHeight/2)
+          const begin = (clickYCoord -zeroScrollCoord) + container.scrollTop 
+          container.scrollTo(0,begin)
+        }
+      }
+    },
     toggle(prop){
       this[prop] = !this[prop]
     },
@@ -268,7 +281,14 @@ export default {
     }
   },
   created(){
-    },
+    db.collection('planner')
+      .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then(doc=>{
+        this.userData = doc.data()
+        this.$emit('setUserData', this.userData)
+      })
+  },
   mounted(){
     this.assignInterval()
     if(navigator.geolocation){

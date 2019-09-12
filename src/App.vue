@@ -17,10 +17,12 @@
     <CustomContext 
       v-if="popup"
       :settings="popup"
+      :userData="userData"
     />
     <router-view
       v-on:setTask='setTask'
       v-on:openCustonContext='openCustonContext'
+      v-on:setUserData='setUserData'
     />
   </div>
 </template>
@@ -42,7 +44,8 @@ export default {
         lng: 4.895168
       },
       weatherData: null,
-      popup: null
+      popup: null,
+      userData: null
     }
   },
   components:{
@@ -53,6 +56,9 @@ export default {
     CustomContext
   },
   methods:{
+    setUserData(data){
+      this.userData = data
+    },
     openCustonContext(settings){
       this.popup = settings
     },
@@ -119,6 +125,11 @@ export default {
   --main-color: white;
   --border-color: rgba(0,0,0,.2);
   --bg-overlay-color: rgba(0,0,0,.4);
+  --priority-1: 10000;
+  --priority-2: 1000;
+  --priority-3: 100;
+  --priority-4: 10;
+  --priority-5: 1;
 }
 body{
   --weather-background: url(https://images.unsplash.com/photo-1459679749680-18eb1eb37418?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);
