@@ -1,13 +1,16 @@
 <template>
     <div class="popup-disabler" v-if="settings" @click="togglePopup">
         <CustomContext
+            class="popup"
             v-if="settings.type === 'task'"
             :settings="settings"
             :userData="userData"
         />
-        <EditLabelForm 
+        <EditLabelForm
+            class="popup" 
             v-if="settings.type ===  'colorlabelEdit'"
             :userData="userData"
+            :settings="settings"
             :label="settings.data"
         /> 
     </div>
@@ -37,8 +40,10 @@ export default {
             }
         }
     },
-    created(){
-        console.log(this.settings, this.userData)
+    mounted(){
+        if(this.settings.elPrio2){
+            document.querySelector(this.settings.elPrio2).style.zIndex = 'var(--priority-2)'
+        }
     }
 }
 </script>
@@ -48,11 +53,11 @@ export default {
   width: 100vw;
   height: 100vh;
   position: fixed;
-  z-index: 10000;
+  z-index: var(--priority-3);
   top: 0;
   left: 0;
 }
 .popup{
-  z-index: 10010;
+  z-index: var(--priority-1);
 }
 </style>

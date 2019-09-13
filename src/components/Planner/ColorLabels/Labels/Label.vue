@@ -44,7 +44,8 @@ export default {
                     top: this.$el.getBoundingClientRect().top,
                     left: this.$el.getBoundingClientRect().left,
                     elHeight: this.$el.offsetHeight
-                }
+                },
+                elPrio2: '#Color-Label'
             })
         },
         cancel(){

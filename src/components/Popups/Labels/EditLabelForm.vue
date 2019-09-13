@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="change" class="popup edit-label">
+    <form @submit.prevent="change" class="edit-label" :style="setPos">
         <div class="field">
             <Feedback 
                 v-if="feedbackLabel" 
@@ -31,7 +31,7 @@ import Feedback from '@/components/feedback/Feedback'
 import firebase from 'firebase'
 export default {
     name: 'EditLabelForm',
-    props:['label','userData'],
+    props:['label','userData', 'settings'],
     components:{
         Feedback
     },
@@ -104,6 +104,22 @@ export default {
             }
             if(feedback.type === 'label'){
                 this.feedbackLabel = null
+            }
+        }
+    },
+    watch:{
+        label: function(newLabel, oldLabel){
+            if(JSON.stringify(newLabel)!== JSON.stringify(oldLabel)){
+                this.editLabel = Object.assign({}, newLabel)
+                console.log(this.editLabel, this.label, this.nonEditedLabel)
+            }
+        }
+    },
+    computed:{
+        setPos(){
+            return{
+                top: `${this.settings.coords.top +2}px`,
+                left:`${this.settings.coords.left+this.settings.coords.elHeight+13}px`
             }
         }
     }

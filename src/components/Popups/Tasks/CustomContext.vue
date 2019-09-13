@@ -1,9 +1,7 @@
 <template>
     <div 
         id="Custom-Context"
-        class="popup"
         :style="setPosition"
-
     >
         <div class="title">
             <h2>{{settings.data.task}}</h2>
