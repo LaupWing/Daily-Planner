@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="popup-disabler" v-if="popup" @click="togglePopup"></div>
+    <!-- <div class="popup-disabler" v-if="popup" @click="togglePopup"></div> -->
     <Temperature
       :weatherData='weatherData'
     />
@@ -18,10 +18,11 @@
       v-if="popup"
       :settings="popup"
       :userData="userData"
+      v-on:togglePopup="togglePopup"
     />
     <router-view
       v-on:setTask='setTask'
-      v-on:openCustonContext='openCustonContext'
+      v-on:togglePopup='togglePopup'
       v-on:setUserData='setUserData'
     />
   </div>
@@ -60,8 +61,13 @@ export default {
     setUserData(data){
       this.userData = data
     },
-    openCustonContext(settings){
-      this.popup = settings
+    togglePopup(settings){
+      console.log(settings)
+      if(settings){
+        this.popup = settings
+      }else{
+        this.popup = null
+      }
     },
     setTask(task){
       this.currentTask = task

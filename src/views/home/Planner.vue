@@ -26,7 +26,7 @@
       <Tasks
         v-on:setTask='setTask'
         v-on:checkActiveTask='checkTaskByScroll'
-        v-on:openCustonContext="openCustonContext"
+        v-on:togglePopup="togglePopup"
       />
     </div>
     <GoTo
@@ -100,8 +100,8 @@ export default {
     setTask(task){
       this.$emit('setTask', task)
     },
-    openCustonContext(settings){
-      this.$emit('openCustonContext', settings)
+    togglePopup(settings){
+      this.$emit('togglePopup', settings)
     },
     adjustPosition(){
       this.scrollByCode = true

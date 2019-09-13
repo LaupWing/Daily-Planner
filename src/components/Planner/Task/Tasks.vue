@@ -328,7 +328,7 @@ export default {
         },
         openTab(task){
             event.preventDefault()
-            this.$emit('openCustonContext', {
+            this.$emit('togglePopup', {
                 type: 'task',
                 data: task,
                 coords:{

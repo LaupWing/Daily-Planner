@@ -12,6 +12,11 @@ import CustomContext from '@/components/Popups/Tasks/CustomContext'
 export default {
     name:'Popups',
     props:['settings', 'userData'],
+    data(){
+        return{
+            
+        }
+    },
     components:{
         CustomContext
     },
@@ -19,7 +24,7 @@ export default {
         togglePopup(){
             if(event.target.classList.length>0){
                 if(event.target.classList[0]==='popup-disabler'){
-                this.popup = null
+                    this.$emit('togglePopup')
                 }
             }
         }
