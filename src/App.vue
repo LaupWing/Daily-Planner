@@ -14,7 +14,7 @@
       v-if="addTask"
       v-on:toggle="toggle('addTask')"
     />
-    <CustomContext 
+    <Popups 
       v-if="popup"
       :settings="popup"
       :userData="userData"
@@ -31,7 +31,8 @@
 import CurrentTime from '@/components/CurrentTime.vue'
 import Temperature from '@/components/Temperature.vue'
 import AddTask from '@/components/Planner/AddTask/AddTask'
-import CustomContext from '@/components/CustomContext'
+import CustomContext from '@/components/Popups/Tasks/CustomContext'
+import Popups from '@/components/Popups/Popups'
 import Nav from '@/components/Nav.vue'
 export default {
   name: 'App',
@@ -53,7 +54,7 @@ export default {
     Nav,
     AddTask,
     Temperature,
-    CustomContext
+    Popups
   },
   methods:{
     setUserData(data){
@@ -93,13 +94,7 @@ export default {
           document.querySelector('body').style.backgroundSize = 'cover'
         })
     },
-    togglePopup(){
-      if(event.target.classList.length>0){
-        if(event.target.classList[0]==='popup-disabler'){
-          this.popup = null
-        }
-      }
-    }
+    
   },
   created(){
     if(navigator.geolocation){
@@ -150,16 +145,5 @@ textarea{
 }
 li{
   list-style: none;
-}
-.popup-disabler{
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  z-index: 10000;
-  top: 0;
-  left: 0;
-}
-.popup{
-  z-index: 10010;
 }
 </style>

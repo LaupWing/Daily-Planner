@@ -37,6 +37,7 @@ export default {
     },
     methods:{
         clickAction(){
+            console.log(event.target.getBoundingClientRect().top, event.target.getBoundingClientRect().left)
             this.$emit('edit', this.label)
         },
         cancel(){
@@ -86,6 +87,7 @@ div.label p.label-name{
     overflow: hidden;
     height: 100%;
     line-height: 30px;
+    pointer-events: none;
 }
 div.label p.label-name.show,
 div.label p.label-name.show-all,

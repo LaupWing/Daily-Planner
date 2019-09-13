@@ -93,6 +93,7 @@ export default {
 #Custom-Context .title{
     padding: 10px;
     border-bottom: solid rgba(0,0,0,.4) 1px;
+    padding-top: 0;
 }
 #Custom-Context .title{
     padding: 5px;

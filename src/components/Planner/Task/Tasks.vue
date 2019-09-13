@@ -380,7 +380,6 @@ export default {
     background: orange;
     color: white;
     border-radius: 6px;
-    border: white solid 2px;
     opacity: .1;
     overflow: hidden;
     /* padding: 2px 5px; */
