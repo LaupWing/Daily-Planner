@@ -10,7 +10,7 @@
         />
         <EditLabelForm
             class="popup" 
-            v-if="settings.type ===  'colorlabelEdit'"
+            v-if="settings.type ===  'label'"
             :userData="userData"
             :settings="settings"
             :label="settings.data"

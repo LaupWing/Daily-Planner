@@ -12,6 +12,7 @@
     </div>    
     <ColorLabels
       :taskColor='taskColor'
+      :preventActions="preventActions"
       v-on:editPopup='togglePopup'
     />
     <div 
@@ -50,7 +51,7 @@ import db from '@/firebase/init'
 
 export default {
   name: '',
-  props: ['days'],
+  props: ['preventActions'],
   data(){
     return{
       hours: null,

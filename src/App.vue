@@ -66,7 +66,7 @@ export default {
     togglePopup(settings){
       if(settings){
         this.popup = settings
-        this.preventActions = this.settings.type
+        this.preventActions = settings.type
       }else{
         this.popup = null
         this.preventActions = null

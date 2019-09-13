@@ -9,6 +9,7 @@
                 v-for="(label, index) in colorLabels" 
                 :key="index"
                 :label='label'
+                :preventActions="preventActions"
                 :colorLabels="colorLabels"
                 :user="user"
                 :taskColor='taskColor'
@@ -66,7 +67,7 @@ import AddLabelForm from '@/components/Planner/ColorLabels/ColorForms/AddLabelFo
 
 export default {
     name: 'ColorLabels',
-    props:['taskColor' ,'addTask', 'chosenColorLabel'],
+    props:['taskColor' ,'addTask', 'chosenColorLabel', 'preventActions'],
     components:{
         Label,
         AddTaskLabel,
@@ -84,6 +85,9 @@ export default {
     },
     methods:{
         showAll(state){
+            if(this.preventActions){
+                if(this.preventActions === 'label') return
+            }
             if(state){
                 this.$el.querySelectorAll('.label-name').forEach(label=>{
                     label.classList.add('show-all')

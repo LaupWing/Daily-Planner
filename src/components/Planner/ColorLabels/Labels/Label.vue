@@ -1,7 +1,7 @@
 <template>
     <div 
         class="label"
-        :class="{'hover':!nonEditedLabel}" 
+        :class="hoverClass" 
         :style='{background: label.color}' 
         @click="openEditPopup"
     >
@@ -27,7 +27,7 @@
 // import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
 export default {
     name: 'Label',
-    props:['label' ,'taskColor', 'user', 'colorLabels', 'editLabel', 'nonEditedLabel'],
+    props:['label' ,'taskColor', 'user', 'colorLabels', 'editLabel', 'nonEditedLabel', 'preventActions'],
     components:{
         
     },
@@ -39,7 +39,7 @@ export default {
         openEditPopup(){
             this.$emit('editPopup', {
                 data: this.label,
-                type: 'colorlabelEdit',
+                type: 'label',
                 coords:{
                     top: this.$el.getBoundingClientRect().top,
                     left: this.$el.getBoundingClientRect().left,
@@ -50,7 +50,7 @@ export default {
         },
         cancel(){
             this.$emit('cancel')
-        },
+        }
     },
     watch:{
         nonEditedLabel: function(newLabel, oldLabel){
@@ -67,6 +67,11 @@ export default {
             }
             if(this.taskColor === null || this.taskColor === undefined){
                 return false
+            }
+        },
+        hoverClass(){
+            if(this.preventActions !== 'label'){
+                return 'hover'
             }
         }
     },
