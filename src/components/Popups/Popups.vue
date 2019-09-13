@@ -43,7 +43,6 @@ export default {
         }
     },
     mounted(){
-        console.log(this.settings.elPrio2)
         if(this.settings.elPrio2){
             document.querySelectorAll(this.settings.elPrio2).forEach(item=>{
                 item.style.zIndex = '10000'

@@ -21,6 +21,7 @@
       v-on:togglePopup="togglePopup"
     />
     <router-view
+      :preventActions="preventActions"
       v-on:setTask='setTask'
       v-on:togglePopup='togglePopup'
       v-on:setUserData='setUserData'
@@ -47,7 +48,8 @@ export default {
       },
       weatherData: null,
       popup: null,
-      userData: null
+      userData: null,
+      preventActions: null
     }
   },
   components:{
@@ -64,8 +66,10 @@ export default {
     togglePopup(settings){
       if(settings){
         this.popup = settings
+        this.preventActions = this.settings.type
       }else{
         this.popup = null
+        this.preventActions = null
       }
     },
     setTask(task){
@@ -120,13 +124,6 @@ export default {
   margin: 0;
   box-sizing: border-box;
   padding: 0;
-}
-:root{
-  --priority-1: 100003;
-  --priority-2: 100002;
-  --priority-3: 100001;
-  --priority-4: 10;
-  --priority-5: 1;
 }
 #App{
   --main-color: white;
