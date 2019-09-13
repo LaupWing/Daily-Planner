@@ -62,7 +62,6 @@ export default {
       this.userData = data
     },
     togglePopup(settings){
-      console.log(settings)
       if(settings){
         this.popup = settings
       }else{

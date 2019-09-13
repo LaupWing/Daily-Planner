@@ -15,8 +15,7 @@
                 :nonEditedLabel="nonEditedLabel"
                 :editLabel="editLabel"
                 :class="{'active':nonEditedLabel === label}"
-                v-on:edit='edit'
-                v-on:cancel='cancel'
+                v-on:editPopup='editPopup'
             />
         </div>
         <div class="label-container" v-if="addTask">
@@ -62,7 +61,7 @@ import firebase from 'firebase'
 import Label from '@/components/Planner/ColorLabels/Labels/Label'
 import AddTaskLabel from '@/components/Planner/ColorLabels/Labels/AddTaskLabel'
 import Feedback from '@/components/feedback/Feedback'
-import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
+// import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
 import AddLabelForm from '@/components/Planner/ColorLabels/ColorForms/AddLabelForm'
 
 export default {
@@ -71,8 +70,6 @@ export default {
     components:{
         Label,
         AddTaskLabel,
-        Feedback,
-        EditLabelForm,
         AddLabelForm
     },
     data(){
@@ -97,14 +94,8 @@ export default {
                 })
             }
         },
-        edit(label){
-            if(event.target.classList.length>0){
-                if(event.target.classList.contains('label')||event.target.classList.contains('label-name')){
-                    this.addLabel = false
-                    this.editLabel = Object.assign({},label)
-                    this.nonEditedLabel = label
-                }
-            }
+        editPopup(data){
+            this.$emit('editPopup', data)
         },
         toggleAdd(){
             this.editLabel = null
@@ -200,13 +191,6 @@ export default {
     border-right: none;
     border-radius: 20px 0 0 20px;
 }
-#Color-Label .example{
-    width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 #Color-Label .label-container{
     display: flex;
     flex-direction: column;
@@ -224,29 +208,7 @@ export default {
 #Color-Label .form-container{
     position: relative;
 }
-#Color-Label form{
-    position: absolute;
-    left: 100%;
-    top: 0;
-    background: white;
-    border-radius: 5px;
-    padding: 10px;
-    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.37);
-    z-index: 1000;
-}
-#Color-Label form input[type='text']{
-    width: 140px;
-    border: none;
-    padding: 5px;
-    padding-left: 0;
-    border-bottom: rgba(0,0,0,.2) solid 1px;
-    outline: none;
-    background: transparent;
-    color: rgba(0,0,0,.8);
-}
-#Color-Label form input[type='text']::placeholder{
-    color: rgba(0,0,0,.2);
-}
+
 #Color-Label .field{
     display: flex;
     position: relative;

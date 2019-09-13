@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="change" v-if="editLabel" class="popup">
+    <form @submit.prevent="change" class="popup edit-label">
         <div class="field">
             <Feedback 
                 v-if="feedbackLabel" 
@@ -28,17 +28,21 @@
 
 <script>
 import Feedback from '@/components/feedback/Feedback'
-
+import firebase from 'firebase'
 export default {
     name: 'EditLabelForm',
-    props:['editLabel', 'colorLabels', 'nonEditedLabel', 'user'],
+    props:['label','userData'],
     components:{
         Feedback
     },
     data(){
         return{
             feedbackColor: null,
-            feedbackLabel: null
+            feedbackLabel: null,
+            colorLabels: this.userData.colorLabels,
+            user: firebase.auth().currentUser,
+            nonEditedLabel: this.label,
+            editLabel: Object.assign({}, this.label)
         }
     },
     methods:{
@@ -107,5 +111,53 @@ export default {
 </script>
 
 <style>
-
+form.popup.edit-label{
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: white;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.37);
+    z-index: 1000;
+}
+form.popup.edit-label input[type='text']{
+    width: 140px;
+    border: none;
+    padding: 5px;
+    padding-left: 0;
+    border-bottom: rgba(0,0,0,.2) solid 1px;
+    outline: none;
+    background: transparent;
+    color: rgba(0,0,0,.8);
+}
+form.popup.edit-label input[type='text']::placeholder{
+    color: rgba(0,0,0,.2);
+}
+form.popup.edit-label{
+    left: 10%;
+    padding: 20px;
+}
+form.popup.edit-label .field{
+    margin: 10px 15px;
+}
+form.popup.edit-label::before{
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: white;
+    transform: translate(0,-100%);
+    display: block;
+    position: absolute;
+    left: -8px;
+    top: 6px;
+    transform: rotate(45deg);
+}
+form.popup.edit-label .example{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 </style>

@@ -58,7 +58,6 @@ export default {
         }
     },
     created(){
-        console.log(this.userData, this.settings)
     }   
 }
 </script>

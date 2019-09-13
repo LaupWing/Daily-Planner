@@ -12,6 +12,7 @@
     </div>    
     <ColorLabels
       :taskColor='taskColor'
+      v-on:editPopup='togglePopup'
     />
     <div 
       id="planner"

@@ -1,14 +1,21 @@
 <template>
     <div class="popup-disabler" v-if="settings" @click="togglePopup">
         <CustomContext
+            v-if="settings.type === 'task'"
             :settings="settings"
             :userData="userData"
         />
+        <EditLabelForm 
+            v-if="settings.type ===  'colorlabelEdit'"
+            :userData="userData"
+            :label="settings.data"
+        /> 
     </div>
 </template>
 
 <script>
 import CustomContext from '@/components/Popups/Tasks/CustomContext'
+import EditLabelForm from '@/components/Popups/Labels/EditLabelForm'
 export default {
     name:'Popups',
     props:['settings', 'userData'],
@@ -18,7 +25,8 @@ export default {
         }
     },
     components:{
-        CustomContext
+        CustomContext,
+        EditLabelForm
     },
     methods:{
         togglePopup(){
@@ -28,6 +36,9 @@ export default {
                 }
             }
         }
+    },
+    created(){
+        console.log(this.settings, this.userData)
     }
 }
 </script>

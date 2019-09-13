@@ -3,7 +3,7 @@
         class="label"
         :class="{'hover':!nonEditedLabel}" 
         :style='{background: label.color}' 
-        @click="clickAction"
+        @click="openEditPopup"
     >
         <p 
             class="label-name" 
@@ -12,33 +12,40 @@
         >
             {{label.label}}
         </p>
-         <EditLabelForm 
+         <!-- <EditLabelForm 
             v-if="nonEditedLabel === label"
             :colorLabels="colorLabels"
             :nonEditedLabel="nonEditedLabel"
             :editLabel="editLabel"
             :user="user"
             v-on:cancel="cancel"
-        /> 
+        />  -->
     </div>
 </template>
 
 <script>
-import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
+// import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
 export default {
     name: 'Label',
     props:['label' ,'taskColor', 'user', 'colorLabels', 'editLabel', 'nonEditedLabel'],
     components:{
-        EditLabelForm
+        
     },
     data(){
         return{
         }
     },
     methods:{
-        clickAction(){
-            console.log(event.target.getBoundingClientRect().top, event.target.getBoundingClientRect().left)
-            this.$emit('edit', this.label)
+        openEditPopup(){
+            this.$emit('editPopup', {
+                data: this.label,
+                type: 'colorlabelEdit',
+                coords:{
+                    top: this.$el.getBoundingClientRect().top,
+                    left: this.$el.getBoundingClientRect().left,
+                    elHeight: this.$el.offsetHeight
+                }
+            })
         },
         cancel(){
             this.$emit('cancel')
@@ -97,7 +104,7 @@ div.label.hover:hover p.label-name{
     max-width: 300px;
     white-space: nowrap;
 }
-#Color-Label div.label form,
+/* #Color-Label div.label form,
 #Color-Label form{
     left: 150%;
     padding: 20px;
@@ -118,5 +125,5 @@ div.label.hover:hover p.label-name{
     left: -8px;
     top: 6px;
     transform: rotate(45deg);
-}
+} */
 </style>
