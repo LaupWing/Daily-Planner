@@ -50,7 +50,7 @@ export default {
     components:{
         TaskMore
     },
-    props:['days'],
+    props:['preventActions'],
     data(){
         return{
             tasks:[],
@@ -172,6 +172,7 @@ export default {
             return point
         },
         clickOnTask(task){
+            if(this.preventActions === 'task')  return
             if(this.expanded === task){
                 // If the user clicks cancel this will be triggerd
                 return

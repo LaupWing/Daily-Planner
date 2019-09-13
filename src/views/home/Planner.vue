@@ -17,6 +17,7 @@
     />
     <div 
       id="planner"
+      :class="{'preventScroll':preventActions === 'task'}"
       @scroll="scrollEvent"
       @click="createTask"
     >
@@ -26,6 +27,7 @@
         :minutes="minutes"
       />
       <Tasks
+        :preventActions="preventActions"
         v-on:setTask='setTask'
         v-on:checkActiveTask='checkTaskByScroll'
         v-on:togglePopup="togglePopup"
@@ -154,6 +156,8 @@ export default {
       clearInterval(this.timeoutInterval)
       this.timeoutInSec = 0
       this.timeoutInterval = setInterval(()=>{
+        console.log(this.timeoutInSec)
+        if(this.preventActions === 'task')  return
         this.timeoutInSec += 1
         if(this.timeoutInSec === this.timeToReturnInSec){
           this.assignInterval()
@@ -308,6 +312,9 @@ export default {
 </script>
 
 <style>
+#planner.preventScroll{
+  overflow-y: hidden;
+}
 #planner{
   margin: auto;
   margin-right: 55px;

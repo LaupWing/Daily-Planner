@@ -63,7 +63,7 @@ export default {
                 return
             }
             return {
-                'show': this.label.color.toLowerCase() === this.taskColor.toLowerCase() && !this.nonEditedLabel
+                'show': this.label.color.toLowerCase() === this.taskColor.toLowerCase() && !this.nonEditedLabel && this.preventActions !== 'label'
             }
             if(this.taskColor === null || this.taskColor === undefined){
                 return false
