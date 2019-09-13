@@ -1,5 +1,7 @@
 <template>
-    <div class="popup-disabler" v-if="settings" @click="togglePopup">
+    <div class="popup-container">
+        <div class="popup-disabler" v-if="settings" @click="togglePopup">
+        </div>
         <CustomContext
             class="popup"
             v-if="settings.type === 'task'"
@@ -41,8 +43,11 @@ export default {
         }
     },
     mounted(){
+        console.log(this.settings.elPrio2)
         if(this.settings.elPrio2){
-            document.querySelector(this.settings.elPrio2).style.zIndex = 'var(--priority-2)'
+            document.querySelectorAll(this.settings.elPrio2).forEach(item=>{
+                item.style.zIndex = '10000'
+            })
         }
     }
 }
@@ -50,14 +55,14 @@ export default {
 
 <style>
 .popup-disabler{
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  z-index: var(--priority-3);
-  top: 0;
-  left: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
 }
 .popup{
-  z-index: var(--priority-1);
+  z-index: 100000;
 }
 </style>

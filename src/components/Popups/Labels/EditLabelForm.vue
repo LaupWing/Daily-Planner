@@ -111,7 +111,6 @@ export default {
         label: function(newLabel, oldLabel){
             if(JSON.stringify(newLabel)!== JSON.stringify(oldLabel)){
                 this.editLabel = Object.assign({}, newLabel)
-                console.log(this.editLabel, this.label, this.nonEditedLabel)
             }
         }
     },

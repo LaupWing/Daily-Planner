@@ -65,7 +65,6 @@ export default {
     position: fixed;
     background: white;
     width: 200px;
-    z-index: 10000;
     box-shadow: 0px 0px 13px 0px rgba(0,0,0,0.48);
     border-radius: 5px;
     color: black;
