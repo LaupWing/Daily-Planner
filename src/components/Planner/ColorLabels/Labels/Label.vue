@@ -63,15 +63,14 @@ export default {
                 return
             }
             return {
-                'show': this.label.color.toLowerCase() === this.taskColor.toLowerCase() && !this.nonEditedLabel && this.preventActions !== 'label'
-            }
-            if(this.taskColor === null || this.taskColor === undefined){
-                return false
+                'show': this.label.color.toLowerCase() === this.taskColor.toLowerCase() && !this.nonEditedLabel && this.preventActions.type !== 'label'
             }
         },
         hoverClass(){
-            if(this.preventActions !== 'label'){
+            if(this.preventActions.type !== 'label'){
                 return 'hover'
+            }else{
+                return ''
             }
         }
     },

@@ -49,7 +49,10 @@ export default {
       weatherData: null,
       popup: null,
       userData: null,
-      preventActions: null
+      preventActions: {
+        type: null,
+        data: null
+      }
     }
   },
   components:{
@@ -66,10 +69,13 @@ export default {
     togglePopup(settings){
       if(settings){
         this.popup = settings
-        this.preventActions = settings.type
+        this.preventActions = settings
       }else{
         this.popup = null
-        this.preventActions = null
+        this.preventActions = {
+          type: null,
+          data: null
+        }
       }
     },
     setTask(task){

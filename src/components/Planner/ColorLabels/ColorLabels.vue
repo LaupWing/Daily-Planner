@@ -85,9 +85,7 @@ export default {
     },
     methods:{
         showAll(state){
-            if(this.preventActions){
-                if(this.preventActions === 'label') return
-            }
+            if(this.preventActions.type === 'label') return
             if(state){
                 this.$el.querySelectorAll('.label-name').forEach(label=>{
                     label.classList.add('show-all')

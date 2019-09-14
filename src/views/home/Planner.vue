@@ -17,7 +17,7 @@
     />
     <div 
       id="planner"
-      :class="{'preventScroll':preventActions === 'task'}"
+      :class="{'preventScroll':preventActions.type === 'task'}"
       @scroll="scrollEvent"
       @click="createTask"
     >
@@ -156,8 +156,7 @@ export default {
       clearInterval(this.timeoutInterval)
       this.timeoutInSec = 0
       this.timeoutInterval = setInterval(()=>{
-        console.log(this.timeoutInSec)
-        if(this.preventActions === 'task')  return
+        if(this.preventActions.type === 'task')  return
         this.timeoutInSec += 1
         if(this.timeoutInSec === this.timeToReturnInSec){
           this.assignInterval()

@@ -37,6 +37,9 @@ export default {
         togglePopup(){
             if(event.target.classList.length>0){
                 if(event.target.classList[0]==='popup-disabler'){
+                    document.querySelectorAll(this.settings.elPrio2).forEach(item=>{
+                        item.style.removeProperty('z-index')
+                    })
                     this.$emit('togglePopup')
                 }
             }
