@@ -3,7 +3,9 @@
         <div 
             class="task"
             v-for="(task, index) in tasks"
-            :class="{'expanded':expanded === task}"
+            :class="{
+                'expanded':expanded === task, 
+                'activeByEdit':JSON.stringify(preventActions.data)===JSON.stringify(task)}"
             :key="index"
             :data-begin="getTimeOfThisDay('begin', task)"
             :data-end="getTimeOfThisDay('end', task)"
@@ -392,7 +394,9 @@ export default {
 #Tasks .task.opacity{
     opacity: 1;
 }
-
+#Tasks .task.activeByEdit{
+    opacity: 1;
+}
 /* #Tasks .task i{
     position: absolute;
     right: 5px;

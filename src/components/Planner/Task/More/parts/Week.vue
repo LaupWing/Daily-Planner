@@ -25,6 +25,7 @@
         <ChangeDay
             v-if="dayToEdit"
             :dayToEdit="dayToEdit"
+            :pos="pos"
             v-on:cancel="reset"
             v-on:accept="changeEdit"
         />
@@ -42,7 +43,8 @@ export default {
     data(){
         return{
             weekName: ['monday', 'thursday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-            dayToEdit: null
+            dayToEdit: null,
+            pos: null
         }
     },
     methods:{
@@ -59,6 +61,11 @@ export default {
             return `${findDay.begin} - ${findDay.end}`
         },
         editDay(day){
+            event.target.classList.add('active')
+            this.pos = { 
+                top: event.target.getBoundingClientRect().top,
+                left: event.target.getBoundingClientRect().left
+            }
             this.dayToEdit = this.editTask.days.find(d=>d.day === day)
         },
         reset(){
@@ -88,7 +95,8 @@ export default {
     cursor: pointer;
     transition: .25s;
 }
-.week .task-duration.edit:hover{
+.week .task-duration.edit:hover,
+.week .task-duration.active{
     color: var(--task-color);
     background: white;
 }

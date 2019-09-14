@@ -3,6 +3,7 @@
         id="Custom-Context"
         :style="setPosition"
     >
+        <i class="close far fa-times-circle"></i>
         <div class="title">
             <h2>{{settings.data.task}}</h2>
         </div>
@@ -76,6 +77,14 @@ export default {
     to{
         transform: scale(1);
     }
+}
+#Custom-Context i.close{
+    position: absolute;
+    right: -18px;
+    top: -18px;
+    font-size: 25px;
+    color: white;
+    cursor: pointer;
 }
 #Custom-Context h2{
     padding: 10px;

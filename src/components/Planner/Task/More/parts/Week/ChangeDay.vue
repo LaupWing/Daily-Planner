@@ -1,53 +1,39 @@
 <template>
     <div class="edit-day-bg">
         <div class="edit-day">
-            <nav>
-                <li
-                    :class="{'active': section === 'change'}"
-                    @click="setSection('change')"
-                >Change</li>
-                <li
-                    :class="{'active': section === 'delete'}"
-                    @click="setSection('delete')"
-                >Delete</li>
-            </nav>
-            <div class="change" v-if="section === 'change'">
-                <label class="day">{{dayToEdit.day.slice(0,3).trim()}}</label>
-                <div class="time-span-container">
-                    <div class="field time-span">
-                        <label for="task">Begin:</label>
-                        <div class="time">
-                            <div class="hours">
-                                <label for="hours">Hours</label>
-                                <input type="number" name="hours" min="00" max="23" v-model="day.begin.hours">
-                            </div>
-                            <div class="minutes">
-                                <label for="minutes">Minutes</label>
-                                <input type="number" name="minutes" min="00" max="59" v-model="day.begin.minutes">
-                            </div>
-                        </div>
+            <h2>{{dayToEdit.day}}</h2>
+            <div class="field time-span">
+                <label for="task">Begin:</label>
+                <div class="time">
+                    <div class="hours">
+                        <!-- <label for="hours">Hours</label> -->
+                        <input type="number" name="hours" min="00" max="23" v-model="day.begin.hours">
                     </div>
-                    <div class="field time-span">
-                        <label for="task">End:</label>
-                        <div class="time">
-                            <div class="hours">
-                                <label for="hours">Hours</label>
-                                <input type="number" name="hours" min="00" max="23" v-model="day.end.hours">
-                            </div>
-                            <div class="minutes">
-                                <label for="minutes">Minutes</label>
-                                <input type="number" name="minutes" min="00" max="59" v-model="day.end.minutes">
-                            </div>
-                        </div>
+                    <span>:</span>
+                    <div class="minutes">
+                        <!-- <label for="minutes">Minutes</label> -->
+                        <input type="number" name="minutes" min="00" max="59" v-model="day.begin.minutes">
                     </div>
                 </div>
             </div>
-            <div class="delete" v-if="section === 'delete'">
-                <p>Are you sure you want to delete this task on a <span>{{dayToEdit.day}}</span>?</p>
+            <div class="field time-span">
+                <label for="task">End:</label>
+                <div class="time">
+                    <div class="hours">
+                        <!-- <label for="hours">Hours</label> -->
+                        <input type="number" name="hours" min="00" max="23" v-model="day.end.hours">
+                    </div>
+                    <span>:</span>
+                    <div class="minutes">
+                        <!-- <label for="minutes">Minutes</label> -->
+                        <input type="number" name="minutes" min="00" max="59" v-model="day.end.minutes">
+                    </div>
+                </div>
             </div>
+            <i class="fas fa-trash-alt"></i>
             <div class="buttons">
-                <button @click="cancel">Cancel</button>
-                <button @click="accept">Accept</button>
+                <button>cancel</button>
+                <button @click="accept">Apply</button>
             </div>
         </div>
     </div>
@@ -57,7 +43,7 @@
 import {addZero} from '@/components/helpers/timeFormat'
 export default {
     name: 'ChangeDay',
-    props:['dayToEdit'],
+    props:['dayToEdit', 'pos'],
     data(){
         return{
             section: 'change',
@@ -88,14 +74,29 @@ export default {
                 end: `${addZero(this.day.end.hours)}:${addZero(this.day.end.minutes)}`
             }
             this.$emit('accept', newDay)
+        },
+        setPos(){
+            const container = this.$el.querySelector('.edit-day')
+            const timeSpanEl = document.querySelector('.week .task-duration')
+            if(Number(this.pos.top) < Number((window.innerHeight/2))){
+                container.classList.add('after')
+                container.style.top = (this.pos.top + timeSpanEl.offsetHeight + 15) + 'px'
+            }else{
+                container.classList.add('before')
+                container.style.top = (this.pos.top - container.offsetHeight - 15) + 'px'
+            }
+            container.style.left = (this.pos.left - (container.offsetWidth/2)+(timeSpanEl.offsetWidth/2)) + 'px'
         }
-    }
+    },
+    mounted(){
+        this.setPos()
+    },
 }
 </script>
 
 <style>
 .edit-day-bg .edit-day .buttons{
-    position: absolute;
+    position: relative;
     bottom: 0;
     left: 0;
 }
@@ -113,105 +114,87 @@ export default {
     position: fixed;
     left: 0;
     top: 0;
-    background: rgba(0, 0, 0,.6);
     z-index: 1000;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
 }
 .edit-day-bg .edit-day{
-    width: 280px;
-    height: 180px;
+    box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
+    /* width: 280px; */
+    /* height: 180px; */
     background: white;
     color: var(--task-color);
     border-radius: 5px;
     position: relative;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    overflow: hidden;
-    align-items: center;
-}
-.edit-day-bg .edit-day .change{
-    width: 100%;
-    display: flex;
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
+    position: fixed;
 }
-
-.edit-day-bg .edit-day nav{
-    display: flex;
-    width: 100%;
+.edit-day-bg .edit-day.before::after{
+    content: '';
+    width: 30px;
+    height: 30px;
+    transform: rotate(45deg);
+    z-index: -1;
+    background: white;
     position: absolute;
-    top: 0;
-    left: 0;
+    bottom: -10px;
 }
-.edit-day-bg .edit-day nav li{
-    width: 50%;
-    padding: 5px;
+.edit-day-bg .edit-day.after::after{
+    content: '';
+    width: 30px;
+    height: 30px;
+    transform: rotate(45deg);
+    z-index: -1;
+    background: white;
+    position: absolute;
+    top: -10px;
+}
+.edit-day-bg .edit-day h2{
+    width: 100%;
     text-align: center;
-    font-size: .8em;
+    padding: 10px 40px;
+    border-bottom: rgba(0,0,0,.2) solid 1px;
+    opacity: .5;
     text-transform: uppercase;
     letter-spacing: 1px;
-    cursor: pointer;
-    background: var(--task-color);
-    color: white;
+    font-size: 1.2em;
 }
-.edit-day-bg .edit-day nav li:hover{
-    background: white;
-    color: var(--task-color);
-}
-.edit-day-bg .edit-day nav li.active{
-    background: white;
-    color: var(--task-color);
-}
-.edit-day-bg .edit-day label.day{
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    border: solid 1px var(--task-color);
-    border-radius: 50%;
-    text-align: center;
-    font-size: 12px;
-    display: inline-block;
-    margin: auto;
-}
-.edit-day-bg .time-span-container{
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-}
-.edit-day-bg .field.time-span{
-    display: flex;
-    flex-direction: column;
-    font-size: 1em;
-    width: 45%;
-}
-.edit-day-bg .field.time-span > label{
-    width: 100%;
-    text-align: center; 
-}
-.edit-day-bg .field.time-span .time{
-    display: flex;
-    justify-content: center;
+
+.edit-day .field.time-span{
+    padding: 10px;
+    border-bottom: rgba(0,0,0,.2) solid 1px;
     width: 100%;
 }
-.edit-day-bg .field.time-span .hours,
-.edit-day-bg .field.time-span .minutes{
-    display: flex;
-    flex-direction: column;
+.edit-day .time-span label{
+    padding-left: 10px;
 }
-.edit-day-bg .edit-day .delete p{
-    font-size: .9em;
-    width: 70%;
-    text-align: center;
-    margin: auto;
-    color: black;
+
+.edit-day .field.time-span .time{
+    margin: 10px auto;
+    justify-content:center;
+    width: 100%;
 }
-.edit-day-bg .edit-day .delete p span{
-    color: var(--task-color);
+.edit-day .time .hours,
+.edit-day .time .minutes{
+    width: 25%;
+    margin-top: 5px;
+}
+.edit-day .time span{
+    font-size: 2.5em;
+    margin: 0 5px;
     font-weight: bold;
+}
+.edit-day i{
+    width: 100%;
+    text-align: center;
+    padding: 10px; 
+    cursor: pointer;
+}
+.edit-day input[type="number"]{
+    font-size: 2em;
+    width: 100%;
+    border: none;
+    border-bottom: 1px rgba(0,0,0,.2) solid;
 }
 </style>
