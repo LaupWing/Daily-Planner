@@ -97,7 +97,12 @@ ul#Timeline{
 #Timeline li.opacity{
   opacity: 1;
 }
-
+@media only screen and (max-height: 800px) {
+    #Timeline li{
+        padding: 5px 0;
+        font-size: 1.2em;
+    }
+}
 /* #Timeline li:nth-of-type(odd)::after{
   position: absolute;
   bottom: 0;

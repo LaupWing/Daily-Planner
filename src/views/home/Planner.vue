@@ -354,83 +354,7 @@ export default {
 }
 .planner-container{
   position: relative;
-  /* padding-top: 50px; */
 }
-.planner-container::before{
-  /* content  : "";
-  position : absolute;
-  z-index  : 1;
-  top   : 0;
-  left     : 0;
-  pointer-events   : none;
-  background-image : linear-gradient(to bottom, 
-                    rgba(255,255,255, 1), 
-                    rgba(255,255,255, 0) 90%);
-  width    : 100%;
-  height   : 5em; */
-}
-.planner-container::after{
-  /* content  : "";
-  position : absolute;
-  z-index  : 1;
-  bottom   : 0;
-  left     : 0;
-  pointer-events   : none;
-  background-image : linear-gradient(to bottom, 
-                    rgba(255,255,255, 0), 
-                    rgba(255,255,255, 1) 90%);
-  width    : 100%;
-  height   : 5em; */
-}
-
-/* .planner-container .buttons{
-  position: absolute;
-  z-index: 10;
-  display: flex;
-  align-items: flex-end;
-  width: 100%;
-  justify-content: center;
-  margin-top: 10px;
-}
-.planner-container .buttons > button,
-.planner-container .buttons .field{
-  margin: 0 20px;
-}
-.planner-container .buttons .field,
-.planner-container .buttons .time{
-  align-items: flex-end;
-  display: flex;
-}
-.planner-container .buttons .time{
-  margin-right: 5px;
-}
-.planner-container .buttons input[type='number']{
-    font-size: 1.5em;
-    width: 50px;
-}
-.planner-container .buttons .hours,
-.planner-container .buttons .minutes{
-    position: relative;
-    margin-top: 15px; 
-}
-.planner-container .buttons .hours::before{
-    content: 'H';
-    position: absolute;
-    top: -18px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    text-align: center;
-}
-.planner-container .buttons .minutes::before{
-    content: 'M';
-    position: absolute;
-    top: -18px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    text-align: center;
-} */
 
 #planner .indicator{
   --time: '00:00';
@@ -472,6 +396,16 @@ export default {
 @media only screen and (min-height: 1000px) {
   #planner {
     max-height:600px;
+  }
+}
+@media only screen and (max-height: 800px) {
+  #planner {
+    max-height: 50vh;   
+    width: 400px;
+  }
+  .planner-container{
+      /* margin-top: 150px; */
+    /* transform: translate(0, 150px); */
   }
 }
 </style>
