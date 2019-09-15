@@ -1,11 +1,13 @@
 <template>
     <div id="Temperature">
         <div class="celcius">
-            <canvas id="icon" width="60px" height="60px"></canvas>
+            <canvas id="icon" width="50px" height="50px"></canvas>
             <h2>{{temperature}} &deg;</h2>
         </div>
-        <p class="summary">{{summary}}</p>
-        <p class="timezone">{{timezone}}</p>
+        <div class="more">
+            <p class="summary">{{summary}}</p>
+            <p class="timezone">{{timezone}}</p>
+        </div>
         
     </div>
 </template>
@@ -29,7 +31,7 @@ export default {
             return (valNum-32) / 1.8
         },
         setIcon(icon, iconId){
-            const skycon = new Skycons({'color': 'white'})
+            const skycon = new Skycons({'color': 'black'})
             const currentIcon = icon.replace(/-/g,'_').toUpperCase()
             skycon.play()
             return skycon.set(iconId, Skycons[currentIcon])
@@ -51,16 +53,19 @@ export default {
 
 <style>
 #Temperature{
-    position: fixed;
-    top: 10px;
-    left: 10px;
+    padding: 5px 10px;
+    color: black;
+    display: flex;
+    align-items: center;
 }
 #Temperature .celcius{
     display: flex;
     justify-content: flex-start;
+    align-items: center;
 }
 #Temperature h2{
-    font-size: 3.5em;
+    font-size: 2em;
+    white-space: nowrap;
     font-weight: normal;
 }
 #Temperature .summary{

@@ -1,15 +1,19 @@
 <template>
   <div id="app">
     <!-- <div class="popup-disabler" v-if="popup" @click="togglePopup"></div> -->
-    <Temperature
+    <!-- <Temperature
       :weatherData='weatherData'
     />
     <CurrentTime
       :currentTask='currentTask'
       v-on:addTask="toggle('addTask')"
     />
-    <Nav/>
+    <Nav/> -->
     <!-- <i class="far fa-calendar-plus"></i> -->
+    <Navbar
+      :weatherData='weatherData'
+      :currentTask='currentTask'
+    />
     <AddTask 
       v-if="addTask"
       v-on:toggle="toggle('addTask')"
@@ -30,12 +34,13 @@
 </template>
 
 <script>
-import CurrentTime from '@/components/CurrentTime.vue'
-import Temperature from '@/components/Temperature.vue'
+// import CurrentTime from '@/components/CurrentTime.vue'
+// import Temperature from '@/components/Temperature.vue'
 import AddTask from '@/components/Planner/AddTask/AddTask'
 import CustomContext from '@/components/Popups/Tasks/CustomContext'
 import Popups from '@/components/Popups/Popups'
-import Nav from '@/components/Nav.vue'
+import Navbar from '@/components/Navbar/Navbar'
+// import Nav from '@/components/Nav.vue'
 export default {
   name: 'App',
   data(){
@@ -56,11 +61,9 @@ export default {
     }
   },
   components:{
-    CurrentTime,
-    Nav,
     AddTask,
-    Temperature,
-    Popups
+    Popups,
+    Navbar
   },
   methods:{
     setUserData(data){

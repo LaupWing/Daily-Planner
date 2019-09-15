@@ -1,13 +1,8 @@
 <template>
     <div id="Current-Time">
-        <h2 class="date">{{day}} {{month}} {{year}}</h2>
         <h2 class="time">{{hours}}<span>:</span>{{minutes}}</h2>
-        <p v-if="user" class="task">Current Task: {{currentTask}}</p>
-        <nav>
-            <router-link :to="{name: 'Home'}">Daily Planner</router-link>
-            <router-link :to="{name: 'AllTasks'}">All Tasks</router-link>
-            <a>Habit Tracker</a>
-        </nav>
+        <h2 class="date">{{day}} {{month}} {{year}}</h2>
+        <!-- <p v-if="user" class="task">Current Task: {{currentTask}}</p> -->
     </div>
 </template>
 
@@ -50,23 +45,21 @@ export default {
 
 <style>
 #Current-Time{
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    margin: auto;
-    text-align: center;
+    color: black;
 }    
 
 #Current-Time h2.date{
-    font-size: 1em;
-    margin-top: 5px;
+    font-size: .7em;
     font-weight: normal;
+    padding: 5px;
+    opacity: .7;
+    text-align: center;
 }
 
 #Current-Time h2.time{
-    font-size: 3.5em;
-    margin-top: 10px;
+    font-size: 2em;
+    /* margin-top: 10px; */
+    text-align: center;
     font-weight: normal;
 }
 
@@ -79,39 +72,7 @@ export default {
 #Current-Time .time span{
     animation: blink 2s infinite;
 }
-#Current-Time nav{
-    display: flex;
-    margin: 20px auto;
-    justify-content: center;
-    align-items: center;
-}
-#Current-Time nav li{
-    list-style: none;
-}
-#Current-Time nav a{
-    text-decoration: none;
-    color: white;
-    padding: 5px 12px;
-    opacity: .5;
-    display: inline-block;
-    border: solid white 1px;
-    font-size: .8em;
-}
-#Current-Time nav a.router-link-exact-active{
-    opacity: 1;
-    background: white;
-    color: black;
-}
-#Current-Time nav a:nth-child(even){
-    border-left: none;
-    border-right: none;
-}
-#Current-Time nav a:first-of-type{
-    border-radius: 10px 0 0 10px;
-}
-#Current-Time nav a:last-of-type{
-    border-radius: 0 10px 10px 0;
-}
+
 @keyframes blink{
     0%{
         opacity: 0;

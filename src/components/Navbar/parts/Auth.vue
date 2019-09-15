@@ -18,7 +18,7 @@
 <script>
 import firebase from 'firebase'
 export default {
-    name: 'Nav',
+    name: 'Auth',
     data(){
         return{
             user: null
@@ -48,9 +48,9 @@ export default {
 
 <style>
 nav.auth{
-    position: fixed;
+    /* position: fixed;
     top: 0;
-    right: 10px;
+    right: 10px; */
 }    
 nav.auth li{
     list-style: none;
