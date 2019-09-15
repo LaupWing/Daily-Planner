@@ -401,11 +401,15 @@ export default {
 @media only screen and (max-height: 800px) {
   #planner {
     max-height: 50vh;   
-    width: 400px;
+    width: 450px;
   }
   .planner-container{
-      /* margin-top: 150px; */
+      margin-top: 150px;
     /* transform: translate(0, 150px); */
+  }
+  #planner .indicator{
+    margin-top: 75px;
+    transform: translate(10px,0);
   }
 }
 </style>
