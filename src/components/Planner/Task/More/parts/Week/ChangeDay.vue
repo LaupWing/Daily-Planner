@@ -1,17 +1,15 @@
 <template>
-    <div class="edit-day-bg">
+    <div class="edit-day-bg" @click="checkBg">
         <div class="edit-day">
             <h2>{{dayToEdit.day}}</h2>
             <div class="field time-span">
                 <label for="task">Begin:</label>
                 <div class="time">
                     <div class="hours">
-                        <!-- <label for="hours">Hours</label> -->
                         <input type="number" name="hours" min="00" max="23" v-model="day.begin.hours">
                     </div>
                     <span>:</span>
                     <div class="minutes">
-                        <!-- <label for="minutes">Minutes</label> -->
                         <input type="number" name="minutes" min="00" max="59" v-model="day.begin.minutes">
                     </div>
                 </div>
@@ -20,19 +18,17 @@
                 <label for="task">End:</label>
                 <div class="time">
                     <div class="hours">
-                        <!-- <label for="hours">Hours</label> -->
                         <input type="number" name="hours" min="00" max="23" v-model="day.end.hours">
                     </div>
                     <span>:</span>
                     <div class="minutes">
-                        <!-- <label for="minutes">Minutes</label> -->
                         <input type="number" name="minutes" min="00" max="59" v-model="day.end.minutes">
                     </div>
                 </div>
             </div>
             <i class="fas fa-trash-alt"></i>
             <div class="buttons">
-                <button>cancel</button>
+                <button @click="cancel">cancel</button>
                 <button @click="accept">Apply</button>
             </div>
         </div>
@@ -61,6 +57,13 @@ export default {
         }
     },
     methods:{
+        checkBg(){
+            if(event.target.classList.length>0){
+                if(event.target.classList[0]=== 'edit-day-bg'){
+                    this.$emit('cancel')
+                }
+            }
+        },
         cancel(){
             this.$emit('cancel')
         },
@@ -129,6 +132,7 @@ export default {
     flex-direction: column;
     align-items: center;
     position: fixed;
+    z-index: 10000;
 }
 .edit-day-bg .edit-day.before::after{
     content: '';

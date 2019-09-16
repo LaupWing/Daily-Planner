@@ -69,6 +69,7 @@ export default {
             this.dayToEdit = this.editTask.days.find(d=>d.day === day)
         },
         reset(){
+            this.$el.querySelectorAll('.task-duration').forEach(task=>task.classList.remove('active'))
             this.dayToEdit = null
         },
         changeEdit(newDay){

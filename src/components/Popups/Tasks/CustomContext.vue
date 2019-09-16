@@ -3,7 +3,6 @@
         id="Custom-Context"
         :style="setPosition"
     >
-        <i class="close far fa-times-circle"></i>
         <div class="title">
             <h2>{{settings.data.task}}</h2>
         </div>
