@@ -1,6 +1,9 @@
 <template>
     <div id="NavBar">
         <div class="left-panel">
+            <div @click="toggle" class="open-side-menu">
+                <i class="fas fa-bars"></i>
+            </div>
             <Temperature
                 :weatherData="weatherData"
             />
@@ -25,6 +28,19 @@ export default {
         Temperature,
         Auth,
         CurrentTime
+    },
+    methods:{
+        toggle(){
+            const colorLabels = document.querySelector('#Color-Label') 
+            if(colorLabels){
+                if(colorLabels.style.left !== ''){
+                    setTimeout(()=>{
+                        colorLabels.style.removeProperty('left')
+                    },500)
+                }
+            }
+            this.$emit('toggle')
+        }
     }
 }
 </script>
@@ -39,15 +55,38 @@ export default {
     justify-content: center;
     background: white;
     border-bottom: 1px rgba(0,0,0,.4) solid;
+    z-index: 1000;
 }
 #NavBar .left-panel{
     position: absolute;
     top: 0;
-    left: 0;
+    left: 10px;
+    display: flex;
+    align-items: center;
+
 }
 #NavBar .right-panel{
     position: absolute;
     top: 0;
     right: 0;
+    display: flex;
+}
+#NavBar .open-side-menu{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-size: 30px;
+    transition: .25s;
+    cursor: pointer;
+}
+#NavBar .open-side-menu:hover{
+    background: rgba(0,0,0,.4);
+}
+#NavBar .open-side-menu:hover i{
+    color: white;
 }
 </style>

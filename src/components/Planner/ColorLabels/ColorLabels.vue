@@ -28,16 +28,6 @@
                 class="label"
                 v-on:addColorLabel='addColorLabel'
             />
-            <!-- <div class="form-container">
-                <i class="fas fa-plus-circle" @click="toggleAdd" v-if="!addLabel"></i>
-                <AddLabelForm 
-                    v-if="addLabel"
-                    :addTask="addTask"
-                    :colorLabels="colorLabels"
-                    :user="user"
-                    v-on:cancel="cancel"
-                />
-            </div> -->
         </div>
         <div class="form-container">
             <i class="fas fa-plus-circle" @click="toggleAdd"></i>
@@ -62,7 +52,6 @@ import firebase from 'firebase'
 import Label from '@/components/Planner/ColorLabels/Labels/Label'
 import AddTaskLabel from '@/components/Planner/ColorLabels/Labels/AddTaskLabel'
 import Feedback from '@/components/feedback/Feedback'
-// import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
 import AddLabelForm from '@/components/Planner/ColorLabels/ColorForms/AddLabelForm'
 
 export default {
@@ -149,6 +138,7 @@ export default {
     top: 50%;
     left: 20px;
     transform:translate(0,-50%);
+    transition: 1s;
 }
 #Color-Label h2{
     font-weight: normal;

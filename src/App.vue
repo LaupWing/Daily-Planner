@@ -13,7 +13,13 @@
     <Navbar
       :weatherData='weatherData'
       :currentTask='currentTask'
+      v-on:toggle="toggle('sideNav')"
     />
+    <transition name="slide">
+      <SideBar
+        v-if="sideNav"
+      />
+    </transition>
     <AddTask 
       v-if="addTask"
       v-on:toggle="toggle('addTask')"
@@ -40,6 +46,7 @@ import AddTask from '@/components/Planner/AddTask/AddTask'
 import CustomContext from '@/components/Popups/Tasks/CustomContext'
 import Popups from '@/components/Popups/Popups'
 import Navbar from '@/components/Navbar/Navbar'
+import SideBar from '@/components/SideBar/SideBar'
 // import Nav from '@/components/Nav.vue'
 export default {
   name: 'App',
@@ -57,13 +64,15 @@ export default {
       preventActions: {
         type: null,
         data: null
-      }
+      },
+      sideNav: false
     }
   },
   components:{
     AddTask,
     Popups,
-    Navbar
+    Navbar,
+    SideBar
   },
   methods:{
     setUserData(data){
@@ -158,5 +167,22 @@ textarea{
 }
 li{
   list-style: none;
+}
+
+@keyframes slideIn {
+  from{
+    transform: translate(-100%,0);
+  }
+  to{
+    transform: translate(0,0);
+  }
+}
+
+.slide-enter-active {
+  animation: slideIn 1s;
+}
+
+.slide-leave-active {
+  animation: slideIn reverse 1s;
 }
 </style>

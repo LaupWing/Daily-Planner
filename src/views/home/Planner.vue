@@ -316,7 +316,7 @@ export default {
 }
 #planner{
   margin: auto;
-  margin-right: 55px;
+  margin-right: 65px;
   width: 500px;
   display: flex;
   max-height: 60vh;
