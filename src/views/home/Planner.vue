@@ -404,8 +404,7 @@ export default {
     width: 450px;
   }
   .planner-container{
-      margin-top: 70px;
-    /* transform: translate(0, 150px); */
+    margin-top: 70px;
   }
   #planner .indicator{
     margin-top: 35px;
