@@ -85,7 +85,7 @@ export default {
         },
         duplicateCheck(array,labelProp, colorProp){
             const findColor = array.find(label=>label.color.toLowerCase() === this[colorProp].toLowerCase())
-            const findLabel = array.find(label=> label.label.toLowerCase() === this[labelProp].toLowerCase())
+            const findLabel =   array.find(label=> label.label.toLowerCase() === this[labelProp].toLowerCase())
             if(findColor || findLabel){
                 if(findColor){
                     this.feedbackColor = `The color ${this.color} is already in use`

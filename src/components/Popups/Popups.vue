@@ -21,6 +21,7 @@
 <script>
 import CustomContext from '@/components/Popups/Tasks/CustomContext'
 import EditLabelForm from '@/components/Popups/Labels/EditLabelForm'
+import AddLabelForm from '@/components/Popups/Labels/AddLabelForm'
 export default {
     name:'Popups',
     props:['settings', 'userData'],
@@ -31,7 +32,8 @@ export default {
     },
     components:{
         CustomContext,
-        EditLabelForm
+        EditLabelForm,
+        AddLabelForm
     },
     methods:{
         togglePopup(){

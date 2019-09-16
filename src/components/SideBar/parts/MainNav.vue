@@ -31,15 +31,15 @@ nav#Main-Nav a{
     letter-spacing: 1px;
 }
 nav#Main-Nav a.router-link-exact-active{
-    background: rgba(0,0,0,.4);
-    color: white;
+    background: rgba(0,0,0,.1);
+    color: black;
 }
 nav#Main-Nav a.router-link-exact-active:hover{
-    background: rgba(0,0,0,.4);
-    color: white;
+    background: rgba(0,0,0,.1);
+    color: black;
 }
 nav#Main-Nav a:hover{
-    background: rgba(0,0,0,.2);
-    color: white;
+    background: rgba(0,0,0,.1);
+    color: black;
 }
 </style>

@@ -29,6 +29,7 @@ export default {
     top: 0;
     width: 250px;
     background: white;
+    font-size: .8em;
     z-index: 100;
 }
 
