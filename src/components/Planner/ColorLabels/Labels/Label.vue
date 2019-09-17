@@ -2,8 +2,9 @@
     <div 
         class="label"
         :class="hoverClass" 
-        :style='{background: label.color}' 
-        @click="openEditPopup"
+        :style='{background: label.color}'
+        @contextmenu.prevent="openEditPopup"
+        @click="checkTaskWithThisColor"
     >
         <p 
             class="label-name" 
@@ -12,6 +13,11 @@
         >
             {{label.label}}
         </p>
+        <transition name="slide-width">
+            <div class="nothing-found" v-if="nothingFound" :style="{background: label.color}">
+                <p>There are no tasks today associated with this label</p>
+            </div>
+        </transition>
          <!-- <EditLabelForm 
             v-if="nonEditedLabel === label"
             :colorLabels="colorLabels"
@@ -33,9 +39,39 @@ export default {
     },
     data(){
         return{
+            nothingFound: false,
+            taskIndicator: 0
         }
     },
     methods:{
+        checkTaskWithThisColor(){
+            const container = document.querySelector('#planner')
+            const tasks = Array.from(container.querySelectorAll('.task'))
+            const findTasks = tasks.filter(task=>{
+                const taskName = task.style.background
+                if(taskName.toLowerCase() === this.label.color.toLowerCase()){
+                    return task
+                }
+            })
+            .sort((a,b)=>{
+                return a.offsetTop - b.offsetTop
+            })
+            if(findTasks.length>0){
+                const taskOffsetTop = findTasks[this.taskIndicator].offsetTop
+                const yVal = (taskOffsetTop - (container.offsetHeight/2))+ (findTasks[this.taskIndicator].offsetHeight/2) 
+                container.scrollTo(0,yVal)
+                if(this.taskIndicator < (findTasks.length-1)){
+                    this.taskIndicator = this.taskIndicator + 1
+                }else{
+                    this.taskIndicator = 0
+                }
+            }else{
+                this.nothingFound = true
+                setTimeout(()=>{
+                    this.nothingFound = false
+                },3000)
+            }
+        },
         openEditPopup(){
             this.$emit('openPopup', {
                 data: this.label,
@@ -109,26 +145,32 @@ div.label.hover:hover p.label-name{
     max-width: 300px;
     white-space: nowrap;
 }
-/* #Color-Label div.label form,
-#Color-Label form{
-    left: 150%;
-    padding: 20px;
-}
-#Color-Label div.label form .field,
-#Color-Label form .field{
-    margin: 10px 15px;
-}
-#Color-Label div.label form::before,
-#Color-Label form::before{
-    content: "";
-    width: 20px;
-    height: 20px;
-    background: white;
-    transform: translate(0,-100%);
-    display: block;
+div.label .nothing-found{
     position: absolute;
-    left: -8px;
-    top: 6px;
-    transform: rotate(45deg);
-} */
+    left: 50%;
+    height: 100%;
+    padding-right: 10px;
+    z-index: 10000;
+    overflow: hidden;
+}
+div.label .nothing-found p{
+    white-space: nowrap;
+    height: 100%;
+    line-height: 30px;
+    text-shadow: -3px -1px 9px rgba(0, 0, 0, 0.62);
+}
+.slide-width-enter-active {
+  animation: bounce-in 1s ease-in;
+}
+.slide-width-leave-active {
+  animation: bounce-in 1s reverse;
+}
+@keyframes bounce-in {
+    from{
+        max-width: 0px
+    }
+    to{
+        max-width: 600px;
+    }
+}
 </style>
