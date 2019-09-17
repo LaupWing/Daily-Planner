@@ -15,6 +15,12 @@
             :settings="settings"
             :label="settings.data"
         /> 
+        <AddLabelForm
+            class="popup" 
+            v-if="settings.type ===  'label-add'"
+            :userData="userData"
+            :settings="settings"
+        />
     </div>
 </template>
 

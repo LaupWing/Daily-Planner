@@ -1,6 +1,6 @@
 <template>
-    <form @submit.prevent="submit" class="add-label">
-        <h2 v-if="addTask">Adding Label</h2>
+    <form @submit.prevent="submit" class="add-label" :style="setPos">
+        <h2>Adding Label</h2>
         <div class="field">
             <Feedback 
                 v-if="feedbackLabel" 
@@ -32,7 +32,7 @@ import Feedback from '@/components/feedback/Feedback'
 import db from '@/firebase/init'
 export default {
     name: 'AddLabelForm',
-    props:['addTask', 'addLabel' , 'colorLabels', 'user'],
+    props:['userData', 'settings', 'user'],
     components:{
         Feedback
     },
@@ -92,11 +92,73 @@ export default {
             if(feedback.type === 'label'){
                 this.feedbackLabel = null
             }
+        },
+
+    },
+    computed:{
+        setPos(){
+            console.log(this.settings)
+            return{
+                top: `${this.settings.coords.top-4}px`,
+                left:`${this.settings.coords.left+this.settings.coords.elHeight+32}px`
+            }
         }
     }
 }
 </script>
 
 <style>
-
+form.popup.add-label h2{
+    color: black;
+    
+}
+form.popup.add-label{
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: white;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.37);
+    z-index: 1000;
+}
+form.popup.add-label input[type='text']{
+    width: 140px;
+    border: none;
+    padding: 5px;
+    padding-left: 0;
+    border-bottom: rgba(0,0,0,.2) solid 1px;
+    outline: none;
+    background: transparent;
+    color: rgba(0,0,0,.8);
+}
+form.popup.edit-label input[type='text']::placeholder{
+    color: rgba(0,0,0,.2);
+}
+form.popup.add-label{
+    left: 10%;
+    padding: 20px;
+}
+form.popup.add-label .field{
+    margin: 10px 15px;
+}
+form.popup.add-label::before{
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: white;
+    transform: translate(0,-100%);
+    display: block;
+    position: absolute;
+    left: -8px;
+    top: 6px;
+    transform: rotate(45deg);
+}
+form.popup.add-label .example{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 </style>

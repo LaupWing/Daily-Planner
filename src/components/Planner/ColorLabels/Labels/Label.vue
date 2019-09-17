@@ -37,7 +37,7 @@ export default {
     },
     methods:{
         openEditPopup(){
-            this.$emit('editPopup', {
+            this.$emit('openPopup', {
                 data: this.label,
                 type: 'label',
                 coords:{

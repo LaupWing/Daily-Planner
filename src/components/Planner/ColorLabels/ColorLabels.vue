@@ -16,8 +16,9 @@
                 :nonEditedLabel="nonEditedLabel"
                 :editLabel="editLabel"
                 :class="{'active':nonEditedLabel === label}"
-                v-on:editPopup='editPopup'
+                v-on:openPopup='openPopup'
             />
+            <i class="fas fa-plus-circle" @click="toggleAdd"></i>
         </div>
         <div class="label-container" v-if="addTask">
             <AddTaskLabel 
@@ -28,9 +29,9 @@
                 class="label"
                 v-on:addColorLabel='addColorLabel'
             />
-        </div>
-        <div class="form-container">
             <i class="fas fa-plus-circle" @click="toggleAdd"></i>
+        </div>
+        <!-- <div class="form-container">
             <AddLabelForm 
                 v-if="addLabel"
                 :addTask="addTask"
@@ -38,7 +39,7 @@
                 :user="user"
                 v-on:cancel="cancel"
             />
-        </div>
+        </div> -->
         <div class="buttons" v-if="addTask">
             <button @click="closePopup">Cancel</button>
             <button @click="chosenColor">Accept</button>
@@ -85,13 +86,19 @@ export default {
                 })
             }
         },
-        editPopup(data){
-            this.$emit('editPopup', data)
+        openPopup(data){
+            this.$emit('openPopup', data)
         },
         toggleAdd(){
-            this.editLabel = null
-            this.nonEditedLabel = null
-            this.addLabel = !this.addLabel
+            this.$emit('openPopup',{
+                data: null,
+                type: 'label-add',
+                coords:{
+                    top: event.target.getBoundingClientRect().top,
+                    left: event.target.getBoundingClientRect().left,
+                    elHeight: event.target.offsetHeight
+                }
+            })
         },
         addColorLabel(label){
             this.colorLabelToAdd = label
