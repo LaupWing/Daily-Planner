@@ -26,6 +26,10 @@
         <div class="delete">
             <i class="fas fa-trash-alt"></i>
         </div>
+        <div class="done">
+            <input type="checkbox" name="" id="done">
+            <label for="done">Done <i class="fas fa-check"></i></label>
+        </div>
     </div>
 </template>
 
@@ -204,9 +208,32 @@ export default {
     transition: .25s;
     cursor: pointer;
 }
+#Custom-Context .delete{
+    border-bottom: solid rgba(0,0,0,.4) 1px;
+}
 #Custom-Context .delete i:hover{
     background: rgba(0,0,0,.4);
     color: white;
 }
-
+#Custom-Context .done input[type="checkbox"]{
+    display: none;
+}
+#Custom-Context .done input[type="checkbox"]:checked+label{
+    background: lightgreen;
+    color: white;
+}
+#Custom-Context .done label{
+    text-align: center;
+    padding: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    cursor: pointer;
+    transition: .5s;
+    border-radius: 0 0 5px 5px;
+}
+#Custom-Context .done label:hover{
+    background: rgba(0,0,0,.4);
+    color: white;
+}
 </style>
