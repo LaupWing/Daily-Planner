@@ -18,22 +18,13 @@
                 <p>There are no tasks today associated with this label</p>
             </div>
         </transition>
-         <!-- <EditLabelForm 
-            v-if="nonEditedLabel === label"
-            :colorLabels="colorLabels"
-            :nonEditedLabel="nonEditedLabel"
-            :editLabel="editLabel"
-            :user="user"
-            v-on:cancel="cancel"
-        />  -->
     </div>
 </template>
 
 <script>
-// import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
 export default {
     name: 'Label',
-    props:['label' ,'taskColor', 'user', 'colorLabels', 'editLabel', 'nonEditedLabel', 'preventActions'],
+    props:['label' ,'taskColor', 'user', 'colorLabels', 'editLabel', 'preventActions'],
     components:{
         
     },
@@ -88,18 +79,13 @@ export default {
             this.$emit('cancel')
         }
     },
-    watch:{
-        nonEditedLabel: function(newLabel, oldLabel){
-            // console.log(newLabel, oldLabel, this.nonEditedLabel)
-        }
-    },
     computed:{
         checkTaskColor(){
             if(this.taskColor === null || this.taskColor === undefined){
                 return
             }
             return {
-                'show': this.label.color.toLowerCase() === this.taskColor.toLowerCase() && !this.nonEditedLabel && this.preventActions.type !== 'label'
+                'show': this.label.color.toLowerCase() === this.taskColor.toLowerCase() && this.preventActions.type !== 'label'
             }
         },
         hoverClass(){
@@ -160,12 +146,12 @@ div.label .nothing-found p{
     text-shadow: -3px -1px 9px rgba(0, 0, 0, 0.62);
 }
 .slide-width-enter-active {
-  animation: bounce-in 1s ease-in;
+  animation: slideWidth 1s ease-in;
 }
 .slide-width-leave-active {
-  animation: bounce-in 1s reverse;
+  animation: slideWidth 1s reverse;
 }
-@keyframes bounce-in {
+@keyframes slideWidth {
     from{
         max-width: 0px
     }

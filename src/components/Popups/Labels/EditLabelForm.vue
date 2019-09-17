@@ -2,19 +2,23 @@
     <form @submit.prevent="change" class="edit-label" :style="setPos">
         <div class="input-fields">
             <div class="field">
-                <Feedback 
-                    v-if="feedbackLabel" 
-                    :feedback='{message: feedbackLabel, type:"label"}'
-                    v-on:turnOffFeedback="turnOffFeedback"
-                />
+                <transition name="scaling">
+                    <Feedback 
+                        v-if="feedbackLabel" 
+                        :feedback='{message: feedbackLabel, type:"label"}'
+                        v-on:turnOffFeedback="turnOffFeedback"
+                    />
+                </transition>
                 <input type="text" v-model="editLabel.label" name="label" autocomplete="off" required>
             </div>
             <div class="field">
-                <Feedback 
-                    v-if="feedbackColor" 
-                    :feedback='{message: feedbackColor, type:"color"}'
-                    v-on:turnOffFeedback="turnOffFeedback"
-                />
+                <transition name="scaling">
+                    <Feedback 
+                        v-if="feedbackColor" 
+                        :feedback='{message: feedbackColor, type:"color"}'
+                        v-on:turnOffFeedback="turnOffFeedback"
+                    />
+                </transition>
                 <input type="text" v-model="editLabel.color" name="color" autocomplete="off" required>
             </div>
             <div class="example" :style="{color: editLabel.color, borderColor:editLabel.color}">
@@ -31,6 +35,7 @@
 <script>
 import Feedback from '@/components/feedback/Feedback'
 import firebase from 'firebase'
+import db from '@/firebase/init'
 export default {
     name: 'EditLabelForm',
     props:['label','userData', 'settings'],
@@ -55,7 +60,7 @@ export default {
             const removeSelf = this.colorLabels.filter(label=>{
                 return JSON.stringify(label) !== JSON.stringify(this.nonEditedLabel)
             })
-            if(this.duplicateCheck(removeSelf, 'editLabel.label', 'editLabel.color')){
+            if(this.duplicateCheck(removeSelf)){
                 this.getData()
                     .then(()=>{
                         const updatedLabels = this.colorLabels.map(label=>{
@@ -79,21 +84,36 @@ export default {
                             })
                             .then(()=>{
                                 this.colorLabels = updatedLabels
-                                this.cancel()
+                                this.$emit('cancel')
                             })
                     })
             }
             
         },
-        duplicateCheck(array,labelProp, colorProp){
-            const findColor = array.find(label=>label.color.toLowerCase() === this[colorProp].toLowerCase())
-            const findLabel =   array.find(label=> label.label.toLowerCase() === this[labelProp].toLowerCase())
+        getData(){
+            return db
+                .collection('planner')
+                .doc(firebase.auth().currentUser.uid)
+                .get()
+                .then(doc=>{
+                    const data = doc.data()
+                    if(data.colorLabels){
+                        this.colorLabels = data.colorLabels
+                    }   
+                    if(data.dailyTasks){
+                        this.dailyTasks = data.dailyTasks
+                    }
+                })
+        },
+        duplicateCheck(array){
+            const findColor = array.find(label=>label.color.toLowerCase() === this.editLabel.color.toLowerCase())
+            const findLabel =   array.find(label=> label.label.toLowerCase() === this.editLabel.label.toLowerCase())
             if(findColor || findLabel){
                 if(findColor){
-                    this.feedbackColor = `The color ${this.color} is already in use`
+                    this.feedbackColor = `The color ${this.editLabel.color} is already in use`
                 }
                 if(findLabel){
-                    this.feedbackLabel = `The label named ${this.newLabel} is already in use`
+                    this.feedbackLabel = `The label named ${this.editLabel.label} is already in use`
                 }
                 return false
             }else{
@@ -167,6 +187,7 @@ form.popup.edit-label{
 }
 form.popup.edit-label .field{
     margin: 10px 15px;
+    position: relative;
 }
 form.popup.edit-label::before{
     content: "";
@@ -208,5 +229,21 @@ form.popup.edit-label .field.buttons button{
 }
 form.popup.edit-label .field.buttons button:first-of-type{
     border-right: 1px solid rgba(0,0,0,.4);
+}
+.scaling-enter-active {
+  animation: scaling .5s ease-in;
+}
+.scaling-leave-active {
+  animation: scaling .5s reverse;
+}
+@keyframes scaling {
+    from{
+        transform: scale(0);
+        transform-origin: bottom left;
+    }
+    to{
+        transform: scale(1);
+        transform-origin: bottom left;
+    }
 }
 </style>

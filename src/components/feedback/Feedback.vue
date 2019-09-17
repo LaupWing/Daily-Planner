@@ -1,7 +1,6 @@
 <template>
     <div 
         class="feedback"
-        :class="{'color': feedback.type === 'color', 'label': feedback.type === 'label'}"
         @click="turnOffFeedback"
     >
         <h3>{{feedback.message}}</h3>
@@ -20,7 +19,7 @@ export default {
     mounted(){
         setTimeout(()=>{
             this.turnOffFeedback()
-        },10000)
+        },5000)
     }
 }
 </script>
@@ -29,16 +28,14 @@ export default {
 .feedback{
     position: absolute;
     background: white;
-    top: 0;
-    right: -100%;
+    top: -100%;
+    left: 100%;
     color: black;
     font-size: 12px;
     padding: 5px;
-}
-.feedback.label{
-    transform: translate(45%, -68%);
-}
-.feedback.color{
-    transform: translate(32%, 25%);
+    white-space: nowrap;
+    border-radius: 5px;
+    box-shadow: 0px 0px 22px 0px rgba(0,0,0,0.33);
+    padding: 10px;
 }
 </style>
