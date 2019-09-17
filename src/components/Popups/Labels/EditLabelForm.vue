@@ -1,25 +1,27 @@
 <template>
     <form @submit.prevent="change" class="edit-label" :style="setPos">
-        <div class="field">
-            <Feedback 
-                v-if="feedbackLabel" 
-                :feedback='{message: feedbackLabel, type:"label"}'
-                v-on:turnOffFeedback="turnOffFeedback"
-            />
-            <input type="text" v-model="editLabel.label" name="label" autocomplete="off" required>
+        <div class="input-fields">
+            <div class="field">
+                <Feedback 
+                    v-if="feedbackLabel" 
+                    :feedback='{message: feedbackLabel, type:"label"}'
+                    v-on:turnOffFeedback="turnOffFeedback"
+                />
+                <input type="text" v-model="editLabel.label" name="label" autocomplete="off" required>
+            </div>
+            <div class="field">
+                <Feedback 
+                    v-if="feedbackColor" 
+                    :feedback='{message: feedbackColor, type:"color"}'
+                    v-on:turnOffFeedback="turnOffFeedback"
+                />
+                <input type="text" v-model="editLabel.color" name="color" autocomplete="off" required>
+            </div>
+            <div class="example" :style="{color: editLabel.color, borderColor:editLabel.color}">
+                <p class="label">{{editLabel.label}}</p>
+            </div>
         </div>
-        <div class="field">
-            <Feedback 
-                v-if="feedbackColor" 
-                :feedback='{message: feedbackColor, type:"color"}'
-                v-on:turnOffFeedback="turnOffFeedback"
-            />
-            <input type="text" v-model="editLabel.color" name="color" autocomplete="off" required>
-        </div>
-        <div class="example">
-            <p :style="{color: editLabel.color, borderColor:editLabel.color}" class="label">{{editLabel.label}}</p>
-        </div>
-        <div class="field">
+        <div class="field buttons">
             <button type="button" @click="cancel">Cancel</button>
             <button >Change</button>
         </div>
@@ -132,9 +134,19 @@ form.popup.edit-label{
     top: 0;
     background: white;
     border-radius: 5px;
-    padding: 10px;
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.37);
     z-index: 1000;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+form.popup.edit-label .input-fields{
+    margin-top: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 form.popup.edit-label input[type='text']{
     width: 140px;
@@ -169,10 +181,32 @@ form.popup.edit-label::before{
     transform: rotate(45deg);
 }
 form.popup.edit-label .example{
-    width: 100%;
-    height: 50px;
+    padding: 6px 15px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-width: 2px;
+    border-radius: 5px;
+    border-style: solid;
+    margin-top: 20px;
+}
+form.popup.edit-label .field.buttons{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+}
+form.popup.edit-label .field.buttons button{
+    border: none;
+    background: transparent;
+    padding: 6px;
+    width: 50%;
+    cursor: pointer;
+    transition: .25s;
+    border-top: 1px solid rgba(0,0,0,.4);
+}
+form.popup.edit-label .field.buttons button:first-of-type{
+    border-right: 1px solid rgba(0,0,0,.4);
 }
 </style>

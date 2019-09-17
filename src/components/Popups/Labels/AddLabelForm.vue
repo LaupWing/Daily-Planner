@@ -1,26 +1,28 @@
 <template>
     <form @submit.prevent="submit" class="add-label" :style="setPos">
         <h2>Adding Label</h2>
-        <div class="field">
-            <Feedback 
-                v-if="feedbackLabel" 
-                :feedback='{message:feedbackLabel, type:"label"}'
-                v-on:turnOffFeedback="turnOffFeedback"
-            />
-            <input type="text" v-model="newLabel" name="label" autocomplete="off" placeholder="label" required>
+        <div class="input-fields">
+            <div class="field">
+                <Feedback 
+                    v-if="feedbackLabel" 
+                    :feedback='{message:feedbackLabel, type:"label"}'
+                    v-on:turnOffFeedback="turnOffFeedback"
+                />
+                <input type="text" v-model="newLabel" name="label" autocomplete="off" placeholder="label" required>
+            </div>
+            <div class="field">
+                <Feedback 
+                    v-if="feedbackColor" 
+                    :feedback='{message:feedbackColor, type: "color"}'
+                    v-on:turnOffFeedback="turnOffFeedback"
+                />
+                <input type="text" v-model="color" name="color" placeholder="color" autocomplete="off" required>
+            </div>
+            <div class="example" :style="{borderColor: color, color: color}">
+                <p class="label">{{newLabel}}</p>
+            </div>
         </div>
-        <div class="field">
-            <Feedback 
-                v-if="feedbackColor" 
-                :feedback='{message:feedbackColor, type: "color"}'
-                v-on:turnOffFeedback="turnOffFeedback"
-            />
-            <input type="text" v-model="color" name="color" placeholder="color" autocomplete="off" required>
-        </div>
-        <div class="example">
-            <p :style="{borderColor: color, color: color}" class="label">{{newLabel}}</p>
-        </div>
-        <div class="field">
+        <div class="field buttons">
             <button type="button" @click="cancel">Cancel</button>
             <button>Add</button>
         </div>
@@ -110,7 +112,16 @@ export default {
 <style>
 form.popup.add-label h2{
     color: black;
-    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-weight: normal;
+    letter-spacing: 1px;
+    font-size: 1.2em;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px rgba(0,0,0,.4) solid;
 }
 form.popup.add-label{
     position: fixed;
@@ -121,6 +132,16 @@ form.popup.add-label{
     padding: 10px;
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.37);
     z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+form.popup.add-label .input-fields{
+    margin: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 form.popup.add-label input[type='text']{
     width: 140px;
@@ -142,6 +163,24 @@ form.popup.add-label{
 form.popup.add-label .field{
     margin: 10px 15px;
 }
+form.popup.add-label .field.buttons{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+}
+form.popup.add-label .field.buttons button{
+    width: 50%;
+    padding: 6px;
+    background: transparent;
+    border:none;
+    border-top: 1px rgba(0,0,0,.4) solid;
+    cursor: pointer;
+}
+form.popup.add-label .field.buttons button:first-of-type{
+    border-right: 1px  rgba(0,0,0,.4) solid;
+}
 form.popup.add-label::before{
     content: "";
     width: 20px;
@@ -155,10 +194,13 @@ form.popup.add-label::before{
     transform: rotate(45deg);
 }
 form.popup.add-label .example{
-    width: 100%;
-    height: 50px;
+    padding: 7px 10px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
+    color: black;
+    border: solid black 2px;
+    border-radius: 5px;
     align-items: center;
 }
 </style>
