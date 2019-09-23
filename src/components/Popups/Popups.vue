@@ -8,13 +8,23 @@
             :settings="settings"
             :userData="userData"
         />
-        <EditLabelForm
+        <transition name="scalingLeftTopCorner">
+            <EditLabelForm
+                class="popup" 
+                v-if="settings.type ===  'label'"
+                :userData="userData"
+                :settings="settings"
+                :label="settings.data"
+                v-on:cancel="cancel"
+            /> 
+        </transition>
+        <AddLabelForm
             class="popup" 
-            v-if="settings.type ===  'label'"
+            v-if="settings.type ===  'label-add'"
             :userData="userData"
             :settings="settings"
-            :label="settings.data"
-        /> 
+            v-on:cancel="cancel"
+        />
     </div>
 </template>
 
@@ -45,6 +55,9 @@ export default {
                     this.$emit('togglePopup')
                 }
             }
+        },
+        cancel(){
+            this.$emit('togglePopup')
         }
     },
     mounted(){
@@ -68,5 +81,22 @@ export default {
 }
 .popup{
   z-index: 100000;
+}
+.scalingLeftTopCorner-enter-active{
+    animation: scalingLeftTopCorner forwards 1s;
+}
+.scalingLeftTopCorner-leave-active{
+    animation: scalingLeftTopCorner reverse 1s;
+}
+
+@keyframes scalingLeftTopCorner {
+    from{
+        transform-origin: top left;
+        transform: scale(0);
+    }
+    from{
+        transform-origin: top left;
+        transform: scale(1);
+    }
 }
 </style>

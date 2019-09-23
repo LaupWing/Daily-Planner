@@ -13,7 +13,7 @@
     <ColorLabels
       :taskColor='taskColor'
       :preventActions="preventActions"
-      v-on:editPopup='togglePopup'
+      v-on:openPopup='togglePopup'
     />
     <div 
       id="planner"

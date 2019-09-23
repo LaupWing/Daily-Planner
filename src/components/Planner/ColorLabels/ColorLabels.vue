@@ -13,11 +13,9 @@
                 :colorLabels="colorLabels"
                 :user="user"
                 :taskColor='taskColor'
-                :nonEditedLabel="nonEditedLabel"
-                :editLabel="editLabel"
-                :class="{'active':nonEditedLabel === label}"
-                v-on:editPopup='editPopup'
+                v-on:openPopup='openPopup'
             />
+            <i class="fas fa-plus-circle" @click="toggleAdd"></i>
         </div>
         <div class="label-container" v-if="addTask">
             <AddTaskLabel 
@@ -28,16 +26,7 @@
                 class="label"
                 v-on:addColorLabel='addColorLabel'
             />
-        </div>
-        <div class="form-container">
             <i class="fas fa-plus-circle" @click="toggleAdd"></i>
-            <AddLabelForm 
-                v-if="addLabel"
-                :addTask="addTask"
-                :colorLabels="colorLabels"
-                :user="user"
-                v-on:cancel="cancel"
-            />
         </div>
         <div class="buttons" v-if="addTask">
             <button @click="closePopup">Cancel</button>
@@ -52,23 +41,18 @@ import firebase from 'firebase'
 import Label from '@/components/Planner/ColorLabels/Labels/Label'
 import AddTaskLabel from '@/components/Planner/ColorLabels/Labels/AddTaskLabel'
 import Feedback from '@/components/feedback/Feedback'
-import AddLabelForm from '@/components/Planner/ColorLabels/ColorForms/AddLabelForm'
 
 export default {
     name: 'ColorLabels',
     props:['taskColor' ,'addTask', 'chosenColorLabel', 'preventActions'],
     components:{
         Label,
-        AddTaskLabel,
-        AddLabelForm
+        AddTaskLabel
     },
     data(){
         return{
             colorLabels: [],
             user: firebase.auth().currentUser,
-            addLabel: false,
-            editLabel: null,
-            nonEditedLabel: null,
             colorLabelToAdd: null
         }
     },
@@ -85,21 +69,25 @@ export default {
                 })
             }
         },
-        editPopup(data){
-            this.$emit('editPopup', data)
+        openPopup(data){
+            this.$emit('openPopup', data)
         },
         toggleAdd(){
-            this.editLabel = null
-            this.nonEditedLabel = null
-            this.addLabel = !this.addLabel
+            this.$emit('openPopup',{
+                data: null,
+                type: 'label-add',
+                coords:{
+                    top: event.target.getBoundingClientRect().top,
+                    left: event.target.getBoundingClientRect().left,
+                    elHeight: event.target.offsetHeight
+                }
+            })
         },
         addColorLabel(label){
             this.colorLabelToAdd = label
         },
         cancel(){
-            this.editLabel = null
-            this.addLabel = false
-            this.nonEditedLabel = null
+            
         },
         getData(){
             return db

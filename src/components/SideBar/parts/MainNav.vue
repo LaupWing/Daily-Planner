@@ -3,6 +3,8 @@
         <router-link :to="{name: 'Home'}">Daily Planner</router-link>
         <router-link :to="{name: 'AllTasks'}">All Tasks</router-link>
         <a>Habit Tracker</a>
+        <a>Skills</a>
+        <a>Projects</a>
     </nav>
 </template>
 
