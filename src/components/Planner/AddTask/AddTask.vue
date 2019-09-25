@@ -266,7 +266,6 @@ export default {
 }
 #AddTask{
     --chosen-color: black;
-    --popup-boxShadow: 0px 0px 17px 3px rgba(255,255,255,0.35);
     border-radius: 5px;
     overflow: hidden;
     width: 600px; 
@@ -277,8 +276,8 @@ export default {
 #AddTask > h2{
     text-align: left;
     padding: 10px;
-    background: var(--chosen-color);
-    color: white;
+    border-bottom: solid 1px rgba(0,0,0,.2);
+    color: var(--chosen-color);
 }
 #AddTask .buttons{
     display: flex;
@@ -393,7 +392,8 @@ export default {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: solid 1px black;
+    color: var(--chosen-color);
+    border: solid 1px var(--chosen-color);
     display: inline-block;
     font-size: .5em;
     font-weight: bold;
