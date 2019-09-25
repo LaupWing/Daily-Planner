@@ -95,7 +95,7 @@ export default {
         }
     },
     toggle(prop){
-        his[prop] = !this[prop]
+        this[prop] = !this[prop]
     },
     goToSpecifikTime(point){
         this.scrollByCode = false
