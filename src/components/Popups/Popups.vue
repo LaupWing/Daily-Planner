@@ -32,6 +32,7 @@
 import CustomContext from '@/components/Popups/Tasks/CustomContext'
 import EditLabelForm from '@/components/Popups/Labels/EditLabelForm'
 import AddLabelForm from '@/components/Popups/Labels/AddLabelForm'
+import checkTask from '@/components/helpers/checkLocationTask'
 export default {
     name:'Popups',
     props:['settings', 'userData'],

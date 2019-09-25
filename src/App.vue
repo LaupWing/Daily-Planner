@@ -1,15 +1,5 @@
 <template>
   <div id="app">
-    <!-- <div class="popup-disabler" v-if="popup" @click="togglePopup"></div> -->
-    <!-- <Temperature
-      :weatherData='weatherData'
-    />
-    <CurrentTime
-      :currentTask='currentTask'
-      v-on:addTask="toggle('addTask')"
-    />
-    <Nav/> -->
-    <!-- <i class="far fa-calendar-plus"></i> -->
     <Navbar
       :weatherData='weatherData'
       :currentTask='currentTask'
@@ -40,14 +30,11 @@
 </template>
 
 <script>
-// import CurrentTime from '@/components/CurrentTime.vue'
-// import Temperature from '@/components/Temperature.vue'
 import AddTask from '@/components/Planner/AddTask/AddTask'
 import CustomContext from '@/components/Popups/Tasks/CustomContext'
 import Popups from '@/components/Popups/Popups'
 import Navbar from '@/components/Navbar/Navbar'
 import SideBar from '@/components/SideBar/SideBar'
-// import Nav from '@/components/Nav.vue'
 export default {
   name: 'App',
   data(){

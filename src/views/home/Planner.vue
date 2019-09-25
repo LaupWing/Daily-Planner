@@ -56,193 +56,193 @@ export default {
   props: ['preventActions'],
   data(){
     return{
-      hours: null,
-      minutes: null,
-      distanceMinutes: null,
-      distanceHours: null,
-      settingDistanceAndAdjust: null,
-      timeoutInSec: 0,
-      timeoutInterval: null,
-      scrollByCode: false,
-      user: null,
-      timeToReturnInSec: 300,
-      geolocation:{
-        lat: 52.370216,
-        lng: 4.895168
-      },
-      taskColor: null,
-      addTask: null,
-      userData: null
+        hours: null,
+        minutes: null,
+        distanceMinutes: null,
+        distanceHours: null,
+        settingDistanceAndAdjust: null,
+        timeoutInSec: 0,
+        timeoutInterval: null,
+        scrollByCode: false,
+        user: null,
+        timeToReturnInSec: 300,
+        geolocation:{
+            lat: 52.370216,
+            lng: 4.895168
+        },
+        taskColor: null,
+        addTask: null,
+        userData: null
     }
   },
   components:{
-    Timeline,
-    Tasks,
-    ColorLabels,
-    GoTo,
-    AddTask
+        Timeline,
+        Tasks,
+        ColorLabels,
+        GoTo,
+        AddTask
   },
   methods:{
     createTask(){
-      if(event.target.id){
-        if(event.target.id === 'Tasks' || event.target.id === 'planner'){
-          const container = this.$el.querySelector('#planner')
-          const clickYCoord = event.clientY
-          const zeroScrollCoord = container.getBoundingClientRect().top + (container.offsetHeight/2)
-          const begin = (clickYCoord -zeroScrollCoord) + container.scrollTop 
-          container.scrollTo(0,begin)
+        if(event.target.id){
+            if(event.target.id === 'Tasks' || event.target.id === 'planner'){
+            const container = this.$el.querySelector('#planner')
+            const clickYCoord = event.clientY
+            const zeroScrollCoord = container.getBoundingClientRect().top + (container.offsetHeight/2)
+            const begin = (clickYCoord -zeroScrollCoord) + container.scrollTop 
+            container.scrollTo(0,begin)
+            }
         }
-      }
     },
     toggle(prop){
-      this[prop] = !this[prop]
+        his[prop] = !this[prop]
     },
     goToSpecifikTime(point){
-      this.scrollByCode = false
-      this.$el.querySelector('#planner').scrollTo(0,point)
+        this.scrollByCode = false
+        this.$el.querySelector('#planner').scrollTo(0,point)
     },
     setTask(task){
-      this.$emit('setTask', task)
+        this.$emit('setTask', task)
     },
     togglePopup(settings){
-      this.$emit('togglePopup', settings)
+        this.$emit('togglePopup', settings)
     },
     adjustPosition(){
-      this.scrollByCode = true
-      this.$el.querySelector('#planner').scrollTo(0,(this.distanceHours+this.distanceMinutes))
+        this.scrollByCode = true
+        this.$el.querySelector('#planner').scrollTo(0,(this.distanceHours+this.distanceMinutes))
     },
     addZero(number){
-      if(number<10) return '0'+number
-      else          return number
+        if(number<10) return '0'+number
+        else          return number
     },
     getDistanceHours(){
-      const currentElTime = Array.from(this.$el.querySelectorAll('#Timeline li'))
-        .filter(el=>el.textContent.includes(':'))
-        .find(el=>el.textContent.split(':')[0]===String(this.hours))
-      const parentElOffset = currentElTime.parentElement.offsetTop
-      const distance = 
-        (currentElTime.offsetTop-parentElOffset) - 
-        (this.$el.querySelector('#planner').offsetHeight/2) + 
-        (currentElTime.offsetHeight/2)
-      // console.log(distance)
-      return distance
+        const currentElTime = Array.from(this.$el.querySelectorAll('#Timeline li'))
+            .filter(el=>el.textContent.includes(':'))
+            .find(el=>el.textContent.split(':')[0]===String(this.hours))
+        const parentElOffset = currentElTime.parentElement.offsetTop
+        const distance = 
+            (currentElTime.offsetTop-parentElOffset) - 
+            (this.$el.querySelector('#planner').offsetHeight/2) + 
+            (currentElTime.offsetHeight/2)
+        // console.log(distance)
+        return distance
     },
     getMinutesDistance(){
-      const li = document.querySelector('#Timeline li')
-      const totalDistance = li.offsetHeight*2
-      const distancePerMinute = totalDistance/60
-      const distance = distancePerMinute * this.minutes
-      return distance
+        const li = document.querySelector('#Timeline li')
+        const totalDistance = li.offsetHeight*2
+        const distancePerMinute = totalDistance/60
+        const distance = distancePerMinute * this.minutes
+        return distance
     },
     setTime(){
-      const date = new Date()
-      this.hours = this.addZero(date.getHours())
-      this.minutes = this.addZero(date.getMinutes())
+        const date = new Date()
+        this.hours = this.addZero(date.getHours())
+        this.minutes = this.addZero(date.getMinutes())
     },
     turnoff(){
       // clearInterval(this.settingDistanceAndAdjust)
     },
     scrollEvent(){
-      this.setTimeIndicator()
-      if(this.scrollByCode){
-        setTimeout(()=>{
-          this.scrollByCode = false
-          this.checkTaskByScroll()
-        },500)
-        return
-      }
-      this.checkTaskByScroll()
-      clearInterval(this.settingDistanceAndAdjust)
-      clearInterval(this.timeoutInterval)
-      this.timeoutInSec = 0
-      this.timeoutInterval = setInterval(()=>{
-        if(this.preventActions.type === 'task')  return
-        this.timeoutInSec += 1
-        if(this.timeoutInSec === this.timeToReturnInSec){
-          this.assignInterval()
-          this.timeoutInSec = 0
-          clearInterval(this.timeoutInterval)
+        this.setTimeIndicator()
+        if(this.scrollByCode){
+            setTimeout(()=>{
+            this.scrollByCode = false
+            this.checkTaskByScroll()
+            },500)
+            return
         }
-      },1000)
+        this.checkTaskByScroll()
+        clearInterval(this.settingDistanceAndAdjust)
+        clearInterval(this.timeoutInterval)
+        this.timeoutInSec = 0
+        this.timeoutInterval = setInterval(()=>{
+            if(this.preventActions.type === 'task')  return
+            this.timeoutInSec += 1
+            if(this.timeoutInSec === this.timeToReturnInSec){
+            this.assignInterval()
+            this.timeoutInSec = 0
+            clearInterval(this.timeoutInterval)
+            }
+        },1000)
     },
     checkTaskByScroll(){
-      const scrolled = this.$el.querySelector('#planner').scrollTop
-      const height = this.$el.querySelector('#planner').offsetHeight
-      const midpoint = scrolled + (height/2)
-      if(document.querySelectorAll('.task')===undefined) return
-      const tasks = Array.from(document.querySelectorAll('.task'))
-      const findTask = tasks.find(task=>{
-        const taskHeight = task.offsetHeight
-        const taskOffsetTop = task.offsetTop
-        const taskMaxpoint = taskHeight+taskOffsetTop
-        if(midpoint >= taskOffsetTop && midpoint <= taskMaxpoint){
-          return task
+        const scrolled = this.$el.querySelector('#planner').scrollTop
+        const height = this.$el.querySelector('#planner').offsetHeight
+        const midpoint = scrolled + (height/2)
+        if(document.querySelectorAll('.task')===undefined) return
+        const tasks = Array.from(document.querySelectorAll('.task'))
+        const findTask = tasks.find(task=>{
+            const taskHeight = task.offsetHeight
+            const taskOffsetTop = task.offsetTop
+            const taskMaxpoint = taskHeight+taskOffsetTop
+            if(midpoint >= taskOffsetTop && midpoint <= taskMaxpoint){
+            return task
+            }
+        })
+        if(findTask){
+            document.querySelectorAll('#Tasks .task').forEach(task=>{
+                task.classList.remove('opacity')
+            })
+            const connectedLi = checkConnectedLi(findTask)
+            connectedLi.forEach(li=>{
+                li.classList.add('opacity')
+            })
+            findTask.classList.add('opacity')
+            this.taskColor = findTask.style.background
         }
-      })
-      if(findTask){
-        document.querySelectorAll('#Tasks .task').forEach(task=>{
-          task.classList.remove('opacity')
-        })
-        findTask.classList.add('opacity')
-        const connectedLi = checkConnectedLi(findTask)
-        connectedLi.forEach(li=>{
-          li.classList.add('opacity')
-        })
-        this.taskColor = findTask.style.background
-      }
-      else{
-        document.querySelectorAll('#Tasks .task').forEach(task=>{
-          task.classList.remove('opacity')
-        })
-        this.taskColor = null
-        document.querySelectorAll('#Timeline li').forEach(li=>{
-          const liMin = li.offsetTop
-          const liMax = li.offsetTop + li.offsetHeight
-          li.classList.remove('opacity')
-          if(midpoint >= liMin && midpoint <= liMax){
-            li.classList.add('opacity')
-          }
-        })
-      }
+        else{
+            document.querySelectorAll('#Tasks .task').forEach(task=>{
+            task.classList.remove('opacity')
+            })
+            this.taskColor = null
+            document.querySelectorAll('#Timeline li').forEach(li=>{
+            const liMin = li.offsetTop
+            const liMax = li.offsetTop + li.offsetHeight
+            li.classList.remove('opacity')
+            if(midpoint >= liMin && midpoint <= liMax){
+                li.classList.add('opacity')
+            }
+            })
+        }
     },
     setTimeIndicator(){
-      const scrolled = this.$el.querySelector('#planner').scrollTop
-      const height = this.$el.querySelector('#planner').offsetHeight
-      const midpoint = Math.round(scrolled + (height/2))
-      this.$el.querySelectorAll('#Timeline li').forEach(li=>{
-        const max = li.offsetTop + li.offsetHeight
-        const min = li.offsetTop
-        if(midpoint >= min && midpoint <= max){
-          const liTime = li.dataset.time
-          const comparePoint = Math.round(li.offsetTop + (li.offsetHeight/2))
-          const oneMinuteInPx = li.offsetHeight/30
-          let time = '00:00'
-          if(midpoint===comparePoint){
-            time = liTime
-          }
-          else if(midpoint > comparePoint){
-            const minutesDiffrence = Math.round((midpoint-comparePoint)/oneMinuteInPx)
-            const liTimeHours =  Number(liTime.split(':')[0])
-            const liTimeMinutes = Number(liTime.split(':')[1])
-            time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes+minutesDiffrence)}` 
-          }
-          else if(midpoint < comparePoint){
-            const minutesDiffrence = Math.round((comparePoint-midpoint)/oneMinuteInPx)
-            let liTimeHours =  Number(liTime.split(':')[0])
-            let liTimeMinutes = Number(liTime.split(':')[1])
-            if(liTimeMinutes === 0 ){
-              liTimeHours = (liTimeHours !== 0) ? liTimeHours - 1 : 23
-              liTimeMinutes = 60-minutesDiffrence
-              time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes)}`
-            }else{
-              time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes-minutesDiffrence)}`
+        const scrolled = this.$el.querySelector('#planner').scrollTop
+        const height = this.$el.querySelector('#planner').offsetHeight
+        const midpoint = Math.round(scrolled + (height/2))
+        this.$el.querySelectorAll('#Timeline li').forEach(li=>{
+            const max = li.offsetTop + li.offsetHeight
+            const min = li.offsetTop
+            if(midpoint >= min && midpoint <= max){
+            const liTime = li.dataset.time
+            const comparePoint = Math.round(li.offsetTop + (li.offsetHeight/2))
+            const oneMinuteInPx = li.offsetHeight/30
+            let time = '00:00'
+            if(midpoint===comparePoint){
+                time = liTime
             }
-          }
-          document
-                .querySelector('#planner .indicator')
-                .setAttribute('time', `${time}`)
-        }
-      })
+            else if(midpoint > comparePoint){
+                const minutesDiffrence = Math.round((midpoint-comparePoint)/oneMinuteInPx)
+                const liTimeHours =  Number(liTime.split(':')[0])
+                const liTimeMinutes = Number(liTime.split(':')[1])
+                time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes+minutesDiffrence)}` 
+            }
+            else if(midpoint < comparePoint){
+                const minutesDiffrence = Math.round((comparePoint-midpoint)/oneMinuteInPx)
+                let liTimeHours =  Number(liTime.split(':')[0])
+                let liTimeMinutes = Number(liTime.split(':')[1])
+                if(liTimeMinutes === 0 ){
+                liTimeHours = (liTimeHours !== 0) ? liTimeHours - 1 : 23
+                liTimeMinutes = 60-minutesDiffrence
+                time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes)}`
+                }else{
+                time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes-minutesDiffrence)}`
+                }
+            }
+            document
+                    .querySelector('#planner .indicator')
+                    .setAttribute('time', `${time}`)
+            }
+        })
     },
     setupCurrentPos(){
         this.setTime()
@@ -251,9 +251,9 @@ export default {
         this.adjustPosition()
     },
     assignInterval(){
-      this.settingDistanceAndAdjust = setInterval(()=>{
-        this.setupCurrentPos()
-      },1000)
+        this.settingDistanceAndAdjust = setInterval(()=>{
+            this.setupCurrentPos()
+        },1000)
     },
     updateAndGetUserData(){
       const user = firebase.auth().currentUser
@@ -286,26 +286,26 @@ export default {
     }
   },
   created(){
-    db.collection('planner')
-      .doc(firebase.auth().currentUser.uid)
-      .get()
-      .then(doc=>{
-        this.userData = doc.data()
-        this.$emit('setUserData', this.userData)
-      })
+        db.collection('planner')
+            .doc(firebase.auth().currentUser.uid)
+            .get()
+            .then(doc=>{
+                this.userData = doc.data()
+                this.$emit('setUserData', this.userData)
+            })
   },
   mounted(){
-    this.assignInterval()
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(pos=>{
-        this.geolocation.lat = pos.coords.latitude
-        this.geolocation.lng = pos.coords.longitude
-        this.updateAndGetUserData()
-      })
-    }else{
-      this.updateAndGetUserData()
-    }
-
+        this.assignInterval()
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(pos=>{
+                this.geolocation.lat = pos.coords.latitude
+                this.geolocation.lng = pos.coords.longitude
+                this.updateAndGetUserData()
+            })
+        }
+        else{
+            this.updateAndGetUserData()
+        }
   }
 }
 </script>

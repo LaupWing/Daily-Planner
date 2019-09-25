@@ -190,7 +190,7 @@ export default {
 }
 
 #AddTask .days input[type="checkbox"]:checked + label{
-    background: black;
+    background: var(--chosen-color);
     color: white;
     opacity: 1;
 }

@@ -222,12 +222,12 @@ export default {
     margin: 5px;
 }
 #AddTask .time-popup input[type="checkbox"]:checked + label{
-    background: black;
+    background: var(--chosen-color);
     color: white;
     opacity: 1;
 }
 #AddTask .time-popup input[type="checkbox"]:disabled + label{
-    background: black;
+    background: var(--chosen-color);
     color: white;
     opacity: .2;
     cursor:auto;

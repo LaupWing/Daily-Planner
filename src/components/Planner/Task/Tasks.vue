@@ -13,11 +13,6 @@
             @click="clickOnTask(task)"
             @contextmenu="openTab(task)"
         >
-            <!-- <i 
-                class="far fa-edit" 
-                v-if="edit !== task" 
-                @click="editTask(task)">
-            </i> -->
             <TaskMore
                 :task="task"
                 :edit="edit"
@@ -196,6 +191,7 @@ export default {
             const liItems = document.querySelectorAll('ul#Timeline li')
             const reset = ()=>{
                 this.expanded = null
+                this.setCurrentLocationTaskSettings()
                 liItems.forEach(li=>li.removeEventListener('transitionend', reset))
             }
             liItems.forEach(li=>{
@@ -209,6 +205,10 @@ export default {
             this.$el.querySelectorAll('.task').forEach(task=>{
                 task.classList.remove('expanded')
             })
+        },
+        setCurrentLocationTaskSettings(){
+            this.checkCurrentTask()
+            this.$emit('checkActiveTask')
         },
         expandTask(task){
             // if(this.expanded === task){
