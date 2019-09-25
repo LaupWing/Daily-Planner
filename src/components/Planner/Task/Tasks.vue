@@ -5,7 +5,8 @@
             v-for="(task, index) in tasks"
             :class="{
                 'expanded':expanded === task, 
-                'activeByEdit':JSON.stringify(preventActions.data)===JSON.stringify(task)}"
+                'activeByEdit':JSON.stringify(preventActions.data)===JSON.stringify(task)
+            }"
             :key="index"
             :data-begin="getTimeOfThisDay('begin', task)"
             :data-end="getTimeOfThisDay('end', task)"
@@ -310,7 +311,6 @@ export default {
             
             const bridge = (e)=>{
                 if(e.propertyName==='margin-top'||e.propertyName==='margin-bottom'){
-                    console.log('transitionended')
                     this.getTasks(()=>{
                         this.taskHeightAndPosition()
                     })
@@ -345,7 +345,9 @@ export default {
         }
     },
     computed:{
-        
+        test(){
+            console.log(this.$el)
+        }
     },
     mounted(){
         this.getTasks(()=>{

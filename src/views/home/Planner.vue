@@ -72,7 +72,7 @@ export default {
         },
         taskColor: null,
         addTask: null,
-        userData: null
+        userData: null,
     }
   },
   components:{
