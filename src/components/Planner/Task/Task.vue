@@ -7,7 +7,16 @@
 
 <script>
 export default {
+    name: 'Task',
+    props:['task'],
+    data(){
+        return{
 
+        }
+    },
+    methods:{
+        
+    }
 }
 </script>
 
