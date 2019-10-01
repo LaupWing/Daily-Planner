@@ -11,9 +11,7 @@
             :data-begin="getTimeOfThisDay('begin', task)"
             :data-end="getTimeOfThisDay('end', task)"
             :style="{
-                background: task.color.color,
-                height: expandedHeights,
-                top: expandedHeights
+                background: task.color.color
             }"
             @click="clickOnTask(task)"
             @contextmenu="openTab(task)"
@@ -228,7 +226,8 @@ export default {
                         top: task.style.top
                     }
                 }) 
-            if(this.$el.offsetHeight <this.taskHeightWhenExpanded){
+            let el = event.target.classList[0] === 'task' ? event.target : event.target.parentElement
+            if(el.offsetHeight <this.taskHeightWhenExpanded){
                 const diffrence = this.taskHeightWhenExpanded - Number(el.style.height.split('px')[0])
                 this.adjustTimeline(el, diffrence)
                 this.adjustTopValues(diffrence, el.style.top)
