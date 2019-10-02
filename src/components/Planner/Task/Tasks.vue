@@ -40,8 +40,11 @@
             :task="task"
             :edit="edit"
             :today="today"
+            :compareTop="compareTop"
+            :diffrence="diffrence"
             :expanded="expanded"
             :preventActions="preventActions"
+            v-on:expandTask2="expandTask2"
         />
     </div>
 </template>
@@ -72,10 +75,21 @@ export default {
             preventStateChangeFlag: false,
             today: null,
             expanded: null,
-            taskHeightWhenExpanded: 250
+            taskHeightWhenExpanded: 250,
+            compareTop: null,
+            diffrence: null
         }
     },
     methods:{
+        expandTask2(obj){
+            if(obj.compareTop){
+                this.expanded = obj.task
+                this.compareTop = obj.compareTop
+                this.diffrence = obj.diffrence
+            }else{
+                this.expanded = obj
+            }
+        },
         updateFinished(){
             this.expanded = null 
             this.updateTasks()

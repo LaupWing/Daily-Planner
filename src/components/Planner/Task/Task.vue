@@ -7,8 +7,8 @@
         }"
         :data-begin="getTimeOfThisDay('begin', task)"
         :data-end="getTimeOfThisDay('end', task)"
-        :style="{background: task.color.color}"
-        @click="clickOnTask(task)"
+        :style="taskProps"
+        @click="clickOnTask2"
         @contextmenu="openTab(task)"
     >
         <TaskMore
@@ -16,9 +16,6 @@
             :edit="edit"
             :today="today"
             v-if="expanded === task"
-            v-on:contractTask="contractTask"
-            v-on:preventStateChange='preventStateChange'
-            v-on:updateFinished="updateFinished"
         />
         <div class="info" v-else>
             <p class="task-name" v-if="edit !== task">{{task.task}}</p>
@@ -32,15 +29,19 @@
 
 <script>
 import TaskMore from '@/components/Planner/Task/More/TaskMore'
+import {checkConnectedLi} from '@/components/helpers/timeline'
+
 export default {
     name: 'Task',
     components:{
         TaskMore
     },
-    props:['task','edit', 'expanded', 'preventActions', 'today'],
+    props:['task','edit', 'expanded', 'preventActions', 'today', 'diffrence', 'compareTop'],
     data(){
         return{
-            taskHeightWhenExpanded: 250
+            taskHeightWhenExpanded: 250,
+            top: null,
+            height: null
         }
     },
     methods:{
@@ -66,6 +67,58 @@ export default {
                 this.expandTask()
             }
         },
+        clickOnTask2(){
+            if(this.preventActions){
+                if(this.preventActions.type === 'task')  return
+            }
+            if(this.expanded === this.task){
+                // If the user clicks cancel this will be triggerd
+                return
+            }else if(this.expanded === null){
+                this.expandTask2()
+            }
+            else{
+                // When the user clicks on another task to edit and keeps one open
+                // this.applyPrevStyles()
+                // this.expanded = task
+                this.expandTask2()
+            }
+        },
+        expandTask2(){
+            if(this.$el.offsetHeight <this.taskHeightWhenExpanded){
+                const diffrence = this.taskHeightWhenExpanded - this.height
+                this.adjustTimeline(this.$el, diffrence)
+                this.$emit('expandTask2', 
+                    {
+                        task: this.task,
+                        compareTop: this.top,
+                        diffrence: diffrence
+                    })
+            }else{
+                this.$emit('expandTask2', this.task)
+            }
+        },
+        adjustTimeline(el, diffrence){
+            const connectedLi = checkConnectedLi(el)
+            const adjustLi = connectedLi[connectedLi.length-1]
+            const bottomOfsetTask = el.offsetTop + el.offsetHeight
+            const bottomOfLi = adjustLi.offsetTop + adjustLi.offsetHeight
+            if(bottomOfsetTask >= bottomOfLi){
+                adjustLi.style.marginBottom = `${diffrence}px`
+            }else{
+                adjustLi.style.marginTop = `${diffrence}px`
+            }
+
+        },
+        adjustTopValues(diffrence, top){
+            this.$el.querySelectorAll('.task').forEach(task=>{
+                const numberIterationTop = Number(task.style.top.split('px')[0])
+                const compareTop = Number(top.split('px')[0])
+                if(numberIterationTop > compareTop){
+                    task.style.top = numberIterationTop + diffrence + 'px'
+                }
+            })
+        },
         expandTask(task){
             this.taskHeights = Array.from(document.querySelectorAll('#planner .task'))
                 .map((task)=>{
@@ -85,10 +138,11 @@ export default {
         },
         taskHeightAndPosition(){
             const startingPoint = this.calculatePoint(this.task.days.find(day=>day.day===this.today).begin)
-            this.$el.style.top = `${startingPoint}px`
-
+            // this.$el.style.top = `${startingPoint}px`
+            this.top = startingPoint
             const height = this.calculatePoint(this.task.days.find(day=>day.day===this.today).end) - startingPoint
-            this.$el.style.height = `${height}px`
+            this.height = height
+            // this.$el.style.height = `${height}px`
         },
         calculatePoint(state){
             const allLi = Array.from(document.querySelectorAll('#Timeline li'))
@@ -106,20 +160,56 @@ export default {
         }
     },
     computed:{
-        expandedHeights(){
-            if(this.expanded){
-                return 
+        taskProps(){
+            if(!this.expanded){
+                return {
+                    top: this.top + 'px',
+                    height: this.height + 'px',
+                    background: this.task.color.color
+                }
             }
             else if(this.expanded === this.task){
-                this.$el.style.removeProperty('height')
+                if(this.$el.offsetHeight <this.taskHeightWhenExpanded){
+                    return {
+                        top: this.top + 'px',
+                        height: this.taskHeightWhenExpanded + 'px',
+                        background: this.task.color.color
+                    }
+                }else{
+                    return {
+                        top: this.top + 'px',
+                        height: this.height + 'px',
+                        background: this.task.color.color
+                    }
+                }
             }
-            else{
-                return 
+            else if(this.expanded !== this.task){
+                if(this.compareTop === null){
+                    return{
+                        top: this.top + 'px',
+                        height: this.height + 'px',
+                        background: this.task.color.color
+                    }
+                }
+                if(this.top > this.compareTop){
+                    // task.style.top = numberIterationTop + diffrence + 'px'
+                    return{
+                        top: this.top + this.diffrence + 'px',
+                        height: this.height + 'px',
+                        background: this.task.color.color
+                    }
+                }else{
+                    return{
+                        top: this.top + 'px',
+                        height: this.height + 'px',
+                        background: this.task.color.color
+                    }
+                }
             }
         }
     },
     created(){
-        console.log(this.task)
+        // console.log(this.task)
     },
     mounted(){
         this.taskHeightAndPosition()
