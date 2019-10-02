@@ -44,11 +44,13 @@ import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import TaskMore from '@/components/Planner/Task/More/TaskMore'
+import Task from '@/components/Planner/Task/Task'
 
 export default {
     name: 'Tasks',
     components:{
-        TaskMore
+        TaskMore,
+        Task
     },
     props:['preventActions'],
     data(){
@@ -344,11 +346,6 @@ export default {
                 },
                 elPrio2: '#Tasks .task'
             })
-        }
-    },
-    computed:{
-        test(){
-            console.log(this.$el)
         }
     },
     mounted(){
