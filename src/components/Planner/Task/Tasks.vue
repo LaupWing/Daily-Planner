@@ -1,6 +1,6 @@
 <template>
     <div id="Tasks"> 
-        <div 
+        <!-- <div 
             class="task"
             v-for="(task, index) in tasks"
             :class="{
@@ -33,7 +33,16 @@
                     <p class="task-end" v-if="edit !== task">{{getTimeOfThisDay('end', task)}}</p>
                 </div>
             </div>
-        </div>
+        </div> -->
+        <Task
+            v-for="(task, index) in tasks"
+            :key="index"
+            :task="task"
+            :edit="edit"
+            :today="today"
+            :expanded="expanded"
+            :preventActions="preventActions"
+        />
     </div>
 </template>
 
@@ -354,8 +363,9 @@ export default {
             this.checkCurrentTask()
             this.taskWatcher()
         })
-        let ref = db.collection('planner')
+
         // This Snapchot change is currntly only use for checking the color label changes
+        let ref = db.collection('planner')
         ref.onSnapshot(snapshot=>{
             snapshot.docChanges().forEach(change=>{
                 const userId = firebase.auth().currentUser.uid

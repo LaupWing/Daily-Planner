@@ -5,14 +5,28 @@
             'expanded':expanded === task, 
             'activeByEdit':JSON.stringify(preventActions.data)===JSON.stringify(task)
         }"
-        :key="index"
         :data-begin="getTimeOfThisDay('begin', task)"
         :data-end="getTimeOfThisDay('end', task)"
         :style="{background: task.color.color}"
         @click="clickOnTask(task)"
         @contextmenu="openTab(task)"
     >
-        <TaskMore/>
+        <TaskMore
+            :task="task"
+            :edit="edit"
+            :today="today"
+            v-if="expanded === task"
+            v-on:contractTask="contractTask"
+            v-on:preventStateChange='preventStateChange'
+            v-on:updateFinished="updateFinished"
+        />
+        <div class="info" v-else>
+            <p class="task-name" v-if="edit !== task">{{task.task}}</p>
+            <div class="time">
+                <p class="task-begin" v-if="edit !== task">{{getTimeOfThisDay('begin', task)}}-</p>
+                <p class="task-end" v-if="edit !== task">{{getTimeOfThisDay('end', task)}}</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -23,7 +37,7 @@ export default {
     components:{
         TaskMore
     },
-    props:['task','edit', 'expanded', 'preventActions'],
+    props:['task','edit', 'expanded', 'preventActions', 'today'],
     data(){
         return{
             taskHeightWhenExpanded: 250
@@ -69,6 +83,27 @@ export default {
                 el.style.removeProperty('height')
             }
         },
+        taskHeightAndPosition(){
+            const startingPoint = this.calculatePoint(this.task.days.find(day=>day.day===this.today).begin)
+            this.$el.style.top = `${startingPoint}px`
+
+            const height = this.calculatePoint(this.task.days.find(day=>day.day===this.today).end) - startingPoint
+            this.$el.style.height = `${height}px`
+        },
+        calculatePoint(state){
+            const allLi = Array.from(document.querySelectorAll('#Timeline li'))
+            const li = allLi
+                .find(li=>{
+                    const liHour = li.dataset.time.split(':')[0]
+                    const taskHour = state.split(':')[0]
+                    if(liHour===taskHour){
+                        return li
+                    }
+                })
+            const calcMinutes = ((li.offsetHeight*2)/60)*state.split(':')[1]
+            const point = li.offsetTop + (li.offsetHeight/2) + calcMinutes
+            return point
+        }
     },
     computed:{
         expandedHeights(){
@@ -82,6 +117,12 @@ export default {
                 return 
             }
         }
+    },
+    created(){
+        console.log(this.task)
+    },
+    mounted(){
+        this.taskHeightAndPosition()
     }
 }
 </script>
