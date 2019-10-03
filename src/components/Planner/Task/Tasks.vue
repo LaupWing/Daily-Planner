@@ -44,7 +44,7 @@
             :diffrence="diffrence"
             :expanded="expanded"
             :preventActions="preventActions"
-            v-on:expandTask2="expandTask2"
+            v-on:expandTask="expandTask"
         />
     </div>
 </template>
@@ -81,7 +81,7 @@ export default {
         }
     },
     methods:{
-        expandTask2(obj){
+        expandTask(obj){
             if(obj.compareTop){
                 this.expanded = obj.task
                 this.compareTop = obj.compareTop
@@ -237,27 +237,6 @@ export default {
         setCurrentLocationTaskSettings(){
             this.checkCurrentTask()
             this.$emit('checkActiveTask')
-        },
-        expandTask(task){
-            // if(this.expanded === task){
-            //     return
-            // }
-            // this.expanded = task
-            this.taskHeights = Array.from(this.$el.querySelectorAll('.task'))
-                .map((task)=>{
-                    return{
-                        task: task,
-                        height: task.style.height,
-                        top: task.style.top
-                    }
-                }) 
-            let el = event.target.classList[0] === 'task' ? event.target : event.target.parentElement
-            if(el.offsetHeight <this.taskHeightWhenExpanded){
-                const diffrence = this.taskHeightWhenExpanded - Number(el.style.height.split('px')[0])
-                this.adjustTimeline(el, diffrence)
-                this.adjustTopValues(diffrence, el.style.top)
-                el.style.removeProperty('height')
-            }
         },
         applyPrevStyles(){
             document.querySelectorAll('#Timeline li').forEach(li=>{

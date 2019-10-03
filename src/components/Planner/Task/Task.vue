@@ -8,7 +8,7 @@
         :data-begin="getTimeOfThisDay('begin', task)"
         :data-end="getTimeOfThisDay('end', task)"
         :style="taskProps"
-        @click="clickOnTask2"
+        @click="clickOnTask"
         @contextmenu="openTab(task)"
     >
         <TaskMore
@@ -49,25 +49,7 @@ export default {
             return task.days
                 .find(day=>day.day===this.today)[state]
         },
-        clickOnTask(task){
-            if(this.preventActions){
-                if(this.preventActions.type === 'task')  return
-            }
-            if(this.expanded === task){
-                // If the user clicks cancel this will be triggerd
-                return
-            }else if(this.expanded === null){
-                this.expanded = task
-                this.expandTask()
-            }
-            else{
-                // When the user clicks on another task to edit and keeps one open
-                this.applyPrevStyles()
-                this.expanded = task
-                this.expandTask()
-            }
-        },
-        clickOnTask2(){
+        clickOnTask(){
             if(this.preventActions){
                 if(this.preventActions.type === 'task')  return
             }
@@ -75,27 +57,31 @@ export default {
                 // If the user clicks cancel this will be triggerd
                 return
             }else if(this.expanded === null){
-                this.expandTask2()
+                this.expandTask()
             }
             else{
-                // When the user clicks on another task to edit and keeps one open
-                // this.applyPrevStyles()
-                // this.expanded = task
-                this.expandTask2()
+                this.resetTimeline()
+                this.expandTask()
             }
         },
-        expandTask2(){
+        resetTimeline(){
+            document.querySelectorAll('#Timeline li').forEach(li=>{
+                li.style.removeProperty('margin-bottom')
+                li.style.removeProperty('margin-top')
+            })
+        },
+        expandTask(){
             if(this.$el.offsetHeight <this.taskHeightWhenExpanded){
                 const diffrence = this.taskHeightWhenExpanded - this.height
                 this.adjustTimeline(this.$el, diffrence)
-                this.$emit('expandTask2', 
+                this.$emit('expandTask', 
                     {
                         task: this.task,
                         compareTop: this.top,
                         diffrence: diffrence
                     })
             }else{
-                this.$emit('expandTask2', this.task)
+                this.$emit('expandTask', this.task)
             }
         },
         adjustTimeline(el, diffrence){
@@ -119,30 +105,11 @@ export default {
                 }
             })
         },
-        expandTask(task){
-            this.taskHeights = Array.from(document.querySelectorAll('#planner .task'))
-                .map((task)=>{
-                    return{
-                        task: task,
-                        height: task.style.height,
-                        top: task.style.top
-                    }
-                }) 
-            let el = event.target.classList[0] === 'task' ? event.target : event.target.parentElement
-            if(el.offsetHeight <this.taskHeightWhenExpanded){
-                const diffrence = this.taskHeightWhenExpanded - Number(el.style.height.split('px')[0])
-                this.adjustTimeline(el, diffrence)
-                this.adjustTopValues(diffrence, el.style.top)
-                el.style.removeProperty('height')
-            }
-        },
         taskHeightAndPosition(){
             const startingPoint = this.calculatePoint(this.task.days.find(day=>day.day===this.today).begin)
-            // this.$el.style.top = `${startingPoint}px`
             this.top = startingPoint
             const height = this.calculatePoint(this.task.days.find(day=>day.day===this.today).end) - startingPoint
             this.height = height
-            // this.$el.style.height = `${height}px`
         },
         calculatePoint(state){
             const allLi = Array.from(document.querySelectorAll('#Timeline li'))
