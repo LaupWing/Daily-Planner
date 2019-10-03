@@ -192,7 +192,6 @@ export default {
                     }
                 }
                 if(this.top > this.compareTop){
-                    // task.style.top = numberIterationTop + diffrence + 'px'
                     return{
                         top: this.top + this.diffrence + 'px',
                         height: this.height + 'px',
