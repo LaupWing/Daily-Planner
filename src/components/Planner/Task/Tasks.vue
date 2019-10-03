@@ -43,6 +43,7 @@
             :compareTop="compareTop"
             :diffrence="diffrence"
             :expanded="expanded"
+            :visibleTask="visibleTask"
             :preventActions="preventActions"
             v-on:expandTask="expandTask"
         />
@@ -64,7 +65,7 @@ export default {
         TaskMore,
         Task
     },
-    props:['preventActions'],
+    props:['preventActions', 'visibleTask'],
     data(){
         return{
             tasks:[],

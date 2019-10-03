@@ -28,6 +28,7 @@
       />
       <Tasks
         :preventActions="preventActions"
+        :visibleTask="visibleTask"
         v-on:setTask='setTask'
         v-on:checkActiveTask='checkTaskByScroll'
         v-on:togglePopup="togglePopup"
@@ -73,6 +74,7 @@ export default {
         taskColor: null,
         addTask: null,
         userData: null,
+        visibleTask: null
     }
   },
   components:{
@@ -83,16 +85,20 @@ export default {
         AddTask
   },
   methods:{
+    test(){
+      console.log(this.visibleTask)
+    },
     createTask(){
-        if(event.target.id){
-            if(event.target.id === 'Tasks' || event.target.id === 'planner'){
-            const container = this.$el.querySelector('#planner')
-            const clickYCoord = event.clientY
-            const zeroScrollCoord = container.getBoundingClientRect().top + (container.offsetHeight/2)
-            const begin = (clickYCoord -zeroScrollCoord) + container.scrollTop 
-            container.scrollTo(0,begin)
-            }
-        }
+      this.test()
+        // if(event.target.id){
+        //     if(event.target.id === 'Tasks' || event.target.id === 'planner'){
+        //     const container = this.$el.querySelector('#planner')
+        //     const clickYCoord = event.clientY
+        //     const zeroScrollCoord = container.getBoundingClientRect().top + (container.offsetHeight/2)
+        //     const begin = (clickYCoord -zeroScrollCoord) + container.scrollTop 
+        //     container.scrollTo(0,begin)
+        //     }
+        // }
     },
     toggle(prop){
         this[prop] = !this[prop]
@@ -183,6 +189,7 @@ export default {
             document.querySelectorAll('#Tasks .task').forEach(task=>{
                 task.classList.remove('opacity')
             })
+            this.visibleTask = findTask
             const connectedLi = checkConnectedLi(findTask)
             connectedLi.forEach(li=>{
                 li.classList.add('opacity')
@@ -192,7 +199,7 @@ export default {
         }
         else{
             document.querySelectorAll('#Tasks .task').forEach(task=>{
-            task.classList.remove('opacity')
+              task.classList.remove('opacity')
             })
             this.taskColor = null
             document.querySelectorAll('#Timeline li').forEach(li=>{

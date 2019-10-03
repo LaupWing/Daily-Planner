@@ -3,7 +3,8 @@
         class="task"
         :class="{
             'expanded':expanded === task, 
-            'activeByEdit':JSON.stringify(preventActions.data)===JSON.stringify(task)
+            'activeByEdit':JSON.stringify(preventActions.data)===JSON.stringify(task),
+            'test': checkVisibleTask
         }"
         :data-begin="getTimeOfThisDay('begin', task)"
         :data-end="getTimeOfThisDay('end', task)"
@@ -37,7 +38,7 @@ export default {
     components:{
         TaskMore
     },
-    props:['task','edit', 'expanded', 'preventActions', 'today', 'diffrence', 'compareTop'],
+    props:['task','edit', 'expanded', 'preventActions', 'today', 'diffrence', 'compareTop', 'visibleTask'],
     data(){
         return{
             taskHeightWhenExpanded: 250,
@@ -55,9 +56,6 @@ export default {
                 .find(day=>day.day===this.today)[state]
         },
         clickOnTask(){
-            console.log(event.target)
-            console.log(event.target.classList)
-            console.log(event.target.classList.contains('task-nav-item'))
             if(this.expanded === this.task || event.target.classList.contains('task-nav-item')){
                 // If the user clicks cancel this will be triggerd
                 return
@@ -66,10 +64,6 @@ export default {
                 console.log(this.expanded, 'null')
                 this.expandTask()
             }
-            // else if(this.preventActions){
-            //     console.log(this.expanded, 'preventaction')
-            //     if(this.preventActions.type === 'task')  return
-            // }
             else{
                 console.log(this.expanded, 'reset')
                 this.resetTimeline()
@@ -184,14 +178,22 @@ export default {
                     }
                 }
             }
-        }
+        },
+        checkVisibleTask(){
+            console.log(this.$el, this.visibleTask)
+            if(this.$el === this.visibleTask){
+                return true
+            }else{
+                return false
+            }
+        },
     },
     created(){
-        // console.log(this.task)
+        console.log(this.$el, this.visibleTask)
     },
     mounted(){
         this.taskHeightAndPosition()
-    }
+    },
 }
 </script>
 
