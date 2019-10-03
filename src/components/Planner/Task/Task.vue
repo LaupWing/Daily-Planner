@@ -11,6 +11,7 @@
         :style="taskProps"
         @click="clickOnTask"
         @contextmenu="openTab(task)"
+        @transitionend="animEnded"
     >
         <TaskMore
             :task="task"
@@ -55,17 +56,26 @@ export default {
             return task.days
                 .find(day=>day.day===this.today)[state]
         },
+        animEnded(){
+            if(this.expanded === this.task){
+                const container = document.querySelector('#planner')
+                const scrollToY = this.$el.offsetTop - (container.offsetHeight/2) + (this.$el.offsetHeight/2) 
+                container.scrollTo(0,scrollToY)
+            }else{
+                this.$emit('emitToParent', 'checkActiveTask')
+            }
+        },
         clickOnTask(){
             if(this.expanded === this.task || event.target.classList.contains('task-nav-item')){
                 // If the user clicks cancel this will be triggerd
                 return
             }
             if(this.expanded === null){
-                console.log(this.expanded, 'null')
+                // this.scrollToMidPoint()
                 this.expandTask()
             }
             else{
-                console.log(this.expanded, 'reset')
+                // this.scrollToMidPoint()
                 this.resetTimeline()
                 this.expandTask()
             }
@@ -180,7 +190,6 @@ export default {
             }
         },
         checkVisibleTask(){
-            console.log(this.$el, this.visibleTask)
             if(this.$el === this.visibleTask){
                 return true
             }else{
@@ -189,7 +198,7 @@ export default {
         },
     },
     created(){
-        console.log(this.$el, this.visibleTask)
+        
     },
     mounted(){
         this.taskHeightAndPosition()

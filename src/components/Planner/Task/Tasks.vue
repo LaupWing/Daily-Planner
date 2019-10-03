@@ -45,6 +45,7 @@
             :expanded="expanded"
             :visibleTask="visibleTask"
             :preventActions="preventActions"
+            v-on:emitToParent="emitToParent"
             v-on:expandTask="expandTask"
         />
     </div>
@@ -82,6 +83,10 @@ export default {
         }
     },
     methods:{
+        emitToParent(method){
+            console.log('emit to parent')
+            this.$emit(method)
+        },
         expandTask(obj){
             if(!obj){
                 this.expanded = null

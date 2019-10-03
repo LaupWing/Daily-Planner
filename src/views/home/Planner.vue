@@ -89,7 +89,7 @@ export default {
       console.log(this.visibleTask)
     },
     createTask(){
-      this.test()
+      // this.test()
         // if(event.target.id){
         //     if(event.target.id === 'Tasks' || event.target.id === 'planner'){
         //     const container = this.$el.querySelector('#planner')
@@ -186,10 +186,8 @@ export default {
             }
         })
         this.visibleTask = findTask
+        console.log(findTask)
         if(findTask){
-            // document.querySelectorAll('#Tasks .task').forEach(task=>{
-            //     task.classList.remove('opacity')
-            // })
             const connectedLi = checkConnectedLi(findTask)
             connectedLi.forEach(li=>{
                 li.classList.add('opacity')
@@ -198,9 +196,6 @@ export default {
             this.taskColor = findTask.style.background
         }
         else{
-            // document.querySelectorAll('#Tasks .task').forEach(task=>{
-            //   task.classList.remove('opacity')
-            // })
             this.taskColor = null
             document.querySelectorAll('#Timeline li').forEach(li=>{
             const liMin = li.offsetTop
