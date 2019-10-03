@@ -4,7 +4,7 @@
         :class="{
             'expanded':expanded === task, 
             'activeByEdit':JSON.stringify(preventActions.data)===JSON.stringify(task),
-            'test': checkVisibleTask
+            'opacity': checkVisibleTask
         }"
         :data-begin="getTimeOfThisDay('begin', task)"
         :data-end="getTimeOfThisDay('end', task)"

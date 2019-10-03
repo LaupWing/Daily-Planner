@@ -185,11 +185,11 @@ export default {
             return task
             }
         })
+        this.visibleTask = findTask
         if(findTask){
-            document.querySelectorAll('#Tasks .task').forEach(task=>{
-                task.classList.remove('opacity')
-            })
-            this.visibleTask = findTask
+            // document.querySelectorAll('#Tasks .task').forEach(task=>{
+            //     task.classList.remove('opacity')
+            // })
             const connectedLi = checkConnectedLi(findTask)
             connectedLi.forEach(li=>{
                 li.classList.add('opacity')
@@ -198,9 +198,9 @@ export default {
             this.taskColor = findTask.style.background
         }
         else{
-            document.querySelectorAll('#Tasks .task').forEach(task=>{
-              task.classList.remove('opacity')
-            })
+            // document.querySelectorAll('#Tasks .task').forEach(task=>{
+            //   task.classList.remove('opacity')
+            // })
             this.taskColor = null
             document.querySelectorAll('#Timeline li').forEach(li=>{
             const liMin = li.offsetTop
