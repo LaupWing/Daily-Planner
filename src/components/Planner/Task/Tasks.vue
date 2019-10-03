@@ -95,6 +95,8 @@ export default {
                 this.compareTop = obj.compareTop
                 this.diffrence = obj.diffrence
             }else{
+                this.compareTop = null
+                this.diffrence = null
                 this.expanded = obj
             }
         },
