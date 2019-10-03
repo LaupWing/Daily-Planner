@@ -84,7 +84,6 @@ export default {
     },
     methods:{
         emitToParent(method){
-            console.log('emit to parent')
             this.$emit(method)
         },
         expandTask(obj){

@@ -186,7 +186,6 @@ export default {
             }
         })
         this.visibleTask = findTask
-        console.log(findTask)
         if(findTask){
             const connectedLi = checkConnectedLi(findTask)
             connectedLi.forEach(li=>{
