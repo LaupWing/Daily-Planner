@@ -82,7 +82,10 @@ export default {
     },
     methods:{
         expandTask(obj){
-            if(obj.compareTop){
+            if(!obj){
+                this.expanded = null
+            }
+            else if(obj.compareTop){
                 this.expanded = obj.task
                 this.compareTop = obj.compareTop
                 this.diffrence = obj.diffrence

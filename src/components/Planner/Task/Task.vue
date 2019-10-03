@@ -16,6 +16,7 @@
             :edit="edit"
             :today="today"
             v-if="expanded === task"
+            v-on:contractTask="contractTask"
         />
         <div class="info" v-else>
             <p class="task-name" v-if="edit !== task">{{task.task}}</p>
@@ -45,21 +46,32 @@ export default {
         }
     },
     methods:{
+        contractTask(){
+            this.resetTimeline()
+            this.$emit('expandTask')
+        },
         getTimeOfThisDay(state, task){
             return task.days
                 .find(day=>day.day===this.today)[state]
         },
         clickOnTask(){
-            if(this.preventActions){
-                if(this.preventActions.type === 'task')  return
-            }
-            if(this.expanded === this.task){
+            console.log(event.target)
+            console.log(event.target.classList)
+            console.log(event.target.classList.contains('task-nav-item'))
+            if(this.expanded === this.task || event.target.classList.contains('task-nav-item')){
                 // If the user clicks cancel this will be triggerd
                 return
-            }else if(this.expanded === null){
+            }
+            if(this.expanded === null){
+                console.log(this.expanded, 'null')
                 this.expandTask()
             }
+            // else if(this.preventActions){
+            //     console.log(this.expanded, 'preventaction')
+            //     if(this.preventActions.type === 'task')  return
+            // }
             else{
+                console.log(this.expanded, 'reset')
                 this.resetTimeline()
                 this.expandTask()
             }

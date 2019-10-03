@@ -2,10 +2,12 @@
     <nav class="task-nav">
         <li
             @click="contractTask"
+            class="task-nav-item"
         ><i class="far fa-arrow-alt-circle-left"></i></li>
         <li 
             v-for="(item, index) in navItems"
             :key="index"
+            class="task-nav-item"
             :class="{'active' : section === item}"
             @click="setSection(item)"
         >
