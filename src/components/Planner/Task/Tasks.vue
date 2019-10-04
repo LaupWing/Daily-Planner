@@ -362,7 +362,6 @@ export default {
     },
     mounted(){
         this.getTasks(()=>{
-            this.taskHeightAndPosition()
             this.checkCurrentTask()
             this.taskWatcher()
         })

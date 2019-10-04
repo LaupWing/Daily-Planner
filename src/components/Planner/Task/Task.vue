@@ -71,11 +71,9 @@ export default {
                 return
             }
             if(this.expanded === null){
-                // this.scrollToMidPoint()
                 this.expandTask()
             }
             else{
-                // this.scrollToMidPoint()
                 this.resetTimeline()
                 this.expandTask()
             }
@@ -111,15 +109,6 @@ export default {
                 adjustLi.style.marginTop = `${diffrence}px`
             }
 
-        },
-        adjustTopValues(diffrence, top){
-            this.$el.querySelectorAll('.task').forEach(task=>{
-                const numberIterationTop = Number(task.style.top.split('px')[0])
-                const compareTop = Number(top.split('px')[0])
-                if(numberIterationTop > compareTop){
-                    task.style.top = numberIterationTop + diffrence + 'px'
-                }
-            })
         },
         taskHeightAndPosition(){
             const startingPoint = this.calculatePoint(this.task.days.find(day=>day.day===this.today).begin)
