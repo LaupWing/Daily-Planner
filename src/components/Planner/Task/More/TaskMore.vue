@@ -3,7 +3,7 @@
         <TaskNav
             :section="section"
             :task="editTask"
-            v-on:contractTask="contractTask"
+            v-on:contractTask="liAnimBridge(contractTask)"
             v-on:setSection="setSection"
         />
         <General
@@ -98,7 +98,7 @@ export default {
                 li.style.removeProperty('margin-top')
             })
         },
-        liAnimBridge(dailyTasks){
+        liAnimBridge(callback){
             const findLiWithMargin = Array.from(document.querySelectorAll('#Timeline li'))
                 .find(li=>{
                     if(li.style.marginTop || li.style.marginBottom){
@@ -106,13 +106,13 @@ export default {
                     }
                 })
             const bridge = ()=>{
-                this.updateDatabase(dailyTasks)
+                callback()
                 findLiWithMargin.removeEventListener('transitionend', bridge)
             }
             if(findLiWithMargin){
                 findLiWithMargin.addEventListener('transitionend', bridge)
             }else{
-                this.updateDatabase(dailyTasks)
+                callback()
             }
             this.deleteLiMargins()
         },
@@ -136,7 +136,7 @@ export default {
                     return task
                 }
             })
-            this.liAnimBridge(this.dailyTasks)
+            this.liAnimBridge(()=>this.updateDatabase(this.dailyTasks))
         }
     },
     created(){
