@@ -374,7 +374,8 @@ export default {
                 if(change.type === 'modified' && change.doc.id === userId){
                     if(!this.preventStateChangeFlag){
                         this.getTasks(()=>{
-                            this.taskHeightAndPosition()
+                            // this.taskHeightAndPosition()
+                            console.log('State changed')
                         })
                     }
                 }

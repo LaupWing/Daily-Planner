@@ -92,15 +92,31 @@ export default {
                     return day
                 })
         },
-        acceptChanges(){
-            this.$emit('preventStateChange')
-            this.dailyTasks = this.dailyTasks.map(task=>{
-                if(task.task === this.task.task){
-                    return this.editTask
-                }else{
-                    return task
-                }
+        deleteLiMargins(){
+            document.querySelectorAll('#Timeline li').forEach(li=>{
+                li.style.removeProperty('margin-bottom')
+                li.style.removeProperty('margin-top')
             })
+        },
+        liAnimBridge(dailyTasks){
+            const findLiWithMargin = Array.from(document.querySelectorAll('#Timeline li'))
+                .find(li=>{
+                    if(li.style.marginTop || li.style.marginBottom){
+                        return li
+                    }
+                })
+            const bridge = ()=>{
+                this.updateDatabase(dailyTasks)
+                findLiWithMargin.removeEventListener('transitionend', bridge)
+            }
+            if(findLiWithMargin){
+                findLiWithMargin.addEventListener('transitionend', bridge)
+            }else{
+                this.updateDatabase(dailyTasks)
+            }
+            this.deleteLiMargins()
+        },
+        updateDatabase(dailyTasks){
             db
                 .collection('planner')
                 .doc(firebase.auth().currentUser.uid)
@@ -109,8 +125,18 @@ export default {
                 })
                 .then(()=>{
                     this.edit = false
-                    this.$emit('updateFinished')
+                    
                 })
+        },
+        acceptChanges(){
+            this.dailyTasks = this.dailyTasks.map(task=>{
+                if(task.task === this.task.task){
+                    return this.editTask
+                }else{
+                    return task
+                }
+            })
+            this.liAnimBridge(this.dailyTasks)
         }
     },
     created(){

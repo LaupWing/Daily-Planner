@@ -19,6 +19,7 @@
             :today="today"
             v-if="expanded === task"
             v-on:contractTask="contractTask"
+            v-on:updateFinished="taskHeightAndPosition"
         />
         <div class="info" v-else>
             <p class="task-name" v-if="edit !== task">{{task.task}}</p>
@@ -48,6 +49,9 @@ export default {
         }
     },
     methods:{
+        emitToParent(method){
+            this.$emit(method)
+        },
         contractTask(){
             this.resetTimeline()
             this.$emit('expandTask')
@@ -116,6 +120,12 @@ export default {
             const height = this.calculatePoint(this.task.days.find(day=>day.day===this.today).end) - startingPoint
             this.height = height
         },
+        topVal(){
+            return this.calculatePoint(this.task.days.find(day=>day.day===this.today).begin)
+        },
+        heightVal(){
+            return this.calculatePoint(this.task.days.find(day=>day.day===this.today).end) - this.topVal()
+        },
         calculatePoint(state){
             const allLi = Array.from(document.querySelectorAll('#Timeline li'))
             const li = allLi
@@ -135,22 +145,22 @@ export default {
         taskProps(){
             if(!this.expanded){
                 return {
-                    top: this.top + 'px',
-                    height: this.height + 'px',
+                    top: this.topVal() + 'px',
+                    height: this.heightVal() + 'px',
                     background: this.task.color.color
                 }
             }
             else if(this.expanded === this.task){
                 if(this.$el.offsetHeight <this.taskHeightWhenExpanded){
                     return {
-                        top: this.top + 'px',
+                        top: this.topVal() + 'px',
                         height: this.taskHeightWhenExpanded + 'px',
                         background: this.task.color.color
                     }
                 }else{
                     return {
-                        top: this.top + 'px',
-                        height: this.height + 'px',
+                        top: this.topVal() + 'px',
+                        height: this.heightVal + 'px',
                         background: this.task.color.color
                     }
                 }
@@ -158,21 +168,21 @@ export default {
             else if(this.expanded !== this.task){
                 if(this.compareTop === null){
                     return{
-                        top: this.top + 'px',
-                        height: this.height + 'px',
+                        top: this.topVal() + 'px',
+                        height: this.heightVal() + 'px',
                         background: this.task.color.color
                     }
                 }
                 if(this.top > this.compareTop){
                     return{
-                        top: this.top + this.diffrence + 'px',
-                        height: this.height + 'px',
+                        top: this.topVal() + this.diffrence + 'px',
+                        height: this.heightVal() + 'px',
                         background: this.task.color.color
                     }
                 }else{
                     return{
-                        top: this.top + 'px',
-                        height: this.height + 'px',
+                        top: this.topVal() + 'px',
+                        height: this.heightVal() + 'px',
                         background: this.task.color.color
                     }
                 }
