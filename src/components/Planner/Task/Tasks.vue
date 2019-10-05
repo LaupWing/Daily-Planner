@@ -100,11 +100,11 @@ export default {
                 this.expanded = obj
             }
         },
-        updateFinished(){
-            this.expanded = null 
-            this.updateTasks()
-            this.applyPrevStyles()
-        },
+        // updateFinished(){
+        //     this.expanded = null 
+        //     this.updateTasks()
+        //     this.applyPrevStyles()
+        // },
         getTimeOfThisDay(state, task){
             return task.days
                 .find(day=>day.day===this.today)[state]
@@ -182,107 +182,107 @@ export default {
                 })
             }
         },
-        taskHeightAndPosition(){
-            const allTasks = this.$el.querySelectorAll('.task')
-            allTasks.forEach(task=>{
-                const startingPoint = this.calculatePoint(task.dataset.begin)
-                task.style.top = `${startingPoint}px`
+        // taskHeightAndPosition(){
+        //     const allTasks = this.$el.querySelectorAll('.task')
+        //     allTasks.forEach(task=>{
+        //         const startingPoint = this.calculatePoint(task.dataset.begin)
+        //         task.style.top = `${startingPoint}px`
 
-                const height = this.calculatePoint(task.dataset.end) - startingPoint
-                task.style.height = `${height}px`
-            })
-        },
-        calculatePoint(state){
-            const allLi = Array.from(document.querySelectorAll('#Timeline li'))
-            const li = allLi
-                .find(li=>{
-                    const liHour = li.dataset.time.split(':')[0]
-                    const taskHour = state.split(':')[0]
-                    if(liHour===taskHour){
-                        return li
-                    }
-                })
-            const calcMinutes = ((li.offsetHeight*2)/60)*state.split(':')[1]
-            const point = li.offsetTop + (li.offsetHeight/2) + calcMinutes
-            return point
-        },
-        clickOnTask(task){
-            if(this.preventActions){
-                if(this.preventActions.type === 'task')  return
-            }
-            if(this.expanded === task){
-                // If the user clicks cancel this will be triggerd
-                return
-            }else if(this.expanded === null){
-                this.expanded = task
-                this.expandTask()
-            }
-            else{
-                // When the user clicks on another task to edit and keeps one open
-                console.log('click on another task')
-                this.applyPrevStyles()
-                this.expanded = task
-                this.expandTask()
-            }
-        },
-        contractTask(){
-            const liItems = document.querySelectorAll('ul#Timeline li')
-            const reset = ()=>{
-                this.expanded = null
-                this.setCurrentLocationTaskSettings()
-                liItems.forEach(li=>li.removeEventListener('transitionend', reset))
-            }
-            liItems.forEach(li=>{
-                if(li.style.marginTop || li.style.marginBottom){
-                    li.addEventListener('transitionend',reset)
-                }
-            })
-            this.applyPrevStyles()
-            // Wait until the animation is ended
-            // TODO: change the code below to a transitionend event for more dynamic code
-            this.$el.querySelectorAll('.task').forEach(task=>{
-                task.classList.remove('expanded')
-            })
-        },
+        //         const height = this.calculatePoint(task.dataset.end) - startingPoint
+        //         task.style.height = `${height}px`
+        //     })
+        // },
+        // calculatePoint(state){
+        //     const allLi = Array.from(document.querySelectorAll('#Timeline li'))
+        //     const li = allLi
+        //         .find(li=>{
+        //             const liHour = li.dataset.time.split(':')[0]
+        //             const taskHour = state.split(':')[0]
+        //             if(liHour===taskHour){
+        //                 return li
+        //             }
+        //         })
+        //     const calcMinutes = ((li.offsetHeight*2)/60)*state.split(':')[1]
+        //     const point = li.offsetTop + (li.offsetHeight/2) + calcMinutes
+        //     return point
+        // },
+        // clickOnTask(task){
+        //     if(this.preventActions){
+        //         if(this.preventActions.type === 'task')  return
+        //     }
+        //     if(this.expanded === task){
+        //         // If the user clicks cancel this will be triggerd
+        //         return
+        //     }else if(this.expanded === null){
+        //         this.expanded = task
+        //         this.expandTask()
+        //     }
+        //     else{
+        //         // When the user clicks on another task to edit and keeps one open
+        //         console.log('click on another task')
+        //         this.applyPrevStyles()
+        //         this.expanded = task
+        //         this.expandTask()
+        //     }
+        // },
+        // contractTask(){
+        //     const liItems = document.querySelectorAll('ul#Timeline li')
+        //     const reset = ()=>{
+        //         this.expanded = null
+        //         this.setCurrentLocationTaskSettings()
+        //         liItems.forEach(li=>li.removeEventListener('transitionend', reset))
+        //     }
+        //     liItems.forEach(li=>{
+        //         if(li.style.marginTop || li.style.marginBottom){
+        //             li.addEventListener('transitionend',reset)
+        //         }
+        //     })
+        //     this.applyPrevStyles()
+        //     // Wait until the animation is ended
+        //     // TODO: change the code below to a transitionend event for more dynamic code
+        //     this.$el.querySelectorAll('.task').forEach(task=>{
+        //         task.classList.remove('expanded')
+        //     })
+        // },
         setCurrentLocationTaskSettings(){
             this.checkCurrentTask()
             this.$emit('checkActiveTask')
         },
-        applyPrevStyles(){
-            document.querySelectorAll('#Timeline li').forEach(li=>{
-                li.style.removeProperty('margin-bottom')
-                li.style.removeProperty('margin-top')
-            })
-            this.$el.querySelectorAll('.task').forEach(task=>{
-                for(let preveTask of this.taskHeights){
-                    if(preveTask.task===task){
-                        task.style.height = preveTask.height
-                        task.style.top = preveTask.top
-                    }
-                }
-            })
-        },
-        adjustTimeline(el, diffrence){
-            const connectedLi = checkConnectedLi(el)
-            const adjustLi = connectedLi[connectedLi.length-1]
-            const bottomOfsetTask = el.offsetTop + el.offsetHeight
-            const bottomOfLi = adjustLi.offsetTop + adjustLi.offsetHeight
-            if(bottomOfsetTask >= bottomOfLi){
-                adjustLi.style.marginBottom = `${diffrence}px`
-            }else{
-                adjustLi.style.marginTop = `${diffrence}px`
-            }
+        // applyPrevStyles(){
+        //     document.querySelectorAll('#Timeline li').forEach(li=>{
+        //         li.style.removeProperty('margin-bottom')
+        //         li.style.removeProperty('margin-top')
+        //     })
+        //     this.$el.querySelectorAll('.task').forEach(task=>{
+        //         for(let preveTask of this.taskHeights){
+        //             if(preveTask.task===task){
+        //                 task.style.height = preveTask.height
+        //                 task.style.top = preveTask.top
+        //             }
+        //         }
+        //     })
+        // },
+        // adjustTimeline(el, diffrence){
+        //     const connectedLi = checkConnectedLi(el)
+        //     const adjustLi = connectedLi[connectedLi.length-1]
+        //     const bottomOfsetTask = el.offsetTop + el.offsetHeight
+        //     const bottomOfLi = adjustLi.offsetTop + adjustLi.offsetHeight
+        //     if(bottomOfsetTask >= bottomOfLi){
+        //         adjustLi.style.marginBottom = `${diffrence}px`
+        //     }else{
+        //         adjustLi.style.marginTop = `${diffrence}px`
+        //     }
 
-        },
-        adjustTopValues(diffrence, top){
-            this.$el.querySelectorAll('.task').forEach(task=>{
-                const numberIterationTop = Number(task.style.top.split('px')[0])
-                const compareTop = Number(top.split('px')[0])
-                if(numberIterationTop > compareTop){
-                    task.style.top = numberIterationTop + diffrence + 'px'
-                }
-            })
-        },
+        // },
+        // adjustTopValues(diffrence, top){
+        //     this.$el.querySelectorAll('.task').forEach(task=>{
+        //         const numberIterationTop = Number(task.style.top.split('px')[0])
+        //         const compareTop = Number(top.split('px')[0])
+        //         if(numberIterationTop > compareTop){
+        //             task.style.top = numberIterationTop + diffrence + 'px'
+        //         }
+        //     })
+        // },
         getTasks(extraCallback){
             db
                 .collection('planner')
@@ -317,36 +317,36 @@ export default {
                     }
                 })
         },
-        updateTasks(){
-            const findLiWithMargin = Array.from(document.querySelectorAll('#Timeline li'))
-                .find(li=>{
-                    if(li.style.marginTop || li.style.marginBottom){
-                        return li
-                    }
-                })
+        // updateTasks(){
+        //     const findLiWithMargin = Array.from(document.querySelectorAll('#Timeline li'))
+        //         .find(li=>{
+        //             if(li.style.marginTop || li.style.marginBottom){
+        //                 return li
+        //             }
+        //         })
             
-            const bridge = (e)=>{
-                if(e.propertyName==='margin-top'||e.propertyName==='margin-bottom'){
-                    this.getTasks(()=>{
-                        this.taskHeightAndPosition()
-                    })
-                    document.querySelectorAll('#Timeline li').forEach(li=>{
-                        li.removeEventListener('transitionend', bridge)
-                    })
-                }
-            }
-            // If there is a li with inline style margins we need adjust the positions according the li positions
-            this.preventStateChangeFlag = false
-            if(findLiWithMargin){
-                document.querySelectorAll('#Timeline li').forEach(li=>{
-                    li.addEventListener('transitionend', bridge)
-                })
-            }else{
-                this.getTasks(()=>{
-                    this.taskHeightAndPosition()
-                })
-            }
-        },
+        //     const bridge = (e)=>{
+        //         if(e.propertyName==='margin-top'||e.propertyName==='margin-bottom'){
+        //             this.getTasks(()=>{
+        //                 this.taskHeightAndPosition()
+        //             })
+        //             document.querySelectorAll('#Timeline li').forEach(li=>{
+        //                 li.removeEventListener('transitionend', bridge)
+        //             })
+        //         }
+        //     }
+        //     // If there is a li with inline style margins we need adjust the positions according the li positions
+        //     this.preventStateChangeFlag = false
+        //     if(findLiWithMargin){
+        //         document.querySelectorAll('#Timeline li').forEach(li=>{
+        //             li.addEventListener('transitionend', bridge)
+        //         })
+        //     }else{
+        //         this.getTasks(()=>{
+        //             this.taskHeightAndPosition()
+        //         })
+        //     }
+        // },
         openTab(task){
             event.preventDefault()
             this.$emit('togglePopup', {
