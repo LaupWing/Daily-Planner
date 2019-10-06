@@ -45,7 +45,8 @@ export default {
         return{
             taskHeightWhenExpanded: 250,
             top: null,
-            height: null
+            height: null,
+            timelinePos: []
         }
     },
     methods:{
@@ -127,18 +128,32 @@ export default {
             return this.calculatePoint(this.task.days.find(day=>day.day===this.today).end) - this.topVal()
         },
         calculatePoint(state){
-            const allLi = Array.from(document.querySelectorAll('#Timeline li'))
-            const li = allLi
-                .find(li=>{
-                    const liHour = li.dataset.time.split(':')[0]
-                    const taskHour = state.split(':')[0]
-                    if(liHour===taskHour){
-                        return li
-                    }
-                })
-            const calcMinutes = ((li.offsetHeight*2)/60)*state.split(':')[1]
-            const point = li.offsetTop + (li.offsetHeight/2) + calcMinutes
-            return point
+            // const allLi = Array.from(document.querySelectorAll('#Timeline li'))
+            // const li = allLi
+            //     .find(li=>{
+            //         const liHour = li.dataset.time.split(':')[0]
+            //         const taskHour = state.split(':')[0]
+            //         if(liHour===taskHour){
+            //             return li
+            //         }
+            //     })
+            if(this.timelinePos.length>0){
+                const li = this.timelinePos
+                    .find(li=>{
+                        const liHour = li.time.split(':')[0]
+                        const taskHour = state.split(':')[0]
+                        if(liHour===taskHour){
+                            return li
+                        }
+                    })
+                const calcMinutes = ((li.height*2)/60)*state.split(':')[1]
+                const point = li.midpoint + calcMinutes
+                return point
+            }
+    
+            // const calcMinutes = ((li.offsetHeight*2)/60)*state.split(':')[1]
+            // const point = li.offsetTop + (li.offsetHeight/2) + calcMinutes
+            // return point
         }
     },
     computed:{
@@ -200,7 +215,7 @@ export default {
         
     },
     mounted(){
-        const timeInfos = Array.from(document.querySelectorAll('#Timeline li'))
+        this.timelinePos = Array.from(document.querySelectorAll('#Timeline li'))
             .map(li=>{
                 return {
                     time: li.dataset.time,
@@ -208,7 +223,6 @@ export default {
                     midpoint: li.offsetTop + (li.offsetHeight/2)
                 }
             })
-        console.log(timeInfos)
         this.taskHeightAndPosition()
     },
 }
