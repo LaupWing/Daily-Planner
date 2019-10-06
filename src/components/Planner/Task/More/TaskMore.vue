@@ -92,31 +92,20 @@ export default {
                     return day
                 })
         },
-        deleteLiMargins(){
+        resetTimeline(){
             document.querySelectorAll('#Timeline li').forEach(li=>{
                 li.style.removeProperty('margin-bottom')
                 li.style.removeProperty('margin-top')
             })
         },
-        liAnimBridge(callback){
-            const findLiWithMargin = Array.from(document.querySelectorAll('#Timeline li'))
-                .find(li=>{
-                    if(li.style.marginTop || li.style.marginBottom){
-                        return li
-                    }
-                })
-            const bridge = ()=>{
-                callback()
-                findLiWithMargin.removeEventListener('transitionend', bridge)
-            }
-            if(findLiWithMargin){
-                findLiWithMargin.addEventListener('transitionend', bridge)
-            }else{
-                callback()
-            }
-            this.deleteLiMargins()
-        },
-        updateDatabase(dailyTasks){
+        updateDatabase(){
+            this.dailyTasks = this.dailyTasks.map(task=>{
+                if(task.task === this.task.task){
+                    return this.editTask
+                }else{
+                    return task
+                }
+            })
             db
                 .collection('planner')
                 .doc(firebase.auth().currentUser.uid)
@@ -125,18 +114,12 @@ export default {
                 })
                 .then(()=>{
                     this.edit = false
-                    
+                    this.contractTask()
                 })
         },
         acceptChanges(){
-            this.dailyTasks = this.dailyTasks.map(task=>{
-                if(task.task === this.task.task){
-                    return this.editTask
-                }else{
-                    return task
-                }
-            })
-            this.liAnimBridge(()=>this.updateDatabase(this.dailyTasks))
+            this.resetTimeline()
+            this.updateDatabase()
         }
     },
     created(){

@@ -97,7 +97,7 @@ export default {
             }else{
                 this.compareTop = null
                 this.diffrence = null
-                this.expanded = obj
+                this.expanded = obj.task
             }
         },
         getTimeOfThisDay(state, task){

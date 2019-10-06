@@ -196,9 +196,6 @@ export default {
             }
         },
     },
-    created(){
-        
-    },
     mounted(){
         this.timelinePos = Array.from(document.querySelectorAll('#Timeline li'))
             .map(li=>{
