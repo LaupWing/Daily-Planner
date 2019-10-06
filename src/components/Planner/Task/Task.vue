@@ -200,6 +200,15 @@ export default {
         
     },
     mounted(){
+        const timeInfos = Array.from(document.querySelectorAll('#Timeline li'))
+            .map(li=>{
+                return {
+                    time: li.dataset.time,
+                    height: li.offsetHeight,
+                    midpoint: li.offsetTop + (li.offsetHeight/2)
+                }
+            })
+        console.log(timeInfos)
         this.taskHeightAndPosition()
     },
 }
