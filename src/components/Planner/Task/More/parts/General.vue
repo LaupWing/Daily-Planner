@@ -42,9 +42,6 @@ export default {
             return task.days
                 .find(day=>day.day===this.today)[state]
         }
-    },
-    created(){
-        console.log(this.task)
     }
 }
 </script>

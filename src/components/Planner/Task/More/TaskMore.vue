@@ -3,7 +3,7 @@
         <TaskNav
             :section="section"
             :task="editTask"
-            v-on:contractTask="liAnimBridge(contractTask)"
+            v-on:contractTask="contractTask"
             v-on:setSection="setSection"
         />
         <General

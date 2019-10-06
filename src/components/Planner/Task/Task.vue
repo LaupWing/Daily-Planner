@@ -19,7 +19,6 @@
             :today="today"
             v-if="expanded === task"
             v-on:contractTask="contractTask"
-            v-on:updateFinished="taskHeightAndPosition"
         />
         <div class="info" v-else>
             <p class="task-name" v-if="edit !== task">{{task.task}}</p>
@@ -91,16 +90,21 @@ export default {
         },
         expandTask(){
             if(this.$el.offsetHeight <this.taskHeightWhenExpanded){
-                const diffrence = this.taskHeightWhenExpanded - this.height
+                const diffrence = this.taskHeightWhenExpanded - this.heightVal()
                 this.adjustTimeline(this.$el, diffrence)
                 this.$emit('expandTask', 
                     {
                         task: this.task,
-                        compareTop: this.top,
+                        compareTop: this.topVal(),
                         diffrence: diffrence
                     })
             }else{
-                this.$emit('expandTask', this.task)
+                this.$emit('expandTask', 
+                    {
+                        task: this.task,
+                        compareTop: null,
+                        diffrence: null
+                    })
             }
         },
         adjustTimeline(el, diffrence){
@@ -114,12 +118,6 @@ export default {
                 adjustLi.style.marginTop = `${diffrence}px`
             }
 
-        },
-        taskHeightAndPosition(){
-            const startingPoint = this.calculatePoint(this.task.days.find(day=>day.day===this.today).begin)
-            this.top = startingPoint
-            const height = this.calculatePoint(this.task.days.find(day=>day.day===this.today).end) - startingPoint
-            this.height = height
         },
         topVal(){
             return this.calculatePoint(this.task.days.find(day=>day.day===this.today).begin)
@@ -175,7 +173,7 @@ export default {
                         background: this.task.color.color
                     }
                 }
-                if(this.top > this.compareTop){
+                if(this.topVal() > this.compareTop){
                     return{
                         top: this.topVal() + this.diffrence + 'px',
                         height: this.heightVal() + 'px',
@@ -210,7 +208,6 @@ export default {
                     midpoint: li.offsetTop + (li.offsetHeight/2)
                 }
             })
-        this.taskHeightAndPosition()
     },
 }
 </script>
