@@ -76,6 +76,11 @@ export default {
         },
         openTab(){
             event.preventDefault()
+            if(event.target.classList.length>0){
+                if(event.target.classList[0]==='popup-disabler'){
+                    return
+                }
+            }
             this.popupSettings =  {
                 type: 'task',
                 data: this.task,

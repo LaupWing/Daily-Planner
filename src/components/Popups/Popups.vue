@@ -6,6 +6,7 @@
             :is="componentId"
             :settings="settings"
             :userData="userData"
+            class="popup"
         ></component>
         <!-- <CustomContext
             class="popup"
