@@ -97,7 +97,7 @@ export default {
         //     const zeroScrollCoord = container.getBoundingClientRect().top + (container.offsetHeight/2)
         //     const begin = (clickYCoord -zeroScrollCoord) + container.scrollTop 
         //     container.scrollTo(0,begin)
-        //     }
+        //     } 
         // }
     },
     toggle(prop){
@@ -130,7 +130,6 @@ export default {
             (currentElTime.offsetTop-parentElOffset) - 
             (this.$el.querySelector('#planner').offsetHeight/2) + 
             (currentElTime.offsetHeight/2)
-        // console.log(distance)
         return distance
     },
     getMinutesDistance(){

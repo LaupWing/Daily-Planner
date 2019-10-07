@@ -22,7 +22,6 @@
                 v-if="edit" 
                 v-model="editTask.notes"
             >
-
             </textarea>
         </div>
     </div>
