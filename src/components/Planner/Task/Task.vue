@@ -2,9 +2,8 @@
     <div 
         class="task"
         :class="{
-            'expanded':expanded === task, 
-            'activeByEdit':JSON.stringify(preventActions.data)===JSON.stringify(task),
-            'opacity': checkVisibleTask
+            'expanded':expanded === task,
+            'opacity': checkVisibleTask || checkPopup
         }"
         :data-begin="getTimeOfThisDay('begin', task)"
         :data-end="getTimeOfThisDay('end', task)"
@@ -13,6 +12,13 @@
         @contextmenu="openTab(task)"
         @transitionend="animEnded"
     >
+        <Popup
+            v-if="popupSettings"
+            :settings="popupSettings"
+            :componentId="'CustomContext'"
+            :userData="userData"
+            v-on:turnOffPopup="turnOffPopup"
+        />
         <TaskMore
             :task="task"
             :edit="edit"
@@ -33,25 +39,44 @@
 <script>
 import TaskMore from '@/components/Planner/Task/More/TaskMore'
 import {checkConnectedLi} from '@/components/helpers/timeline'
+import Popup from '@/components/Popups/Popups'
 
 export default {
     name: 'Task',
     components:{
-        TaskMore
+        TaskMore,
+        Popup
     },
-    props:['task','edit', 'expanded', 'preventActions', 'today', 'diffrence', 'compareTop', 'visibleTask'],
+    props:[
+        'task',
+        'edit', 
+        'expanded', 
+        'preventActions', 
+        'today', 
+        'diffrence', 
+        'compareTop', 
+        'visibleTask',
+        'userData'
+    ],
     data(){
         return{
             taskHeightWhenExpanded: 250,
             top: null,
             height: null,
-            timelinePos: []
+            timelinePos: [],
+            popupSettings: null
         }
     },
     methods:{
+        turnOffPopup(){
+            // There has to be a timeout here otherwise it will trigger the click on task event
+            setTimeout(()=>{
+                this.popupSettings = null
+            },1)
+        },
         openTab(){
             event.preventDefault()
-            this.$emit('togglePopup', {
+            this.popupSettings =  {
                 type: 'task',
                 data: this.task,
                 coords:{
@@ -59,7 +84,7 @@ export default {
                     y: event.y
                 },
                 elPrio2: '#Tasks .task'
-            })
+            }
         },
         emitToParent(method){
             this.$emit(method)
@@ -82,6 +107,9 @@ export default {
             }
         },
         clickOnTask(){
+            if(this.popupSettings|| this.$el.querySelector('.popup-container')){
+                return
+            }
             if(this.expanded === this.task || event.target.classList.contains('task-nav-item')){
                 // If the user clicks cancel this will be triggerd
                 return
@@ -198,6 +226,17 @@ export default {
                         background: this.task.color.color
                     }
                 }
+            }
+        },
+        checkPopup(){
+            if(this.popupSettings){
+                if(this.popupSettings.data === this.task){
+                    return true
+                }else{
+                    return false
+                }
+            }else{
+                return false
             }
         },
         checkVisibleTask(){

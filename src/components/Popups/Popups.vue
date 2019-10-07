@@ -2,7 +2,11 @@
     <div class="popup-container">
         <div class="popup-disabler" v-if="settings" @click="togglePopup">
         </div>
-        <component :is="componentId"></component>
+        <component 
+            :is="componentId"
+            :settings="settings"
+            :userData="userData"
+        ></component>
         <!-- <CustomContext
             class="popup"
             v-if="settings.type === 'task'"
@@ -34,13 +38,15 @@ import CustomContext from '@/components/Planner/Task/CustomContext'
 import EditLabelForm from '@/components/Popups/Labels/EditLabelForm'
 import AddLabelForm from '@/components/Popups/Labels/AddLabelForm'
 import checkTask from '@/components/helpers/checkLocationTask'
+import db from '@/firebase/init'
+import firebase from 'firebase'
+
 export default {
     name:'Popups',
-    props:['settings'],
+    props:['settings', 'componentId', 'userData'],
     data(){
         return{
-            userData: null,
-            componentId: null
+
         }
     },
     components:{
@@ -55,22 +61,13 @@ export default {
                     document.querySelectorAll(this.settings.elPrio2).forEach(item=>{
                         item.style.removeProperty('z-index')
                     })
-                    this.$emit('togglePopup')
+                    this.$emit('turnOffPopup')
                 }
             }
         },
         cancel(){
-            this.$emit('togglePopup')
+            this.$emit('turnOffPopup')
         }
-    },
-    created(){
-        db.collection('planner')
-            .doc(firebase.auth().currentUser.uid)
-            .get()
-            .then(doc=>{
-                this.userData = doc.data()
-                this.$emit('setUserData', this.userData)
-            })
     },
     mounted(){
         if(this.settings.elPrio2){

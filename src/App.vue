@@ -22,6 +22,7 @@
     />
     <router-view
       :preventActions="preventActions"
+      :userData="userData"
       v-on:setTask='setTask'
       v-on:togglePopup='togglePopup'
       v-on:setUserData='setUserData'
@@ -35,6 +36,10 @@ import AddTask from '@/components/Planner/AddTask/AddTask'
 import Popups from '@/components/Popups/Popups'
 import Navbar from '@/components/Navbar/Navbar'
 import SideBar from '@/components/SideBar/SideBar'
+import db from '@/firebase/init'
+import firebase from 'firebase'
+
+
 export default {
   name: 'App',
   data(){
@@ -120,6 +125,12 @@ export default {
     }else{
       this.getWeather()
     }
+    db.collection('planner')
+      .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then(doc=>{
+          this.userData = doc.data()
+      })
   }
 }
 </script>

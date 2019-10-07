@@ -29,6 +29,7 @@
       <Tasks
         :preventActions="preventActions"
         :visibleTask="visibleTask"
+        :userData="userData"
         v-on:setTask='setTask'
         v-on:checkActiveTask='checkTaskByScroll'
         v-on:togglePopup="togglePopup"
@@ -54,7 +55,7 @@ import db from '@/firebase/init'
 
 export default {
   name: '',
-  props: ['preventActions'],
+  props: ['preventActions', 'userData'],
   data(){
     return{
         hours: null,
@@ -73,7 +74,6 @@ export default {
         },
         taskColor: null,
         addTask: null,
-        userData: null,
         visibleTask: null
     }
   },
@@ -284,15 +284,6 @@ export default {
             })
         })
     }
-  },
-  created(){
-        db.collection('planner')
-            .doc(firebase.auth().currentUser.uid)
-            .get()
-            .then(doc=>{
-                this.userData = doc.data()
-                this.$emit('setUserData', this.userData)
-            })
   },
   mounted(){
         this.assignInterval()
