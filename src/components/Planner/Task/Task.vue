@@ -49,6 +49,18 @@ export default {
         }
     },
     methods:{
+        openTab(){
+            event.preventDefault()
+            this.$emit('togglePopup', {
+                type: 'task',
+                data: this.task,
+                coords:{
+                    x: event.x,
+                    y: event.y
+                },
+                elPrio2: '#Tasks .task'
+            })
+        },
         emitToParent(method){
             this.$emit(method)
         },

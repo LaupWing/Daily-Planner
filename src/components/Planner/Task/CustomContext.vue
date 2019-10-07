@@ -58,9 +58,7 @@ export default {
                 left: `${this.settings.coords.x}px`
             }
         }
-    },
-    created(){
-    }   
+    }  
 }
 </script>
 

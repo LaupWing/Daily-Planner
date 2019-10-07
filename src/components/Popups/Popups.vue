@@ -2,7 +2,8 @@
     <div class="popup-container">
         <div class="popup-disabler" v-if="settings" @click="togglePopup">
         </div>
-        <CustomContext
+        <component :is="componentId"></component>
+        <!-- <CustomContext
             class="popup"
             v-if="settings.type === 'task'"
             :settings="settings"
@@ -24,27 +25,28 @@
             :userData="userData"
             :settings="settings"
             v-on:cancel="cancel"
-        />
+        /> -->
     </div>
 </template>
 
 <script>
-import CustomContext from '@/components/Popups/Tasks/CustomContext'
+import CustomContext from '@/components/Planner/Task/CustomContext'
 import EditLabelForm from '@/components/Popups/Labels/EditLabelForm'
 import AddLabelForm from '@/components/Popups/Labels/AddLabelForm'
 import checkTask from '@/components/helpers/checkLocationTask'
 export default {
     name:'Popups',
-    props:['settings', 'userData'],
+    props:['settings'],
     data(){
         return{
-            
+            userData: null,
+            componentId: null
         }
     },
     components:{
-        CustomContext,
-        EditLabelForm,
-        AddLabelForm
+        'CustomContext':CustomContext,
+        'EditLabelForm':EditLabelForm,
+        'AddLabelForm':AddLabelForm
     },
     methods:{
         togglePopup(){
@@ -61,13 +63,23 @@ export default {
             this.$emit('togglePopup')
         }
     },
+    created(){
+        db.collection('planner')
+            .doc(firebase.auth().currentUser.uid)
+            .get()
+            .then(doc=>{
+                this.userData = doc.data()
+                this.$emit('setUserData', this.userData)
+            })
+    },
     mounted(){
         if(this.settings.elPrio2){
             document.querySelectorAll(this.settings.elPrio2).forEach(item=>{
                 item.style.zIndex = '10000'
             })
         }
-    }
+    },
+    
 }
 </script>
 
