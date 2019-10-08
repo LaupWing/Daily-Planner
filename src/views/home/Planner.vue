@@ -5,6 +5,10 @@
       v-on:toggle="toggle('addTask')"
     />
     <div class="addTask">
+      <div class="current-info">
+        <h2 v-if="currentTask">{{currentTask.task}}</h2>
+        <p>{{day}}, {{date}} {{month}}</p>
+      </div>
       <button type="button" @click="toggle('addTask')">
         Add New Task
         <i class="far fa-calendar-plus"></i>
@@ -49,6 +53,8 @@ import GoTo from '@/components/Planner/GoTo'
 import Tasks from '@/components/Planner/Task/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels/ColorLabels'
 import {checkConnectedLi} from '@/components/helpers/timeline'
+import {days} from '@/components/helpers/timeFormat'
+import {monthNames} from '@/components/helpers/timeFormat'
 import AddTask from '@/components/Planner/AddTask/AddTask'
 import firebase from 'firebase'
 import db from '@/firebase/init'
@@ -60,6 +66,9 @@ export default {
     return{
         hours: null,
         minutes: null,
+        date: null,
+        day: null,
+        month: null,
         distanceMinutes: null,
         distanceHours: null,
         settingDistanceAndAdjust: null,
@@ -74,7 +83,8 @@ export default {
         },
         taskColor: null,
         addTask: null,
-        visibleTask: null
+        visibleTask: null,
+        currentTask: null
     }
   },
   components:{
@@ -108,7 +118,13 @@ export default {
         this.$el.querySelector('#planner').scrollTo(0,point)
     },
     setTask(task){
-        this.$emit('setTask', task)
+      if(task.task){
+        this.currentTask = task
+      }else{
+        this.currentTask ={
+          task
+        }
+      }
     },
     togglePopup(settings){
         this.$emit('togglePopup', settings)
@@ -143,6 +159,10 @@ export default {
         const date = new Date()
         this.hours = this.addZero(date.getHours())
         this.minutes = this.addZero(date.getMinutes())
+        this.date = date.getDate()
+        this.day = days[date.getDay()]
+        console.log(monthNames, date.getMonth())
+        this.month = monthNames[date.getMonth()]
     },
     turnoff(){
       // clearInterval(this.settingDistanceAndAdjust)
@@ -325,7 +345,17 @@ export default {
   width: 100%;
   text-align: center;
   position: absolute;
-  transform: translate(0,-200%);
+  transform: translate(0,-130%);
+}
+.planner-container .addTask .current-info{
+  margin: 20px 0;
+}
+.planner-container .current-info h2{
+  font-size: 1.5em;
+}
+.planner-container .current-info p{
+  text-transform: capitalize;
+  opacity: .5;
 }
 .planner-container .addTask button{
   font-size: .6em;
