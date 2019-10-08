@@ -42,7 +42,7 @@ export default {
     },
     data(){
         return{
-            weekName: ['monday', 'thursday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
+            weekName: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
             dayToEdit: null,
             pos: null
         }
