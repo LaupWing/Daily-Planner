@@ -22,7 +22,7 @@
                 <input type="text" v-model="editLabel.color" name="color" autocomplete="off" required>
             </div>
             <div class="example" :style="{color: editLabel.color, borderColor:editLabel.color}">
-                <p class="label">{{editLabel.label}}</p>
+                <p>{{editLabel.label}}</p>
             </div>
         </div>
         <div class="field buttons">

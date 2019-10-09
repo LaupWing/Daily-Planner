@@ -115,6 +115,9 @@ export default {
         if(this.chosenColorLabel){
             this.colorLabelToAdd = this.chosenColorLabel
         }
+    },
+    mounted(){
+        
     }
 }
 </script>
@@ -124,7 +127,7 @@ export default {
     position: fixed;
     top: 50%;
     left: 20px;
-    transform:translate(0,-50%);
+    /* transform:translate(0,-50%); */
     transition: 1s;
 }
 #Color-Label h2{

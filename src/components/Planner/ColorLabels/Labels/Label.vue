@@ -45,6 +45,7 @@ export default {
     },
     methods:{
         checkTaskWithThisColor(){
+            if(this.popupSettings)  return
             const container = document.querySelector('#planner')
             const tasks = Array.from(container.querySelectorAll('.task'))
             const findTasks = tasks.filter(task=>{
@@ -113,14 +114,16 @@ export default {
             }
         },
         hoverClass(){
-            if(this.preventActions.type !== 'label'){
+            if(!this.popupSettings){
                 return 'hover'
             }else{
                 return ''
             }
         }
     },
-    created(){
+    mounted(){
+        const colorLabels = document.querySelector('#Color-Label')
+        colorLabels.style.top = colorLabels.offsetTop - (colorLabels.offsetHeight/2) + 'px'
     }
 }
 </script>
