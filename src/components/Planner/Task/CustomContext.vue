@@ -10,6 +10,7 @@
             <h2>Notification</h2>
             <p class="switch" :class="{'active':checkSwitch('on')}"><i class="fas fa-check" v-if="checkSwitch('on')"></i>on</p>
             <p class="switch" :class="{'active':checkSwitch('off')}"><i class="fas fa-check" v-if="checkSwitch('off')"></i>off</p>
+            <i class="fas fa-caret-right"></i>
         </div>
         <div class="colors" v-if="userData.colorLabels">
             <div 
@@ -100,6 +101,21 @@ export default {
     padding: 10px;
     border-bottom: solid rgba(0,0,0,.4) 1px;
     padding-top: 0;
+    position: relative;
+}
+#Custom-Context .notification i.fa-caret-right{
+    position: absolute;
+    padding: 3px;
+    cursor: pointer;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+}
+#Custom-Context .notification i.fa-caret-right:hover{
+    background: rgba(0,0,0,.2);
 }
 #Custom-Context .title{
     padding: 5px;

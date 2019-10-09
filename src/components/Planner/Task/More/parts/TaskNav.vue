@@ -48,6 +48,7 @@ export default {
 }
 .task-nav li i{
     font-size: 1.5em;
+    pointer-events: none;
 }
 .task-nav li{
     padding: 5px;
