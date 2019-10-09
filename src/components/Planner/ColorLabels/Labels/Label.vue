@@ -6,6 +6,12 @@
         @contextmenu.prevent="openEditPopup"
         @click="checkTaskWithThisColor"
     >
+        <Popup
+            v-if="popupSettings"
+            :settings="popupSettings"
+            :componentId="'EditLabelForm'"
+            :userData="userData"
+        />
         <p 
             class="label-name" 
             :style="{background: label.color}"
@@ -22,16 +28,19 @@
 </template>
 
 <script>
+import Popup from '@/components/Popups/Popups'
+
 export default {
     name: 'Label',
-    props:['label' ,'taskColor', 'user', 'colorLabels', 'editLabel', 'preventActions'],
+    props:['label' ,'taskColor', 'userData', 'colorLabels', 'editLabel', 'preventActions'],
     components:{
-        
-    },
+        Popup
+    },  
     data(){
         return{
             nothingFound: false,
-            taskIndicator: 0
+            taskIndicator: 0,
+            popupSettings: null
         }
     },
     methods:{
@@ -64,16 +73,31 @@ export default {
             }
         },
         openEditPopup(){
-            this.$emit('openPopup', {
+             if(event.target.classList.length>0){
+                if(event.target.classList[0]==='popup-disabler'){
+                    return
+                }
+            }
+            this.popupSettings =  {
+                type: 'task',
                 data: this.label,
-                type: 'label',
                 coords:{
                     top: this.$el.getBoundingClientRect().top,
                     left: this.$el.getBoundingClientRect().left,
                     elHeight: this.$el.offsetHeight
                 },
-                elPrio2: '#Color-Label'
-            })
+                elPrio2: '#Tasks .task'
+            }
+            // this.$emit('openPopup', {
+            //     data: this.label,
+            //     type: 'label',
+            //     coords:{
+            //         top: this.$el.getBoundingClientRect().top,
+            //         left: this.$el.getBoundingClientRect().left,
+            //         elHeight: this.$el.offsetHeight
+            //     },
+            //     elPrio2: '#Color-Label'
+            // })
         },
         cancel(){
             this.$emit('cancel')

@@ -17,6 +17,7 @@
     <ColorLabels
       :taskColor='taskColor'
       :preventActions="preventActions"
+      :userData="userData"
       v-on:openPopup='togglePopup'
     />
     <div 
@@ -161,7 +162,6 @@ export default {
         this.minutes = this.addZero(date.getMinutes())
         this.date = date.getDate()
         this.day = days[date.getDay()]
-        console.log(monthNames, date.getMonth())
         this.month = monthNames[date.getMonth()]
     },
     turnoff(){

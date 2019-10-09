@@ -11,7 +11,7 @@
                 :label='label'
                 :preventActions="preventActions"
                 :colorLabels="colorLabels"
-                :user="user"
+                :userData="userData"
                 :taskColor='taskColor'
                 v-on:openPopup='openPopup'
             />
@@ -44,7 +44,7 @@ import Feedback from '@/components/feedback/Feedback'
 
 export default {
     name: 'ColorLabels',
-    props:['taskColor' ,'addTask', 'chosenColorLabel', 'preventActions'],
+    props:['taskColor' ,'addTask', 'chosenColorLabel', 'preventActions', 'userData'],
     components:{
         Label,
         AddTaskLabel
@@ -52,7 +52,6 @@ export default {
     data(){
         return{
             colorLabels: [],
-            user: firebase.auth().currentUser,
             colorLabelToAdd: null
         }
     },

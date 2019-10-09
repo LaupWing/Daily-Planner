@@ -38,7 +38,7 @@ import firebase from 'firebase'
 import db from '@/firebase/init'
 export default {
     name: 'EditLabelForm',
-    props:['label','userData', 'settings'],
+    props:['userData', 'settings'],
     components:{
         Feedback
     },
@@ -48,8 +48,8 @@ export default {
             feedbackLabel: null,
             colorLabels: this.userData.colorLabels,
             user: firebase.auth().currentUser,
-            nonEditedLabel: this.label,
-            editLabel: Object.assign({}, this.label)
+            nonEditedLabel: this.settings.data,
+            editLabel: Object.assign({}, this.settings.data)
         }
     },
     methods:{
@@ -143,6 +143,9 @@ export default {
                 left:`${this.settings.coords.left+this.settings.coords.elHeight+13}px`
             }
         }
+    },
+    created(){
+        console.log(this.settings, this.settings.data, this.userData)
     }
 }
 </script>
