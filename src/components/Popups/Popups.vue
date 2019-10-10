@@ -7,6 +7,7 @@
             :settings="settings"
             :userData="userData"
             class="popup"
+            v-on:cancel="cancel"
         ></component>
         <!-- <CustomContext
             class="popup"
@@ -36,8 +37,8 @@
 
 <script>
 import CustomContext from '@/components/Planner/Task/CustomContext'
-import EditLabelForm from '@/components/Popups/Labels/EditLabelForm'
-import AddLabelForm from '@/components/Popups/Labels/AddLabelForm'
+import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
+import AddLabelForm from '@/components/Planner/ColorLabels/ColorForms/AddLabelForm'
 import checkTask from '@/components/helpers/checkLocationTask'
 import db from '@/firebase/init'
 import firebase from 'firebase'
@@ -57,8 +58,10 @@ export default {
     },
     methods:{
         togglePopup(){
+            console.log('test', event.target.classList)
             if(event.target.classList.length>0){
                 if(event.target.classList[0]==='popup-disabler'){
+                    console.log('emitting')
                     this.$emit('turnOffPopup')
                 }
             }

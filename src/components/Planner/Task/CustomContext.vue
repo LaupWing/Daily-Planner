@@ -61,9 +61,7 @@ export default {
             }
         },
         changeNotificationState(){
-            console.log(this.notificationState)
             this.notificationState === 'toggle' ? this.notificationState = 'time' : this.notificationState = 'toggle' 
-            console.log(this.notificationState)
         }
     },
     computed:{

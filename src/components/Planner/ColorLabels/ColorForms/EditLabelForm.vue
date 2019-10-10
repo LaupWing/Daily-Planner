@@ -145,7 +145,7 @@ export default {
         }
     },
     created(){
-        console.log(this.settings, this.settings.data, this.userData)
+        // console.log(this.settings, this.settings.data, this.userData)
     }
 }
 </script>

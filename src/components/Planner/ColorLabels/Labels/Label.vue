@@ -3,7 +3,7 @@
         class="label"
         :class="hoverClass" 
         :style='{background: label.color}'
-        @contextmenu.prevent="openEditPopup"
+        @contextmenu.prevent="toggleEditPopup(true)"
         @click="checkTaskWithThisColor"
     >
         <Popup
@@ -11,6 +11,7 @@
             :settings="popupSettings"
             :componentId="'EditLabelForm'"
             :userData="userData"
+            v-on:turnOffPopup="toggleEditPopup(false)"
         />
         <p 
             class="label-name" 
@@ -73,32 +74,24 @@ export default {
                 },3000)
             }
         },
-        openEditPopup(){
-             if(event.target.classList.length>0){
-                if(event.target.classList[0]==='popup-disabler'){
-                    return
+        toggleEditPopup(state){
+            if(state){
+                this.popupSettings =  {
+                    type: 'task',
+                    data: this.label,
+                    coords:{
+                        top: this.$el.getBoundingClientRect().top,
+                        left: this.$el.getBoundingClientRect().left,
+                        elHeight: this.$el.offsetHeight
+                    },
+                    elPrio2: '#Tasks .task'
                 }
+            }else{
+                // There has to be a timeout here otherwise it will trigger the click on color event
+                setTimeout(()=>{
+                    this.popupSettings = null
+                },1)
             }
-            this.popupSettings =  {
-                type: 'task',
-                data: this.label,
-                coords:{
-                    top: this.$el.getBoundingClientRect().top,
-                    left: this.$el.getBoundingClientRect().left,
-                    elHeight: this.$el.offsetHeight
-                },
-                elPrio2: '#Tasks .task'
-            }
-            // this.$emit('openPopup', {
-            //     data: this.label,
-            //     type: 'label',
-            //     coords:{
-            //         top: this.$el.getBoundingClientRect().top,
-            //         left: this.$el.getBoundingClientRect().left,
-            //         elHeight: this.$el.offsetHeight
-            //     },
-            //     elPrio2: '#Color-Label'
-            // })
         },
         cancel(){
             this.$emit('cancel')
