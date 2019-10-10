@@ -8,9 +8,17 @@
         </div>
         <div class="notification">
             <h2>Notification</h2>
-            <p class="switch" :class="{'active':checkSwitch('on')}"><i class="fas fa-check" v-if="checkSwitch('on')"></i>on</p>
-            <p class="switch" :class="{'active':checkSwitch('off')}"><i class="fas fa-check" v-if="checkSwitch('off')"></i>off</p>
-            <i class="fas fa-caret-right"></i>
+            <transition :name="notificationState" mode="out-in">
+                <div class="notification-toggle" key="1" v-if="notificationState==='toggle'">
+                    <p class="switch" :class="{'active':checkSwitch('on')}"><i class="fas fa-check" v-if="checkSwitch('on')"></i>on</p>
+                    <p class="switch" :class="{'active':checkSwitch('off')}"><i class="fas fa-check" v-if="checkSwitch('off')"></i>off</p>
+                    <i @click="changeNotificationState" class="fas fa-caret-right"></i>
+                </div>
+                <div class="notification-time"  key="2" v-else>
+                    <p>Time</p>
+                    <i @click="changeNotificationState" class="fas fa-caret-left"></i>
+                </div>
+            </transition>
         </div>
         <div class="colors" v-if="userData.colorLabels">
             <div 
@@ -40,7 +48,8 @@ export default {
     props:['settings', 'userData'],
     data(){
         return{
-            switch: 'off'
+            switch: 'off',
+            notificationState: 'toggle'
         }
     },
     methods:{
@@ -50,6 +59,11 @@ export default {
             }else{
                 return false
             }
+        },
+        changeNotificationState(){
+            console.log(this.notificationState)
+            this.notificationState === 'toggle' ? this.notificationState = 'time' : this.notificationState = 'toggle' 
+            console.log(this.notificationState)
         }
     },
     computed:{
@@ -101,20 +115,43 @@ export default {
     padding: 10px;
     border-bottom: solid rgba(0,0,0,.4) 1px;
     padding-top: 0;
+}
+#Custom-Context .notification{
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+}
+#Custom-Context .notification h2{
+    padding: 10px 15px;
+    padding-bottom: 5px;
+}
+
+#Custom-Context .notification .notification-time,
+#Custom-Context .notification .notification-toggle{
+    height: 70px;
+    padding: 10px;
     position: relative;
 }
-#Custom-Context .notification i.fa-caret-right{
+
+#Custom-Context .notification i.fa-caret-right,
+#Custom-Context .notification i.fa-caret-left{
     position: absolute;
     padding: 3px;
     cursor: pointer;
-    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     top: 0;
     bottom: 0;
 }
-#Custom-Context .notification i.fa-caret-right:hover{
+#Custom-Context .notification i.fa-caret-right{
+    right: 0;
+}
+#Custom-Context .notification i.fa-caret-left{
+    left: 0;
+}
+#Custom-Context .notification i.fa-caret-right:hover,
+#Custom-Context .notification i.fa-caret-left:hover{
     background: rgba(0,0,0,.2);
 }
 #Custom-Context .title{
@@ -249,5 +286,33 @@ export default {
 #Custom-Context .done label:hover{
     background: rgba(0,0,0,.4);
     color: white;
+}
+.toggle-enter-active {
+    animation: slideLeft .5s reverse;
+}
+.toggle-leave-active {
+    animation: slideRight .5s;
+}
+.time-enter-active {
+    animation: slideRight .5s reverse;
+}
+.time-leave-active {
+    animation: slideLeft .5s;
+}
+@keyframes slideLeft {
+    from{
+        transform: translate(0,0);
+    }
+    to{
+        transform: translate(-100%,0);
+    }
+}
+@keyframes slideRight {
+    from{
+        transform: translate(0,0);
+    }
+    to{
+        transform: translate(100%,0);
+    }
 }
 </style>
