@@ -156,7 +156,7 @@ form.popup.edit-label{
     left: 0;
     top: 0;
     background: white;
-    border-radius: 5px;
+    border-radius: 5px 5px 13px 13px;
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.37);
     z-index: 1000;
     display: flex;
