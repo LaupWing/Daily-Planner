@@ -10,8 +10,20 @@
             <h2>Notification</h2>
             <transition :name="notificationState" mode="out-in">
                 <div class="notification-toggle" key="1" v-if="notificationState==='toggle'">
-                    <p class="switch" :class="{'active':checkSwitch('on')}"><i class="fas fa-check" v-if="checkSwitch('on')"></i>on</p>
-                    <p class="switch" :class="{'active':checkSwitch('off')}"><i class="fas fa-check" v-if="checkSwitch('off')"></i>off</p>
+                    <p 
+                        class="switch" 
+                        :class="{'active':checkSwitch('on')}"
+                        @click="setSwitch('on')"    
+                    >
+                        <i class="fas fa-check" v-if="checkSwitch('on')"></i>on
+                    </p>
+                    <p 
+                        class="switch" 
+                        :class="{'active':checkSwitch('off')}"
+                        @click="setSwitch('off')"    
+                    >
+                        <i class="fas fa-check" v-if="checkSwitch('off')"></i>off
+                    </p>
                     <i @click="changeNotificationState" class="fas fa-caret-right"></i>
                 </div>
                 <div class="notification-time"  key="2" v-else>
@@ -26,13 +38,17 @@
                 v-for="(color, index) in userData.colorLabels"
                 :key="index"
                 :style="{background: color.color}" 
-                :class="{'active':JSON.stringify(settings.data.color)===JSON.stringify(color)}"
+                :class="{active :setActiveColor(color)}"
+                @click="setColorLabel(color)"
             >
                 <i class="fas fa-check"></i>
                 <p class="label-name">{{color.label}}</p>
             </div>
         </div>
-        <div class="delete">
+        <div class="delete" 
+            :class="{active : deleteTask}"
+            @click="toggleDelete"
+        >
             <i class="fas fa-trash-alt"></i>
         </div>
         <div class="done">
@@ -49,7 +65,9 @@ export default {
     data(){
         return{
             switch: 'off',
-            notificationState: 'toggle'
+            notificationState: 'toggle',
+            activeColor: this.settings.data.color.color,
+            deleteTask: false
         }
     },
     methods:{
@@ -62,6 +80,18 @@ export default {
         },
         changeNotificationState(){
             this.notificationState === 'toggle' ? this.notificationState = 'time' : this.notificationState = 'toggle' 
+        },
+        toggleDelete(){
+            this.deleteTask  = !this.deleteTask
+        },
+        setColorLabel(color){
+            this.activeColor = color.color
+        },
+        setSwitch(val){
+            this.switch = val
+        },
+        setActiveColor(color){
+            return this.activeColor === color.color
         }
     },
     computed:{
@@ -70,7 +100,7 @@ export default {
                 top: `${this.settings.coords.y}px`,
                 left: `${this.settings.coords.x}px`
             }
-        }
+        },
     }  
 }
 </script>
@@ -256,6 +286,10 @@ export default {
     padding: 10px;
     transition: .25s;
     cursor: pointer;
+}
+#Custom-Context .delete.active{
+    background: red;
+    color: white;
 }
 #Custom-Context .delete{
     border-bottom: solid rgba(0,0,0,.4) 1px;
