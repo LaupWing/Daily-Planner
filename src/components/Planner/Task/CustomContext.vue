@@ -28,7 +28,7 @@
                 </div>
                 <div class="notification-time" @click="test"  key="2" v-else>
                     <p>Minutes notify before</p>
-                    <select disabled name="setNotifyTime" id="setNotifyTime" :class="disabledSelect">
+                    <select name="setNotifyTime" id="setNotifyTime" :class="disabledSelect">
                         <option value="">5 min</option>
                         <option value="">10 min</option>
                         <option value="">15 min</option>
@@ -190,7 +190,11 @@ export default {
     opacity: .5;
 }
 #Custom-Context .notification-time select{
-    padding: 5px 10px;
+    padding: 5px 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    border-radius: 5px;
 }
 #Custom-Context .notification-time select.disabled {
     pointer-events:none;
