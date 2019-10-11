@@ -26,8 +26,17 @@
                     </p>
                     <i @click="changeNotificationState" class="fas fa-caret-right"></i>
                 </div>
-                <div class="notification-time"  key="2" v-else>
-                    <p>Time</p>
+                <div class="notification-time" @click="test"  key="2" v-else>
+                    <p>Minutes notify before</p>
+                    <select disabled name="setNotifyTime" id="setNotifyTime" :class="disabledSelect">
+                        <option value="">5 min</option>
+                        <option value="">10 min</option>
+                        <option value="">15 min</option>
+                        <option value="">20 min</option>
+                        <option value="">25 min</option>
+                        <option value="">30 min</option>
+                        <option value="">60 min</option>
+                    </select>
                     <i @click="changeNotificationState" class="fas fa-caret-left"></i>
                 </div>
             </transition>
@@ -71,6 +80,9 @@ export default {
         }
     },
     methods:{
+        test(){
+            console.log(this.switch)
+        },
         checkSwitch(state){
             if(state=== this.switch){
                 return true
@@ -100,6 +112,9 @@ export default {
                 top: `${this.settings.coords.y}px`,
                 left: `${this.settings.coords.x}px`
             }
+        },
+        disabledSelect(){
+            return this.switch === 'off' ? 'disabled' : ''
         },
     }  
 }
@@ -160,7 +175,31 @@ export default {
     padding: 10px;
     position: relative;
 }
-
+#Custom-Context .notification .notification-time{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#Custom-Context .notification-time p{
+    position: absolute;
+    top: 3px;
+    left: 0;
+    right: 0;
+    font-size: .7em;
+    text-align: center;
+    opacity: .5;
+}
+#Custom-Context .notification-time select{
+    padding: 5px 10px;
+}
+#Custom-Context .notification-time select.disabled {
+    pointer-events:none;
+    color: #bfcbd9;
+    cursor: not-allowed;
+    background-image: none;
+    background-color: #eef1f6;
+    border-color: #d1dbe5;   
+}
 #Custom-Context .notification i.fa-caret-right,
 #Custom-Context .notification i.fa-caret-left{
     position: absolute;

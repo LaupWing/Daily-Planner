@@ -158,6 +158,7 @@ body{
   background-size:cover;
   color: white;
 }
+select,
 input,
 button,
 textarea{
