@@ -28,23 +28,23 @@
         @scroll="scrollEvent"
         @click="createTask"
     >
-    <div class="indicator" @click="turnoff"></div>
-    <Timeline
-        :hours="hours"
-        :minutes="minutes"
-    />
-    <Tasks
-        :visibleTask="visibleTask"
-        :userData="userData"
-        v-on:setTask='setTask'
-        v-on:checkActiveTask='checkTaskByScroll'
-        v-on:togglePopup="togglePopup"
-    />
+        <div class="indicator" @click="turnoff"></div>
+        <Timeline
+            :hours="hours"
+            :minutes="minutes"
+        />
+        <Tasks
+            :visibleTask="visibleTask"
+            :userData="userData"
+            v-on:setTask='setTask'
+            v-on:checkActiveTask='checkTaskByScroll'
+            v-on:togglePopup="togglePopup"
+        />
     </div>
-    <GoTo
-      v-on:setupCurrentPos='setupCurrentPos'  
-      v-on:goToSpecifikTime='goToSpecifikTime'
-    />
+        <GoTo
+            v-on:setupCurrentPos='setupCurrentPos'  
+            v-on:goToSpecifikTime='goToSpecifikTime'
+        />
   </div>
   
 </template>
@@ -86,7 +86,8 @@ export default {
         taskColor: null,
         addTask: null,
         visibleTask: null,
-        currentTask: null
+        currentTask: null,
+        setTopPos: null
     }
   },
   components:{
@@ -305,16 +306,10 @@ export default {
         })
     },
   },
-  computed:{
-    setTopPos(){
-      if(!document.querySelector('#NavBar'))  return
-      return {
-        top: (document.querySelector('#NavBar').offsetHeight) + 'px'
-      }
-    }
-
-  },
   mounted(){
+        this.setTopPos =  {
+            top: (document.querySelector('#NavBar').offsetHeight) + 'px'
+        }
         this.assignInterval()
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(pos=>{
