@@ -21,7 +21,6 @@
       v-on:togglePopup="togglePopup"
     />
     <router-view
-      :preventActions="preventActions"
       :userData="userData"
       v-on:setTask='setTask'
       v-on:togglePopup='togglePopup'
@@ -53,10 +52,6 @@ export default {
       weatherData: null,
       popup: null,
       userData: null,
-      preventActions: {
-        type: null,
-        data: null
-      },
       sideNav: false
     }
   },
@@ -73,13 +68,8 @@ export default {
     togglePopup(settings){
       if(settings){
         this.popup = settings
-        this.preventActions = settings
       }else{
         this.popup = null
-        this.preventActions = {
-          type: null,
-          data: null
-        }
       }
     },
     setTask(task){

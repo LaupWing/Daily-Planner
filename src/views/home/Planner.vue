@@ -20,13 +20,11 @@
     </div>    
     <ColorLabels
       :taskColor='taskColor'
-      :preventActions="preventActions"
       :userData="userData"
       v-on:openPopup='togglePopup'
     />
     <div 
       id="planner"
-      :class="{'preventScroll':preventActions.type === 'task'}"
       @scroll="scrollEvent"
       @click="createTask"
     >
@@ -65,7 +63,7 @@ import db from '@/firebase/init'
 
 export default {
   name: '',
-  props: ['preventActions', 'userData'],
+  props: ['userData'],
   data(){
     return{
         hours: null,
@@ -184,7 +182,6 @@ export default {
         clearInterval(this.timeoutInterval)
         this.timeoutInSec = 0
         this.timeoutInterval = setInterval(()=>{
-            if(this.preventActions.type === 'task')  return
             this.timeoutInSec += 1
             if(this.timeoutInSec === this.timeToReturnInSec){
             this.assignInterval()

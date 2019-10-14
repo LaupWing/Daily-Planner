@@ -50,8 +50,7 @@ export default {
     props:[
         'task',
         'edit', 
-        'expanded', 
-        'preventActions', 
+        'expanded',
         'today', 
         'diffrence', 
         'compareTop', 

@@ -33,7 +33,7 @@ import Popup from '@/components/Popups/Popups'
 
 export default {
     name: 'Label',
-    props:['label' ,'taskColor', 'userData', 'colorLabels', 'editLabel', 'preventActions'],
+    props:['label' ,'taskColor', 'userData', 'colorLabels', 'editLabel'],
     components:{
         Popup
     },  
@@ -103,7 +103,7 @@ export default {
                 return
             }
             return {
-                'show': this.label.color.toLowerCase() === this.taskColor.toLowerCase() && this.preventActions.type !== 'label'
+                'show': this.label.color.toLowerCase() === this.taskColor.toLowerCase()
             }
         },
         hoverClass(){

@@ -44,7 +44,6 @@
             :diffrence="diffrence"
             :expanded="expanded"
             :visibleTask="visibleTask"
-            :preventActions="preventActions"
             :userData="userData"
             v-on:emitToParent="emitToParent"
             v-on:expandTask="expandTask"
@@ -67,7 +66,7 @@ export default {
         TaskMore,
         Task
     },
-    props:['preventActions', 'visibleTask','userData'],
+    props:['visibleTask','userData'],
     data(){
         return{
             tasks:[],

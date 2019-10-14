@@ -9,7 +9,6 @@
                 v-for="(label, index) in colorLabels" 
                 :key="index"
                 :label='label'
-                :preventActions="preventActions"
                 :colorLabels="colorLabels"
                 :userData="userData"
                 :taskColor='taskColor'
@@ -44,7 +43,7 @@ import Feedback from '@/components/feedback/Feedback'
 
 export default {
     name: 'ColorLabels',
-    props:['taskColor' ,'addTask', 'chosenColorLabel', 'preventActions', 'userData'],
+    props:['taskColor' ,'addTask', 'chosenColorLabel', 'userData'],
     components:{
         Label,
         AddTaskLabel
@@ -57,7 +56,6 @@ export default {
     },
     methods:{
         showAll(state){
-            if(this.preventActions.type === 'label') return
             if(state){
                 this.$el.querySelectorAll('.label-name').forEach(label=>{
                     label.classList.add('show-all')
