@@ -1,5 +1,9 @@
 <template>
   <div class="planner-container">
+    <div class="set-view" :style="setTopPos">
+      <i class="fas fa-bars"></i>
+      <i class="fas fa-table"></i>
+    </div>
     <AddTask 
       v-if="addTask"
       v-on:toggle="toggle('addTask')"
@@ -32,7 +36,6 @@
         :minutes="minutes"
       />
       <Tasks
-        :preventActions="preventActions"
         :visibleTask="visibleTask"
         :userData="userData"
         v-on:setTask='setTask'
@@ -303,7 +306,15 @@ export default {
               })
             })
         })
+    },
+  },
+  computed:{
+    setTopPos(){
+      return {
+        top: (document.querySelector('#NavBar').offsetHeight) + 'px'
+      }
     }
+
   },
   mounted(){
         this.assignInterval()
@@ -339,7 +350,30 @@ export default {
 #planner.smooth{
   scroll-behavior: smooth;
 }
-
+.planner-container .set-view{
+  position: fixed;
+  right: 0;
+  padding: 20px;
+  display: flex;
+}
+.planner-container .set-view i{
+  font-size: 1.5em;
+  margin: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  /* background: orange; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: .5;
+  transition: .25s;
+}
+.planner-container .set-view i:hover{
+  background: rgba(0,0,0,.7);
+  opacity: 1;
+  cursor: pointer;
+}
 .planner-container .addTask{
   margin-bottom: 20px;
   width: 100%;
