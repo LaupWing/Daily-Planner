@@ -1,45 +1,45 @@
 <template>
   <div class="planner-container">
     <div class="set-view" :style="setTopPos">
-      <i class="fas fa-bars"></i>
-      <i class="fas fa-table"></i>
+        <i class="fas fa-bars"></i>
+        <i class="fas fa-table"></i>
     </div>
     <AddTask 
-      v-if="addTask"
-      v-on:toggle="toggle('addTask')"
+        v-if="addTask"
+        v-on:toggle="toggle('addTask')"
     />
     <div class="addTask">
-      <div class="current-info">
-        <h2 v-if="currentTask">{{currentTask.task}}</h2>
-        <p>{{day}}, {{date}} {{month}}</p>
-      </div>
-      <button type="button" @click="toggle('addTask')">
-        Add New Task
-        <i class="far fa-calendar-plus"></i>
-      </button>
+        <div class="current-info">
+            <h2 v-if="currentTask">{{currentTask.task}}</h2>
+            <p>{{day}}, {{date}} {{month}}</p>
+        </div>
+        <button type="button" @click="toggle('addTask')">
+            Add New Task
+            <i class="far fa-calendar-plus"></i>
+        </button>
     </div>    
     <ColorLabels
-      :taskColor='taskColor'
-      :userData="userData"
-      v-on:openPopup='togglePopup'
+        :taskColor='taskColor'
+        :userData="userData"
+        v-on:openPopup='togglePopup'
     />
     <div 
-      id="planner"
-      @scroll="scrollEvent"
-      @click="createTask"
+        id="planner"
+        @scroll="scrollEvent"
+        @click="createTask"
     >
-      <div class="indicator" @click="turnoff"></div>
-      <Timeline
+    <div class="indicator" @click="turnoff"></div>
+    <Timeline
         :hours="hours"
         :minutes="minutes"
-      />
-      <Tasks
+    />
+    <Tasks
         :visibleTask="visibleTask"
         :userData="userData"
         v-on:setTask='setTask'
         v-on:checkActiveTask='checkTaskByScroll'
         v-on:togglePopup="togglePopup"
-      />
+    />
     </div>
     <GoTo
       v-on:setupCurrentPos='setupCurrentPos'  
@@ -332,135 +332,135 @@ export default {
 
 <style>
 #planner.preventScroll{
-  overflow-y: hidden;
+    overflow-y: hidden;
 }
 #planner{
-  margin: auto;
-  margin-right: 65px;
-  width: 500px;
-  display: flex;
-  max-height: 60vh;
-  overflow-y: auto;
-  position: relative;
-  position: relative;
-  scroll-behavior: smooth;
+    margin: auto;
+    margin-right: 65px;
+    width: 500px;
+    display: flex;
+    max-height: 60vh;
+    overflow-y: auto;
+    position: relative;
+    position: relative;
+    scroll-behavior: smooth;
 }
 #planner.smooth{
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 .planner-container .set-view{
-  position: fixed;
-  right: 0;
-  padding: 20px;
-  display: flex;
+    position: fixed;
+    right: 0;
+    padding: 20px;
+    display: flex;
 }
 .planner-container .set-view i{
-  font-size: 1.5em;
-  margin: 20px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  /* background: orange; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: .5;
-  transition: .25s;
+    font-size: 1.5em;
+    margin: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    /* background: orange; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: .5;
+    transition: .25s;
 }
 .planner-container .set-view i:hover{
-  background: rgba(0,0,0,.7);
-  opacity: 1;
-  cursor: pointer;
+    background: rgba(0,0,0,.7);
+    opacity: 1;
+    cursor: pointer;
 }
 .planner-container .addTask{
-  margin-bottom: 20px;
-  width: 100%;
-  text-align: center;
-  position: absolute;
-  transform: translate(0,-130%);
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    transform: translate(0,-130%);
 }
 .planner-container .addTask .current-info{
-  margin: 20px 0;
+    margin: 20px 0;
 }
 .planner-container .current-info h2{
-  font-size: 1.5em;
+    font-size: 1.5em;
 }
 .planner-container .current-info p{
-  text-transform: capitalize;
-  opacity: .5;
+    text-transform: capitalize;
+    opacity: .5;
 }
 .planner-container .addTask button{
-  font-size: .6em;
-  width: 60%;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  padding: 5px;
-  background: white;
-  opacity: .35;
-  border: none;
-  transition: .25s;
-  cursor: pointer;
+    font-size: .6em;
+    width: 60%;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 5px;
+    background: white;
+    opacity: .35;
+    border: none;
+    transition: .25s;
+    cursor: pointer;
 } 
 .planner-container .addTask button:hover{
-  opacity: 1;
+    opacity: 1;
 }
 .planner-container{
-  position: relative;
+    position: relative;
 }
 
 #planner .indicator{
-  --time: '00:00';
-  height: 1.2px;
-  width: 300px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-left: -300px;
-  background: white;
-  opacity: .8;
+    --time: '00:00';
+    height: 1.2px;
+    width: 300px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -300px;
+    background: white;
+    opacity: .8;
 }
 #planner .indicator::before{
-  content: 'Time';
-  top:-20px;
-  position: absolute;
+    content: 'Time';
+    top:-20px;
+    position: absolute;
 }
 #planner .indicator::after{
-  content: attr(time);
+    content: attr(time);
 }
 #planner::-webkit-scrollbar {
-  width: 0px;
+    width: 0px;
 }
 
 /* Track */
 #planner::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+    background: #f1f1f1; 
 }
  
 /* Handle */
 #planner::-webkit-scrollbar-thumb {
-  background: #888; 
+    background: #888; 
 }
 
 /* Handle on hover */
 #planner::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+    background: #555; 
 }
 @media only screen and (min-height: 1000px) {
-  #planner {
-    max-height:600px;
-  }
+    #planner {
+        max-height:600px;
+    }
 }
 @media only screen and (max-height: 800px) {
-  #planner {
-    max-height: 60vh;   
-    width: 450px;
-  }
-  .planner-container{
-    margin-top: 70px;
-  }
-  #planner .indicator{
-    margin-top: 35px;
-  }
+    #planner {
+        max-height: 60vh;   
+        width: 450px;
+    }
+    .planner-container{
+        margin-top: 70px;
+    }
+    #planner .indicator{
+        margin-top: 35px;
+    }
 }
 </style>
