@@ -310,6 +310,7 @@ export default {
   },
   computed:{
     setTopPos(){
+      if(!document.querySelector('#NavBar'))  return
       return {
         top: (document.querySelector('#NavBar').offsetHeight) + 'px'
       }
