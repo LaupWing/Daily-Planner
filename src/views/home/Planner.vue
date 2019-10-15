@@ -1,8 +1,8 @@
 <template>
   <div class="planner-container">
     <div class="set-view" :style="setTopPos">
-        <i class="fas fa-bars"></i>
-        <i class="fas fa-table"></i>
+        <i class="fas fa-bars" @click="view = 'single'"></i>
+        <i class="fas fa-table" @click="view = 'week'"></i>
     </div>
     <AddTask 
         v-if="addTask"
@@ -23,7 +23,14 @@
         :userData="userData"
         v-on:openPopup='togglePopup'
     />
+    <WeekView 
+        v-if="view === 'week'"
+        :date="date"
+        :month="month"
+        :currentDay="day"
+    />
     <div 
+        v-if="view === 'single'"
         id="planner"
         @scroll="scrollEvent"
         @click="createTask"
@@ -41,15 +48,17 @@
             v-on:togglePopup="togglePopup"
         />
     </div>
-        <GoTo
-            v-on:setupCurrentPos='setupCurrentPos'  
-            v-on:goToSpecifikTime='goToSpecifikTime'
-        />
+    <GoTo
+        v-if="view === 'single'"
+        v-on:setupCurrentPos='setupCurrentPos'  
+        v-on:goToSpecifikTime='goToSpecifikTime'
+    />
   </div>
   
 </template>
 
 <script>
+import WeekView from '@/components/Planner/WeekView'
 import Timeline from '@/components/Planner/Timeline'
 import GoTo from '@/components/Planner/GoTo'
 import Tasks from '@/components/Planner/Task/Tasks'
@@ -87,7 +96,8 @@ export default {
         addTask: null,
         visibleTask: null,
         currentTask: null,
-        setTopPos: null
+        setTopPos: null,
+        view: 'single'
     }
   },
   components:{
@@ -95,7 +105,8 @@ export default {
         Tasks,
         ColorLabels,
         GoTo,
-        AddTask
+        AddTask,
+        WeekView
   },
   methods:{
     test(){
