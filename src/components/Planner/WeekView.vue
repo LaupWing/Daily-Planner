@@ -52,10 +52,25 @@ export default {
         getTaskOfThisDay(day){
             if(this.dailyTasks.length === 0)    return []
             const filterTasks = this.dailyTasks
-            const filteredTasks = filterTasks.filter(task=>{
-                return task.days.find(t2=>t2.day===day)
+            const filteredTasks = filterTasks.filter(task=>task.days.find(t2=>t2.day===day))
+                // .map(task2=>{
+                //     const filteroutDays = task2.days.filter(d2=>d2.day===day)
+                //     console.log(filteroutDays)
+                //     return task2
+                // })
+            const tasksOfThisDay = []
+            filteredTasks.forEach(task=>{
+                task.days.forEach(d2=>{
+                    if(d2.day === day){
+                        tasksOfThisDay.push({
+                            task: task.task,
+                            begin: d2.begin,
+                            end: d2.end
+                        })
+                    }
                 })
-            console.log(filteredTasks, day)
+            })
+            console.log(tasksOfThisDay, day)
             // return filterTasks
             return []
         }
