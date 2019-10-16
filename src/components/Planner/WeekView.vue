@@ -13,6 +13,13 @@
                     <h3>{{day.slice(0,3)}}</h3>
                     <h3>{{date+(i-compareDateIndex)}}</h3>
                 </div>
+                <div 
+                    class="task"
+                    v-for="(task,i2) in getTaskOfThisDay(day)"
+                    :key="i2"
+                >
+
+                </div>
             </div>
         </div>   
     </div>
@@ -42,7 +49,16 @@ export default {
         }
     },
     methods:{
-
+        getTaskOfThisDay(day){
+            if(this.dailyTasks.length === 0)    return []
+            const filterTasks = this.dailyTasks
+            const filteredTasks = filterTasks.filter(task=>{
+                return task.days.find(t2=>t2.day===day)
+                })
+            console.log(filteredTasks, day)
+            // return filterTasks
+            return []
+        }
     },
     created(){
         this.compareDateIndex = this.days.findIndex((day)=>this.today===day)
@@ -78,12 +94,18 @@ export default {
 }
 #Week-View #Week{
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     height: 100%;
+    border-bottom:solid white 1px
 }
 #Week-View #Week h3{
     width: 150px;
     text-align: center;
+}
+#Week-View #Week .day{
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 #Week-View .today{
     background: orange;

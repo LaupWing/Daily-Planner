@@ -1,8 +1,16 @@
 <template>
   <div class="planner-container">
     <div class="set-view" :style="setTopPos">
-        <i class="fas fa-bars" @click="view = 'single'"></i>
-        <i class="fas fa-table" @click="view = 'week'"></i>
+        <i 
+            class="fas fa-bars" 
+            @click="view = 'single'"
+            :class="{active :view === 'single'}"
+        ></i>
+        <i 
+            class="fas fa-table" 
+            @click="view = 'week'"
+            :class="{active :view === 'week'}"
+        ></i>
     </div>
     <AddTask 
         v-if="addTask"
@@ -373,7 +381,8 @@ export default {
     opacity: .5;
     transition: .25s;
 }
-.planner-container .set-view i:hover{
+.planner-container .set-view i:hover,
+.planner-container .set-view i.active{
     background: rgba(0,0,0,.7);
     opacity: 1;
     cursor: pointer;
