@@ -7,8 +7,12 @@
                 v-for="(day,i) in days"
                 :key="i"
             >
-                <h3>{{day.slice(0,3)}}</h3>
-                <h3>{{date+(i-compareDateIndex)}}</h3>
+                <div
+                    :class="{'today': day === today}"
+                >
+                    <h3>{{day.slice(0,3)}}</h3>
+                    <h3>{{date+(i-compareDateIndex)}}</h3>
+                </div>
             </div>
         </div>   
     </div>
@@ -65,6 +69,7 @@ export default {
 #Week-View #Timeline{
     padding: 0;
     margin: 0;
+    margin-top: 70px;
 }
 #Week-View #Timeline li{
     font-size: .5em;
@@ -73,9 +78,21 @@ export default {
 }
 #Week-View #Week{
     display: flex;
+    align-items: center;
+    height: 100%;
 }
 #Week-View #Week h3{
     width: 150px;
     text-align: center;
+}
+#Week-View .today{
+    background: orange;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 50%;
 }
 </style>
