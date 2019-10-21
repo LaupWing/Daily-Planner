@@ -17,8 +17,9 @@
                     class="task"
                     v-for="(task,i2) in getTaskOfThisDay(day)"
                     :key="i2"
+                    :style="{top: 100*i2 +'px'}"
                 >
-
+                    {{task.task}}
                 </div>
             </div>
         </div>   
@@ -72,7 +73,7 @@ export default {
             })
             console.log(tasksOfThisDay, day)
             // return filterTasks
-            return []
+            return tasksOfThisDay
         }
     },
     created(){
@@ -121,6 +122,10 @@ export default {
     justify-content: center;
     align-items: center;
     display: flex;
+    position: relative;
+}
+#Week-View #Week .day .task{
+    position: absolute;
 }
 #Week-View .today{
     background: orange;
