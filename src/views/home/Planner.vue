@@ -140,13 +140,13 @@ export default {
         this.$el.querySelector('#planner').scrollTo(0,point)
     },
     setTask(task){
-      if(task.task){
-        this.currentTask = task
-      }else{
-        this.currentTask ={
-          task
+        if(task.task){
+            this.currentTask = task
+        }else{
+            this.currentTask ={
+            task
+            }
         }
-      }
     },
     togglePopup(settings){
         this.$emit('togglePopup', settings)
@@ -204,9 +204,9 @@ export default {
         this.timeoutInterval = setInterval(()=>{
             this.timeoutInSec += 1
             if(this.timeoutInSec === this.timeToReturnInSec){
-            this.assignInterval()
-            this.timeoutInSec = 0
-            clearInterval(this.timeoutInterval)
+                this.assignInterval()
+                this.timeoutInSec = 0
+                clearInterval(this.timeoutInterval)
             }
         },1000)
     },
@@ -221,7 +221,7 @@ export default {
             const taskOffsetTop = task.offsetTop
             const taskMaxpoint = taskHeight+taskOffsetTop
             if(midpoint >= taskOffsetTop && midpoint <= taskMaxpoint){
-            return task
+                return task
             }
         })
         this.visibleTask = findTask
@@ -236,12 +236,12 @@ export default {
         else{
             this.taskColor = null
             document.querySelectorAll('#Timeline li').forEach(li=>{
-            const liMin = li.offsetTop
-            const liMax = li.offsetTop + li.offsetHeight
-            li.classList.remove('opacity')
-            if(midpoint >= liMin && midpoint <= liMax){
-                li.classList.add('opacity')
-            }
+                const liMin = li.offsetTop
+                const liMax = li.offsetTop + li.offsetHeight
+                li.classList.remove('opacity')
+                if(midpoint >= liMin && midpoint <= liMax){
+                    li.classList.add('opacity')
+                }
             })
         }
     },
@@ -253,10 +253,10 @@ export default {
             const max = li.offsetTop + li.offsetHeight
             const min = li.offsetTop
             if(midpoint >= min && midpoint <= max){
-            const liTime = li.dataset.time
-            const comparePoint = Math.round(li.offsetTop + (li.offsetHeight/2))
-            const oneMinuteInPx = li.offsetHeight/30
-            let time = '00:00'
+                const liTime = li.dataset.time
+                const comparePoint = Math.round(li.offsetTop + (li.offsetHeight/2))
+                const oneMinuteInPx = li.offsetHeight/30
+                let time = '00:00'
             if(midpoint===comparePoint){
                 time = liTime
             }
@@ -271,11 +271,11 @@ export default {
                 let liTimeHours =  Number(liTime.split(':')[0])
                 let liTimeMinutes = Number(liTime.split(':')[1])
                 if(liTimeMinutes === 0 ){
-                liTimeHours = (liTimeHours !== 0) ? liTimeHours - 1 : 23
-                liTimeMinutes = 60-minutesDiffrence
-                time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes)}`
+                    liTimeHours = (liTimeHours !== 0) ? liTimeHours - 1 : 23
+                    liTimeMinutes = 60-minutesDiffrence
+                    time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes)}`
                 }else{
-                time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes-minutesDiffrence)}`
+                    time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes-minutesDiffrence)}`
                 }
             }
             document
