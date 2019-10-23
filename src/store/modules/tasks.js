@@ -23,7 +23,6 @@ const actions = {
             }
         }
         commit('setDailyTasks', [])
-
     },
     fetchUser({commit}){
         const user = firebase.auth().currentUser

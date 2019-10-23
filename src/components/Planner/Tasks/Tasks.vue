@@ -57,8 +57,8 @@ import db from '@/firebase/init'
 import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
 import {checkConnectedLi} from '@/components/helpers/timeline'
-import TaskMore from '@/components/Planner/Tasks/More/TaskMore'
-import Task from '@/components/Planner/Tasks/Task'
+import TaskMore from '@/components/Planner/Tasks/Task/More/TaskMore'
+import Task from '@/components/Planner/Tasks/Task/Task'
 
 export default {
     name: 'Tasks',
