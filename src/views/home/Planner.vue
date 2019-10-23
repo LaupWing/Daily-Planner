@@ -66,10 +66,10 @@
 </template>
 
 <script>
-import WeekView from '@/components/Planner/WeekView'
+import WeekView from '@/components/Planner/WeekView/WeekView'
 import Timeline from '@/components/Planner/Timeline'
 import GoTo from '@/components/Planner/GoTo'
-import Tasks from '@/components/Planner/Task/Tasks'
+import Tasks from '@/components/Planner/Tasks/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels/ColorLabels'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import {days} from '@/components/helpers/timeFormat'

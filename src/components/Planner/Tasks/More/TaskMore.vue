@@ -42,10 +42,10 @@
 </template>
 
 <script>
-import General from '@/components/Planner/Task/More/parts/General'
-import Week from '@/components/Planner/Task/More/parts/Week'
-import Colors from '@/components/Planner/Task/More/parts/Colors'
-import TaskNav from '@/components/Planner/Task/More/parts/TaskNav'
+import General from '@/components/Planner/Tasks/More/parts/General'
+import Week from '@/components/Planner/Tasks/More/parts/Week'
+import Colors from '@/components/Planner/Tasks/More/parts/Colors'
+import TaskNav from '@/components/Planner/Tasks/More/parts/TaskNav'
 import db from '@/firebase/init'
 import firebase from 'firebase'
 

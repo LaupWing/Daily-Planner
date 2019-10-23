@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import TaskMore from '@/components/Planner/Task/More/TaskMore'
+import TaskMore from '@/components/Planner/Tasks/More/TaskMore'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import Popup from '@/components/Popups/Popups'
 

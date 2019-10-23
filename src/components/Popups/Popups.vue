@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import CustomContext from '@/components/Planner/Task/CustomContext'
+import CustomContext from '@/components/Planner/Tasks/CustomContext'
 import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
 import AddLabelForm from '@/components/Planner/ColorLabels/ColorForms/AddLabelForm'
 import checkTask from '@/components/helpers/checkLocationTask'

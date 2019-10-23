@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import ChangeDay from '@/components/Planner/Task/More/parts/Week/ChangeDay'
+import ChangeDay from '@/components/Planner/Tasks/More/parts/Week/ChangeDay'
 export default {
     name: 'Week',
     props:['editTask', 'edit'],
