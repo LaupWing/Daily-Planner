@@ -31,90 +31,102 @@ import Navbar from '@/components/Navbar/Navbar'
 import SideBar from '@/components/SideBar/SideBar'
 import db from '@/firebase/init'
 import firebase from 'firebase'
-
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: 'App',
-  data(){
-    return{
-      currentTask: null,
-      addTask: false,
-      geolocation:{
-        lat: 52.370216,
-        lng: 4.895168
-      },
-      weatherData: null,
-      popup: null,
-      userData: null,
-      sideNav: false
+    name: 'App',
+    data(){
+        return{
+            currentTask: null,
+            addTask: false,
+            geolocation:{
+                lat: 52.370216,
+                lng: 4.895168
+            },
+            weatherData: null,
+            popup: null,
+            userData: null,
+            sideNav: false
+        }
+    },
+    computed:{
+        ...mapGetters(['getDailyTasks'])
+    },
+    components:{
+        Popups,
+        Navbar,
+        SideBar
+    },
+    methods:{
+        ...mapActions(['fetchDailyTasks', 'fetchUser']),
+        setUserData(data){
+            this.userData = data
+        },
+        togglePopup(settings){
+            if(settings){
+                this.popup = settings
+            }else{
+                this.popup = null
+            }
+        },
+        setTask(task){
+            this.currentTask = task
+        },
+        toggle(prop){
+            this[prop] = !this[prop]
+        },
+        getWeather(){
+            const proxy = "https://cors-anywhere.herokuapp.com/"
+            const api = `${proxy}https://api.darksky.net/forecast/0bfee81d0d48f12651dd1fc9ef560f04/${this.geolocation.lat},${this.geolocation.lng}`
+            fetch(api)
+                .then(res=>{
+                    return res.json()
+                })
+                .then(data=>{
+                    this.weatherData = data
+                    this.setBackground()
+                })
+                .catch(err=>{
+                    this.weatherData = err.message
+                })
+        },
+        setBackground(){
+        // document.querySelector('body').style.background = 'orange'
+            document.querySelector('body').style.setProperty('--weather-background', `url(https://source.unsplash.com/random/?${this.weatherData.currently.summary})`)
+            // For some reaseon the css var doesnt work
+            fetch(`https://source.unsplash.com/random/?${this.weatherData.currently.summary}`)
+                .then(data=>{
+                    document.querySelector('body').style.background = `linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(${data.url})`
+                    document.querySelector('body').style.backgroundSize = 'cover'
+                })
+        },
+        
+    },
+    created(){
+        if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(pos=>{
+                    this.geolocation.lat = pos.coords.latitude
+                    this.geolocation.lng = pos.coords.longitude
+                })
+                this.getWeather()
+            }else{
+                this.getWeather()
+            }
+        this.fetchUser()
+        this.fetchDailyTasks()
+        db.collection('planner')
+            .doc(firebase.auth().currentUser.uid)
+            .get()
+            .then(doc=>{
+                this.userData = doc.data()
+            })
+    },
+    mounted(){
+        setTimeout(()=>{
+
+            console.log(this.getDailyTasks)
+        },2000)
     }
-  },
-  components:{
-    Popups,
-    Navbar,
-    SideBar
-  },
-  methods:{
-    setUserData(data){
-        this.userData = data
-    },
-    togglePopup(settings){
-        if(settings){
-            this.popup = settings
-        }else{
-            this.popup = null
-        }
-    },
-    setTask(task){
-        this.currentTask = task
-    },
-    toggle(prop){
-        this[prop] = !this[prop]
-    },
-    getWeather(){
-        const proxy = "https://cors-anywhere.herokuapp.com/"
-        const api = `${proxy}https://api.darksky.net/forecast/0bfee81d0d48f12651dd1fc9ef560f04/${this.geolocation.lat},${this.geolocation.lng}`
-        fetch(api)
-            .then(res=>{
-                return res.json()
-            })
-            .then(data=>{
-                this.weatherData = data
-                this.setBackground()
-            })
-            .catch(err=>{
-                this.weatherData = err.message
-            })
-    },
-    setBackground(){
-      // document.querySelector('body').style.background = 'orange'
-        document.querySelector('body').style.setProperty('--weather-background', `url(https://source.unsplash.com/random/?${this.weatherData.currently.summary})`)
-        // For some reaseon the css var doesnt work
-        fetch(`https://source.unsplash.com/random/?${this.weatherData.currently.summary}`)
-            .then(data=>{
-                document.querySelector('body').style.background = `linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(${data.url})`
-                document.querySelector('body').style.backgroundSize = 'cover'
-            })
-    },
-    
-  },
-  created(){
-    if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(pos=>{
-                this.geolocation.lat = pos.coords.latitude
-                this.geolocation.lng = pos.coords.longitude
-            })
-            this.getWeather()
-        }else{
-            this.getWeather()
-        }
-    db.collection('planner')
-        .doc(firebase.auth().currentUser.uid)
-        .get()
-        .then(doc=>{
-            this.userData = doc.data()
-        })
-  }
 }
 </script>
 
