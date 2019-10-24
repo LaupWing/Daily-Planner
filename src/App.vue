@@ -58,7 +58,7 @@ export default {
         SideBar
     },
     methods:{
-        ...mapActions(['fetchDailyTasks', 'fetchUser']),
+        ...mapActions(['fetchDailyTasks', 'checkUser']),
         setUserData(data){
             this.userData = data
         },
@@ -112,7 +112,7 @@ export default {
             }else{
                 this.getWeather()
             }
-        this.fetchUser()
+        this.checkUser()
         this.fetchDailyTasks()
         db.collection('planner')
             .doc(firebase.auth().currentUser.uid)
