@@ -10,10 +10,6 @@
             v-if="sideNav"
         />
     </transition>
-    <AddTask 
-        v-if="addTask"
-        v-on:toggle="toggle('addTask')"
-    />
     <Popups 
         v-if="popup"
         :settings="popup"
@@ -30,8 +26,6 @@
 </template>
 
 <script>
-import AddTask from '@/components/Planner/AddTask/AddTask'
-// import CustomContext from '@/components/Popups/Tasks/CustomContext'
 import Popups from '@/components/Popups/Popups'
 import Navbar from '@/components/Navbar/Navbar'
 import SideBar from '@/components/SideBar/SideBar'
@@ -56,7 +50,6 @@ export default {
     }
   },
   components:{
-    AddTask,
     Popups,
     Navbar,
     SideBar
