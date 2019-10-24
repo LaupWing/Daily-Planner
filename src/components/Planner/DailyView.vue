@@ -6,16 +6,12 @@
         @click="createTask"
     >
         <div class="indicator" @click="turnoff"></div>
-        <Timeline
-            :hours="hours"
-            :minutes="minutes"
-        />
+        <Timeline/>
         <Tasks
             :visibleTask="visibleTask"
             :userData="userData"
             v-on:setTask='setTask'
             v-on:checkActiveTask='checkTaskByScroll'
-            v-on:togglePopup="togglePopup"
         />
     </div>
 </template>
@@ -31,14 +27,25 @@ export default {
     },
     data(){
         return{
-
+            visibleTask: null,
         }
     },
     computed:{
 
     },
     methods:{
-
+        setTask(task){
+            if(task.task){
+                this.currentTask = task
+            }else{
+                this.currentTask ={
+                    task
+                }
+            }
+        },
+        emitToParent(func, data){
+            this.$emit(func, data)
+        }
     }
 }
 </script>

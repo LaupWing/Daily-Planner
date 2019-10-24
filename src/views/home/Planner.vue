@@ -142,7 +142,7 @@ export default {
             this.currentTask = task
         }else{
             this.currentTask ={
-            task
+                task
             }
         }
     },
