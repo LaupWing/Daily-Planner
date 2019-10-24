@@ -29,7 +29,6 @@
     <ColorLabels
         :taskColor='taskColor'
         :userData="userData"
-        v-on:openPopup='togglePopup'
     />
     <WeekView 
         v-if="view === 'week'"
@@ -53,7 +52,6 @@
             :userData="userData"
             v-on:setTask='setTask'
             v-on:checkActiveTask='checkTaskByScroll'
-            v-on:togglePopup="togglePopup"
         />
     </div>
     <GoTo
@@ -147,9 +145,6 @@ export default {
             task
             }
         }
-    },
-    togglePopup(settings){
-        this.$emit('togglePopup', settings)
     },
     adjustPosition(){
         this.scrollByCode = true
