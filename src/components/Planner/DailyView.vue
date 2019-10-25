@@ -38,6 +38,20 @@ export default {
     data(){
         return{
             visibleTask: null,
+            hours: null,
+            minutes: null,
+            date: null,
+            day: null,
+            month: null,
+            distanceMinutes: null,
+            distanceHours: null,
+            settingDistanceAndAdjust: null,
+            timeoutInSec: 0,
+            timeoutInterval: null,
+            scrollByCode: false,
+            timeToReturnInSec: 300,
+            taskColor: null,
+            currentTask: null,
         }
     },
     computed:{
