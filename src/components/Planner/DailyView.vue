@@ -23,7 +23,8 @@ import Tasks from '@/components/Planner/Tasks/Tasks'
 export default {
     name: 'DailyView',
     components:{
-
+        Tasks,
+        Timeline
     },
     data(){
         return{
@@ -34,6 +35,21 @@ export default {
 
     },
     methods:{
+        emitToParent(func, data){
+            this.$emit(func, data)
+        }
+        createTask(){
+        // this.test()
+            // if(event.target.id){
+            //     if(event.target.id === 'Tasks' || event.target.id === 'planner'){
+            //     const container = this.$el.querySelector('#planner')
+            //     const clickYCoord = event.clientY
+            //     const zeroScrollCoord = container.getBoundingClientRect().top + (container.offsetHeight/2)
+            //     const begin = (clickYCoord -zeroScrollCoord) + container.scrollTop 
+            //     container.scrollTo(0,begin)
+            //     } 
+            // }
+        },
         setTask(task){
             if(task.task){
                 this.currentTask = task
@@ -43,9 +59,6 @@ export default {
                 }
             }
         },
-        emitToParent(func, data){
-            this.$emit(func, data)
-        }
     }
 }
 </script>
