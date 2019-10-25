@@ -14,7 +14,7 @@
             v-on:checkActiveTask='checkTaskByScroll'
         />
         <div>
-            <!-- Need to calculate top value -->
+            <!-- Need to calculate margin-top value by adding the planner height -->
             <GoTo
                 v-if="view === 'single'"
                 v-on:setupCurrentPos='setupCurrentPos'  
@@ -54,8 +54,7 @@ export default {
             currentTask: null,
         }
     },
-    computed:{
-
+    computed:{  
     },
     methods:{
         emitToParent(func, data){
