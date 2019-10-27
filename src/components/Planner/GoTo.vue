@@ -71,13 +71,17 @@ export default {
                 this.$el.classList.remove('active')
             }
         }
+    },
+    mounted(){
+        this.$el.style.marginTop = document.querySelector('#planner').offsetHeight+'px'
     }
 }
 </script>
 
 <style>
 #GoTo{
-    position: absolute;
+    position: fixed;
+    left: 0;
     z-index: 10;
     display: flex;
     width: 100%;

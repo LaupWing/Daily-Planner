@@ -14,10 +14,10 @@
         />
         <div>
             <!-- Need to calculate margin-top value by adding the planner height -->
-            <!-- <GoTo
+            <GoTo
                 v-on:setupCurrentPos='setupCurrentPos'  
                 v-on:goToSpecifikTime='goToSpecifikTime'
-            /> -->
+            />
         </div>
     </div>
 </template>
@@ -34,7 +34,8 @@ export default {
     name: 'DailyView',
     components:{
         Tasks,
-        Timeline
+        Timeline,
+        GoTo
     },
     props:['userData'],
     data(){

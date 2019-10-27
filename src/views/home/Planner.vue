@@ -80,7 +80,7 @@ import AddTask from '@/components/Planner/AddTask/AddTask'
 import firebase from 'firebase'
 import db from '@/firebase/init'
 
-import DailyView from '@/components/Planner/views/DailyView'
+import DailyView from '@/components/Planner/views/DailyView/DailyView'
 
 export default {
   name: '',
