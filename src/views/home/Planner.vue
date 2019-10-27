@@ -36,7 +36,11 @@
         :month="month"
         :currentDay="day"
     />
-    <div 
+    <DailyView
+        :userData="userData"
+        v-else
+    />
+    <!-- <div 
         v-if="view === 'single'"
         id="planner"
         @scroll="scrollEvent"
@@ -53,18 +57,18 @@
             v-on:setTask='setTask'
             v-on:checkActiveTask='checkTaskByScroll'
         />
-    </div>
-    <GoTo
+    </div> -->
+    <!-- <GoTo
         v-if="view === 'single'"
         v-on:setupCurrentPos='setupCurrentPos'  
         v-on:goToSpecifikTime='goToSpecifikTime'
-    />
+    /> -->
   </div>
   
 </template>
 
 <script>
-import WeekView from '@/components/Planner/WeekView/WeekView'
+import WeekView from '@/components/Planner/views/WeekView'
 import Timeline from '@/components/Planner/Timeline'
 import GoTo from '@/components/Planner/GoTo'
 import Tasks from '@/components/Planner/Tasks/Tasks'
@@ -75,6 +79,8 @@ import {monthNames} from '@/components/helpers/timeFormat'
 import AddTask from '@/components/Planner/AddTask/AddTask'
 import firebase from 'firebase'
 import db from '@/firebase/init'
+
+import DailyView from '@/components/Planner/views/DailyView'
 
 export default {
   name: '',
@@ -112,7 +118,8 @@ export default {
         ColorLabels,
         GoTo,
         AddTask,
-        WeekView
+        WeekView,
+        DailyView
   },
   methods:{
     test(){

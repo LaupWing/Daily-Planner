@@ -14,11 +14,10 @@
         />
         <div>
             <!-- Need to calculate margin-top value by adding the planner height -->
-            <GoTo
-                v-if="view === 'single'"
+            <!-- <GoTo
                 v-on:setupCurrentPos='setupCurrentPos'  
                 v-on:goToSpecifikTime='goToSpecifikTime'
-            />
+            /> -->
         </div>
     </div>
 </template>
@@ -27,13 +26,14 @@
 import Timeline from '@/components/Planner/Timeline'
 import Tasks from '@/components/Planner/Tasks/Tasks'
 import GoTo from '@/components/Planner/GoTo'
-
+import {checkConnectedLi} from '@/components/helpers/timeline'
 export default {
     name: 'DailyView',
     components:{
         Tasks,
         Timeline
     },
+    props:['userData'],
     data(){
         return{
             visibleTask: null,
@@ -66,7 +66,7 @@ export default {
         // this.test()
             // if(event.target.id){
             //     if(event.target.id === 'Tasks' || event.target.id === 'planner'){
-            //     const container = this.$el.querySelector('#planner')
+            //     const container = this.$el
             //     const clickYCoord = event.clientY
             //     const zeroScrollCoord = container.getBoundingClientRect().top + (container.offsetHeight/2)
             //     const begin = (clickYCoord -zeroScrollCoord) + container.scrollTop 
@@ -79,7 +79,7 @@ export default {
         },
         goToSpecifikTime(point){
             this.scrollByCode = false
-            this.$el.querySelector('#planner').scrollTo(0,point)
+            this.$el.scrollTo(0,point)
         },
         setTask(task){
             if(task.task){
@@ -92,7 +92,7 @@ export default {
         },
         adjustPosition(){
             this.scrollByCode = true
-            this.$el.querySelector('#planner').scrollTo(0,(this.distanceHours+this.distanceMinutes))
+            this.$el.scrollTo(0,(this.distanceHours+this.distanceMinutes))
         },
         addZero(number){
             if(number<10) return '0'+number
@@ -105,7 +105,7 @@ export default {
             const parentElOffset = currentElTime.parentElement.offsetTop
             const distance = 
                 (currentElTime.offsetTop-parentElOffset) - 
-                (this.$el.querySelector('#planner').offsetHeight/2) + 
+                (this.$el.offsetHeight/2) + 
                 (currentElTime.offsetHeight/2)
             return distance
         },
@@ -137,6 +137,7 @@ export default {
                 return
             }
             this.checkTaskByScroll()
+            console.log('clearing')
             clearInterval(this.settingDistanceAndAdjust)
             clearInterval(this.timeoutInterval)
             this.timeoutInSec = 0
@@ -150,8 +151,8 @@ export default {
             },1000)
         },
         checkTaskByScroll(){
-            const scrolled = this.$el.querySelector('#planner').scrollTop
-            const height = this.$el.querySelector('#planner').offsetHeight
+            const scrolled = this.$el.scrollTop
+            const height = this.$el.offsetHeight
             const midpoint = scrolled + (height/2)
             if(document.querySelectorAll('.task')===undefined) return
             const tasks = Array.from(document.querySelectorAll('.task'))
@@ -185,8 +186,8 @@ export default {
             }
         },
         setTimeIndicator(){
-            const scrolled = this.$el.querySelector('#planner').scrollTop
-            const height = this.$el.querySelector('#planner').offsetHeight
+            const scrolled = this.$el.scrollTop
+            const height = this.$el.offsetHeight
             const midpoint = Math.round(scrolled + (height/2))
             this.$el.querySelectorAll('#Timeline li').forEach(li=>{
                 const max = li.offsetTop + li.offsetHeight
