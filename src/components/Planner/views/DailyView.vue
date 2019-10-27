@@ -27,6 +27,9 @@ import Timeline from '@/components/Planner/Timeline'
 import Tasks from '@/components/Planner/Tasks/Tasks'
 import GoTo from '@/components/Planner/GoTo'
 import {checkConnectedLi} from '@/components/helpers/timeline'
+import {days} from '@/components/helpers/timeFormat'
+import {monthNames} from '@/components/helpers/timeFormat'
+
 export default {
     name: 'DailyView',
     components:{
@@ -143,6 +146,7 @@ export default {
             this.timeoutInSec = 0
             this.timeoutInterval = setInterval(()=>{
                 this.timeoutInSec += 1
+                // console.log(this.timeoutInSec)
                 if(this.timeoutInSec === this.timeToReturnInSec){
                     this.assignInterval()
                     this.timeoutInSec = 0
@@ -228,6 +232,7 @@ export default {
             this.setTime()
             this.distanceMinutes = this.getMinutesDistance()
             this.distanceHours = this.getDistanceHours()
+            console.log('assiging')
             this.adjustPosition()
         },
         assignInterval(){
@@ -235,6 +240,9 @@ export default {
                 this.setupCurrentPos()
             },1000)
         },
+    },
+    mounted(){
+        this.assignInterval()
     }
 }
 </script>

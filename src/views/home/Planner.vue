@@ -57,8 +57,8 @@
             v-on:setTask='setTask'
             v-on:checkActiveTask='checkTaskByScroll'
         />
-    </div> -->
-    <!-- <GoTo
+    </div>
+    <GoTo
         v-if="view === 'single'"
         v-on:setupCurrentPos='setupCurrentPos'  
         v-on:goToSpecifikTime='goToSpecifikTime'
@@ -205,6 +205,7 @@ export default {
         this.timeoutInSec = 0
         this.timeoutInterval = setInterval(()=>{
             this.timeoutInSec += 1
+            console.log(this.timeoutInSec)
             if(this.timeoutInSec === this.timeToReturnInSec){
                 this.assignInterval()
                 this.timeoutInSec = 0
@@ -291,6 +292,7 @@ export default {
         this.distanceMinutes = this.getMinutesDistance()
         this.distanceHours = this.getDistanceHours()
         this.adjustPosition()
+        console.log('auto setting')
     },
     assignInterval(){
         this.settingDistanceAndAdjust = setInterval(()=>{
@@ -331,7 +333,7 @@ export default {
         this.setTopPos =  {
             top: (document.querySelector('#NavBar').offsetHeight) + 'px'
         }
-        this.assignInterval()
+        // this.assignInterval()
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(pos=>{
                 this.geolocation.lat = pos.coords.latitude
