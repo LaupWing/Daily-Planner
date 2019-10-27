@@ -205,7 +205,6 @@ export default {
         this.timeoutInSec = 0
         this.timeoutInterval = setInterval(()=>{
             this.timeoutInSec += 1
-            console.log(this.timeoutInSec)
             if(this.timeoutInSec === this.timeToReturnInSec){
                 this.assignInterval()
                 this.timeoutInSec = 0

@@ -141,13 +141,11 @@ export default {
                 return
             }
             this.checkTaskByScroll()
-            console.log('clearing')
             clearInterval(this.settingDistanceAndAdjust)
             clearInterval(this.timeoutInterval)
             this.timeoutInSec = 0
             this.timeoutInterval = setInterval(()=>{
                 this.timeoutInSec += 1
-                // console.log(this.timeoutInSec)
                 if(this.timeoutInSec === this.timeToReturnInSec){
                     this.assignInterval()
                     this.timeoutInSec = 0
@@ -233,7 +231,6 @@ export default {
             this.setTime()
             this.distanceMinutes = this.getMinutesDistance()
             this.distanceHours = this.getDistanceHours()
-            console.log('assiging')
             this.adjustPosition()
         },
         assignInterval(){
