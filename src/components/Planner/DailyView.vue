@@ -1,6 +1,5 @@
 <template>
     <div 
-        v-if="view === 'single'"
         id="planner"
         @scroll="scrollEvent"
         @click="createTask"
