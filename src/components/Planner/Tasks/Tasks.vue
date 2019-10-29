@@ -1,5 +1,5 @@
 <template>
-    <div id="Tasks"> 
+    <div id="Tasks" @click="test"> 
         <!-- <div 
             class="task"
             v-for="(task, index) in tasks"
@@ -35,7 +35,7 @@
             </div>
         </div> -->
         <Task
-            v-for="(task, index) in tasks"
+            v-for="(task, index) in tasksOfToday"
             :key="index"
             :task="task"
             :edit="edit"
@@ -86,7 +86,9 @@ export default {
     computed:{
         ...mapGetters(['getDailyTasks']),
         tasksOfToday(){
-            console.log(this.getDailyTasks)
+            if(this.getDailyTasks.length > 0){
+                this.checkCurrentTask()
+            }
             return this.getDailyTasks
                 .filter(task=>{
                     const date = new Date()
@@ -98,9 +100,19 @@ export default {
                         return task
                     }
                 })
-        }
+        },
+        // taskWatchStarter(){
+        //     const dailyTasks = this.getDailyTasks
+        //     console.log(dailyTasks)
+        //     if(this.getDailyTasks.length>0){
+        //         this.taskWatcher()
+        //     }
+        // }
     },
     methods:{
+        test(){
+            console.log(this.tasksOfToday)
+        },
         emitToParent(method){
             this.$emit(method)
         },
@@ -134,7 +146,8 @@ export default {
             },60000)
         },
         taskWatcher(){
-            const findTask = this.tasks.find((task)=>{
+            // console.log(this.tasksOfToday, 'go')
+            const findTask = this.tasksOfToday.find((task)=>{
                 const begin = converDateToMS(this.getTimeOfThisDay('begin', task))
                 const end = converDateToMS(this.getTimeOfThisDay('end', task))
                 const currentTimeInMS = converDateToMS()
@@ -143,6 +156,7 @@ export default {
                 }
 
             })
+            console.log(findTask)
             if(findTask){
                 this.changeTimeSize(findTask)
                 // For the message under the current time
@@ -247,10 +261,10 @@ export default {
         }
     },
     mounted(){
-        this.getTasks(()=>{
-            this.checkCurrentTask()
-            this.taskWatcher()
-        })
+        // this.getTasks(()=>{
+            // this.checkCurrentTask()
+            // this.taskWatcher()
+        // })
         setTimeout(()=>{
             console.log(this.tasksOfToday)
         },2000)
