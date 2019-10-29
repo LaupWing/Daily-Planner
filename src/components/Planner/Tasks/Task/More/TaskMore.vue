@@ -48,6 +48,8 @@ import Colors from '@/components/Planner/Tasks/Task/More/parts/Colors'
 import TaskNav from '@/components/Planner/Tasks/Task/More/parts/TaskNav'
 import db from '@/firebase/init'
 import firebase from 'firebase'
+import { mapGetters, mapActions } from 'vuex'
+
 
 export default {
     name:'TaskMore',
@@ -68,6 +70,7 @@ export default {
         }
     },
     methods:{
+        ...mapActions(['updateTask']),
         contractTask(){
             this.$emit('contractTask')
         },
@@ -106,16 +109,21 @@ export default {
                     return task
                 }
             })
-            db
-                .collection('planner')
-                .doc(firebase.auth().currentUser.uid)
-                .update({
-                    dailyTasks: this.dailyTasks
-                })
+            this.updateTask(this.dailyTasks)
                 .then(()=>{
                     this.edit = false
                     this.contractTask()
                 })
+            // db
+            //     .collection('planner')
+            //     .doc(firebase.auth().currentUser.uid)
+            //     .update({
+            //         dailyTasks: this.dailyTasks
+            //     })
+            //     .then(()=>{
+            //         this.edit = false
+            //         this.contractTask()
+            //     })
         },
         acceptChanges(){
             this.resetTimeline()

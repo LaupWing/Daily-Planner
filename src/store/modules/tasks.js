@@ -27,12 +27,24 @@ const actions = {
     checkUser({commit}){
         const user = firebase.auth().currentUser
         commit('setUser', user)
+    },
+    async updateTask({commit}, updatedTask){
+        return await db
+                .collection('planner')
+                .doc(firebase.auth().currentUser.uid)
+                .update({
+                    dailyTasks: updatedTask
+                })
+                .then(()=>{
+                    commit('updateTask', updatedTask)
+                })
     }
 }
 
 const mutations = {
     setUser: (state,user) => (state.currentUser = user),
-    setDailyTasks: (state, dailyTasks)=> (state.dailyTasks = dailyTasks)
+    setDailyTasks: (state, dailyTasks)=> (state.dailyTasks = dailyTasks),
+    updateTask: (state,updatedTasks)=>(state.dailyTasks = updatedTasks)
 }
 
 export default {
