@@ -31,7 +31,7 @@ const actions = {
     updateTask({commit}, updatedTask){
         return db
                 .collection('planner')
-                .doc(firebase.auth().currentUser.uid)
+                .doc(state.currentUser.uid)
                 .update({
                     dailyTasks: updatedTask
                 })
@@ -42,7 +42,7 @@ const actions = {
     addNewTask({commit}, addedTaskToDailyTasks){
         return db
             .collection('planner')
-            .doc(firebase.auth().currentUser.uid)
+            .doc(state.currentUser.uid)
             .update({
                 dailyTasks: addedTaskToDailyTasks
             })

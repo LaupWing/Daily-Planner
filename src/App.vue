@@ -103,6 +103,10 @@ export default {
         
     },
     created(){
+        firebase.auth().onAuthStateChanged(()=>{
+            this.checkUser()
+        })
+        this.checkUser()
         if(navigator.geolocation){
                 navigator.geolocation.getCurrentPosition(pos=>{
                     this.geolocation.lat = pos.coords.latitude
@@ -112,7 +116,6 @@ export default {
             }else{
                 this.getWeather()
             }
-        this.checkUser()
         this.fetchDailyTasks()
         db.collection('planner')
             .doc(firebase.auth().currentUser.uid)
