@@ -68,7 +68,7 @@ import {checkOverlap} from '@/components/helpers/overlap'
 import {addDayToMsg} from '@/components/helpers/overlap'
 import ColorLabels from '@/components/Planner/ColorLabels/ColorLabels'
 import Days from '@/components/Planner/AddTask/parts/Days'
-
+import { mapGetters, mapActions } from 'vuex'
 
 import firebase from 'firebase'
 import db from '@/firebase/init'
@@ -103,6 +103,7 @@ export default {
         }
     },
     methods:{
+        ...mapActions(['addNewTask']),
         updateDaysAndTime(days){
             this.days = days
         },
@@ -158,27 +159,30 @@ export default {
         },
         updateDailyTasks(taskObj){
             this.dailyTasks.push(taskObj)
-            db
-                .collection('planner')
-                .doc(this.user.uid)
-                .update({
-                    dailyTasks: this.dailyTasks
-                })
+            this.addNewTask(this.dailyTasks)
                 .then(()=>{
-                    console.log('updated')
                     this.toggle()
                 })
-                .catch(()=>{
-                    db
-                        .collection('planner')
-                        .doc(this.user.uid)
-                        .set({
-                            dailyTasks: this.dailyTasks
-                        })
-                        .then(()=>{
-                            this.toggle()
-                        })
-                })
+            // db
+            //     .collection('planner')
+            //     .doc(this.user.uid)
+            //     .update({
+            //         dailyTasks: this.dailyTasks
+            //     })
+            //     .then(()=>{
+            //         this.toggle()
+            //     })
+            //     .catch(()=>{
+            //         db
+            //             .collection('planner')
+            //             .doc(this.user.uid)
+            //             .set({
+            //                 dailyTasks: this.dailyTasks
+            //             })
+            //             .then(()=>{
+            //                 this.toggle()
+            //             })
+            //     })
         },
         settingData(obj){
             this[obj.type] = obj.value
