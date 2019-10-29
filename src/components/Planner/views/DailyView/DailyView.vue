@@ -174,10 +174,16 @@ export default {
                     li.classList.add('opacity')
                 })
                 findTask.classList.add('opacity')
-                this.taskColor = findTask.style.background
+                this.$emit('setData', {
+                    data:'taskColor',
+                    value: findTask.style.background
+                })
             }
             else{
-                this.taskColor = null
+                this.$emit('setData', {
+                    data:'taskColor',
+                    value: null
+                })
                 document.querySelectorAll('#Timeline li').forEach(li=>{
                     const liMin = li.offsetTop
                     const liMax = li.offsetTop + li.offsetHeight
