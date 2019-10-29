@@ -111,7 +111,7 @@ export default {
     },
     methods:{
         test(){
-            console.log(this.tasksOfToday)
+            // console.log(this.tasksOfToday)
         },
         emitToParent(method){
             this.$emit(method)
@@ -156,7 +156,6 @@ export default {
                 }
 
             })
-            console.log(findTask)
             if(findTask){
                 this.changeTimeSize(findTask)
                 // For the message under the current time
@@ -275,6 +274,7 @@ export default {
             snapshot.docChanges().forEach(change=>{
                 const userId = firebase.auth().currentUser.uid
                 if(change.type === 'modified' && change.doc.id === userId){
+                    console.log(change)
                     if(!this.preventStateChangeFlag){
                         this.getTasks(()=>{
                             // this.taskHeightAndPosition()

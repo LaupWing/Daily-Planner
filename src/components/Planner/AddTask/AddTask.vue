@@ -158,7 +158,6 @@ export default {
         },
         updateDailyTasks(taskObj){
             this.dailyTasks.push(taskObj)
-            console.log(this.dailyTasks)
             db
                 .collection('planner')
                 .doc(this.user.uid)
