@@ -59,6 +59,7 @@ import {days} from '@/components/helpers/timeFormat'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import TaskMore from '@/components/Planner/Tasks/Task/More/TaskMore'
 import Task from '@/components/Planner/Tasks/Task/Task'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'Tasks',
@@ -80,6 +81,23 @@ export default {
             taskHeightWhenExpanded: 250,
             compareTop: null,
             diffrence: null
+        }
+    },
+    computed:{
+        ...mapGetters(['getDailyTasks']),
+        tasksOfToday(){
+            console.log(this.getDailyTasks)
+            return this.getDailyTasks
+                .filter(task=>{
+                    const date = new Date()
+                    const dateNumber =  date.getDay()
+                    const currentDay = days[dateNumber]
+                    this.today = currentDay
+                    const checkDay = task.days.some(day=>day.day===currentDay)
+                    if(checkDay){
+                        return task
+                    }
+                })
         }
     },
     methods:{
@@ -233,6 +251,9 @@ export default {
             this.checkCurrentTask()
             this.taskWatcher()
         })
+        setTimeout(()=>{
+            console.log(this.tasksOfToday)
+        },2000)
 
         // This Snapchot change is currntly only use for checking the color label changes
         let ref = db.collection('planner')
