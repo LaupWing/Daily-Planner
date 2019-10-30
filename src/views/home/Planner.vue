@@ -39,6 +39,7 @@
     <DailyView
         :userData="userData"
         v-on:setData="setData"
+        v-on:setCurrentTask="setCurrentTask"
         v-else
     />
   </div>
@@ -54,6 +55,7 @@ import firebase from 'firebase'
 import db from '@/firebase/init'
 import DailyView from '@/components/Planner/views/DailyView/DailyView'
 import { mapGetters, mapActions } from 'vuex'
+import {monthNames} from '@/components/helpers/timeFormat'
 
 export default {
   name: '',
@@ -101,6 +103,15 @@ export default {
             //     } 
             // }
         },
+        setDate(){
+            const date = new Date()
+            this.day = date.getDate()
+            this.month = monthNames[date.getMonth()]
+        },
+        setCurrentTask(data){
+            this.currentTask =data
+            console.log(data)
+        },
         updateAndGetUserData(){
             const user = firebase.auth().currentUser
             const ref = db.collection('users')
@@ -130,8 +141,11 @@ export default {
                     })
                 })
         },
-  },
-  mounted(){
+    },
+    created(){
+        this.setDate()  
+    },
+    mounted(){
         this.setTopPos =  {
             top: (document.querySelector('#NavBar').offsetHeight) + 'px'
         }
@@ -146,7 +160,7 @@ export default {
         else{
             this.updateAndGetUserData()
         }
-  }
+    }
 }
 </script>
 

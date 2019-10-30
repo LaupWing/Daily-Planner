@@ -9,8 +9,8 @@
         <Tasks
             :visibleTask="visibleTask"
             :userData="userData"
-            v-on:setTask='setTask'
             v-on:checkActiveTask='checkTaskByScroll'
+            v-on:setTask='setTask'
         />
         <div>
             <!-- Need to calculate margin-top value by adding the planner height -->
@@ -86,13 +86,8 @@ export default {
             this.$el.scrollTo(0,point)
         },
         setTask(task){
-            if(task.task){
-                this.currentTask = task
-            }else{
-                this.currentTask ={
-                    task
-                }
-            }
+            console.log(task)
+            task.task ? this.$emit('setCurrentTask', task) : this.$emit('setCurrentTask', {task})
         },
         adjustPosition(){
             this.scrollByCode = true
