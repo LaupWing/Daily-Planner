@@ -80,7 +80,7 @@ import {monthNames} from '@/components/helpers/timeFormat'
 import AddTask from '@/components/Planner/AddTask/AddTask'
 import firebase from 'firebase'
 import db from '@/firebase/init'
-
+import { mapGetters, mapActions } from 'vuex'
 import DailyView from '@/components/Planner/views/DailyView/DailyView'
 
 export default {
@@ -123,6 +123,7 @@ export default {
         DailyView
     },
     methods:{
+        ...mapActions(['fetchDailyTasks']),
         setData({data,value}){
             this[data] = value
         },
@@ -336,6 +337,7 @@ export default {
         this.setTopPos =  {
             top: (document.querySelector('#NavBar').offsetHeight) + 'px'
         }
+        this.fetchDailyTasks()
         // this.assignInterval()
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(pos=>{

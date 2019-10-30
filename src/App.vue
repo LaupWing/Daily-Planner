@@ -116,7 +116,7 @@ export default {
             }else{
                 this.getWeather()
             }
-        this.fetchDailyTasks()
+        // this.fetchDailyTasks()
         db.collection('planner')
             .doc(firebase.auth().currentUser.uid)
             .get()
