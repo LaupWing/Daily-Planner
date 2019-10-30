@@ -1,39 +1,5 @@
 <template>
-    <div id="Tasks" @click="test"> 
-        <!-- <div 
-            class="task"
-            v-for="(task, index) in tasks"
-            :class="{
-                'expanded':expanded === task, 
-                'activeByEdit':JSON.stringify(preventActions.data)===JSON.stringify(task)
-            }"
-            :key="index"
-            :data-begin="getTimeOfThisDay('begin', task)"
-            :data-end="getTimeOfThisDay('end', task)"
-            :style="{
-                background: task.color.color
-            }"
-            @click="clickOnTask(task)"
-            @contextmenu="openTab(task)"
-        >
-            <TaskMore
-                :task="task"
-                :edit="edit"
-                :today="today"
-                v-if="expanded === task"
-                v-on:contractTask="contractTask"
-                v-on:preventStateChange='preventStateChange'
-                v-on:updateFinished="updateFinished"
-
-            />
-            <div class="info" v-else>
-                <p class="task-name" v-if="edit !== task">{{task.task}}</p>
-                <div class="time">
-                    <p class="task-begin" v-if="edit !== task">{{getTimeOfThisDay('begin', task)}}-</p>
-                    <p class="task-end" v-if="edit !== task">{{getTimeOfThisDay('end', task)}}</p>
-                </div>
-            </div>
-        </div> -->
+    <div id="Tasks"> 
         <Task
             v-for="(task, index) in tasksOfToday"
             :key="index"
@@ -100,19 +66,9 @@ export default {
                         return task
                     }
                 })
-        },
-        // taskWatchStarter(){
-        //     const dailyTasks = this.getDailyTasks
-        //     console.log(dailyTasks)
-        //     if(this.getDailyTasks.length>0){
-        //         this.taskWatcher()
-        //     }
-        // }
+        }
     },
     methods:{
-        test(){
-            // console.log(this.tasksOfToday)
-        },
         emitToParent(method){
             this.$emit(method)
         },

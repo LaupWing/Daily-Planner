@@ -47,18 +47,13 @@
 
 <script>
 import WeekView from '@/components/Planner/views/WeekView'
-import Timeline from '@/components/Planner/Timeline'
-import GoTo from '@/components/Planner/GoTo'
 import Tasks from '@/components/Planner/Tasks/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels/ColorLabels'
-import {checkConnectedLi} from '@/components/helpers/timeline'
-import {days} from '@/components/helpers/timeFormat'
-import {monthNames} from '@/components/helpers/timeFormat'
 import AddTask from '@/components/Planner/AddTask/AddTask'
 import firebase from 'firebase'
 import db from '@/firebase/init'
-import { mapGetters, mapActions } from 'vuex'
 import DailyView from '@/components/Planner/views/DailyView/DailyView'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: '',
@@ -70,31 +65,21 @@ export default {
             date: null,
             day: null,
             month: null,
-            distanceMinutes: null,
-            distanceHours: null,
-            settingDistanceAndAdjust: null,
-            timeoutInSec: 0,
-            timeoutInterval: null,
-            scrollByCode: false,
             user: null,
-            timeToReturnInSec: 300,
             geolocation:{
                 lat: 52.370216,
                 lng: 4.895168
             },
             taskColor: null,
             addTask: null,
-            visibleTask: null,
             currentTask: null,
             setTopPos: null,
             view: 'single'
         }
     },
     components:{
-        Timeline,
         Tasks,
         ColorLabels,
-        GoTo,
         AddTask,
         WeekView,
         DailyView
@@ -103,9 +88,6 @@ export default {
         ...mapActions(['fetchDailyTasks']),
         setData({data,value}){
             this[data] = value
-        },
-        test(){
-            console.log(this.visibleTask)
         },
         createTask(){
         // this.test()
@@ -131,8 +113,8 @@ export default {
                     .doc(doc.id)
                     .update({
                         geolocation:{
-                        lat: this.geolocation.lat,
-                        lng: this.geolocation.lng
+                            lat: this.geolocation.lat,
+                            lng: this.geolocation.lng
                         }
                     })
                 })
@@ -142,9 +124,9 @@ export default {
                     .where('user_id', '==',user.uid)
                     .get()
                     .then(snapshot=>{
-                    snapshot.forEach(doc=>{
-                        this.user = doc.data()
-                    })
+                        snapshot.forEach(doc=>{
+                            this.user = doc.data()
+                        })
                     })
                 })
         },
@@ -154,7 +136,6 @@ export default {
             top: (document.querySelector('#NavBar').offsetHeight) + 'px'
         }
         this.fetchDailyTasks()
-        // this.assignInterval()
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(pos=>{
                 this.geolocation.lat = pos.coords.latitude
