@@ -12,6 +12,11 @@
             v-on:checkActiveTask='checkTaskByScroll'
             v-on:setTask='setTask'
         />
+        <div class="controls">
+            <Actions
+                :visibleTask="visibleTask"
+            />
+        </div>
         <div>
             <!-- Need to calculate margin-top value by adding the planner height -->
             <GoTo
@@ -26,6 +31,7 @@
 import Timeline from '@/components/Planner/Timeline'
 import Tasks from '@/components/Planner/Tasks/Tasks'
 import GoTo from '@/components/Planner/GoTo'
+import Actions from '@/components/Planner/views/DailyView/parts/Actions'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import {days} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'
@@ -35,7 +41,8 @@ export default {
     components:{
         Tasks,
         Timeline,
-        GoTo
+        GoTo,
+        Actions
     },
     props:['userData'],
     data(){
