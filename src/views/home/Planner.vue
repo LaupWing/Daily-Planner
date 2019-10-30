@@ -41,29 +41,6 @@
         v-on:setData="setData"
         v-else
     />
-    <!-- <div 
-        v-if="view === 'single'"
-        id="planner"
-        @scroll="scrollEvent"
-        @click="createTask"
-    >
-        <div class="indicator" @click="turnoff"></div>
-        <Timeline
-            :hours="hours"
-            :minutes="minutes"
-        />
-        <Tasks
-            :visibleTask="visibleTask"
-            :userData="userData"
-            v-on:setTask='setTask'
-            v-on:checkActiveTask='checkTaskByScroll'
-        />
-    </div>
-    <GoTo
-        v-if="view === 'single'"
-        v-on:setupCurrentPos='setupCurrentPos'  
-        v-on:goToSpecifikTime='goToSpecifikTime'
-    /> -->
   </div>
   
 </template>
@@ -142,195 +119,34 @@ export default {
             //     } 
             // }
         },
-        toggle(prop){
-            this[prop] = !this[prop]
-        },
-        goToSpecifikTime(point){
-            this.scrollByCode = false
-            this.$el.querySelector('#planner').scrollTo(0,point)
-        },
-        setTask(task){
-            if(task.task){
-                this.currentTask = task
-            }else{
-                this.currentTask ={
-                    task
-                }
-            }
-        },
-        adjustPosition(){
-            this.scrollByCode = true
-            this.$el.querySelector('#planner').scrollTo(0,(this.distanceHours+this.distanceMinutes))
-        },
-        addZero(number){
-            if(number<10) return '0'+number
-            else          return number
-        },
-        getDistanceHours(){
-            const currentElTime = Array.from(this.$el.querySelectorAll('#Timeline li'))
-                .filter(el=>el.textContent.includes(':'))
-                .find(el=>el.textContent.split(':')[0]===String(this.hours))
-            const parentElOffset = currentElTime.parentElement.offsetTop
-            const distance = 
-                (currentElTime.offsetTop-parentElOffset) - 
-                (this.$el.querySelector('#planner').offsetHeight/2) + 
-                (currentElTime.offsetHeight/2)
-            return distance
-        },
-        getMinutesDistance(){
-            const li = document.querySelector('#Timeline li')
-            const totalDistance = li.offsetHeight*2
-            const distancePerMinute = totalDistance/60
-            const distance = distancePerMinute * this.minutes
-            return distance
-        },
-        setTime(){
-            const date = new Date()
-            this.hours = this.addZero(date.getHours())
-            this.minutes = this.addZero(date.getMinutes())
-            this.date = date.getDate()
-            this.day = days[date.getDay()]
-            this.month = monthNames[date.getMonth()]
-        },
-        turnoff(){
-        // clearInterval(this.settingDistanceAndAdjust)
-        },
-        scrollEvent(){
-            this.setTimeIndicator()
-            if(this.scrollByCode){
-                setTimeout(()=>{
-                this.scrollByCode = false
-                this.checkTaskByScroll()
-                },500)
-                return
-            }
-            this.checkTaskByScroll()
-            clearInterval(this.settingDistanceAndAdjust)
-            clearInterval(this.timeoutInterval)
-            this.timeoutInSec = 0
-            this.timeoutInterval = setInterval(()=>{
-                this.timeoutInSec += 1
-                if(this.timeoutInSec === this.timeToReturnInSec){
-                    this.assignInterval()
-                    this.timeoutInSec = 0
-                    clearInterval(this.timeoutInterval)
-                }
-            },1000)
-        },
-        checkTaskByScroll(){
-            const scrolled = this.$el.querySelector('#planner').scrollTop
-            const height = this.$el.querySelector('#planner').offsetHeight
-            const midpoint = scrolled + (height/2)
-            if(document.querySelectorAll('.task')===undefined) return
-            const tasks = Array.from(document.querySelectorAll('.task'))
-            const findTask = tasks.find(task=>{
-                const taskHeight = task.offsetHeight
-                const taskOffsetTop = task.offsetTop
-                const taskMaxpoint = taskHeight+taskOffsetTop
-                if(midpoint >= taskOffsetTop && midpoint <= taskMaxpoint){
-                    return task
-                }
-            })
-            this.visibleTask = findTask
-            if(findTask){
-                const connectedLi = checkConnectedLi(findTask)
-                connectedLi.forEach(li=>{
-                    li.classList.add('opacity')
-                })
-                findTask.classList.add('opacity')
-                this.taskColor = findTask.style.background
-            }
-            else{
-                this.taskColor = null
-                document.querySelectorAll('#Timeline li').forEach(li=>{
-                    const liMin = li.offsetTop
-                    const liMax = li.offsetTop + li.offsetHeight
-                    li.classList.remove('opacity')
-                    if(midpoint >= liMin && midpoint <= liMax){
-                        li.classList.add('opacity')
-                    }
-                })
-            }
-        },
-        setTimeIndicator(){
-            const scrolled = this.$el.querySelector('#planner').scrollTop
-            const height = this.$el.querySelector('#planner').offsetHeight
-            const midpoint = Math.round(scrolled + (height/2))
-            this.$el.querySelectorAll('#Timeline li').forEach(li=>{
-                const max = li.offsetTop + li.offsetHeight
-                const min = li.offsetTop
-                if(midpoint >= min && midpoint <= max){
-                    const liTime = li.dataset.time
-                    const comparePoint = Math.round(li.offsetTop + (li.offsetHeight/2))
-                    const oneMinuteInPx = li.offsetHeight/30
-                    let time = '00:00'
-                if(midpoint===comparePoint){
-                    time = liTime
-                }
-                else if(midpoint > comparePoint){
-                    const minutesDiffrence = Math.round((midpoint-comparePoint)/oneMinuteInPx)
-                    const liTimeHours =  Number(liTime.split(':')[0])
-                    const liTimeMinutes = Number(liTime.split(':')[1])
-                    time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes+minutesDiffrence)}` 
-                }
-                else if(midpoint < comparePoint){
-                    const minutesDiffrence = Math.round((comparePoint-midpoint)/oneMinuteInPx)
-                    let liTimeHours =  Number(liTime.split(':')[0])
-                    let liTimeMinutes = Number(liTime.split(':')[1])
-                    if(liTimeMinutes === 0 ){
-                        liTimeHours = (liTimeHours !== 0) ? liTimeHours - 1 : 23
-                        liTimeMinutes = 60-minutesDiffrence
-                        time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes)}`
-                    }else{
-                        time = `${this.addZero(liTimeHours)}:${this.addZero(liTimeMinutes-minutesDiffrence)}`
-                    }
-                }
-                document
-                        .querySelector('#planner .indicator')
-                        .setAttribute('time', `${time}`)
-                }
-            })
-        },
-        setupCurrentPos(){
-            this.setTime()
-            this.distanceMinutes = this.getMinutesDistance()
-            this.distanceHours = this.getDistanceHours()
-            this.adjustPosition()
-            console.log('auto setting')
-        },
-        assignInterval(){
-            this.settingDistanceAndAdjust = setInterval(()=>{
-                this.setupCurrentPos()
-            },1000)
-        },
         updateAndGetUserData(){
-        const user = firebase.auth().currentUser
-        const ref = db.collection('users')
-        ref
-            .where('user_id', '==', user.uid)
-            .get()
-            .then(snapshot=>{
-            snapshot.forEach(doc=>{
-                ref
-                .doc(doc.id)
-                .update({
-                    geolocation:{
-                    lat: this.geolocation.lat,
-                    lng: this.geolocation.lng
-                    }
-                })
-            })
-            })
-            .then(()=>{
+            const user = firebase.auth().currentUser
+            const ref = db.collection('users')
             ref
-                .where('user_id', '==',user.uid)
+                .where('user_id', '==', user.uid)
                 .get()
                 .then(snapshot=>{
                 snapshot.forEach(doc=>{
-                    this.user = doc.data()
+                    ref
+                    .doc(doc.id)
+                    .update({
+                        geolocation:{
+                        lat: this.geolocation.lat,
+                        lng: this.geolocation.lng
+                        }
+                    })
                 })
                 })
-            })
+                .then(()=>{
+                ref
+                    .where('user_id', '==',user.uid)
+                    .get()
+                    .then(snapshot=>{
+                    snapshot.forEach(doc=>{
+                        this.user = doc.data()
+                    })
+                    })
+                })
         },
   },
   mounted(){
