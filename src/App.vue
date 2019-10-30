@@ -49,9 +49,6 @@ export default {
             sideNav: false
         }
     },
-    computed:{
-        ...mapGetters(['getDailyTasks'])
-    },
     components:{
         Popups,
         Navbar,
@@ -123,12 +120,6 @@ export default {
             .then(doc=>{
                 this.userData = doc.data()
             })
-    },
-    mounted(){
-        setTimeout(()=>{
-
-            console.log(this.getDailyTasks)
-        },2000)
     }
 }
 </script>
