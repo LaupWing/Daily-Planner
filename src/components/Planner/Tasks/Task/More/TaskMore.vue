@@ -101,7 +101,7 @@ export default {
                 li.style.removeProperty('margin-top')
             })
         },
-        updateDatabase(){
+        async updateDatabase(){
             this.dailyTasks = this.dailyTasks.map(task=>{
                 if(task.task === this.task.task){
                     return this.editTask
@@ -109,21 +109,10 @@ export default {
                     return task
                 }
             })
-            this.updateTask(this.dailyTasks)
-                .then(()=>{
-                    this.edit = false
-                    this.contractTask()
-                })
-            // db
-            //     .collection('planner')
-            //     .doc(firebase.auth().currentUser.uid)
-            //     .update({
-            //         dailyTasks: this.dailyTasks
-            //     })
-            //     .then(()=>{
-            //         this.edit = false
-            //         this.contractTask()
-            //     })
+            // Need to start the retracting first before rerender this the whole array dailytasks array
+            this.contractTask()
+            await this.updateTask(this.dailyTasks)
+            this.edit = false
         },
         acceptChanges(){
             this.resetTimeline()

@@ -118,13 +118,16 @@ export default {
         },
         expandTask(obj){
             if(!obj){
+                console.log(obj, 'Obj none')
                 this.expanded = null
             }
             else if(obj.compareTop){
+                console.log(obj, 'Obj comparetop')
                 this.expanded = obj.task
                 this.compareTop = obj.compareTop
                 this.diffrence = obj.diffrence
             }else{
+                console.log(obj, 'Obj No')
                 this.compareTop = null
                 this.diffrence = null
                 this.expanded = obj.task
