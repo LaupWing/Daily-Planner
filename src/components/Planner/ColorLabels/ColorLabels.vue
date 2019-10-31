@@ -4,7 +4,7 @@
             @mouseover="showAll(true)"
             @mouseout="showAll(false)"
         >Labels</h2>
-        <div class="label-container" v-if="!addTask">
+        <div class="label-container">
             <Label 
                 v-for="(label, index) in colorLabels" 
                 :key="index"
@@ -12,7 +12,6 @@
                 :colorLabels="colorLabels"
                 :userData="userData"
                 :taskColor='taskColor'
-                v-on:openPopup='openPopup'
             />
             <i class="fas fa-plus-circle" @click="addColorLabel2"></i>
         </div>
@@ -22,21 +21,6 @@
             :componentId="'AddLabelForm'"
             :userData="userData"
         />
-        <div class="label-container" v-if="addTask">
-            <AddTaskLabel 
-                v-for="(label, index) in colorLabels" 
-                :key="index"
-                :label='label'
-                :colorLabelToAdd='colorLabelToAdd'
-                class="label"
-                v-on:addColorLabel='addColorLabel'
-            />
-            <i class="fas fa-plus-circle" @click="toggleAdd"></i>
-        </div>
-        <div class="buttons" v-if="addTask">
-            <button @click="closePopup">Cancel</button>
-            <button @click="chosenColor">Accept</button>
-        </div>
     </div>
 </template>
 
@@ -44,7 +28,6 @@
 import db from '@/firebase/init'
 import firebase from 'firebase'
 import Label from '@/components/Planner/ColorLabels/Labels/Label'
-import AddTaskLabel from '@/components/Planner/ColorLabels/Labels/AddTaskLabel'
 import Feedback from '@/components/feedback/Feedback'
 import Popup from '@/components/Popups/Popups'
 
@@ -53,7 +36,6 @@ export default {
     props:['taskColor' ,'addTask', 'chosenColorLabel', 'userData'],
     components:{
         Label,
-        AddTaskLabel,
         Popup
     },
     data(){
@@ -75,20 +57,6 @@ export default {
                 })
             }
         },
-        openPopup(data){
-            this.$emit('openPopup', data)
-        },
-        toggleAdd(){
-            this.$emit('openPopup',{
-                data: null,
-                type: 'label-add',
-                coords:{
-                    top: event.target.getBoundingClientRect().top,
-                    left: event.target.getBoundingClientRect().left,
-                    elHeight: event.target.offsetHeight
-                }
-            })
-        },
         addColorLabel(label){
             this.colorLabelToAdd = label
         },
@@ -102,9 +70,6 @@ export default {
                     elHeight: event.target.offsetHeight
                 }
             }
-        },
-        cancel(){
-            
         },
         getData(){
             return db
@@ -121,12 +86,6 @@ export default {
                     }
                 })
         },
-        closePopup(){
-            this.$emit('closePopup')
-        },
-        chosenColor(){
-            this.$emit('chosenColor', this.colorLabelToAdd)
-        }
     },
     created(){
         this.getData()

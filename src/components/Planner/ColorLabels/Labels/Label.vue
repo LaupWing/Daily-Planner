@@ -92,9 +92,6 @@ export default {
                     this.popupSettings = null
                 },1)
             }
-        },
-        cancel(){
-            this.$emit('cancel')
         }
     },
     computed:{
