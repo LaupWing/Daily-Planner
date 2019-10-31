@@ -50,22 +50,22 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getDailyTasks']),
+        ...mapGetters(['getUserData']),
         tasksOfToday(){
-            if(this.getDailyTasks.length > 0){
+            if(this.getUserData.dailyTasks){
                 this.checkCurrentTask()
+                return this.getUserData.dailyTasks
+                    .filter(task=>{
+                        const date = new Date()
+                        const dateNumber =  date.getDay()
+                        const currentDay = days[dateNumber]
+                        this.today = currentDay
+                        const checkDay = task.days.some(day=>day.day===currentDay)
+                        if(checkDay){
+                            return task
+                        }
+                    })
             }
-            return this.getDailyTasks
-                .filter(task=>{
-                    const date = new Date()
-                    const dateNumber =  date.getDay()
-                    const currentDay = days[dateNumber]
-                    this.today = currentDay
-                    const checkDay = task.days.some(day=>day.day===currentDay)
-                    if(checkDay){
-                        return task
-                    }
-                })
         }
     },
     methods:{

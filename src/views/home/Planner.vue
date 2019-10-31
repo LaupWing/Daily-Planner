@@ -87,7 +87,7 @@ export default {
         DailyView
     },
     methods:{
-        ...mapActions(['fetchDailyTasks']),
+        ...mapActions(['fetchUserData']),
         setData({data,value}){
             this[data] = value
         },
@@ -149,7 +149,7 @@ export default {
         this.setTopPos =  {
             top: (document.querySelector('#NavBar').offsetHeight) + 'px'
         }
-        this.fetchDailyTasks()
+        this.fetchUserData()
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(pos=>{
                 this.geolocation.lat = pos.coords.latitude

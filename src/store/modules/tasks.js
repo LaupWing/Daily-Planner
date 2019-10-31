@@ -7,18 +7,20 @@ const state = {
 }
 
 const getters = {
-    getDailyTasks: state => state.dailyTasks,
-    getUsers: state => state.currentUser
+    getUserData: state => state.userData,
+    getUser: state => state.currentUser
 }
 
 const actions = {
     async fetchUserData({commit}){
+        console.log('fetching data')
         const doc  = await db
             .collection('planner')
             .doc(state.currentUser.uid)
             .get()
         if(doc.exists){
             // if(doc.data()){
+            console.log(doc.data())
             return commit('setUserData', doc.data())
             // }
         }
