@@ -13,16 +13,12 @@ const getters = {
 
 const actions = {
     async fetchUserData({commit}){
-        console.log('fetching data')
         const doc  = await db
             .collection('planner')
             .doc(state.currentUser.uid)
             .get()
         if(doc.exists){
-            // if(doc.data()){
-            console.log(doc.data())
             return commit('setUserData', doc.data())
-            // }
         }
         commit('setUserData', [])
     },

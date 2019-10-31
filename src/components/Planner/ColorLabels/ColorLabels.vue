@@ -14,8 +14,14 @@
                 :taskColor='taskColor'
                 v-on:openPopup='openPopup'
             />
-            <i class="fas fa-plus-circle" @click="toggleAdd"></i>
+            <i class="fas fa-plus-circle" @click="addColorLabel2"></i>
         </div>
+        <Popup
+            v-if="popupSettings"
+            :settings="popupSettings"
+            :componentId="'AddLabelForm'"
+            :userData="userData"
+        />
         <div class="label-container" v-if="addTask">
             <AddTaskLabel 
                 v-for="(label, index) in colorLabels" 
@@ -40,18 +46,21 @@ import firebase from 'firebase'
 import Label from '@/components/Planner/ColorLabels/Labels/Label'
 import AddTaskLabel from '@/components/Planner/ColorLabels/Labels/AddTaskLabel'
 import Feedback from '@/components/feedback/Feedback'
+import Popup from '@/components/Popups/Popups'
 
 export default {
     name: 'ColorLabels',
     props:['taskColor' ,'addTask', 'chosenColorLabel', 'userData'],
     components:{
         Label,
-        AddTaskLabel
+        AddTaskLabel,
+        Popup
     },
     data(){
         return{
             colorLabels: [],
-            colorLabelToAdd: null
+            colorLabelToAdd: null,
+            popupSettings:null
         }
     },
     methods:{
@@ -82,6 +91,17 @@ export default {
         },
         addColorLabel(label){
             this.colorLabelToAdd = label
+        },
+        addColorLabel2(){
+            this.popupSettings = {
+                type: 'label-add',
+                data: null,
+                coords:{
+                    top: event.target.getBoundingClientRect().top,
+                    left: event.target.getBoundingClientRect().left,
+                    elHeight: event.target.offsetHeight
+                }
+            }
         },
         cancel(){
             

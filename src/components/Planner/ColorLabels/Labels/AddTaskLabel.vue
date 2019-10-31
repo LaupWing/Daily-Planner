@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import Popup from '@/components/Popups/Popups'
+
 export default {
     name: 'Label',
     props:['label' ,'colorLabelToAdd'],
