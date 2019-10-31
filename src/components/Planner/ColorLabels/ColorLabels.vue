@@ -20,6 +20,7 @@
             :settings="popupSettings"
             :componentId="'AddLabelForm'"
             :userData="userData"
+            v-on:turnOffPopup="addColorLabel2(false)"
         />
     </div>
 </template>
@@ -60,15 +61,19 @@ export default {
         addColorLabel(label){
             this.colorLabelToAdd = label
         },
-        addColorLabel2(){
-            this.popupSettings = {
-                type: 'label-add',
-                data: null,
-                coords:{
-                    top: event.target.getBoundingClientRect().top,
-                    left: event.target.getBoundingClientRect().left,
-                    elHeight: event.target.offsetHeight
+        addColorLabel2(state){
+            if(state){
+                this.popupSettings = {
+                    type: 'label-add',
+                    data: null,
+                    coords:{
+                        top: event.target.getBoundingClientRect().top,
+                        left: event.target.getBoundingClientRect().left,
+                        elHeight: event.target.offsetHeight
+                    }
                 }
+            }else{
+                this.popupSettings = null
             }
         },
         getData(){
