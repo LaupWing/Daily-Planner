@@ -2,7 +2,7 @@ import firebase from 'firebase'
 import db from '@/firebase/init.js'
 
 const state = {
-    dailyTasks:[],
+    userData:[],
     currentUser: null
 }
 
@@ -12,17 +12,17 @@ const getters = {
 }
 
 const actions = {
-    async fetchDailyTasks({commit}){
+    async fetchUserData({commit}){
         const doc  = await db
             .collection('planner')
             .doc(state.currentUser.uid)
             .get()
         if(doc.exists){
-            if(doc.data().dailyTasks){
-                return commit('setDailyTasks', doc.data().dailyTasks)
-            }
+            // if(doc.data()){
+            return commit('setUserData', doc.data())
+            // }
         }
-        commit('setDailyTasks', [])
+        commit('setUserData', [])
     },
     checkUser({commit}){
         const user = firebase.auth().currentUser
@@ -65,7 +65,7 @@ const actions = {
 
 const mutations = {
     setUser: (state,user) => (state.currentUser = user),
-    setDailyTasks: (state, dailyTasks)=> (state.dailyTasks = dailyTasks),
+    setUserData: (state, userData)=> (state.userData = userData),
     updateTasks: (state,updatedTasks)=>(state.dailyTasks = updatedTasks)
 }
 
