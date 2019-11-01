@@ -6,7 +6,7 @@
         >Labels</h2>
         <div class="label-container">
             <Label 
-                v-for="(label, index) in colorLabels" 
+                v-for="(label, index) in getUserData.colorLabels" 
                 :key="index"
                 :label='label'
                 :colorLabels="colorLabels"
@@ -31,7 +31,7 @@ import firebase from 'firebase'
 import Label from '@/components/Planner/ColorLabels/Labels/Label'
 import Feedback from '@/components/feedback/Feedback'
 import Popup from '@/components/Popups/Popups'
-
+import { mapGetters, mapActions} from 'vuex'
 export default {
     name: 'ColorLabels',
     props:['taskColor' ,'addTask', 'chosenColorLabel', 'userData'],
@@ -45,6 +45,9 @@ export default {
             colorLabelToAdd: null,
             popupSettings:null
         }
+    },
+    computed:{
+        ...mapGetters(['getUserData'])
     },
     methods:{
         showAll(state){
@@ -97,9 +100,9 @@ export default {
         if(this.chosenColorLabel){
             this.colorLabelToAdd = this.chosenColorLabel
         }
-    },
-    mounted(){
-        
+        setTimeout(()=>{
+            console.log(this.getUserData)
+        },1000)
     }
 }
 </script>
