@@ -233,11 +233,11 @@ export default {
             snapshot.docChanges().forEach(change=>{
                 const userId = firebase.auth().currentUser.uid
                 if(change.type === 'modified' && change.doc.id === userId){
-                    console.log(change)
+                    // console.log(change)
                     if(!this.preventStateChangeFlag){
                         this.getTasks(()=>{
                             // this.taskHeightAndPosition()
-                            console.log('State changed')
+                            // console.log('State changed')
                         })
                     }
                 }

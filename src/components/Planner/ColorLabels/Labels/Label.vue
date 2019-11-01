@@ -113,7 +113,7 @@ export default {
     },
     mounted(){
         const colorLabels = document.querySelector('#Color-Label')
-        colorLabels.style.top = colorLabels.offsetTop - (colorLabels.offsetHeight/2) + 'px'
+        colorLabels.style.marginTop = `-${colorLabels.offsetHeight/2}px`
     }
 }
 </script>
