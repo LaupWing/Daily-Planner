@@ -26,12 +26,9 @@
 </template>
 
 <script>
-import db from '@/firebase/init'
-import firebase from 'firebase'
 import Label from '@/components/Planner/ColorLabels/Labels/Label'
-import Feedback from '@/components/feedback/Feedback'
 import Popup from '@/components/Popups/Popups'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
     name: 'ColorLabels',
     props:['taskColor' ,'addTask', 'chosenColorLabel', 'userData'],

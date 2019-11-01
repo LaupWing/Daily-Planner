@@ -32,11 +32,21 @@
 <script>
 import Feedback from '@/components/feedback/Feedback'
 import db from '@/firebase/init'
+import { mapGetters, mapActions } from 'vuex'
 export default {
     name: 'AddLabelForm',
     props:['settings', 'user'],
     components:{
         Feedback
+    },
+    computed:{
+        ...mapGetters(['getUserData']),
+        setPos(){
+            return{
+                top: `${this.settings.coords.top-4}px`,
+                left:`${this.settings.coords.left+this.settings.coords.elHeight+32}px`
+            }
+        }
     },
     data(){
         return{
@@ -47,28 +57,20 @@ export default {
         }
     },
     methods:{
+        ...mapActions(['updateColor']),
         cancel(){
             this.$emit('cancel')
         },
         submit(){
             if(this.newLabel && this.color){
-                if(this.duplicateCheck(this.colorLabels, 'newLabel', 'color')){
+                if(this.duplicateCheck(this.getUserData.colorLabels, 'newLabel', 'color')){
                     const colorLabel = {
                         color: this.color,
                         label: this.newLabel
                     }
-                    this.colorLabels.push(colorLabel)
-                    db
-                        .collection('planner')
-                        .doc(this.user.uid)
-                        .update({
-                            colorLabels: this.colorLabels
-                        })
-                        .then(()=>{
-                            this.cancel()
-                        })
-                        .catch(()=>{
-                        })
+                    const updatedColorLabels = [...this.getUserData.colorLabels, colorLabel]
+                    this.updateColor(updatedColorLabels)
+                    this.cancel()
                 }
             }
         },
@@ -96,15 +98,6 @@ export default {
             }
         },
 
-    },
-    computed:{
-        setPos(){
-            console.log(this.settings)
-            return{
-                top: `${this.settings.coords.top-4}px`,
-                left:`${this.settings.coords.left+this.settings.coords.elHeight+32}px`
-            }
-        }
     }
 }
 </script>
