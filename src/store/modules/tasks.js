@@ -2,7 +2,7 @@ import firebase from 'firebase'
 import db from '@/firebase/init.js'
 
 const state = {
-    userData:[],
+    userData:{},
     currentUser: null
 }
 
@@ -25,6 +25,17 @@ const actions = {
     checkUser({commit}){
         const user = firebase.auth().currentUser
         commit('setUser', user)
+    },
+    updateColor({commit}, labelObj){
+        console.log(state.userData)
+        console.log(labelObj)
+        const updatedColorLabels = state.userData.colorLabels.map(label=>{
+            if(JSON.stringify(label)=== JSON.stringify(labelObj.oldLabel)){
+                return labelObj.newLabel
+            }
+            return label
+        })
+        commit('updateLabels', updatedColorLabels)
     },
     updateTask({commit}, updatedTask){
         return db
@@ -64,7 +75,8 @@ const actions = {
 const mutations = {
     setUser: (state,user) => (state.currentUser = user),
     setUserData: (state, userData)=> (state.userData = userData),
-    updateTasks: (state,updatedTasks)=>(state.dailyTasks = updatedTasks)
+    updateTasks: (state,updatedTasks)=>(state.userData.dailyTasks = updatedTasks),
+    updateLabels: (state,updatedColorLabels)=>(state.userData.colorLabels = updatedColorLabels),
 }
 
 export default {

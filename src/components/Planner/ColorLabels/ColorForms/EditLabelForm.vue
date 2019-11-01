@@ -36,7 +36,7 @@
 import Feedback from '@/components/feedback/Feedback'
 import firebase from 'firebase'
 import db from '@/firebase/init'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
     name: 'EditLabelForm',
     props:['userData', 'settings'],
@@ -63,6 +63,7 @@ export default {
         }
     },
     methods:{
+        ...mapActions(['updateColor']),
         cancel(){
             this.$emit('cancel')
         },
@@ -71,6 +72,11 @@ export default {
                 return JSON.stringify(label) !== JSON.stringify(this.nonEditedLabel)
             })
             console.log(removeSelf)
+            const labelObj = {
+                newLabel: this.editLabel,
+                oldLabel: this.nonEditedLabel
+            }
+            this.updateColor(labelObj)
             // if(this.duplicateCheck(removeSelf)){
             //     this.getData()
             //         .then(()=>{
