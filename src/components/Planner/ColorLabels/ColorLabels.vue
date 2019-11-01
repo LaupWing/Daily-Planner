@@ -101,7 +101,7 @@ export default {
     font-size: 1.2em;
     text-align: center;
 }
-#Color-Label p.label{
+#Color-Label > p.label{
     display: inline-block;
     padding: 5px 15px;
     border-radius: 2px;

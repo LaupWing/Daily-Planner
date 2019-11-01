@@ -86,35 +86,8 @@ export default {
                     })
                 this.updateColor(updatedColorLabels)
                 this.updateTask(updatedDailyTasks)
+                this.cancel()
             }
-            // if(this.duplicateCheck(removeSelf)){
-            //     this.getData()
-            //         .then(()=>{
-            //             const updatedLabels = this.colorLabels.map(label=>{
-            //                 if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(label)){
-            //                     return this.editLabel
-            //                 }
-            //                 return label
-            //             })
-            //             const updatedTasks = this.dailyTasks.map(task=>{
-            //                 if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(task.color)){
-            //                     task.color = this.editLabel
-            //                 }
-            //                 return task
-            //             })
-            //             db
-            //                 .collection('planner')
-            //                 .doc(this.user.uid)
-            //                 .update({
-            //                     colorLabels: updatedLabels,
-            //                     dailyTasks: updatedTasks
-            //                 })
-            //                 .then(()=>{
-            //                     this.colorLabels = updatedLabels
-            //                     this.$emit('cancel')
-            //                 })
-            //         })
-            // }
             
         },
         getData(){
