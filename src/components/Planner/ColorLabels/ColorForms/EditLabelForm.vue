@@ -36,11 +36,21 @@
 import Feedback from '@/components/feedback/Feedback'
 import firebase from 'firebase'
 import db from '@/firebase/init'
+import { mapGetters } from 'vuex'
 export default {
     name: 'EditLabelForm',
     props:['userData', 'settings'],
     components:{
         Feedback
+    },
+    computed:{
+        ...mapGetters(['getUserData']),
+        setPos(){
+            return{
+                top: `${this.settings.coords.top +2}px`,
+                left:`${this.settings.coords.left+this.settings.coords.elHeight+13}px`
+            }
+        },
     },
     data(){
         return{
@@ -57,37 +67,38 @@ export default {
             this.$emit('cancel')
         },
         change(){
-            const removeSelf = this.colorLabels.filter(label=>{
+            const removeSelf = this.getUserData.colorLabels.filter(label=>{
                 return JSON.stringify(label) !== JSON.stringify(this.nonEditedLabel)
             })
-            if(this.duplicateCheck(removeSelf)){
-                this.getData()
-                    .then(()=>{
-                        const updatedLabels = this.colorLabels.map(label=>{
-                            if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(label)){
-                                return this.editLabel
-                            }
-                            return label
-                        })
-                        const updatedTasks = this.dailyTasks.map(task=>{
-                            if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(task.color)){
-                                task.color = this.editLabel
-                            }
-                            return task
-                        })
-                        db
-                            .collection('planner')
-                            .doc(this.user.uid)
-                            .update({
-                                colorLabels: updatedLabels,
-                                dailyTasks: updatedTasks
-                            })
-                            .then(()=>{
-                                this.colorLabels = updatedLabels
-                                this.$emit('cancel')
-                            })
-                    })
-            }
+            console.log(removeSelf)
+            // if(this.duplicateCheck(removeSelf)){
+            //     this.getData()
+            //         .then(()=>{
+            //             const updatedLabels = this.colorLabels.map(label=>{
+            //                 if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(label)){
+            //                     return this.editLabel
+            //                 }
+            //                 return label
+            //             })
+            //             const updatedTasks = this.dailyTasks.map(task=>{
+            //                 if(JSON.stringify(this.nonEditedLabel) === JSON.stringify(task.color)){
+            //                     task.color = this.editLabel
+            //                 }
+            //                 return task
+            //             })
+            //             db
+            //                 .collection('planner')
+            //                 .doc(this.user.uid)
+            //                 .update({
+            //                     colorLabels: updatedLabels,
+            //                     dailyTasks: updatedTasks
+            //                 })
+            //                 .then(()=>{
+            //                     this.colorLabels = updatedLabels
+            //                     this.$emit('cancel')
+            //                 })
+            //         })
+            // }
             
         },
         getData(){
@@ -102,6 +113,7 @@ export default {
                     }   
                     if(data.dailyTasks){
                         this.dailyTasks = data.dailyTasks
+                        console.log(this.dailyTasks)
                     }
                 })
         },
@@ -136,16 +148,7 @@ export default {
             }
         }
     },
-    computed:{
-        setPos(){
-            return{
-                top: `${this.settings.coords.top +2}px`,
-                left:`${this.settings.coords.left+this.settings.coords.elHeight+13}px`
-            }
-        }
-    },
     created(){
-        // console.log(this.settings, this.settings.data, this.userData)
     }
 }
 </script>

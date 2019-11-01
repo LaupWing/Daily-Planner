@@ -31,7 +31,7 @@ import firebase from 'firebase'
 import Label from '@/components/Planner/ColorLabels/Labels/Label'
 import Feedback from '@/components/feedback/Feedback'
 import Popup from '@/components/Popups/Popups'
-import { mapGetters, mapActions} from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
     name: 'ColorLabels',
     props:['taskColor' ,'addTask', 'chosenColorLabel', 'userData'],
@@ -79,30 +79,11 @@ export default {
                 this.popupSettings = null
             }
         },
-        getData(){
-            return db
-                .collection('planner')
-                .doc(firebase.auth().currentUser.uid)
-                .get()
-                .then(doc=>{
-                    const data = doc.data()
-                    if(data.colorLabels){
-                        this.colorLabels = data.colorLabels
-                    }   
-                    if(data.dailyTasks){
-                        this.dailyTasks = data.dailyTasks
-                    }
-                })
-        },
     },
     created(){
-        this.getData()
         if(this.chosenColorLabel){
             this.colorLabelToAdd = this.chosenColorLabel
         }
-        setTimeout(()=>{
-            console.log(this.getUserData)
-        },1000)
     }
 }
 </script>

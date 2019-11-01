@@ -9,29 +9,6 @@
             class="popup"
             v-on:cancel="cancel"
         ></component>
-        <!-- <CustomContext
-            class="popup"
-            v-if="settings.type === 'task'"
-            :settings="settings"
-            :userData="userData"
-        />
-        <transition name="scalingLeftTopCorner">
-            <EditLabelForm
-                class="popup" 
-                v-if="settings.type ===  'label'"
-                :userData="userData"
-                :settings="settings"
-                :label="settings.data"
-                v-on:cancel="cancel"
-            /> 
-        </transition>
-        <AddLabelForm
-            class="popup" 
-            v-if="settings.type ===  'label-add'"
-            :userData="userData"
-            :settings="settings"
-            v-on:cancel="cancel"
-        /> -->
     </div>
 </template>
 

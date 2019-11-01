@@ -34,7 +34,7 @@ import Feedback from '@/components/feedback/Feedback'
 import db from '@/firebase/init'
 export default {
     name: 'AddLabelForm',
-    props:['userData', 'settings', 'user'],
+    props:['settings', 'user'],
     components:{
         Feedback
     },
