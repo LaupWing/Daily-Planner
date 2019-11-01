@@ -63,7 +63,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['updateColor']),
+        ...mapActions(['updateColor', 'updateTask']),
         cancel(){
             this.$emit('cancel')
         },
@@ -71,12 +71,22 @@ export default {
             const removeSelf = this.getUserData.colorLabels.filter(label=>{
                 return JSON.stringify(label) !== JSON.stringify(this.nonEditedLabel)
             })
-            console.log(removeSelf)
-            const labelObj = {
-                newLabel: this.editLabel,
-                oldLabel: this.nonEditedLabel
+            if(this.duplicateCheck(removeSelf)){
+                const updatedColorLabels = this.getUserData.colorLabels.map(label=>{
+                        if(JSON.stringify(label)=== JSON.stringify(this.nonEditedLabel)){
+                            return this.editLabel
+                        }
+                        return label
+                    })
+                const updatedDailyTasks = this.getUserData.dailyTasks.map(task=>{
+                    if(JSON.stringify(task.color) === JSON.stringify(this.nonEditedLabel)){
+                        task.color = this.editLabel
+                        }
+                        return task
+                    })
+                this.updateColor(updatedColorLabels)
+                this.updateTask(updatedDailyTasks)
             }
-            this.updateColor(labelObj)
             // if(this.duplicateCheck(removeSelf)){
             //     this.getData()
             //         .then(()=>{

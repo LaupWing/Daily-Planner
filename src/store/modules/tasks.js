@@ -26,15 +26,13 @@ const actions = {
         const user = firebase.auth().currentUser
         commit('setUser', user)
     },
-    updateColor({commit}, labelObj){
-        console.log(state.userData)
-        console.log(labelObj)
-        const updatedColorLabels = state.userData.colorLabels.map(label=>{
-            if(JSON.stringify(label)=== JSON.stringify(labelObj.oldLabel)){
-                return labelObj.newLabel
-            }
-            return label
-        })
+    async updateColor({commit}, updatedColorLabels){
+        await db
+            .collection('planner')
+            .doc(state.currentUser.uid)
+            .update({
+                colorLabels: updatedColorLabels
+            }) 
         commit('updateLabels', updatedColorLabels)
     },
     updateTask({commit}, updatedTask){
