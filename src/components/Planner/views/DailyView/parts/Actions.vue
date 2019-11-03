@@ -39,23 +39,32 @@ export default {
             }else{
                 const currentScroll = container.scrollTop + (container.offsetHeight/2)
                 if(direction=== 'up'){
-                    const closest = tasks
+                    const filterBelow = tasks
                         .filter(task=> task.offsetTop < currentScroll)
-                        .reduce((prev, curr)=> {
+                    if(filterBelow.length>0){
+                        const closest = filterBelow.reduce((prev, curr)=> {
                             return (Math.abs(curr.offsetTop - currentScroll) < Math.abs(prev.offsetTop - currentScroll) ? curr : prev);
                         });
-                    scrollTo = closest.offsetTop + (closest.offsetHeight/2)
+                        scrollTo = closest.offsetTop + (closest.offsetHeight/2)
+                    }
+                    else{
+                        scrollTo = tasks[tasks.length-1].offsetTop + (tasks[tasks.length-1].offsetHeight/2)
+                    }
                 }
                 else if(direction === 'current'){
                     return
                 }
                 else if(direction === 'down'){
-                    const closest = tasks
+                    const filterUp = tasks
                         .filter(task=> task.offsetTop > currentScroll)
-                        .reduce((prev, curr)=> {
+                    if(filterUp.length>0){
+                        const closest = filterUp.reduce((prev, curr)=> {
                             return (Math.abs(curr.offsetTop - currentScroll) < Math.abs(prev.offsetTop - currentScroll) ? curr : prev);
                         });
-                    scrollTo = closest.offsetTop + (closest.offsetHeight/2)
+                        scrollTo = closest.offsetTop + (closest.offsetHeight/2)
+                    }else{
+                        scrollTo = tasks[0].offsetTop + (tasks[0].offsetHeight/2)
+                    }
                 }
             }
             container.scrollTo(0,scrollTo - (container.offsetHeight/2))
