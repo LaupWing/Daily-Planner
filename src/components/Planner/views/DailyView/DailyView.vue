@@ -29,7 +29,7 @@
 
 <script>
 import Timeline from '@/components/Planner/Timeline'
-import Tasks from '@/components/Planner/Tasks/Tasks'
+import Tasks from '@/components/Planner/views/DailyView/parts/Tasks/Tasks'
 import GoTo from '@/components/Planner/GoTo'
 import Actions from '@/components/Planner/views/DailyView/parts/Actions'
 import {checkConnectedLi} from '@/components/helpers/timeline'

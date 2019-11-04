@@ -48,7 +48,7 @@
 
 <script>
 import WeekView from '@/components/Planner/views/WeekView'
-import Tasks from '@/components/Planner/Tasks/Tasks'
+// import Tasks from '@/components/Planner/Tasks/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels/ColorLabels'
 import AddTask from '@/components/Planner/AddTask/AddTask'
 import firebase from 'firebase'
@@ -80,7 +80,6 @@ export default {
         }
     },
     components:{
-        Tasks,
         ColorLabels,
         AddTask,
         WeekView,

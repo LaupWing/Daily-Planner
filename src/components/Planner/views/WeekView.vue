@@ -38,6 +38,9 @@ export default {
     components:{
         Timeline
     },
+    computed:{
+        
+    },
     // props:['date', 'month', 'currentDay'],
     data(){
         return{
