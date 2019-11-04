@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import WeekView from '@/components/Planner/views/WeekView'
+import WeekView from '@/components/Planner/views/WeekView/WeekView'
 // import Tasks from '@/components/Planner/Tasks/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels/ColorLabels'
 import AddTask from '@/components/Planner/AddTask/AddTask'
