@@ -19,8 +19,6 @@
 import Timeline from '@/components/Planner/Timeline'
 import {days} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'
-import firebase from 'firebase'
-import db from '@/firebase/init'
 import Day from '@/components/Planner/views/WeekView/parts/Day/Day'
 
 export default {
@@ -29,10 +27,6 @@ export default {
         Timeline,
         Day
     },
-    computed:{
-        
-    },
-    // props:['date', 'month', 'currentDay'],
     data(){
         return{
             days: days,
@@ -44,31 +38,7 @@ export default {
         }
     },
     methods:{
-        getTaskOfThisDay(day){
-            if(this.dailyTasks.length === 0)    return []
-            const filterTasks = this.dailyTasks
-            const filteredTasks = filterTasks.filter(task=>task.days.find(t2=>t2.day===day))
-                // .map(task2=>{
-                //     const filteroutDays = task2.days.filter(d2=>d2.day===day)
-                //     console.log(filteroutDays)
-                //     return task2
-                // })
-            const tasksOfThisDay = []
-            filteredTasks.forEach(task=>{
-                task.days.forEach(d2=>{
-                    if(d2.day === day){
-                        tasksOfThisDay.push({
-                            task: task.task,
-                            begin: d2.begin,
-                            end: d2.end
-                        })
-                    }
-                })
-            })
-            console.log(tasksOfThisDay, day)
-            // return filterTasks
-            return tasksOfThisDay
-        }
+        
     },
     created(){
         this.compareDateIndex = this.days.findIndex((day)=>this.today===day)

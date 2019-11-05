@@ -6,14 +6,6 @@
             <h3>{{day.slice(0,3)}}</h3>
             <h3>{{date+(index-compareDateIndex)}}</h3>
         </div>
-        <!-- <div 
-            class="task"
-            v-for="(task,i2) in getTaskOfThisDay(day)"
-            :key="i2"
-            :style="{top: 100*i2 +'px'}"
-        >
-            {{task.task}}
-        </div> -->
         <Task
             v-for="(task,i2) in getTaskOfThisDay(day)"
             :key="i2"
@@ -46,11 +38,7 @@ export default {
             if(this.getUserData.dailyTasks.length === 0)    return []
             const filterTasks = this.getUserData.dailyTasks
             const filteredTasks = filterTasks.filter(task=>task.days.find(t2=>t2.day===day))
-                // .map(task2=>{
-                //     const filteroutDays = task2.days.filter(d2=>d2.day===day)
-                //     console.log(filteroutDays)
-                //     return task2
-                // })
+            
             const tasksOfThisDay = []
             filteredTasks.forEach(task=>{
                 task.days.forEach(d2=>{
@@ -63,7 +51,7 @@ export default {
                     }
                 })
             })
-            // return filterTasks
+            
             return tasksOfThisDay
         }
     }
