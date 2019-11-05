@@ -1,6 +1,7 @@
 <template>
     <div class="task-tooltip" :style="setVal">
         <h2>{{task.task}}</h2>
+        <p>{{task.begin}} - {{task.end}}</p>
     </div>
 </template>
 
@@ -12,7 +13,8 @@ export default {
         setVal(){
             return{
                 top: this.settings.top +'px',
-                left: this.settings.left+ 'px'
+                left: this.settings.left+ 'px',
+                color: this.task.color.color
             }
         }
     },
@@ -40,7 +42,6 @@ export default {
     transform-origin: top left;
 }
 .task-tooltip h2{
-    color: orange;
     text-align: center;
     border-bottom: 1px rgba(0,0,0,.2) solid; 
     padding: 10px;
