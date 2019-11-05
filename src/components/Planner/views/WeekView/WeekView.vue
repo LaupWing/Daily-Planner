@@ -2,26 +2,6 @@
     <div id="Week-View">
         <Timeline/>
         <div id="Week">
-            <!-- <div 
-                class="day"
-                v-for="(day,i) in days"
-                :key="i"
-            >
-                <div
-                    :class="{'today': day === today}"
-                >
-                    <h3>{{day.slice(0,3)}}</h3>
-                    <h3>{{date+(i-compareDateIndex)}}</h3>
-                </div>
-                <div 
-                    class="task"
-                    v-for="(task,i2) in getTaskOfThisDay(day)"
-                    :key="i2"
-                    :style="{top: 100*i2 +'px'}"
-                >
-                    {{task.task}}
-                </div>
-            </div> -->
             <Day
                 v-for="(day,i) in days"
                 :key="i"
@@ -92,18 +72,6 @@ export default {
     },
     created(){
         this.compareDateIndex = this.days.findIndex((day)=>this.today===day)
-        db
-            .collection('planner')
-            .doc(firebase.auth().currentUser.uid)
-            .get()
-            .then(doc=>{
-                if(doc.exists){
-                    if(doc.data().dailyTasks){
-                        this.dailyTasks = doc.data().dailyTasks
-                    }
-                    // console.log(this.dailyTasks, this.days)
-                }
-            })
     }
 }
 </script>
