@@ -2,7 +2,7 @@
     <div id="Week-View">
         <Timeline/>
         <div id="Week">
-            <div 
+            <!-- <div 
                 class="day"
                 v-for="(day,i) in days"
                 :key="i"
@@ -21,7 +21,16 @@
                 >
                     {{task.task}}
                 </div>
-            </div>
+            </div> -->
+            <Day
+                v-for="(day,i) in days"
+                :key="i"
+                :day="day"
+                :index="i"
+                :today="today"
+                :date="date"
+                :compareDateIndex="compareDateIndex"
+            />
         </div>   
     </div>
 </template>
@@ -32,11 +41,13 @@ import {days} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'
 import firebase from 'firebase'
 import db from '@/firebase/init'
+import Day from '@/components/Planner/views/WeekView/parts/Day/Day'
 
 export default {
     name: 'WeekView',
     components:{
-        Timeline
+        Timeline,
+        Day
     },
     computed:{
         
