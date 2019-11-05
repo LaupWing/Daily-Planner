@@ -38,7 +38,7 @@ export default {
             if(this.getUserData.dailyTasks.length === 0)    return []
             const filterTasks = this.getUserData.dailyTasks
             const filteredTasks = filterTasks.filter(task=>task.days.find(t2=>t2.day===day))
-            
+            console.log(filteredTasks)
             const tasksOfThisDay = []
             filteredTasks.forEach(task=>{
                 task.days.forEach(d2=>{
@@ -46,7 +46,8 @@ export default {
                         tasksOfThisDay.push({
                             task: task.task,
                             begin: d2.begin,
-                            end: d2.end
+                            end: d2.end,
+                            color: task.color
                         })
                     }
                 })

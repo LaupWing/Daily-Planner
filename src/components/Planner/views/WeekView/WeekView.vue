@@ -67,10 +67,10 @@ export default {
     border-bottom:solid white 1px
 }
 #Week-View #Week h3{
-    width: 150px;
     text-align: center;
 }
 #Week-View #Week .day{
+    width: 150px;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -78,6 +78,10 @@ export default {
 }
 #Week-View #Week .day .task{
     position: absolute;
+    font-size: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px white;
 }
 #Week-View .today{
     background: orange;
