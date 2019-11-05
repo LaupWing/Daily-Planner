@@ -2,24 +2,42 @@
     <div    
         class="task"
         :data-begin="task.begin"
+        :data-end="task.end"
+        @mousemove="handleMouserover"
+        @mouseout="tooltip = null"
     >
-        {{task.task}}
+        <p>{{task.task}}</p>
+        <Tooltip
+            v-if="tooltip"
+            :settings="tooltip"
+            :task="task"
+        />
     </div>
 </template>
 
 <script>
+import Tooltip from '@/components/Planner/views/WeekView/parts/Day/parts/Tooltip'
 export default {
     name: 'TaskInWeekView',
     props: ['task', 'index'],
+    components:{
+        Tooltip
+    },
     computed:{
         
     },
     data(){
         return{
-
+            tooltip: null
         }
     },
     methods:{
+        handleMouserover(){
+            this.tooltip ={
+                top: event.clientY,
+                left: event.clientX
+            }
+        },
         calculatePoint(begin){
             const findLi = Array.from(document.querySelectorAll('#Timeline li'))
                 .find(li=>{
@@ -37,7 +55,6 @@ export default {
     },
     mounted(){
         this.$el.style.top = this.calculatePoint(this.task.begin) +'px'
-        console.log(this.calculateHeight() + 'px', this.task.color.color)
         this.$el.style.height = this.calculateHeight() + 'px'
         this.$el.style.background = this.task.color.color
     }
@@ -45,5 +62,14 @@ export default {
 </script>
 
 <style>
-
+#Week-View #Week .day .task{
+    position: absolute;
+    font-size: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px white;
+}
+#Week-View #Week .day .task p{
+    pointer-events: none;
+}
 </style>

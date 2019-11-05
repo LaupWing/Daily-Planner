@@ -165,6 +165,15 @@ li{
     }
 }
 
+@keyframes scaleUp {
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+    }
+
+}
 .slide-enter-active {
     animation: slideIn 1s;
 }

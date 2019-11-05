@@ -30,7 +30,7 @@ export default {
     },
     data(){
         return{
-
+            
         }
     },
     methods:{
@@ -38,7 +38,6 @@ export default {
             if(this.getUserData.dailyTasks.length === 0)    return []
             const filterTasks = this.getUserData.dailyTasks
             const filteredTasks = filterTasks.filter(task=>task.days.find(t2=>t2.day===day))
-            console.log(filteredTasks)
             const tasksOfThisDay = []
             filteredTasks.forEach(task=>{
                 task.days.forEach(d2=>{
@@ -60,5 +59,11 @@ export default {
 </script>
 
 <style>
-
+#Week-View #Week .day{
+    width: 150px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: relative;
+}
 </style>
