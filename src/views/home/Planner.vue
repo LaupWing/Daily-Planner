@@ -15,9 +15,8 @@
     <AddTask 
         v-if="addTask"
         v-on:toggle="toggle('addTask')"
-        :view="view"
     />
-    <div class="addTask">
+    <div :class="['addTask', view]">
         <div class="current-info">
             <h2 v-if="currentTask">{{currentTask.task}}</h2>
             <p>{{day}}, {{date}} {{month}}</p>
@@ -207,6 +206,7 @@ export default {
     opacity: 1;
     cursor: pointer;
 }
+/* Add Task view single */
 .planner-container .addTask{
     margin-bottom: 20px;
     width: 100%;
@@ -240,6 +240,21 @@ export default {
 .planner-container .addTask button:hover{
     opacity: 1;
 }
+/* Add Task Week View */
+.planner-container .addTask.week{
+    display: flex;
+    align-items: center;
+    transform: translate(0,-100%);
+    width: 40%;
+    padding: 0 20px;
+    justify-content: space-between;
+}
+
+.planner-container .addTask.week button{
+    width: 150px;
+    padding: 10px;
+}
+
 .planner-container{
     position: relative;
 }
