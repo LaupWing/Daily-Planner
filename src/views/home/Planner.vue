@@ -15,6 +15,7 @@
     <AddTask 
         v-if="addTask"
         v-on:toggle="toggle('addTask')"
+        :view="view"
     />
     <div class="addTask">
         <div class="current-info">
