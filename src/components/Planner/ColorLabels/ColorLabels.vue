@@ -1,5 +1,5 @@
 <template>
-    <div id="Color-Label" :class="view">
+    <div id="Color-Label" :class="view" :style="changeMarginOnWeekView">
         <h2
             @mouseover="showAll(true)"
             @mouseout="showAll(false)"
@@ -44,7 +44,15 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getUserData'])
+        ...mapGetters(['getUserData']),
+        changeMarginOnWeekView(){
+            if(this.view === 'week'){
+                return {
+                    marginTop: '-70px'
+                }
+            }
+            return
+        }
     },
     methods:{
         showAll(state){
