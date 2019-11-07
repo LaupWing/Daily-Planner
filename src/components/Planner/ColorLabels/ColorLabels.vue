@@ -1,5 +1,5 @@
 <template>
-    <div id="Color-Label">
+    <div id="Color-Label" :class="view">
         <h2
             @mouseover="showAll(true)"
             @mouseout="showAll(false)"
@@ -31,7 +31,7 @@ import Popup from '@/components/Popups/Popups'
 import { mapGetters } from 'vuex'
 export default {
     name: 'ColorLabels',
-    props:['taskColor' ,'addTask', 'chosenColorLabel', 'userData'],
+    props:['taskColor' ,'addTask', 'chosenColorLabel', 'userData', 'view'],
     components:{
         Label,
         Popup
@@ -168,5 +168,19 @@ export default {
 }
 #Color-Label .buttons button{
     width: 50%;
+}
+/* Week View */
+#Color-Label.week{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    left: auto;
+}
+#Color-Label.week .label-container{
+    flex-direction: row;
+}
+#Color-Label.week .label-container i{
+    width: auto;
 }
 </style>

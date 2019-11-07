@@ -29,6 +29,7 @@
     <ColorLabels
         :taskColor='taskColor'
         :userData="userData"
+        :view="view"
     />
     <WeekView 
         v-if="view === 'week'"
