@@ -9,6 +9,6 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 
 
 ## To do 
--[ ]  Make week view multiscreen compatible
--[ ]  Voice task reminder
--[ ]  Quickstart working functional
+- [ ]  Make week view multiscreen compatible
+- [ ]  Voice task reminder
+- [ ]  Quickstart working functional
