@@ -105,14 +105,14 @@ export default {
         })
         this.checkUser()
         if(navigator.geolocation){
-                navigator.geolocation.getCurrentPosition(pos=>{
-                    this.geolocation.lat = pos.coords.latitude
-                    this.geolocation.lng = pos.coords.longitude
-                })
-                this.getWeather()
-            }else{
-                this.getWeather()
-            }
+            navigator.geolocation.getCurrentPosition(pos=>{
+                this.geolocation.lat = pos.coords.latitude
+                this.geolocation.lng = pos.coords.longitude
+            })
+            this.getWeather()
+        }else{
+            this.getWeather()
+        }
         db.collection('planner')
             .doc(firebase.auth().currentUser.uid)
             .get()
