@@ -81,7 +81,7 @@ export default {
     },
     methods:{
         test(){
-            console.log(this.switch)
+            // console.log(this.switch)
         },
         checkSwitch(state){
             if(state=== this.switch){

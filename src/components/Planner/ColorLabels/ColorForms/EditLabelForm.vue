@@ -102,7 +102,7 @@ export default {
                     }   
                     if(data.dailyTasks){
                         this.dailyTasks = data.dailyTasks
-                        console.log(this.dailyTasks)
+                        // console.log(this.dailyTasks)
                     }
                 })
         },

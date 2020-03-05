@@ -79,7 +79,7 @@ function feedbackMsg(offense,task, dayInCurrentTask){
 
 
 function addDayToMsg(overlapArray, feedbackMsg, taskObj){
-    console.log(overlapArray, taskObj, feedbackMsg)
+    // console.log(overlapArray, taskObj, feedbackMsg)
     const feedback = []
     overlapArray.forEach(task=>{
         const overlappingDays = task.days.filter(day=>{

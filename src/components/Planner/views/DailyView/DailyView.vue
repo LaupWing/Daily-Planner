@@ -71,7 +71,7 @@ export default {
             this.$emit(func, data)
         },
         test(){
-            console.log(this.visibleTask)
+            // console.log(this.visibleTask)
         },
         createTask(){
         // this.test()
@@ -90,11 +90,11 @@ export default {
         },
         goToSpecifikTime(point){
             this.scrollByCode = false
-            console.log('scrolling')
+            // console.log('scrolling')
             this.$el.scrollTo(0,point)
         },
         setTask(task){
-            console.log(task)
+            // console.log(task)
             task.task ? this.$emit('setCurrentTask', task) : this.$emit('setCurrentTask', {task})
         },
         adjustPosition(){
@@ -201,6 +201,7 @@ export default {
             const scrolled = this.$el.scrollTop
             const height = this.$el.offsetHeight
             const midpoint = Math.round(scrolled + (height/2))
+            console.log(height, midpoint)
             this.$el.querySelectorAll('#Timeline li').forEach(li=>{
                 const max = li.offsetTop + li.offsetHeight
                 const min = li.offsetTop

@@ -35,10 +35,10 @@ export default {
     },
     methods:{
         togglePopup(){
-            console.log('test', event.target.classList)
+            // console.log('test', event.target.classList)
             if(event.target.classList.length>0){
                 if(event.target.classList[0]==='popup-disabler'){
-                    console.log('emitting')
+                    // console.log('emitting')
                     this.$emit('turnOffPopup')
                 }
             }

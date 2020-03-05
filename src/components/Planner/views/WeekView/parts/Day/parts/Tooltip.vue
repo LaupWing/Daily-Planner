@@ -24,7 +24,7 @@ export default {
         }
     },
     mounted(){
-        console.log(this.task, this.settings)
+        // console.log(this.task, this.settings)
     }
 }
 </script>

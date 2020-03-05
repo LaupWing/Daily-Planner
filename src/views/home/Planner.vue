@@ -109,7 +109,7 @@ export default {
         },
         setCurrentTask(data){
             this.currentTask =data
-            console.log(data)
+            // console.log(data)
         },
         updateAndGetUserData(){
             const user = firebase.auth().currentUser

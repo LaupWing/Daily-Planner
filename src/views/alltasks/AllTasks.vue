@@ -30,7 +30,7 @@ export default {
     methods:{
         search(){
             this.searchTerm = event.target.value
-            console.log(this.searchTerm)
+            // console.log(this.searchTerm)
         }
     },
     data(){
