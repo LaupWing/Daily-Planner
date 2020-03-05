@@ -62,6 +62,7 @@ export default {
             timeToReturnInSec: 300,
             taskColor: null,
             currentTask: null,
+            offset: 0
         }
     },
     computed:{  
@@ -200,7 +201,7 @@ export default {
         setTimeIndicator(){
             const scrolled = this.$el.scrollTop
             const height = this.$el.offsetHeight
-            console.log(this.$el.offsetTop)
+            
             const midpoint = Math.round(scrolled + (height/2)) - (this.$el.offsetTop/2+10)
             this.$el.querySelectorAll('#Timeline li').forEach(li=>{
                 const max = li.offsetTop + li.offsetHeight

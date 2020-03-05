@@ -13,6 +13,7 @@ export default {
     data(){
         return{
             marginTop: 0,
+            offset:0
         }
     },
     methods:{
@@ -27,28 +28,28 @@ export default {
                 const index = tasks.indexOf(this.visibleTask)
                 if(direction=== 'up'){
                     const dest = index === 0 ? (tasks.length-1) : (index-1) 
-                    scrollTo = Number((tasks[dest].offsetTop + (tasks[dest].offsetHeight/2)))
+                    scrollTo = Number((tasks[dest].offsetTop + (tasks[dest].offsetHeight/2))) + 65
                 }
                 else if(direction === 'current'){
-                    scrollTo = tasks[index].offsetTop + (tasks[index].offsetHeight/2)
+                    scrollTo = tasks[index].offsetTop + (tasks[index].offsetHeight/2) + 65
                 }
                 else if(direction === 'down'){
                     const dest = index === (tasks.length-1) ? 0 : (index+1)
-                    scrollTo = (tasks[dest].offsetTop + (tasks[dest].offsetHeight/2))
+                    scrollTo = (tasks[dest].offsetTop + (tasks[dest].offsetHeight/2)) + 65
                 }
             }else{
-                const currentScroll = container.scrollTop + (container.offsetHeight/2)
-                if(direction=== 'up'){
+                const currentScroll = container.scrollTop + (container.offsetHeight/2) + 65
+                if(direction=== 'up'){ 
                     const filterBelow = tasks
                         .filter(task=> task.offsetTop < currentScroll)
                     if(filterBelow.length>0){
                         const closest = filterBelow.reduce((prev, curr)=> {
                             return (Math.abs(curr.offsetTop - currentScroll) < Math.abs(prev.offsetTop - currentScroll) ? curr : prev);
                         });
-                        scrollTo = closest.offsetTop + (closest.offsetHeight/2)
+                        scrollTo = closest.offsetTop + (closest.offsetHeight/2) + 65
                     }
                     else{
-                        scrollTo = tasks[tasks.length-1].offsetTop + (tasks[tasks.length-1].offsetHeight/2)
+                        scrollTo = tasks[tasks.length-1].offsetTop + (tasks[tasks.length-1].offsetHeight/2) + 65
                     }
                 }
                 else if(direction === 'current'){
@@ -61,9 +62,9 @@ export default {
                         const closest = filterUp.reduce((prev, curr)=> {
                             return (Math.abs(curr.offsetTop - currentScroll) < Math.abs(prev.offsetTop - currentScroll) ? curr : prev);
                         });
-                        scrollTo = closest.offsetTop + (closest.offsetHeight/2)
+                        scrollTo = closest.offsetTop + (closest.offsetHeight/2) + 65
                     }else{
-                        scrollTo = tasks[0].offsetTop + (tasks[0].offsetHeight/2)
+                        scrollTo = tasks[0].offsetTop + (tasks[0].offsetHeight/2) + 65
                     }
                 }
             }
