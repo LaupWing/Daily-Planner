@@ -77,7 +77,7 @@ ul#Timeline{
   padding-top: 57%;
   height: 100%;
   margin-left: 20px;
-  padding-bottom: 60%;
+  padding-bottom: 75%;
 }
 #Timeline li{
   padding: 10px 0;

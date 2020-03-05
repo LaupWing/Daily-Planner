@@ -159,7 +159,7 @@ export default {
         checkTaskByScroll(){
             const scrolled = this.$el.scrollTop
             const height = this.$el.offsetHeight
-            const midpoint = scrolled + (height/2)
+            const midpoint = scrolled + (height/2) - (this.$el.offsetTop/2+10)
             if(document.querySelectorAll('.task')===undefined) return
             const tasks = Array.from(document.querySelectorAll('.task'))
             const findTask = tasks.find(task=>{
@@ -200,8 +200,8 @@ export default {
         setTimeIndicator(){
             const scrolled = this.$el.scrollTop
             const height = this.$el.offsetHeight
-            const midpoint = Math.round(scrolled + (height/2))
-            this.calcStartingPoint()
+            console.log(this.$el.offsetTop)
+            const midpoint = Math.round(scrolled + (height/2)) - (this.$el.offsetTop/2+10)
             this.$el.querySelectorAll('#Timeline li').forEach(li=>{
                 const max = li.offsetTop + li.offsetHeight
                 const min = li.offsetTop
@@ -240,7 +240,12 @@ export default {
         calcStartingPoint(){
             const beginLi  = this.$el.querySelector('#Timeline li')
             const beginPos = beginLi.offsetTop + (beginLi.offsetHeight/2)
-            console.log(beginPos)
+
+            const scrolled = this.$el.scrollTop
+            const height = this.$el.offsetHeight
+            const midpoint = Math.round(scrolled + (height/2)) 
+
+            return beginPos
         },
         setupCurrentPos(){
             this.setTime()
