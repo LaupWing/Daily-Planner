@@ -25,12 +25,12 @@
             Add New Task
             <i class="far fa-calendar-plus"></i>
         </button>
+        <ColorLabels
+            :taskColor='taskColor'
+            :userData="userData"
+            :view="view"
+        />
     </div>    
-    <ColorLabels
-        :taskColor='taskColor'
-        :userData="userData"
-        :view="view"
-    />
     <WeekView 
         v-if="view === 'week'"
         :date="date"
@@ -212,8 +212,6 @@ export default {
     margin-bottom: 20px;
     width: 100%;
     text-align: center;
-    position: absolute;
-    transform: translate(0,-130%);
 }
 .planner-container .addTask .current-info{
     margin: 20px 0;
