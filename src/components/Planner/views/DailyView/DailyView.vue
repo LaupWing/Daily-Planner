@@ -90,6 +90,7 @@ export default {
         },
         goToSpecifikTime(point){
             this.scrollByCode = false
+            console.log('scrolling')
             this.$el.scrollTo(0,point)
         },
         setTask(task){
@@ -98,6 +99,7 @@ export default {
         },
         adjustPosition(){
             this.scrollByCode = true
+            console.log('scrolling')
             this.$el.scrollTo(0,(this.distanceHours+this.distanceMinutes))
         },
         addZero(number){
