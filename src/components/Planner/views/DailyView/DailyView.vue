@@ -201,7 +201,7 @@ export default {
             const scrolled = this.$el.scrollTop
             const height = this.$el.offsetHeight
             const midpoint = Math.round(scrolled + (height/2))
-            console.log(height, midpoint)
+            this.calcStartingPoint()
             this.$el.querySelectorAll('#Timeline li').forEach(li=>{
                 const max = li.offsetTop + li.offsetHeight
                 const min = li.offsetTop
@@ -236,6 +236,11 @@ export default {
                         .setAttribute('time', `${time}`)
                 }
             })
+        },
+        calcStartingPoint(){
+            const beginLi  = this.$el.querySelector('#Timeline li')
+            const beginPos = beginLi.offsetTop + (beginLi.offsetHeight/2)
+            console.log(beginPos)
         },
         setupCurrentPos(){
             this.setTime()
