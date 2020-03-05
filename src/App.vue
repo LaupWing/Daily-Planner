@@ -31,7 +31,7 @@ import Navbar from '@/components/Navbar/Navbar'
 import SideBar from '@/components/SideBar/SideBar'
 import db from '@/firebase/init'
 import firebase from 'firebase'
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
     name: 'App',
