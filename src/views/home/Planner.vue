@@ -49,7 +49,6 @@
 
 <script>
 import WeekView from '@/components/Planner/views/WeekView/WeekView'
-// import Tasks from '@/components/Planner/Tasks/Tasks'
 import ColorLabels from '@/components/Planner/ColorLabels/ColorLabels'
 import AddTask from '@/components/Planner/AddTask/AddTask'
 import firebase from 'firebase'
@@ -243,10 +242,8 @@ export default {
 .planner-container .addTask.week{
     display: flex;
     align-items: center;
-    transform: translate(0,-100%);
-    width: 40%;
     padding: 0 20px;
-    justify-content: space-between;
+    margin: 0;
 }
 
 .planner-container .addTask.week button{

@@ -49,7 +49,6 @@ export default {
 <style>
 #Week-View{
     display: flex;
-    margin-top: 60px;
 }
 #Week-View #Timeline{
     padding: 0;

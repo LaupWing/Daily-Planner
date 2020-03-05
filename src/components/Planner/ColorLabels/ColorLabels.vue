@@ -95,11 +95,12 @@ export default {
 
 <style>
 #Color-Label{
+    transition: 1s;
+}
+#Color-Label.single{
     position: fixed;
     top: 50%;
     left: 20px;
-    /* transform:translate(0,-50%); */
-    transition: 1s;
 }
 #Color-Label h2{
     font-weight: normal;
