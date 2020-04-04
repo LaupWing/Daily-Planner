@@ -209,13 +209,8 @@ export default {
         setTimeIndicator(){
             const scrolled = this.$el.scrollTop
             const height = this.$el.offsetHeight
-            const midpoint = Math.round(scrolled + (height/2)) - (this.$el.offsetTop/2+10)
+            const midpoint = Math.round(scrolled + (height/2))
 
-            // console.log({
-            //     scrolled,
-            //     height,
-            //     midpoint
-            // })
             this.$el.querySelectorAll('#Timeline li').forEach(li=>{
                 const max = li.offsetTop + li.offsetHeight
                 const min = li.offsetTop
