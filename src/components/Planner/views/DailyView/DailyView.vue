@@ -4,7 +4,14 @@
         @scroll="scrollEvent"
         @click="createTask"
     >
-        <div class="indicator" @click="turnoff"></div>
+        <div 
+            :style="{
+                top: elementMidpoint
+            }" 
+            class="indicator" 
+            @click="turnoff"
+        >
+        </div>
         <Timeline/>
         <Tasks
             :visibleTask="visibleTask"
@@ -62,7 +69,8 @@ export default {
             timeToReturnInSec: 300,
             taskColor: null,
             currentTask: null,
-            offset: 0
+            offset: 0,
+            elementMidpoint: 0
         }
     },
     computed:{  
@@ -201,8 +209,13 @@ export default {
         setTimeIndicator(){
             const scrolled = this.$el.scrollTop
             const height = this.$el.offsetHeight
-            
             const midpoint = Math.round(scrolled + (height/2)) - (this.$el.offsetTop/2+10)
+
+            // console.log({
+            //     scrolled,
+            //     height,
+            //     midpoint
+            // })
             this.$el.querySelectorAll('#Timeline li').forEach(li=>{
                 const max = li.offsetTop + li.offsetHeight
                 const min = li.offsetTop
@@ -262,6 +275,7 @@ export default {
     },
     mounted(){
         this.assignInterval()
+        this.elementMidpoint = this.$el.offsetTop + (this.$el.offsetHeight/2) + this.$el.parentElement.offsetTop + 'px' 
     }
 }
 </script>

@@ -19,6 +19,7 @@
     <div :class="['addTask', view]">
         <div class="current-info">
             <h2 v-if="currentTask">{{currentTask.task}}</h2>
+            <h2 v-else>Your current Task</h2>
             <p>{{day}}, {{date}} {{month}}</p>
         </div>
         <button type="button" @click="toggle('addTask')">
