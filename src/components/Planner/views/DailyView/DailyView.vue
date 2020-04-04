@@ -168,7 +168,8 @@ export default {
         checkTaskByScroll(){
             const scrolled = this.$el.scrollTop
             const height = this.$el.offsetHeight
-            const midpoint = scrolled + (height/2) - (this.$el.offsetTop/2+10)
+            const midpoint = scrolled + (height/2) 
+            
             if(document.querySelectorAll('.task')===undefined) return
             const tasks = Array.from(document.querySelectorAll('.task'))
             const findTask = tasks.find(task=>{
