@@ -64,6 +64,8 @@ export default {
     methods:{
     },
     mounted(){
+        console.log(this.$el.querySelector('li').offsetTop)
+        console.log(this.$el.offsetTop)
     }
 
 }
@@ -75,9 +77,8 @@ ul#Timeline{
   flex-direction: column;
   padding-right: 15px;
   padding-top: 57%;
-  height: 100%;
   margin-left: 20px;
-  padding-bottom: 75%;
+  padding-bottom: 540%;
 }
 #Timeline li{
   padding: 10px 0;

@@ -11,8 +11,8 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 ## To do 
 ### Must
 - [x]  Refactoring the position for timeline
-- [ ]  Refactor the `fixed` position styling of the top nav
-- [ ]  Refactor the main part of the website (styling)
+- [x]  Refactor the `fixed` position styling of the top nav
+- [x]  Refactor the main part of the website (styling)
 
 ### Would be fine
 - [ ]  Make week view multiscreen compatible
