@@ -9,6 +9,9 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 
 
 ## To do 
+### Must
+- [ ]  Refactoring the position for time
+### Would be fine
 - [ ]  Make week view multiscreen compatible
 - [ ]  Voice task reminder
 - [ ]  Quickstart working functional
