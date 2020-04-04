@@ -17,11 +17,11 @@ export default {
     props:['currentTask'],
     data(){
         return{
-            hours: null,
-            minutes: null,
-            day: null,
-            month: null,
-            year: null,
+            hours: '00',
+            minutes: '00',
+            day: 'day',
+            month: 'month',
+            year: 'year',
             user: null
         }
     },

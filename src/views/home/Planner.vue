@@ -1,6 +1,6 @@
 <template>
   <div class="planner-container">
-    <div class="set-view" :style="setTopPos">
+    <div class="set-view">
         <i 
             class="fas fa-bars" 
             @click="view = 'single'"
@@ -76,7 +76,6 @@ export default {
             taskColor: null,
             addTask: null,
             currentTask: null,
-            setTopPos: null,
             view: 'single'
         }
     },
@@ -146,9 +145,6 @@ export default {
         this.setDate()  
     },
     mounted(){
-        this.setTopPos =  {
-            top: (document.querySelector('#NavBar').offsetHeight) + 'px'
-        }
         this.fetchUserData()
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(pos=>{
@@ -169,7 +165,6 @@ export default {
     overflow-y: hidden;
 }
 #planner{
-    margin: auto;
     margin-right: 65px;
     width: 500px;
     display: flex;
@@ -183,9 +178,10 @@ export default {
     scroll-behavior: smooth;
 }
 .planner-container .set-view{
-    position: fixed;
+    position: absolute;
     right: 0;
     padding: 20px;
+    top: 10px;
     display: flex;
 }
 .planner-container .set-view i{
@@ -194,7 +190,6 @@ export default {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    /* background: orange; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -210,7 +205,7 @@ export default {
 /* Add Task view single */
 .planner-container .addTask{
     margin-bottom: 20px;
-    width: 100%;
+    width: 500px;
     text-align: center;
 }
 .planner-container .addTask .current-info{
@@ -225,7 +220,7 @@ export default {
 }
 .planner-container .addTask button{
     font-size: .6em;
-    width: 60%;
+    width: 70%;
     border-radius: 20px;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -254,6 +249,12 @@ export default {
 
 .planner-container{
     position: relative;
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #planner .indicator{

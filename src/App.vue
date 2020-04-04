@@ -134,6 +134,13 @@ export default {
     --border-color: rgba(0,0,0,.2);
     --bg-overlay-color: rgba(0,0,0,.4);
 }
+
+#app{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 body{
     --weather-background: url(https://images.unsplash.com/photo-1459679749680-18eb1eb37418?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);
     height: 100vh;

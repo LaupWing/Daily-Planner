@@ -47,10 +47,6 @@ export default {
 
 <style>
 #NavBar{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     display: flex;
     justify-content: center;
     background: white;
