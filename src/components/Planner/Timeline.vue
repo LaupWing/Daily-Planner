@@ -1,5 +1,5 @@
 <template>
-    <ul id="Timeline">
+    <ul id="Timeline" :style="sizing">
         <li data-time="00:00">00:00</li>
         <li data-time="00:30">-</li>
         <li data-time="01:00">01:00</li>
@@ -58,14 +58,20 @@ export default {
     props:['hours', 'minutes'],
     data(){
         return{
-
+            sizing:null
         }
     },
     methods:{
     },
     mounted(){
-        console.log(this.$el.querySelector('li').offsetTop)
-        console.log(this.$el.offsetTop)
+        const liHeight = this.$el.querySelector('li').offsetHeight
+        const amountLi = this.$el.querySelectorAll('li').length
+
+        this.sizing = {
+            paddingTop: `${(this.$el.parentElement.offsetHeight/2)-liHeight/2}px`,
+            height: `${amountLi*liHeight}px`,
+            paddingBottom: `${(this.$el.parentElement.offsetHeight/2)-liHeight/2}px`
+        }
     }
 
 }
@@ -79,6 +85,7 @@ ul#Timeline{
   padding-top: 57%;
   margin-left: 20px;
   padding-bottom: 540%;
+  box-sizing: content-box;
 }
 #Timeline li{
   padding: 10px 0;
