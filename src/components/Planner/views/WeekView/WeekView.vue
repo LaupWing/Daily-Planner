@@ -1,6 +1,6 @@
 <template>
     <div id="Week-View">
-        <Timeline/>
+        <Timeline view="week"/>
         <div id="Week">
             <Day
                 v-for="(day,i) in days"

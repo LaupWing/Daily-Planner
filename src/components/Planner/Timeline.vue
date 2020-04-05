@@ -55,7 +55,7 @@
 <script>
 export default {
     name: 'Timeline',
-    props:['hours', 'minutes'],
+    props:['hours', 'minutes', 'view'],
     data(){
         return{
             sizing:null
@@ -66,11 +66,12 @@ export default {
     mounted(){
         const liHeight = this.$el.querySelector('li').offsetHeight
         const amountLi = this.$el.querySelectorAll('li').length
-
-        this.sizing = {
-            paddingTop: `${(this.$el.parentElement.offsetHeight/2)-liHeight/2}px`,
-            height: `${amountLi*liHeight}px`,
-            paddingBottom: `${(this.$el.parentElement.offsetHeight/2)-liHeight/2}px`
+        if(this.view !== 'week'){
+            this.sizing = {
+                paddingTop: `${(this.$el.parentElement.offsetHeight/2)-liHeight/2}px`,
+                height: `${amountLi*liHeight}px`,
+                paddingBottom: `${(this.$el.parentElement.offsetHeight/2)-liHeight/2}px`
+            }
         }
     }
 
