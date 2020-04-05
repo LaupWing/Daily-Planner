@@ -98,9 +98,14 @@ export default {
     transition: 1s;
 }
 #Color-Label.single{
-    position: fixed;
-    top: 50%;
+    position: absolute;
+    top: 0;
     left: 20px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 #Color-Label h2{
     font-weight: normal;

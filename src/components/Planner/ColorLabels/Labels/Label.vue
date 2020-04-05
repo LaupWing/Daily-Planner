@@ -110,10 +110,6 @@ export default {
                 return ''
             }
         }
-    },
-    mounted(){
-        const colorLabels = document.querySelector('#Color-Label')
-        colorLabels.style.marginTop = `-${colorLabels.offsetHeight/2}px`
     }
 }
 </script>
