@@ -49,12 +49,12 @@
 </template>
 
 <script>
-import WeekView from '@/components/Planner/views/WeekView/WeekView'
-import ColorLabels from '@/components/Planner/ColorLabels/ColorLabels'
-import AddTask from '@/components/Planner/AddTask/AddTask'
+import WeekView from './views/WeekView/WeekView'
+import ColorLabels from './ColorLabels/ColorLabels'
+import AddTask from './AddTask/AddTask'
 import firebase from 'firebase'
 import db from '@/firebase/init'
-import DailyView from '@/components/Planner/views/DailyView/DailyView'
+import DailyView from './views/DailyView/DailyView'
 import { mapGetters, mapActions } from 'vuex'
 import {monthNames} from '@/components/helpers/timeFormat'
 
