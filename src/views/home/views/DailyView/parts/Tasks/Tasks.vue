@@ -23,8 +23,8 @@ import db from '@/firebase/init'
 import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
 import {checkConnectedLi} from '@/components/helpers/timeline'
-import TaskMore from '@/components/Planner/views/DailyView/parts/Tasks/Task/More/TaskMore'
-import Task from '@/components/Planner/views/DailyView/parts/Tasks/Task/Task'
+import TaskMore from './Task/More/TaskMore'
+import Task from './Task/Task'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {

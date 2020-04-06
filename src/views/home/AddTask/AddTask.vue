@@ -66,8 +66,8 @@
 import {addZero} from '@/components/helpers/timeFormat'
 import {checkOverlap} from '@/components/helpers/overlap'
 import {addDayToMsg} from '@/components/helpers/overlap'
-import ColorLabels from '@/components/Planner/ColorLabels/ColorLabels'
-import Days from '@/components/Planner/AddTask/parts/Days'
+import ColorLabels from '@/views/home/ColorLabels/ColorLabels'
+import Days from './parts/Days'
 import { mapGetters, mapActions } from 'vuex'
 
 import firebase from 'firebase'

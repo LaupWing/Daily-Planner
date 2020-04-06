@@ -35,10 +35,10 @@
 </template>
 
 <script>
-import Timeline from '@/components/Planner/Timeline'
-import Tasks from '@/components/Planner/views/DailyView/parts/Tasks/Tasks'
-import GoTo from '@/components/Planner/GoTo'
-import Actions from '@/components/Planner/views/DailyView/parts/Actions'
+import Timeline from '@/views/home/Timeline/Timeline'
+import Tasks from './parts/Tasks/Tasks'
+import GoTo from '@/views/home/GoTo/GoTo'
+import Actions from './parts/Actions'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import {days} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'

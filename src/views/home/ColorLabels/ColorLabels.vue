@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import Label from '@/components/Planner/ColorLabels/Labels/Label'
+import Label from './Labels/Label'
 import Popup from '@/components/Popups/Popups'
 import { mapGetters } from 'vuex'
 export default {

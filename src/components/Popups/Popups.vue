@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import CustomContext from '@/components/Planner/views/DailyView/parts/Tasks/CustomContext'
-import EditLabelForm from '@/components/Planner/ColorLabels/ColorForms/EditLabelForm'
-import AddLabelForm from '@/components/Planner/ColorLabels/ColorForms/AddLabelForm'
+import CustomContext from '@/views/home/views/DailyView/parts/Tasks/CustomContext'
+import EditLabelForm from '@/views/home/ColorLabels/ColorForms/EditLabelForm'
+import AddLabelForm from '@/views/home/ColorLabels/ColorForms/AddLabelForm'
 import checkTask from '@/components/helpers/checkLocationTask'
 import db from '@/firebase/init'
 import firebase from 'firebase'

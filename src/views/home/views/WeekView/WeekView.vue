@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import Timeline from '@/components/Planner/Timeline'
+import Timeline from '@/views/home/Timeline/Timeline'
 import {days} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'
-import Day from '@/components/Planner/views/WeekView/parts/Day/Day'
+import Day from './parts/Day/Day'
 
 export default {
     name: 'WeekView',

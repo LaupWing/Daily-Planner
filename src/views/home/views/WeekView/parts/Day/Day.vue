@@ -17,7 +17,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Task from '@/components/Planner/views/WeekView/parts/Day/parts/Task'
+import Task from './parts/Task'
 
 export default {
     name: 'DayInWeekView',

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Tooltip from '@/components/Planner/views/WeekView/parts/Day/parts/Tooltip'
+import Tooltip from './Tooltip'
 export default {
     name: 'TaskInWeekView',
     props: ['task', 'index'],

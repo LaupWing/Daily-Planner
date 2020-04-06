@@ -42,10 +42,10 @@
 </template>
 
 <script>
-import General from '@/components/Planner/views/DailyView/parts/Tasks/Task/More/parts/General'
-import Week from '@/components/Planner/views/DailyView/parts/Tasks/Task/More/parts/Week'
-import Colors from '@/components/Planner/views/DailyView/parts/Tasks/Task/More/parts/Colors'
-import TaskNav from '@/components/Planner/views/DailyView/parts/Tasks/Task/More/parts/TaskNav'
+import General from './parts/General'
+import Week from './parts/Week'
+import Colors from './parts/Colors'
+import TaskNav from './parts/TaskNav'
 import db from '@/firebase/init'
 import firebase from 'firebase'
 import { mapGetters, mapActions } from 'vuex'
