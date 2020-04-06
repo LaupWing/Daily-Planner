@@ -271,6 +271,7 @@ export default {
     },
     mounted(){
         this.assignInterval()
+        console.log(this.$el.querySelector('.indicator').style.top)
         this.elementMidpoint = this.$el.offsetTop + (this.$el.offsetHeight/2) + this.$el.parentElement.offsetTop + 'px' 
     }
 }
