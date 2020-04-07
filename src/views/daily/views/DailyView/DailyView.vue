@@ -35,9 +35,9 @@
 </template>
 
 <script>
-import Timeline from '@/views/home/Timeline/Timeline'
+import Timeline from '@/views/daily/Timeline/Timeline'
 import Tasks from './parts/Tasks/Tasks'
-import GoTo from '@/views/home/GoTo/GoTo'
+import GoTo from '@/views/daily/GoTo/GoTo'
 import Actions from './parts/Actions'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import {days} from '@/components/helpers/timeFormat'

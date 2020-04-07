@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Planner from './views/home/Planner.vue'
+import Planner from './views/daily/Planner.vue'
 import Signup from './views/auth/Signup'
 import Login from './views/auth/Login'
 import AllTasks from './views/alltasks/AllTasks'
@@ -14,7 +14,7 @@ const router =  new Router({
     routes: [
         {
             path: '/',
-            name: 'Home',
+            name: 'Daily',
             component: Planner,
             meta:{
                 requiresAuth: true
