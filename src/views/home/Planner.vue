@@ -1,6 +1,6 @@
 <template>
   <div class="planner-container">
-    <div class="set-view">
+    <!-- <div class="set-view">
         <i 
             class="fas fa-bars" 
             @click="view = 'single'"
@@ -11,7 +11,7 @@
             @click="view = 'week'"
             :class="{active :view === 'week'}"
         ></i>
-    </div>
+    </div> -->
     <AddTask 
         v-if="addTask"
         v-on:toggle="toggle('addTask')"
@@ -32,24 +32,16 @@
         :userData="userData"
         :view="view"
     />
-    <WeekView 
-        v-if="view === 'week'"
-        :date="date"
-        :month="month"
-        :currentDay="day"
-    />
     <DailyView
         :userData="userData"
         v-on:setData="setData"
         v-on:setCurrentTask="setCurrentTask"
-        v-else
     />
   </div>
   
 </template>
 
 <script>
-import WeekView from './views/WeekView/WeekView'
 import ColorLabels from './ColorLabels/ColorLabels'
 import AddTask from './AddTask/AddTask'
 import firebase from 'firebase'
@@ -82,7 +74,6 @@ export default {
     components:{
         ColorLabels,
         AddTask,
-        WeekView,
         DailyView
     },
     methods:{
