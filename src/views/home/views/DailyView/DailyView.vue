@@ -271,13 +271,12 @@ export default {
     },
     mounted(){
         this.assignInterval()
-        console.log({
-            offsetTop: this.$el.offsetTop,
-            height: this.$el.offsetHeight/2,
-            parentOffsetTop: this.$el.parentElement.offsetTop
+        setTimeout(()=>{
+            this.elementMidpoint = this.$el.offsetTop + (this.$el.offsetHeight/2) + this.$el.parentElement.offsetTop + 'px'
         })
-        this.elementMidpoint = this.$el.offsetTop + (this.$el.offsetHeight/2) + this.$el.parentElement.offsetTop + 'px' 
-        console.log(`Element mid point ${this.elementMidpoint}`)
+        window.addEventListener('DOMContentLoaded',()=>{
+            console.log('loaded') 
+        })
     }
 }
 </script>

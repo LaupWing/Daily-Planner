@@ -223,9 +223,6 @@ export default {
             // this.checkCurrentTask()
             // this.taskWatcher()
         // })
-        setTimeout(()=>{
-            console.log(this.tasksOfToday)
-        },2000)
 
         // This Snapchot change is currntly only use for checking the color label changes
         let ref = db.collection('planner')
