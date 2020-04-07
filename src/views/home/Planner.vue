@@ -1,22 +1,10 @@
 <template>
   <div class="planner-container">
-    <!-- <div class="set-view">
-        <i 
-            class="fas fa-bars" 
-            @click="view = 'single'"
-            :class="{active :view === 'single'}"
-        ></i>
-        <i 
-            class="fas fa-table" 
-            @click="view = 'week'"
-            :class="{active :view === 'week'}"
-        ></i>
-    </div> -->
     <AddTask 
         v-if="addTask"
         v-on:toggle="toggle('addTask')"
     />
-    <div :class="['addTask', view]">
+    <div class='addTask'>
         <div class="current-info">
             <h2 v-if="currentTask">{{currentTask.task}}</h2>
             <h2 v-else>Your current Task</h2>
@@ -30,7 +18,7 @@
     <ColorLabels
         :taskColor='taskColor'
         :userData="userData"
-        :view="view"
+        :view='"single"'
     />
     <DailyView
         :userData="userData"
@@ -67,8 +55,7 @@ export default {
             },
             taskColor: null,
             addTask: null,
-            currentTask: null,
-            view: 'single'
+            currentTask: null
         }
     },
     components:{
