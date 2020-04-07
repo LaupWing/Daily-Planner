@@ -13,7 +13,7 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 - [x]  Refactoring the position for timeline
 - [x]  Refactor the `fixed` position styling of the top nav
 - [x]  Refactor the main part of the website (styling)
-- [ ]  Split up the week and daily view
+- [x]  Split up the week and daily view
 
 ### Would be fine
 - [ ]  Make week view multiscreen compatible
