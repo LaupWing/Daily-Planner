@@ -8,6 +8,7 @@
     <transition name="slide">
         <SideBar
             v-if="sideNav"
+            v-on:closeNav="toggle('sideNav')"
         />
     </transition>
     <Popups 

@@ -1,6 +1,7 @@
 <template>
     <div id="AllTasks">
-        <div class="search">
+        <h2>All tasks</h2>
+        <!-- <div class="search">
             <input @input="search" type="text" placeholder="search">
             <i class="fas fa-search"></i>
         </div>
@@ -13,7 +14,7 @@
                 :key="index"
                 :task="task"
             />
-        </div>
+        </div> -->
     </div>
 </template>
 
