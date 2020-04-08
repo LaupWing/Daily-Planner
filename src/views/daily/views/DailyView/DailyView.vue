@@ -273,9 +273,16 @@ export default {
         this.assignInterval()
         setTimeout(()=>{
             this.elementMidpoint = this.$el.offsetTop + (this.$el.offsetHeight/2) + this.$el.parentElement.offsetTop + 'px'
+            console.log('--------------------settingtimeline-----------------')
+            console.log(this.$el.parentElement)
+            console.log({
+                offsetTop: this.$el.offsetTop,
+                heightEl:(this.$el.offsetHeight/2),
+                parent:this.$el.parentElement.offsetTop
+            })
         })
         window.addEventListener('DOMContentLoaded',()=>{
-            console.log('loaded') 
+            // console.log('loaded') 
         })
     }
 }

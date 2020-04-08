@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <Navbar
+    <!-- <Navbar
         :weatherData='weatherData'
         :currentTask='currentTask'
         v-on:toggle="toggle('sideNav')"
-    />
+    /> -->
     <transition name="slide">
         <SideBar
             v-if="sideNav"
