@@ -146,11 +146,12 @@ export default {
     margin-right: 65px;
     width: 500px;
     display: flex;
-    max-height: 60vh;
+    max-height: var(--dailyPlanner-height);
     overflow-y: auto;
     position: relative;
     position: relative;
     scroll-behavior: smooth;
+    align-items: flex-start;
 }
 #planner.smooth{
     scroll-behavior: smooth;
@@ -256,7 +257,7 @@ export default {
     content: attr(time);
 }
 #planner::-webkit-scrollbar {
-    width: 0px;
+    /* width: 0px; */
 }
 
 /* Track */
@@ -273,14 +274,8 @@ export default {
 #planner::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
-@media only screen and (min-height: 1000px) {
-    #planner {
-        max-height:600px;
-    }
-}
 @media only screen and (max-height: 800px) {
     #planner {
-        max-height: 60vh;   
         width: 450px;
     }
     .planner-container{

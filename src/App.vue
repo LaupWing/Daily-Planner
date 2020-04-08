@@ -129,10 +129,22 @@ export default {
     box-sizing: border-box;
     padding: 0;
 }
-#App{
+:root {
     --main-color: white;
     --border-color: rgba(0,0,0,.2);
+    --dailyPlanner-height: 600px;
     --bg-overlay-color: rgba(0,0,0,.4);
+}
+
+@media only screen and (min-height: 1000px) {
+    :root {
+        --dailyPlanner-height: 600px;
+    }
+}
+@media only screen and (max-height: 800px) {
+    :root {
+        --dailyPlanner-height: 60vh;   
+    }
 }
 
 #app{

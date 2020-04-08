@@ -68,9 +68,9 @@ export default {
         const amountLi = this.$el.querySelectorAll('li').length
         if(this.view !== 'week'){
             this.sizing = {
-                paddingTop: `${(this.$el.parentElement.offsetHeight/2)-liHeight/2}px`,
-                height: `${amountLi*liHeight}px`,
-                paddingBottom: `${(this.$el.parentElement.offsetHeight/2)-liHeight/2}px`
+                // paddingTop: `${(this.$el.parentElement.offsetHeight/2)-liHeight/2}px`,
+                // height: `${amountLi*liHeight}px`,
+                // paddingBottom: `${(this.$el.parentElement.offsetHeight/2)-liHeight/2}px`
             }
         }
     }
@@ -83,9 +83,9 @@ ul#Timeline{
   display: flex;
   flex-direction: column;
   padding-right: 15px;
-  padding-top: 57%;
+  padding-top: calc(var(--dailyPlanner-height)/2);
   margin-left: 20px;
-  padding-bottom: 540%;
+  padding-bottom: calc(var(--dailyPlanner-height)/2);
   box-sizing: content-box;
 }
 #Timeline li{
