@@ -1,6 +1,6 @@
 <template>
     <nav id="Main-Nav">
-        <router-link :to="{name: 'Home'}">Daily Planner</router-link>
+        <router-link :to="{name: 'Daily'}">Daily Planner</router-link>
         <router-link :to="{name: 'AllTasks'}">All Tasks</router-link>
         <a>Habit Tracker</a>
         <a>Skills</a>

@@ -257,7 +257,7 @@ export default {
     content: attr(time);
 }
 #planner::-webkit-scrollbar {
-    /* width: 0px; */
+    width: 0px;
 }
 
 /* Track */

@@ -13,22 +13,22 @@
         >
         </div>
         <Timeline/>
-        <!-- <Tasks
+        <Tasks
             :visibleTask="visibleTask"
             :userData="userData"
             v-on:checkActiveTask='checkTaskByScroll'
             v-on:setTask='setTask'
-        /> -->
-        <!-- <div class="controls">
+        />
+        <div class="controls">
             <Actions
                 :visibleTask="visibleTask"
             />
-        </div> -->
+        </div>
         <!-- Need to calculate margin-top value by adding the planner height -->
-        <!-- <GoTo
+        <GoTo
             v-on:setupCurrentPos='setupCurrentPos'  
             v-on:goToSpecifikTime='goToSpecifikTime'
-        /> -->
+        />
     </div>
 </template>
 
@@ -280,7 +280,7 @@ export default {
             })
         })
         window.addEventListener('DOMContentLoaded',()=>{
-            // console.log('loaded') 
+            console.log('loaded') 
         })
     }
 }
