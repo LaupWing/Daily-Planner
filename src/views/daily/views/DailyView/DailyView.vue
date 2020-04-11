@@ -280,7 +280,7 @@ export default {
             })
         })
         window.addEventListener('DOMContentLoaded',()=>{
-            console.log('loaded') 
+            // console.log('loaded') 
         })
     }
 }

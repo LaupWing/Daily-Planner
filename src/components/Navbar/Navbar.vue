@@ -48,23 +48,18 @@ export default {
 <style>
 #NavBar{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     background: white;
     border-bottom: 1px rgba(0,0,0,.4) solid;
     z-index: 1000;
+    padding: 5px 8px;
 }
 #NavBar .left-panel{
-    position: absolute;
-    top: 0;
-    left: 10px;
     display: flex;
     align-items: center;
 
 }
 #NavBar .right-panel{
-    position: absolute;
-    top: 0;
-    right: 0;
     display: flex;
 }
 #NavBar .open-side-menu{
