@@ -41,6 +41,9 @@ export default {
             }
             this.$emit('toggle')
         }
+    },
+    mounted(){
+        this.$emit('navbarLoaded')
     }
 }
 </script>

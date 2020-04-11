@@ -4,6 +4,7 @@
         :weatherData='weatherData'
         :currentTask='currentTask'
         v-on:toggle="toggle('sideNav')"
+        v-on:navbarLoaded="navbarLoaded = true"
     />
     <transition name="slide">
         <SideBar
@@ -18,6 +19,7 @@
         v-on:togglePopup="togglePopup"
     />
     <router-view
+        v-if="navbarLoaded"
         :userData="userData"
         v-on:setTask='setTask'
         v-on:togglePopup='togglePopup'
@@ -47,7 +49,8 @@ export default {
             weatherData: null,
             popup: null,
             userData: null,
-            sideNav: false
+            sideNav: false,
+            navbarLoaded: false
         }
     },
     components:{
