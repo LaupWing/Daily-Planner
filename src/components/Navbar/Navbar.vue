@@ -43,7 +43,10 @@ export default {
         }
     },
     mounted(){
-        this.$emit('navbarLoaded')
+        // To be sure that the navbar loads first in order to render the view
+        setTimeout(()=>{
+            this.$emit('navbarLoaded')
+        },50)
     }
 }
 </script>
