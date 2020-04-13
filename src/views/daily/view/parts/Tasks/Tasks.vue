@@ -56,6 +56,8 @@ export default {
                         const date = new Date()
                         const dateNumber =  date.getDay()
                         const currentDay = days[dateNumber]
+                        // Need to look at the code below
+                        // https://stackoverflow.com/questions/53757107/handling-unexpected-side-effect-in-computed-properties-vuejs 
                         // eslint-disable-next-line
                         this.today = currentDay
                         const checkDay = task.days.some(day=>day.day===currentDay)
