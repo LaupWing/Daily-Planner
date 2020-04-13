@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import CustomContext from '@/views/daily/views/DailyView/parts/Tasks/CustomContext'
+import CustomContext from '@/views/daily/view/parts/Tasks/CustomContext'
 import EditLabelForm from '@/views/daily/ColorLabels/ColorForms/EditLabelForm'
 import AddLabelForm from '@/views/daily/ColorLabels/ColorForms/AddLabelForm'
 import checkTask from '@/components/helpers/checkLocationTask'

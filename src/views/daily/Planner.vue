@@ -34,7 +34,7 @@ import ColorLabels from './ColorLabels/ColorLabels'
 import AddTask from './AddTask/AddTask'
 import firebase from 'firebase'
 import db from '@/firebase/init'
-import DailyView from './views/DailyView/DailyView'
+import DailyView from './view/DailyView'
 import { mapGetters, mapActions } from 'vuex'
 import {monthNames} from '@/components/helpers/timeFormat'
 
