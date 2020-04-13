@@ -35,7 +35,7 @@ import AddTask from './AddTask/AddTask'
 import firebase from 'firebase'
 import db from '@/firebase/init'
 import DailyView from './view/DailyView'
-import { mapGetters, mapActions } from 'vuex'
+import {mapActions } from 'vuex'
 import {monthNames} from '@/components/helpers/timeFormat'
 
 export default {

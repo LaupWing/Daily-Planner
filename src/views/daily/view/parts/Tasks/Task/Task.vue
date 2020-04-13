@@ -187,7 +187,6 @@ export default {
     },
     computed:{
         taskProps(){
-            console.log(this.topVal())
             if(!this.expanded){
                 return {
                     top: this.topVal() + 'px',
@@ -232,6 +231,7 @@ export default {
                     }
                 }
             }
+            return null
         },
         checkPopup(){
             if(this.popupSettings){

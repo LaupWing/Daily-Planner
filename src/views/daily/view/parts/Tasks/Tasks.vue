@@ -22,15 +22,12 @@ import firebase from 'firebase'
 import db from '@/firebase/init'
 import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
-import {checkConnectedLi} from '@/components/helpers/timeline'
-import TaskMore from './Task/More/TaskMore'
 import Task from './Task/Task'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters} from 'vuex'
 
 export default {
     name: 'Tasks',
     components:{
-        TaskMore,
         Task
     },
     props:['visibleTask','userData'],
@@ -59,6 +56,7 @@ export default {
                         const date = new Date()
                         const dateNumber =  date.getDay()
                         const currentDay = days[dateNumber]
+                        // eslint-disable-next-line
                         this.today = currentDay
                         const checkDay = task.days.some(day=>day.day===currentDay)
                         if(checkDay){
@@ -66,6 +64,7 @@ export default {
                         }
                     })
             }
+            return null
         }
     },
     methods:{

@@ -48,7 +48,7 @@ import Colors from './parts/Colors'
 import TaskNav from './parts/TaskNav'
 import db from '@/firebase/init'
 import firebase from 'firebase'
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 
 export default {
