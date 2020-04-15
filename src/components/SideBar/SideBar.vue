@@ -2,6 +2,7 @@
     <div id="SideBar">
         <nav id="Main-Nav">
             <router-link @click.native="closeNav" :to="{name: 'Daily'}">Daily Planner</router-link>
+            <router-link @click.native="closeNav" :to="{name: 'Week'}">Week Planner</router-link>
             <router-link @click.native="closeNav" :to="{name: 'AllTasks'}">All Tasks</router-link>
             <a>Habit Tracker</a>
             <a>Skills</a>

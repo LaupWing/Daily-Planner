@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Container from './views/daily/Container.vue'
+import Daily from './views/daily/Container.vue'
+import Week from './views/week/Week.vue'
 import Signup from './views/auth/Signup'
 import Login from './views/auth/Login'
 import AllTasks from './views/alltasks/AllTasks'
@@ -15,7 +16,7 @@ const router =  new Router({
         {
             path: '/',
             name: 'Daily',
-            component: Container,
+            component: Daily,
             meta:{
                 requiresAuth: true
             }
@@ -40,8 +41,8 @@ const router =  new Router({
         },
         {
             path: '/week',
-            name: 'AllTasks',
-            component: AllTasks,
+            name: 'Week',
+            component: Week,
             meta:{
                 requiresAuth: true
             }
