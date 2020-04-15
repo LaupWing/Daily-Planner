@@ -1,5 +1,5 @@
 <template>
-    <div id="Color-Label" :class="view" :style="changeMarginOnWeekView">
+    <div id="Color-Label">
         <h2
             @mouseover="showAll(true)"
             @mouseout="showAll(false)"
@@ -44,15 +44,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getUserData']),
-        changeMarginOnWeekView(){
-            if(this.view === 'week'){
-                return {
-                    marginTop: '-70px'
-                }
-            }
-            return
-        }
+        ...mapGetters(['getUserData'])
     },
     methods:{
         showAll(state){
@@ -97,7 +89,7 @@ export default {
 #Color-Label{
     transition: 1s;
 }
-#Color-Label.single{
+#Color-Label{
     position: absolute;
     top: 0;
     left: 20px;
@@ -182,19 +174,5 @@ export default {
 }
 #Color-Label .buttons button{
     width: 50%;
-}
-/* Week View */
-#Color-Label.week{
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 40%;
-    left: auto;
-}
-#Color-Label.week .label-container{
-    flex-direction: row;
-}
-#Color-Label.week .label-container i{
-    width: auto;
 }
 </style>
