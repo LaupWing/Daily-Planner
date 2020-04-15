@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Planner from './views/daily/Planner.vue'
+import Container from './views/daily/Container.vue'
 import Signup from './views/auth/Signup'
 import Login from './views/auth/Login'
 import AllTasks from './views/alltasks/AllTasks'
@@ -15,7 +15,7 @@ const router =  new Router({
         {
             path: '/',
             name: 'Daily',
-            component: Planner,
+            component: Container,
             meta:{
                 requiresAuth: true
             }
@@ -33,22 +33,33 @@ const router =  new Router({
         {
             path: '/allTasks',
             name: 'AllTasks',
-            component: AllTasks
+            component: AllTasks,
+            meta:{
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/week',
+            name: 'AllTasks',
+            component: AllTasks,
+            meta:{
+                requiresAuth: true
+            }
         }
     ]
 })
 
 router.beforeEach((to, from, next)=>{
-  if(to.matched.some(rec=> rec.meta.requiresAuth)){
-    let user = firebase.auth().currentUser
-    if(user){
-      next()
+    if(to.matched.some(rec=> rec.meta.requiresAuth)){
+        let user = firebase.auth().currentUser
+        if(user){
+            next()
+        }else{
+            next({name:'Login'})
+        }
     }else{
-      next({name:'Login'})
+        next()
     }
-  }else{
-    next()
-  }
 })
 
 export default router
