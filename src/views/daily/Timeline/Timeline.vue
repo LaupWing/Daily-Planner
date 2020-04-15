@@ -1,5 +1,5 @@
 <template>
-    <ul id="Timeline" :style="sizing">
+    <ul id="Timeline">
         <li data-time="00:00">00:00</li>
         <li data-time="00:30">-</li>
         <li data-time="01:00">01:00</li>
@@ -54,27 +54,7 @@
 
 <script>
 export default {
-    name: 'Timeline',
-    props:['hours', 'minutes', 'view'],
-    data(){
-        return{
-            sizing:null
-        }
-    },
-    methods:{
-    },
-    mounted(){
-        const liHeight = this.$el.querySelector('li').offsetHeight
-        const amountLi = this.$el.querySelectorAll('li').length
-        if(this.view !== 'week'){
-            this.sizing = {
-                // paddingTop: `${(this.$el.parentElement.offsetHeight/2)-liHeight/2}px`,
-                // height: `${amountLi*liHeight}px`,
-                // paddingBottom: `${(this.$el.parentElement.offsetHeight/2)-liHeight/2}px`
-            }
-        }
-    }
-
+    name: 'Timeline'
 }
 </script>
 
