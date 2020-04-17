@@ -41,10 +41,9 @@ export default {
         calculatePoint(begin){
             const allLi  = Array.from(document.querySelectorAll('#Timeline li'))
             const findLi = allLi
-                .find((li,index)=>{
+                .find(li=>{
                     const liHours = li.textContent.split(':')[0]
-                    const beginHours  = begin.split(':')[0] 
-                    index = index
+                    const beginHours  = begin.split(':')[0]
                     if(liHours===beginHours)    return li
                 })
             const findIndex = allLi.findIndex(li=>li === findLi)
