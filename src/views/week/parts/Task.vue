@@ -45,6 +45,7 @@ export default {
                     const beginHours  = begin.split(':')[0] 
                     if(liHours===beginHours)    return li
                 })
+            console.log(findLi)
             const startingHour = findLi.offsetTop + (findLi.offsetHeight/2)
             const minutes =  (findLi.offsetHeight/30) * Number(begin.split(':')[1])
             return findLi.offsetTop + (findLi.offsetHeight/2) + minutes
@@ -54,6 +55,7 @@ export default {
         }
     },
     mounted(){
+        console.log(this.task)
         this.$el.style.top = this.calculatePoint(this.task.begin) +'px'
         this.$el.style.height = this.calculateHeight() + 'px'
         this.$el.style.background = this.task.color.color

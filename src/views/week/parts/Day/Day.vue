@@ -35,7 +35,7 @@ export default {
     },
     methods:{
         getTaskOfThisDay(day){
-            if(this.getUserData.dailyTasks.length === 0)    return []
+            if(!this.getUserData.dailyTasks || this.getUserData.dailyTasks.length === 0)    return []
             const filterTasks = this.getUserData.dailyTasks
             const filteredTasks = filterTasks.filter(task=>task.days.find(t2=>t2.day===day))
             const tasksOfThisDay = []
