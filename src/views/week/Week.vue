@@ -24,6 +24,7 @@ import {mapActions} from 'vuex'
 
 export default {
     name: 'WeekView',
+    props:['userData'],
     components:{
         Timeline,
         Day
@@ -51,6 +52,7 @@ export default {
 <style>
 #Week-View{
     display: flex;
+    align-items: flex-start;
 }
 #Week-View #Timeline{
     padding: 0;
@@ -64,8 +66,6 @@ export default {
 }
 #Week-View #Week{
     display: flex;
-    /* align-items: center; */
-    height: 100%;
     border-bottom:solid white 1px
 }
 #Week-View #Week h3{
