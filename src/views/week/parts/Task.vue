@@ -39,24 +39,26 @@ export default {
             }
         },
         calculatePoint(begin){
-            const findLi = Array.from(document.querySelectorAll('#Timeline li'))
-                .find(li=>{
+            const allLi  = Array.from(document.querySelectorAll('#Timeline li'))
+            const findLi = allLi
+                .find((li,index)=>{
                     const liHours = li.textContent.split(':')[0]
                     const beginHours  = begin.split(':')[0] 
+                    index = index
                     if(liHours===beginHours)    return li
                 })
-            console.log(findLi)
-            const startingHour = findLi.offsetTop + (findLi.offsetHeight/2)
+            const findIndex = allLi.findIndex(li=>li === findLi)
+           
+            const startingPoint = (findLi.offsetHeight * (findIndex+1)) - (findLi.offsetHeight/2)
             const minutes =  (findLi.offsetHeight/30) * Number(begin.split(':')[1])
-            return findLi.offsetTop + (findLi.offsetHeight/2) + minutes
+            return startingPoint + minutes
         },
         calculateHeight(){
             return this.calculatePoint(this.task.end) - this.calculatePoint(this.task.begin)
         }
     },
     mounted(){
-        console.log(this.task)
-        this.$el.style.top = this.calculatePoint(this.task.begin) +'px'
+        this.$el.style.bottom = `-${this.calculatePoint(this.task.begin)}px`
         this.$el.style.height = this.calculateHeight() + 'px'
         this.$el.style.background = this.task.color.color
     }
@@ -69,7 +71,9 @@ export default {
     font-size: 10px;
     width: 100%;
     border-radius: 5px;
-    border: solid 1px white;
+    border-right: solid 1px white;
+    border-left: solid 1px white;
+    transform: translateY(100%);
 }
 #Week-View #Week .day .task p{
     pointer-events: none;
