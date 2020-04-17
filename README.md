@@ -15,7 +15,7 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 - [x]  Refactor the main part of the website (styling)
 - [x]  Split up the week and daily view
 
-### Would be fine
+### Would be nice
 - [ ]  Make week view multiscreen compatible
 - [ ]  Voice task reminder
 - [ ]  Quickstart working functional
