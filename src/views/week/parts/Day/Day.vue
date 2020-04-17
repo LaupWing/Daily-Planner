@@ -6,24 +6,24 @@
             <h3>{{day.slice(0,3)}}</h3>
             <h3>{{date+(index-compareDateIndex)}}</h3>
         </div>
-        <!-- <Task
+        <Task
             v-for="(task,i2) in getTaskOfThisDay(day)"
             :key="i2"
             :index="i2"
             :task="task"
-        /> -->
+        />
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-// import Task from 'Task'
+import Task from '../Task'
 
 export default {
     name: 'DayInWeekView',
     props:['day', 'today', 'index', 'date', 'compareDateIndex'],
     components:{
-        // Task
+        Task
     },
     computed:{
         ...mapGetters(['getUserData'])

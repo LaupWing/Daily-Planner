@@ -18,7 +18,7 @@
 <script>
 import Tooltip from './Tooltip'
 export default {
-    name: 'TaskInWeekView',
+    name: 'Task',
     props: ['task', 'index'],
     components:{
         Tooltip
