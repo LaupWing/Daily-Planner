@@ -121,9 +121,9 @@ export default {
     },
     created(){
         this.setDate()  
+        this.fetchUserData()
     },
     mounted(){
-        this.fetchUserData()
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(pos=>{
                 this.geolocation.lat = pos.coords.latitude

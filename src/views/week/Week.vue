@@ -16,10 +16,11 @@
 </template>
 
 <script>
-import Timeline from '@/views/daily/Timeline/Timeline'
-import {days} from '@/components/helpers/timeFormat'
-import {monthNames} from '@/components/helpers/timeFormat'
-import Day from './parts/Day/Day'
+import Timeline from '@/views/daily/Timeline/Timeline';
+import {days} from '@/components/helpers/timeFormat';
+import {monthNames} from '@/components/helpers/timeFormat';
+import Day from './parts/Day/Day';
+import {mapActions} from 'vuex'
 
 export default {
     name: 'WeekView',
@@ -38,10 +39,11 @@ export default {
         }
     },
     methods:{
-        
+        ...mapActions(['fetchUserData']),
     },
     created(){
-        this.compareDateIndex = this.days.findIndex((day)=>this.today===day)
+        this.fetchUserData();
+        this.compareDateIndex = this.days.findIndex((day)=>this.today===day);
     }
 }
 </script>
