@@ -24,7 +24,7 @@ export default {
         }
     },
     mounted(){
-        // console.log(this.task, this.settings)
+        console.log(this.task, this.settings)
     }
 }
 </script>
@@ -35,7 +35,7 @@ export default {
     height: 300px;
     background: white;
     position: fixed;
-    z-index: 1000;
+    z-index: 100000;
     pointer-events: none;
     border-radius: 10px;
     animation: scaleUp .5s forwards;    

@@ -3,40 +3,33 @@
         class="task"
         :data-begin="task.begin"
         :data-end="task.end"
-        @mousemove="handleMouserover"
+        @mousemove="setTooltip(true)"
         @mouseout="tooltip = null"
     >
         <p>{{task.task}}</p>
-        <Tooltip
-            v-if="tooltip"
-            :settings="tooltip"
-            :task="task"
-        />
     </div>
 </template>
 
 <script>
-import Tooltip from './Tooltip'
 export default {
     name: 'Task',
     props: ['task', 'index'],
-    components:{
-        Tooltip
-    },
-    computed:{
-        
-    },
     data(){
         return{
             tooltip: null
         }
     },
     methods:{
-        handleMouserover(){
-            this.tooltip ={
-                top: event.clientY,
-                left: event.clientX
+        setTooltip(state){
+            if(state){
+                this.tooltip ={
+                    top: event.clientY,
+                    left: event.clientX
+                }
+            }else{
+                this.tooltip = null
             }
+            this.$emit('setTooltip', this.tooltip)
         },
         calculatePoint(begin){
             const allLi  = Array.from(document.querySelectorAll('#Timeline li'))

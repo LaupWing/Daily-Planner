@@ -10,8 +10,14 @@
                 :today="today"
                 :date="date"
                 :compareDateIndex="compareDateIndex"
+                v-on:setTooltip="test"
             />
         </div>   
+        <Tooltip
+            v-if="tooltip"
+            :settings="tooltip"
+            :task="task"
+        />
     </div>
 </template>
 
@@ -21,16 +27,18 @@ import {days} from '@/components/helpers/timeFormat';
 import {monthNames} from '@/components/helpers/timeFormat';
 import Day from './parts/Day/Day';
 import {mapActions} from 'vuex'
-
+import Tooltip from './parts/Tooltip';
 export default {
     name: 'WeekView',
     props:['userData'],
     components:{
         Timeline,
-        Day
+        Day,
+        Tooltip
     },
     data(){
         return{
+            tooltip: null,
             days: days,
             dailyTasks: [],
             date: new Date().getDate(),
@@ -41,6 +49,9 @@ export default {
     },
     methods:{
         ...mapActions(['fetchUserData']),
+        test(item){
+            console.log(item)
+        }
     },
     created(){
         this.fetchUserData();

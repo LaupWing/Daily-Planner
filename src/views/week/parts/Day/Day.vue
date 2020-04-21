@@ -11,6 +11,7 @@
             :key="i2"
             :index="i2"
             :task="task"
+            v-on:setTooltip="$emit('setTooltip', $event)"
         />
     </div>
 </template>
