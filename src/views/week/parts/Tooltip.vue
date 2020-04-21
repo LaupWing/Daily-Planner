@@ -17,11 +17,6 @@ export default {
                 color: this.settings.task.color.color
             }
         }
-    },
-    data(){
-        return{
-
-        }
     }
 }
 </script>
