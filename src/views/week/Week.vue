@@ -10,13 +10,12 @@
                 :today="today"
                 :date="date"
                 :compareDateIndex="compareDateIndex"
-                v-on:setTooltip="test"
+                v-on:setTooltip="tooltip = $event"
             />
         </div>   
         <Tooltip
             v-if="tooltip"
             :settings="tooltip"
-            :task="task"
         />
     </div>
 </template>
@@ -49,9 +48,6 @@ export default {
     },
     methods:{
         ...mapActions(['fetchUserData']),
-        test(item){
-            console.log(item)
-        }
     },
     created(){
         this.fetchUserData();

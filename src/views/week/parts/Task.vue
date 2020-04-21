@@ -4,7 +4,7 @@
         :data-begin="task.begin"
         :data-end="task.end"
         @mousemove="setTooltip(true)"
-        @mouseout="tooltip = null"
+        @mouseout="setTooltip(false)"
     >
         <p>{{task.task}}</p>
     </div>
@@ -24,7 +24,8 @@ export default {
             if(state){
                 this.tooltip ={
                     top: event.clientY,
-                    left: event.clientX
+                    left: event.clientX,
+                    task: this.task
                 }
             }else{
                 this.tooltip = null
