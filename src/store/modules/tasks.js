@@ -12,10 +12,10 @@ const getters = {
 }
 
 const actions = {
-    async fetchUserData({commit}){
+    async fetchUserData({commit, rootGetters}){
         const doc  = await db
             .collection('planner')
-            .doc(state.currentUser.uid)
+            .doc(rootGetters.user.uid)
             .get()
         if(doc.exists){
             return commit('setUserData', doc.data())
@@ -26,19 +26,19 @@ const actions = {
         const user = firebase.auth().currentUser
         commit('setUser', user)
     },
-    async updateColor({commit}, updatedColorLabels){
+    async updateColor({commit, rootGetters}, updatedColorLabels){
         await db
             .collection('planner')
-            .doc(state.currentUser.uid)
+            .doc(rootGetters.user.uid)
             .update({
                 colorLabels: updatedColorLabels
             }) 
         commit('updateLabels', updatedColorLabels)
     },
-    updateTask({commit}, updatedTask){
+    updateTask({commit, rootGetters}, updatedTask){
         return db
                 .collection('planner')
-                .doc(state.currentUser.uid)
+                .doc(rootGetters.user.uid)
                 .update({
                     dailyTasks: updatedTask
                 })
@@ -46,10 +46,10 @@ const actions = {
                     commit('updateTasks', updatedTask)
                 })
     },
-    addNewTask({commit}, addedTaskToDailyTasks){
+    addNewTask({commit, rootGetters}, addedTaskToDailyTasks){
         return db
             .collection('planner')
-            .doc(state.currentUser.uid)
+            .doc(rootGetters.user.uid)
             .update({
                 dailyTasks: addedTaskToDailyTasks
             })
@@ -59,7 +59,7 @@ const actions = {
             .catch(()=>{
                 return db
                     .collection('planner')
-                    .doc(firebase.auth().currentUser.uid)
+                    .doc(rootGetters.user.uid)
                     .set({
                         dailyTasks: addedTaskToDailyTasks
                     })

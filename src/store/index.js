@@ -1,11 +1,13 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import tasks from './modules/tasks'
+import user from './modules/user'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules:{
-        tasks
+        tasks,
+        user
     }
 })
