@@ -3,12 +3,10 @@ const db = firebase.firestore()
 
 const state = {
     userData:{},
-    currentUser: null
 }
 
 const getters = {
     getUserData: state => state.userData,
-    getUser: state => state.currentUser
 }
 
 const actions = {
@@ -21,10 +19,6 @@ const actions = {
             return commit('setUserData', doc.data())
         }
         commit('setUserData', [])
-    },
-    checkUser({commit}){
-        const user = firebase.auth().currentUser
-        commit('setUser', user)
     },
     async updateColor({commit, rootGetters}, updatedColorLabels){
         await db
@@ -71,7 +65,6 @@ const actions = {
 }
 
 const mutations = {
-    setUser: (state,user) => (state.currentUser = user),
     setUserData: (state, userData)=> (state.userData = userData),
     updateTasks: (state,updatedTasks)=>(state.userData.dailyTasks = updatedTasks),
     updateLabels: (state,updatedColorLabels)=>(state.userData.colorLabels = updatedColorLabels),

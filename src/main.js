@@ -9,6 +9,7 @@ Vue.config.productionTip = false
 let app = null
 
 firebase.auth().onAuthStateChanged(()=>{
+    store.dispatch('userWatcher')
     if(!app){
         app = new Vue({
             store,
