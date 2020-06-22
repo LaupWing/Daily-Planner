@@ -36,10 +36,6 @@ export default {
     },
     mounted(){
         this.$el.style.top = `${document.querySelector('#NavBar').offsetHeight}px`
-        const colorLabels = document.querySelector('#Color-Label')
-        if(colorLabels){
-            colorLabels.style.left = `${this.$el.offsetWidth+10}px`
-        } 
     }
 }
 </script>
