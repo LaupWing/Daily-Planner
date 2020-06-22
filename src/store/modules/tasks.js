@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-import db from '@/firebase/init.js'
+const db = firebase.firestore()
 
 const state = {
     userData:{},
