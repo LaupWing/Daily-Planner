@@ -68,18 +68,6 @@ export default {
         setData({data,value}){
             this[data] = value
         },
-        createTask(){
-        // this.test()
-            // if(event.target.id){
-            //     if(event.target.id === 'Tasks' || event.target.id === 'planner'){
-            //     const container = this.$el.querySelector('#planner')
-            //     const clickYCoord = event.clientY
-            //     const zeroScrollCoord = container.getBoundingClientRect().top + (container.offsetHeight/2)
-            //     const begin = (clickYCoord -zeroScrollCoord) + container.scrollTop 
-            //     container.scrollTo(0,begin)
-            //     } 
-            // }
-        },
         setDate(){
             const date = new Date()
             this.day = date.getDate()
