@@ -75,6 +75,7 @@ export default {
 }
 #Week-View #Week{
     display: flex;
+    flex: 1;
     border-bottom:solid white 1px
 }
 #Week-View #Week h3{

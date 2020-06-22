@@ -66,5 +66,6 @@ export default {
     align-items: center;
     display: flex;
     position: relative;
+    width: calc(100%/7);
 }
 </style>
