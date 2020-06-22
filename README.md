@@ -14,6 +14,8 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 - [x]  Refactor the `fixed` position styling of the top nav
 - [x]  Refactor the main part of the website (styling)
 - [x]  Split up the week and daily view
+- [ ]  Need To clean up a lot of code
+    - [ ] Modulaze some code (put it in some dedicated files/functions)
 
 ### Would be nice
 - [ ]  Make week view multiscreen compatible
