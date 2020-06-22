@@ -1,16 +1,16 @@
 <template>
-  <div id="NavBar">
-    <div class="left-panel">
-      <div @click="toggle" class="open-side-menu">
-        <i class="fas fa-bars"></i>
-      </div>
-      <Temperature :weatherData="weatherData" />
+    <div id="NavBar">
+        <div class="left-panel">
+        <div @click="toggle" class="open-side-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+        <Temperature :weatherData="weatherData" />
+        </div>
+        <CurrentTime :currentTask="currentTask" />
+        <div class="right-panel">
+        <Auth />
+        </div>
     </div>
-    <CurrentTime :currentTask="currentTask" />
-    <div class="right-panel">
-      <Auth />
-    </div>
-  </div>
 </template>
 
 <script>
@@ -18,32 +18,32 @@ import Temperature from "@/components/Navbar/parts/Temperature";
 import Auth from "@/components/Navbar/parts/Auth";
 import CurrentTime from "@/components/Navbar/parts/CurrentTime";
 export default {
-  name: "NavBar",
-  props: ["weatherData", "currentTask"],
-  components: {
-    Temperature,
-    Auth,
-    CurrentTime
-  },
-  methods: {
-    toggle() {
-      const colorLabels = document.querySelector("#Color-Label");
-      if (colorLabels) {
-        if (colorLabels.style.left !== "") {
-          setTimeout(() => {
-            colorLabels.style.removeProperty("left");
-          }, 500);
+    name: "NavBar",
+    props: ["weatherData", "currentTask"],
+    components: {
+        Temperature,
+        Auth,
+        CurrentTime
+    },
+    methods: {
+        toggle() {
+            // const colorLabels = document.querySelector("#Color-Label");
+            // if (colorLabels) {
+            //     if (colorLabels.style.left !== "") {
+            //     setTimeout(() => {
+            //         colorLabels.style.removeProperty("left");
+            //     }, 500);
+            //     }
+            // }
+            this.$emit("toggle");
         }
-      }
-      this.$emit("toggle");
+    },
+    mounted() {
+        // To be sure that the navbar loads first in order to render the view
+        setTimeout(() => {
+            this.$emit("navbarLoaded");
+        }, 50);
     }
-  },
-  mounted() {
-    // To be sure that the navbar loads first in order to render the view
-    setTimeout(() => {
-      this.$emit("navbarLoaded");
-    }, 50);
-  }
 };
 </script>
 
