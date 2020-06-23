@@ -39,7 +39,7 @@ export default {
         Feedback
     },
     computed:{
-        ...mapGetters(['getUserData']),
+        ...mapGetters(['colorLabels']),
         setPos(){
             return{
                 top: `${this.settings.coords.top-4}px`,
@@ -62,12 +62,12 @@ export default {
         },
         submit(){
             if(this.newLabel && this.color){
-                if(this.duplicateCheck(this.getUserData.colorLabels, 'newLabel', 'color')){
+                if(this.duplicateCheck(this.colorLabels, 'newLabel', 'color')){
                     const colorLabel = {
                         color: this.color,
                         label: this.newLabel
                     }
-                    const updatedColorLabels = [...this.getUserData.colorLabels, colorLabel]
+                    const updatedColorLabels = [...this.colorLabels, colorLabel]
                     this.updateColor(updatedColorLabels)
                     this.cancel()
                 }

@@ -40,12 +40,12 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'EditLabelForm',
-    props:['userData', 'settings'],
+    props:['settings'],
     components:{
         Feedback
     },
     computed:{
-        ...mapGetters(['getUserData']),
+        ...mapGetters(['colorLabels', 'dailTasks']),
         setPos(){
             return{
                 top: `${this.settings.coords.top +2}px`,
@@ -57,7 +57,6 @@ export default {
         return{
             feedbackColor: null,
             feedbackLabel: null,
-            colorLabels: this.userData.colorLabels,
             user: firebase.auth().currentUser,
             nonEditedLabel: this.settings.data,
             editLabel: Object.assign({}, this.settings.data)
@@ -69,17 +68,17 @@ export default {
             this.$emit('cancel')
         },
         change(){
-            const removeSelf = this.getUserData.colorLabels.filter(label=>{
+            const removeSelf = this.colorLabels.filter(label=>{
                 return JSON.stringify(label) !== JSON.stringify(this.nonEditedLabel)
             })
             if(this.duplicateCheck(removeSelf)){
-                const updatedColorLabels = this.getUserData.colorLabels.map(label=>{
+                const updatedColorLabels = this.colorLabels.map(label=>{
                         if(JSON.stringify(label)=== JSON.stringify(this.nonEditedLabel)){
                             return this.editLabel
                         }
                         return label
                     })
-                const updatedDailyTasks = this.getUserData.dailyTasks.map(task=>{
+                const updatedDailyTasks = this.dailyTasks.map(task=>{
                     if(JSON.stringify(task.color) === JSON.stringify(this.nonEditedLabel)){
                         task.color = this.editLabel
                         }
@@ -90,22 +89,6 @@ export default {
                 this.cancel()
             }
             
-        },
-        getData(){
-            return db
-                .collection('planner')
-                .doc(firebase.auth().currentUser.uid)
-                .get()
-                .then(doc=>{
-                    const data = doc.data()
-                    if(data.colorLabels){
-                        this.colorLabels = data.colorLabels
-                    }   
-                    if(data.dailyTasks){
-                        this.dailyTasks = data.dailyTasks
-                        // console.log(this.dailyTasks)
-                    }
-                })
         },
         duplicateCheck(array){
             const findColor = array.find(label=>label.color.toLowerCase() === this.editLabel.color.toLowerCase())
@@ -137,8 +120,6 @@ export default {
                 this.editLabel = Object.assign({}, newLabel)
             }
         }
-    },
-    created(){
     }
 }
 </script>
