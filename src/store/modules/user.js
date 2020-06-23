@@ -32,6 +32,7 @@ const actions = {
                     lng: state.geolocation.lng
                 }
             })
+            dispatch('fetchUserData')
         }
     },
     updateUser({commit}, {type, value}){

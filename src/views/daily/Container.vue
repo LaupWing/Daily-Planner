@@ -17,11 +17,9 @@
     </div>    
     <ColorLabels
         :taskColor='taskColor'
-        :userData="userData"
         :view='"single"'
     />
     <DailyView
-        :userData="userData"
         v-on:setData="setData"
         v-on:setCurrentTask="currentTask = $event"
     />
@@ -40,7 +38,6 @@ import {monthNames} from '@/components/helpers/timeFormat'
 
 export default {
     name: '',
-    props: ['userData'],
     data(){
         return{
             date: null,

@@ -61,7 +61,7 @@ export default {
             this[prop] = !this[prop]
         }
         
-    }
+    },
 }
 </script>
 

@@ -16,6 +16,7 @@ const actions = {
             .doc(rootGetters.user.uid)
             .get()
         if(doc.exists){
+            console.log(doc.data())
             return commit('setUserData', doc.data())
         }
         commit('setUserData', [])
@@ -65,7 +66,9 @@ const actions = {
 }
 
 const mutations = {
-    setUserData: (state, userData)=> (state.userData = userData),
+    setUserData: (state, userData)=> {
+        state.userData = userData
+    },
     updateTasks: (state,updatedTasks)=>(state.userData.dailyTasks = updatedTasks),
     updateLabels: (state,updatedColorLabels)=>(state.userData.colorLabels = updatedColorLabels),
 }
