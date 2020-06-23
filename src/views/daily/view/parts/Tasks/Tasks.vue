@@ -47,11 +47,10 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getUserData']),
         tasksOfToday(){
-            if(this.getUserData.dailyTasks){
+            if(this.$store.getters.dailyTasks){
                 this.checkCurrentTask()
-                return this.getUserData.dailyTasks
+                return this.$store.getters.dailyTasks
                     .filter(task=>{
                         const date = new Date()
                         const dateNumber =  date.getDay()
@@ -267,12 +266,6 @@ export default {
 #Tasks .task.activeByEdit{
     opacity: 1;
 }
-/* #Tasks .task i{
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    cursor: pointer;
-} */
 #Tasks .days{
     display: flex;
 }

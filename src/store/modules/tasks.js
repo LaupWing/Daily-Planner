@@ -3,10 +3,13 @@ const db = firebase.firestore()
 
 const state = {
     userData:{},
+    colorLabels: null,
+    dailyTasks: null
 }
 
 const getters = {
     getUserData: state => state.userData,
+    colorLabels: state => state.colorLabels
 }
 
 const actions = {
@@ -16,10 +19,8 @@ const actions = {
             .doc(rootGetters.user.uid)
             .get()
         if(doc.exists){
-            console.log(doc.data())
-            return commit('setUserData', doc.data())
+            commit('setUserData', {...doc.data()})
         }
-        commit('setUserData', [])
     },
     async updateColor({commit, rootGetters}, updatedColorLabels){
         await db
@@ -66,8 +67,9 @@ const actions = {
 }
 
 const mutations = {
-    setUserData: (state, userData)=> {
-        state.userData = userData
+    setUserData: (state, {colorLabels, dailyTasks})=> {
+        state.colorLabels = colorLabels
+        state.dailyTasks = dailyTasks
     },
     updateTasks: (state,updatedTasks)=>(state.userData.dailyTasks = updatedTasks),
     updateLabels: (state,updatedColorLabels)=>(state.userData.colorLabels = updatedColorLabels),

@@ -15,7 +15,6 @@
         <Timeline/>
         <Tasks
             :visibleTask="visibleTask"
-            :userData="userData"
             v-on:checkActiveTask='checkTaskByScroll'
             v-on:setTask='setTask'
         />
@@ -265,7 +264,6 @@ export default {
     mounted(){
         this.assignInterval()
         this.elementMidpoint = this.$el.offsetTop + (this.$el.offsetHeight/2) + this.$el.parentElement.offsetTop + 'px'
-        console.log(this.$store.getters.userData)
     }
 }
 </script>
