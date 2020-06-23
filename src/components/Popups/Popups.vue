@@ -16,9 +16,6 @@
 import CustomContext from '@/views/daily/view/parts/Tasks/CustomContext'
 import EditLabelForm from '@/views/daily/ColorLabels/ColorForms/EditLabelForm'
 import AddLabelForm from '@/views/daily/ColorLabels/ColorForms/AddLabelForm'
-// import checkTask from '@/components/helpers/checkLocationTask'
-// import db from '@/firebase/init'
-// import firebase from 'firebase'
 
 export default {
     name:'Popups',
@@ -35,10 +32,8 @@ export default {
     },
     methods:{
         togglePopup(){
-            // console.log('test', event.target.classList)
             if(event.target.classList.length>0){
                 if(event.target.classList[0]==='popup-disabler'){
-                    // console.log('emitting')
                     this.$emit('turnOffPopup')
                 }
             }
@@ -47,9 +42,6 @@ export default {
             this.$emit('turnOffPopup')
         }
     },
-    mounted(){
-    },
-    
 }
 </script>
 

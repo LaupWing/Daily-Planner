@@ -15,12 +15,10 @@
     <Popups 
         v-if="popup"
         :settings="popup"
-        :userData="userData"
         v-on:togglePopup="togglePopup"
     />
     <router-view
         v-if="navbarLoaded"
-        :userData="userData"
         v-on:setTask='setTask'
         v-on:togglePopup='togglePopup'
         v-on:setUserData='setUserData'
@@ -93,9 +91,9 @@ export default {
         },
         setBackground(){
         // document.querySelector('body').style.background = 'orange'
-            document.querySelector('body').style.setProperty('--weather-background', `url(https://source.unsplash.com/random/?${this.weatherData.currently.summary})`)
+            document.querySelector('body').style.setProperty('--weather-background', `url(https://source.unsplash.com/random/?${this.weatherData.currently.summary} weather)`)
             // For some reaseon the css var doesnt work
-            fetch(`https://source.unsplash.com/random/?${this.weatherData.currently.summary}`)
+            fetch(`https://source.unsplash.com/random/?${this.weatherData.currently.summary} weather`)
                 .then(data=>{
                     document.querySelector('body').style.background = `linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(${data.url})`
                     document.querySelector('body').style.backgroundSize = 'cover'
@@ -113,13 +111,6 @@ export default {
         }else{
             this.getWeather()
         }
-        db.collection('planner')
-            .doc(firebase.auth().currentUser.uid)
-            .get()
-            .then(doc=>{
-                this.userData = doc.data()
-                console.log(doc.data())
-            })
     }
 }
 </script>
