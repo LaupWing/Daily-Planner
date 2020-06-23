@@ -25,11 +25,9 @@ import Timeline from '@/views/daily/Timeline/Timeline';
 import {days} from '@/components/helpers/timeFormat';
 import {monthNames} from '@/components/helpers/timeFormat';
 import Day from './parts/Day/Day';
-import {mapActions} from 'vuex'
 import Tooltip from './parts/Tooltip';
 export default {
     name: 'WeekView',
-    props:['userData'],
     components:{
         Timeline,
         Day,
@@ -46,11 +44,7 @@ export default {
             compareDateIndex: null
         }
     },
-    methods:{
-        ...mapActions(['fetchUserData']),
-    },
     created(){
-        this.fetchUserData();
         this.compareDateIndex = this.days.findIndex((day)=>this.today===day);
     }
 }

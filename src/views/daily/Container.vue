@@ -55,7 +55,6 @@ export default {
         DailyView
     },
     methods:{
-        ...mapActions(['fetchUserData']),
         setData({data,value}){
             this[data] = value
         },

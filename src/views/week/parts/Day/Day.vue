@@ -27,7 +27,7 @@ export default {
         Task
     },
     computed:{
-        ...mapGetters(['getUserData'])
+        ...mapGetters(['dailyTasks'])
     },
     data(){
         return{
@@ -36,8 +36,8 @@ export default {
     },
     methods:{
         getTaskOfThisDay(day){
-            if(!this.getUserData.dailyTasks || this.getUserData.dailyTasks.length === 0)    return []
-            const filterTasks = this.getUserData.dailyTasks
+            if(!this.dailyTasks || this.dailyTasks.length === 0)    return []
+            const filterTasks = this.dailyTasks
             const filteredTasks = filterTasks.filter(task=>task.days.find(t2=>t2.day===day))
             const tasksOfThisDay = []
             filteredTasks.forEach(task=>{
