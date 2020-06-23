@@ -6,10 +6,9 @@
         >Labels</h2>
         <div class="label-container">
             <Label 
-                v-for="(label, index) in getUserData.colorLabels" 
+                v-for="(label, index) in colorLabels" 
                 :key="index"
                 :label='label'
-                :colorLabels="colorLabels"
                 :userData="userData"
                 :taskColor='taskColor'
             />
@@ -31,20 +30,19 @@ import Popup from '@/components/Popups/Popups'
 import { mapGetters } from 'vuex'
 export default {
     name: 'ColorLabels',
-    props:['taskColor' ,'addTask', 'chosenColorLabel', 'userData', 'view'],
+    props:['taskColor' ,'addTask', 'chosenColorLabel','view'],
     components:{
         Label,
         Popup
     },
     data(){
         return{
-            colorLabels: [],
             colorLabelToAdd: null,
             popupSettings:null
         }
     },
     computed:{
-        ...mapGetters(['getUserData'])
+        ...mapGetters(['colorLabels'])
     },
     methods:{
         showAll(state){

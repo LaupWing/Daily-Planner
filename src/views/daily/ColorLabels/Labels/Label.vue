@@ -33,7 +33,7 @@ import Popup from '@/components/Popups/Popups'
 
 export default {
     name: 'Label',
-    props:['label' ,'taskColor', 'userData', 'colorLabels', 'editLabel'],
+    props:['label' ,'taskColor', 'userData', 'editLabel'],
     components:{
         Popup
     },  
