@@ -16,13 +16,13 @@
 import Skycons from '@/components/helpers/skycons'
 export default {
     name: 'Temperarture',
-    props:['weatherData'],
     data(){
         return{
             temperature:  null,
             summary:  null,
             icon:  null,
-            timezone:  null
+            timezone:  null,
+            weatherData: null
         }
     },
     methods:{
@@ -35,7 +35,23 @@ export default {
             const currentIcon = icon.replace(/-/g,'_').toUpperCase()
             skycon.play()
             return skycon.set(iconId, Skycons[currentIcon])
-        }
+        },
+        getWeather(){
+            const {lat, lng} = this.$store.getters.geolocation
+            const proxy = "https://cors-anywhere.herokuapp.com/"
+            const api = `${proxy}https://api.darksky.net/forecast/0bfee81d0d48f12651dd1fc9ef560f04/${lat},${lng}`
+            fetch(api)
+                .then(res=>{
+                    return res.json()
+                })
+                .then(data=>{
+                    this.weatherData = data
+                    this.setBackground()
+                })
+                .catch(err=>{
+                    this.weatherData = err.message
+                })
+        },
     },
     watch:{
         weatherData: function(){
@@ -47,6 +63,9 @@ export default {
                 this.setIcon(this.icon, this.$el.querySelector('#icon'))
             }
         }
+    },
+    created(){
+        this.getWeather()
     }
 }
 </script>

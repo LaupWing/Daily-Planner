@@ -4,7 +4,7 @@
             <div @click="$emit('toggle')" class="open-side-menu">
                 <i class="fas fa-bars"></i>
             </div>
-            <Temperature :weatherData="weatherData" />
+            <Temperature/>
         </div>
         <CurrentTime :currentTask="currentTask" />
         <div class="right-panel">
@@ -19,7 +19,7 @@ import Auth from "@/components/Navbar/parts/Auth";
 import CurrentTime from "@/components/Navbar/parts/CurrentTime";
 export default {
     name: "NavBar",
-    props: ["weatherData", "currentTask"],
+    props: ["currentTask"],
     components: {
         Temperature,
         Auth,

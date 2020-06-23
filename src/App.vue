@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Navbar
-        :weatherData='weatherData'
         :currentTask='currentTask'
         v-on:toggle="toggle('sideNav')"
         v-on:navbarLoaded="navbarLoaded = true"
@@ -19,7 +18,7 @@
     />
     <router-view
         v-if="navbarLoaded"
-        v-on:setTask='setTask'
+        v-on:setTask='currentTask = $event'
         v-on:togglePopup='togglePopup'
         v-on:setUserData='setUserData'
     />
@@ -40,11 +39,6 @@ export default {
         return{
             currentTask: null,
             addTask: false,
-            geolocation:{
-                lat: 52.370216,
-                lng: 4.895168
-            },
-            weatherData: null,
             popup: null,
             userData: null,
             sideNav: false,
@@ -68,27 +62,8 @@ export default {
                 this.popup = null
             }
         },
-        setTask(task){
-            this.currentTask = task
-        },
         toggle(prop){
             this[prop] = !this[prop]
-        },
-        getWeather(){
-            const {lat, lng} = this.$store.getters.geolocation
-            const proxy = "https://cors-anywhere.herokuapp.com/"
-            const api = `${proxy}https://api.darksky.net/forecast/0bfee81d0d48f12651dd1fc9ef560f04/${lat},${lng}`
-            fetch(api)
-                .then(res=>{
-                    return res.json()
-                })
-                .then(data=>{
-                    this.weatherData = data
-                    this.setBackground()
-                })
-                .catch(err=>{
-                    this.weatherData = err.message
-                })
         },
         setBackground(){
         // document.querySelector('body').style.background = 'orange'
@@ -101,9 +76,6 @@ export default {
                 })
         },
         
-    },
-    created(){
-        this.getWeather()
     }
 }
 </script>
