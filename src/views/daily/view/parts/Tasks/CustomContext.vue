@@ -41,10 +41,10 @@
                 </div>
             </transition>
         </div>
-        <div class="colors" v-if="userData.colorLabels">
+        <div class="colors" v-if="colorLabels">
             <div 
                 class="color"
-                v-for="(color, index) in userData.colorLabels"
+                v-for="(color, index) in colorLabels"
                 :key="index"
                 :style="{background: color.color}" 
                 :class="{active :setActiveColor(color)}"
@@ -70,7 +70,12 @@
 <script>
 export default {
     name: 'CustomContext',
-    props:['settings', 'userData'],
+    props:['settings'],
+    computed:{
+        colorLabels(){
+            return this.$store.getters.colorLabels
+        }
+    },
     data(){
         return{
             switch: 'off',

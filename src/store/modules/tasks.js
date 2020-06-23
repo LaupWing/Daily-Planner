@@ -9,7 +9,8 @@ const state = {
 
 const getters = {
     getUserData: state => state.userData,
-    colorLabels: state => state.colorLabels
+    colorLabels: state => state.colorLabels,
+    dailyTasks: state => state.dailyTasks
 }
 
 const actions = {

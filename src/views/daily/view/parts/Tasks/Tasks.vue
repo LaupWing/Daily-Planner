@@ -10,7 +10,6 @@
             :diffrence="diffrence"
             :expanded="expanded"
             :visibleTask="visibleTask"
-            :userData="userData"
             v-on:emitToParent="emitToParent"
             v-on:expandTask="expandTask"
         />
@@ -30,7 +29,7 @@ export default {
     components:{
         Task
     },
-    props:['visibleTask','userData'],
+    props:['visibleTask'],
     data(){
         return{
             tasks:[],
@@ -215,12 +214,6 @@ export default {
         }
     },
     mounted(){
-        // this.getTasks(()=>{
-            // this.checkCurrentTask()
-            // this.taskWatcher()
-        // })
-
-        // This Snapchot change is currntly only use for checking the color label changes
         let ref = db.collection('planner')
         ref.onSnapshot(snapshot=>{
             snapshot.docChanges().forEach(change=>{

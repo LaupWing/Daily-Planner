@@ -16,7 +16,6 @@
             v-if="popupSettings"
             :settings="popupSettings"
             :componentId="'CustomContext'"
-            :userData="userData"
             v-on:turnOffPopup="turnOffPopup"
         />
         <TaskMore
@@ -55,7 +54,6 @@ export default {
         'diffrence', 
         'compareTop', 
         'visibleTask',
-        'userData'
     ],
     data(){
         return{
