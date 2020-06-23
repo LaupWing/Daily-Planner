@@ -77,51 +77,10 @@ export default {
             this.currentTask =data
             // console.log(data)
         },
-        updateAndGetUserData(){
-            const user = firebase.auth().currentUser
-            const ref = db.collection('users')
-            ref
-                .where('user_id', '==', user.uid)
-                .get()
-                .then(snapshot=>{
-                snapshot.forEach(doc=>{
-                    ref
-                    .doc(doc.id)
-                    .update({
-                        geolocation:{
-                            lat: this.geolocation.lat,
-                            lng: this.geolocation.lng
-                        }
-                    })
-                })
-                })
-                .then(()=>{
-                ref
-                    .where('user_id', '==',user.uid)
-                    .get()
-                    .then(snapshot=>{
-                        snapshot.forEach(doc=>{
-                            this.user = doc.data()
-                        })
-                    })
-                })
-        },
     },
     created(){
         this.setDate()  
         this.fetchUserData()
-    },
-    mounted(){
-        if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(pos=>{
-                this.geolocation.lat = pos.coords.latitude
-                this.geolocation.lng = pos.coords.longitude
-                this.updateAndGetUserData()
-            })
-        }
-        else{
-            this.updateAndGetUserData()
-        }
     }
 }
 </script>

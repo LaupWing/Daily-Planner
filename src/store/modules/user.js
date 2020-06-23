@@ -24,16 +24,22 @@ const actions = {
     checkUser({commit}){
         const user = firebase.auth().currentUser
         commit('setUser', user)
+        if(user){
+            dispatch('updateUser', {
+                type: geolocation,
+                value:{
+                    lat: state.geolocation.lat,
+                    lng: state.geolocation.lng
+                }
+            })
+        }
     },
-    updateUser({commit}, {lat, lng}){
+    updateUser({commit}, {type, value}){
         db
             .collection('users')
             .doc(state.user.uid)
             .update({
-                geolocation:{
-                    lat: lat,
-                    lng: lng
-                }
+                [type]: value
             })
             .then((userData)=>{
                 commit('setUserData', userData)
