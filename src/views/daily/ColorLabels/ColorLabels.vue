@@ -58,7 +58,6 @@ export default {
             this.colorLabelToAdd = label
         },
         addColorLabel2(state){
-            console.log('state', state)
             if(state){
                 this.popupSettings = {
                     type: 'label-add',

@@ -22,7 +22,6 @@ import db from '@/firebase/init'
 import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
 import Task from './Task/Task'
-import { mapGetters} from 'vuex'
 
 export default {
     name: 'Tasks',

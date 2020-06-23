@@ -35,6 +35,7 @@ const actions = {
             dispatch('fetchUserData')
         }
     },
+    // eslint-disable-next-line
     updateUser({commit}, {type, value}){
         // firebase
         //     .firestore()
@@ -57,6 +58,7 @@ const actions = {
             })
         }
     },
+    // eslint-disable-next-line
     registerUser({commit}, {email, password, alias}){
         return firebase
             .auth()
@@ -75,6 +77,7 @@ const actions = {
                 throw err.message
             })
     },
+    // eslint-disable-next-line
     loginUser({commit}, {email, password}){
         return firebase
             .auth()

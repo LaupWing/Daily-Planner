@@ -35,7 +35,6 @@
 <script>
 import Feedback from '@/components/feedback/Feedback'
 import firebase from 'firebase'
-import db from '@/firebase/init'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
