@@ -75,8 +75,9 @@ export default {
             this[prop] = !this[prop]
         },
         getWeather(){
+            const {lat, lng} = this.$store.getters.geolocation
             const proxy = "https://cors-anywhere.herokuapp.com/"
-            const api = `${proxy}https://api.darksky.net/forecast/0bfee81d0d48f12651dd1fc9ef560f04/${this.geolocation.lat},${this.geolocation.lng}`
+            const api = `${proxy}https://api.darksky.net/forecast/0bfee81d0d48f12651dd1fc9ef560f04/${lat},${lng}`
             fetch(api)
                 .then(res=>{
                     return res.json()
@@ -102,15 +103,7 @@ export default {
         
     },
     created(){
-        if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(pos=>{
-                this.geolocation.lat = pos.coords.latitude
-                this.geolocation.lng = pos.coords.longitude
-            })
-            this.getWeather()
-        }else{
-            this.getWeather()
-        }
+        this.getWeather()
     }
 }
 </script>

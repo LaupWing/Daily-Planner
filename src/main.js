@@ -10,6 +10,7 @@ let app = null
 
 firebase.auth().onAuthStateChanged(()=>{
     store.dispatch('userWatcher')
+    store.dispatch('setLocation')
     if(!app){
         app = new Vue({
             store,
