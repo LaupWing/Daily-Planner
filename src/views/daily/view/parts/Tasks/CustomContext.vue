@@ -41,7 +41,7 @@
                 </div>
             </transition>
         </div>
-        <div class="colors" v-if="colorLabels">
+        <div class="colors">
             <div 
                 class="color"
                 v-for="(color, index) in colorLabels"
@@ -68,13 +68,21 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
     name: 'CustomContext',
     props:['settings'],
     computed:{
-        colorLabels(){
-            return this.$store.getters.colorLabels
-        }
+        ...mapGetters(['colorLabels']),
+        setPosition(){
+            return{
+                top: `${this.settings.coords.y}px`,
+                left: `${this.settings.coords.x}px`
+            }
+        },
+        disabledSelect(){
+            return this.switch === 'off' ? 'disabled' : ''
+        },
     },
     data(){
         return{
@@ -110,18 +118,7 @@ export default {
         setActiveColor(color){
             return this.activeColor === color.color
         }
-    },
-    computed:{
-        setPosition(){
-            return{
-                top: `${this.settings.coords.y}px`,
-                left: `${this.settings.coords.x}px`
-            }
-        },
-        disabledSelect(){
-            return this.switch === 'off' ? 'disabled' : ''
-        },
-    }  
+    }
 }
 </script>
 
