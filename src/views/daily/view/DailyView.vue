@@ -248,10 +248,6 @@ export default {
         calcStartingPoint(){
             const beginLi  = this.$el.querySelector('#Timeline li')
             const beginPos = beginLi.offsetTop + (beginLi.offsetHeight/2)
-
-            // const scrolled = this.$el.scrollTop
-            // const height = this.$el.offsetHeight
-            // const midpoint = Math.round(scrolled + (height/2)) 
             
             return beginPos
         },

@@ -23,7 +23,7 @@
     <DailyView
         :userData="userData"
         v-on:setData="setData"
-        v-on:setCurrentTask="setCurrentTask"
+        v-on:setCurrentTask="currentTask = $event"
     />
   </div>
   
@@ -67,13 +67,9 @@ export default {
             this.day = date.getDate()
             this.month = monthNames[date.getMonth()]
         },
-        setCurrentTask(data){
-            this.currentTask =data
-        },
     },
     created(){
-        this.setDate()  
-        // this.fetchUserData()
+        this.setDate()
     }
 }
 </script>
