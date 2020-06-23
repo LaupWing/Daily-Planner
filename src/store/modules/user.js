@@ -21,12 +21,12 @@ const actions = {
             dispatch('checkUser')
         })
     },
-    checkUser({commit}){
+    checkUser({commit, dispatch}){
         const user = firebase.auth().currentUser
         commit('setUser', user)
         if(user){
             dispatch('updateUser', {
-                type: geolocation,
+                type: 'geolocation',
                 value:{
                     lat: state.geolocation.lat,
                     lng: state.geolocation.lng

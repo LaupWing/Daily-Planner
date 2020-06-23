@@ -39,20 +39,14 @@ import {mapActions } from 'vuex'
 import {monthNames} from '@/components/helpers/timeFormat'
 
 export default {
-  name: '',
-  props: ['userData'],
+    name: '',
+    props: ['userData'],
     data(){
         return{
-            hours: null,
-            minutes: null,
             date: null,
             day: null,
             month: null,
             user: null,
-            geolocation:{
-                lat: 52.370216,
-                lng: 4.895168
-            },
             taskColor: null,
             addTask: null,
             currentTask: null
@@ -75,7 +69,6 @@ export default {
         },
         setCurrentTask(data){
             this.currentTask =data
-            // console.log(data)
         },
     },
     created(){
