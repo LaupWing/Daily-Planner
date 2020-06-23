@@ -10,7 +10,6 @@
             v-if="popupSettings"
             :settings="popupSettings"
             :componentId="'EditLabelForm'"
-            :userData="userData"
             v-on:turnOffPopup="toggleEditPopup(false)"
         />
         <p 
@@ -33,7 +32,7 @@ import Popup from '@/components/Popups/Popups'
 
 export default {
     name: 'Label',
-    props:['label' ,'taskColor', 'userData', 'editLabel'],
+    props:['label' ,'taskColor', 'editLabel'],
     components:{
         Popup
     },  

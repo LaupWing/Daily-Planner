@@ -56,6 +56,24 @@ const actions = {
                 })
             })
         }
+    },
+    registerUser({commit}, {email, password, alias}){
+        return firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(cred=>{
+                const user = cred.user
+                return firebase
+                    .firestore()
+                    .doc(user.uid)
+                    .set({
+                        alias: alias,
+                        geolocation: null
+                    })
+            })
+            .catch(err=>{
+                throw err.message
+            })
     }
 }
 

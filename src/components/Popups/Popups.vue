@@ -5,7 +5,6 @@
         <component 
             :is="componentId"
             :settings="settings"
-            :userData="userData"
             class="popup"
             v-on:cancel="cancel"
         ></component>
@@ -19,7 +18,7 @@ import AddLabelForm from '@/views/daily/ColorLabels/ColorForms/AddLabelForm'
 
 export default {
     name:'Popups',
-    props:['settings', 'componentId', 'userData'],
+    props:['settings', 'componentId'],
     data(){
         return{
 
