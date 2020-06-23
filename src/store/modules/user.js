@@ -74,6 +74,17 @@ const actions = {
             .catch(err=>{
                 throw err.message
             })
+    },
+    loginUser({commit}, {email, password}){
+        return firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then((user)=>{
+                return user
+            })
+            .catch(err=>{
+                throw err.message
+            })
     }
 }
 

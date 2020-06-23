@@ -37,6 +37,7 @@ export default {
         },
         getWeather(){
             const {lat, lng} = this.$store.getters.geolocation
+            console.log(lat, lng)
             const proxy = "https://cors-anywhere.herokuapp.com/"
             const api = `${proxy}https://api.darksky.net/forecast/0bfee81d0d48f12651dd1fc9ef560f04/${lat},${lng}`
             fetch(api)

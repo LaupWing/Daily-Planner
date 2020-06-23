@@ -9,7 +9,6 @@
                 v-for="(label, index) in colorLabels" 
                 :key="index"
                 :label='label'
-                :userData="userData"
                 :taskColor='taskColor'
             />
             <i class="fas fa-plus-circle" @click="addColorLabel2"></i>
@@ -18,7 +17,6 @@
             v-if="popupSettings"
             :settings="popupSettings"
             :componentId="'AddLabelForm'"
-            :userData="userData"
             v-on:turnOffPopup="addColorLabel2(false)"
         />
     </div>
