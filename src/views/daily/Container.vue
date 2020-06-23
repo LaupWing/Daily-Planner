@@ -73,7 +73,7 @@ export default {
     },
     created(){
         this.setDate()  
-        this.fetchUserData()
+        // this.fetchUserData()
     }
 }
 </script>

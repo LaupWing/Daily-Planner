@@ -35,16 +35,16 @@ const actions = {
         }
     },
     updateUser({commit}, {type, value}){
-        firebase
-            .firestore()
-            .collection('users')
-            .doc(state.user.uid)
-            .update({
-                [type]: value
-            })
-            .then((userData)=>{
-                commit('setUserData', userData)
-            })
+        // firebase
+        //     .firestore()
+        //     .collection('users')
+        //     .doc(state.user.uid)
+        //     .update({
+        //         [type]: value
+        //     })
+        //     .then((userData)=>{
+        //         commit('setUserData', userData)
+        //     })
     },
     setLocation({commit}){
         if(navigator.geolocation){

@@ -20,7 +20,6 @@
         v-if="navbarLoaded"
         v-on:setTask='currentTask = $event'
         v-on:togglePopup='togglePopup'
-        v-on:setUserData='setUserData'
     />
   </div>
 </template>
@@ -40,7 +39,6 @@ export default {
             currentTask: null,
             addTask: false,
             popup: null,
-            userData: null,
             sideNav: false,
             navbarLoaded: false
         }
@@ -52,9 +50,6 @@ export default {
     },
     methods:{
         ...mapActions(['checkUser']),
-        setUserData(data){
-            this.userData = data
-        },
         togglePopup(settings){
             if(settings){
                 this.popup = settings
