@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import CustomContext from '@/views/daily/view/parts/Tasks/CustomContext'
-import EditLabelForm from '@/views/daily/ColorLabels/ColorForms/EditLabelForm'
-import AddLabelForm from '@/views/daily/ColorLabels/ColorForms/AddLabelForm'
+import CustomContext from '@/views/Daily/TasksContainer/parts/Tasks/CustomContext'
+import EditLabelForm from '@/views/Daily/ColorLabels/ColorForms/EditLabelForm'
+import AddLabelForm from '@/views/Daily/ColorLabels/ColorForms/AddLabelForm'
 
 export default {
     name:'Popups',

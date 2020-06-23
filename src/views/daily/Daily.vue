@@ -19,7 +19,7 @@
         :taskColor='taskColor'
         :view='"single"'
     />
-    <DailyView
+    <TasksContainer
         v-on:setData="setData"
         v-on:setCurrentTask="currentTask = $event"
     />
@@ -30,11 +30,11 @@
 <script>
 import ColorLabels from './ColorLabels/ColorLabels'
 import AddTask from './AddTask/AddTask'
-import DailyView from './view/DailyView'
+import TasksContainer from './TasksContainer/TasksContainer'
 import {monthNames} from '@/components/helpers/timeFormat'
 
 export default {
-    name: '',
+    name: 'Daily',
     data(){
         return{
             date: null,
@@ -49,7 +49,7 @@ export default {
     components:{
         ColorLabels,
         AddTask,
-        DailyView
+        TasksContainer
     },
     methods:{
         setData({data,value}){

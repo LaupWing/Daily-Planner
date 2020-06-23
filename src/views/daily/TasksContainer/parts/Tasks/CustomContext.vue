@@ -26,7 +26,7 @@
                     </p>
                     <i @click="changeNotificationState" class="fas fa-caret-right"></i>
                 </div>
-                <div class="notification-time" @click="test"  key="2" v-else>
+                <div class="notification-time" key="2" v-else>
                     <p>Minutes notify before</p>
                     <select name="setNotifyTime" id="setNotifyTime" :class="disabledSelect">
                         <option value="">5 min</option>
@@ -93,9 +93,6 @@ export default {
         }
     },
     methods:{
-        test(){
-            // console.log(this.switch)
-        },
         checkSwitch(state){
             if(state=== this.switch){
                 return true

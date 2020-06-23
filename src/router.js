@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Daily from './views/daily/Container.vue'
-import Week from './views/week/Week.vue'
-import Signup from './views/auth/Signup'
-import Login from './views/auth/Login'
-import AllTasks from './views/alltasks/AllTasks'
+import Daily from './views/Daily/Daily'
+import Week from './views/Week/Week.vue'
+import Signup from './views/Auth/Signup'
+import Login from './views/Auth/Login'
+import AllTasks from './views/AllTasks/AllTasks'
 
 import firebase from 'firebase'
 Vue.use(Router)

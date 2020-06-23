@@ -66,7 +66,7 @@
 import {addZero} from '@/components/helpers/timeFormat'
 import {checkOverlap} from '@/components/helpers/overlap'
 import {addDayToMsg} from '@/components/helpers/overlap'
-import ColorLabels from '@/views/daily/ColorLabels/ColorLabels'
+import ColorLabels from '@/views/Daily/ColorLabels/ColorLabels'
 import Days from './parts/Days'
 import { mapGetters, mapActions } from 'vuex'
 

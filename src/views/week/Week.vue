@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Timeline from '@/views/daily/Timeline/Timeline';
+import Timeline from '@/views/Daily/Timeline/Timeline';
 import {days} from '@/components/helpers/timeFormat';
 import {monthNames} from '@/components/helpers/timeFormat';
 import Day from './parts/Day/Day';
