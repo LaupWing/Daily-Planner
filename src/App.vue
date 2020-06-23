@@ -64,17 +64,7 @@ export default {
         },
         toggle(prop){
             this[prop] = !this[prop]
-        },
-        setBackground(){
-        // document.querySelector('body').style.background = 'orange'
-            document.querySelector('body').style.setProperty('--weather-background', `url(https://source.unsplash.com/random/?${this.weatherData.currently.summary} weather)`)
-            // For some reaseon the css var doesnt work
-            fetch(`https://source.unsplash.com/random/?${this.weatherData.currently.summary} weather`)
-                .then(data=>{
-                    document.querySelector('body').style.background = `linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(${data.url})`
-                    document.querySelector('body').style.backgroundSize = 'cover'
-                })
-        },
+        }
         
     }
 }

@@ -22,7 +22,6 @@ export default {
             summary:  null,
             icon:  null,
             timezone:  null,
-            weatherData: null
         }
     },
     methods:{
@@ -45,24 +44,24 @@ export default {
                     return res.json()
                 })
                 .then(data=>{
-                    this.weatherData = data
-                    this.setBackground()
-                })
-                .catch(err=>{
-                    this.weatherData = err.message
+                    this.setBackground(data.currently.summary)
+                    this.temperature = Math.round(this.fromFahrenheitToCelcius(data.currently.temperature))
+                    this.timezone = data.timezone
+                    this.summary = data.currently.summary
+                    this.icon = data.currently.icon
+                    this.setIcon(this.icon, this.$el.querySelector('#icon'))
                 })
         },
-    },
-    watch:{
-        weatherData: function(){
-            if(this.weatherData){
-                this.temperature = Math.round(this.fromFahrenheitToCelcius(this.weatherData.currently.temperature))
-                this.timezone = this.weatherData.timezone
-                this.summary = this.weatherData.currently.summary
-                this.icon = this.weatherData.currently.icon
-                this.setIcon(this.icon, this.$el.querySelector('#icon'))
-            }
-        }
+        setBackground(summary){
+            // document.querySelector('body').style.background = 'orange'
+            document.querySelector('body').style.setProperty('--weather-background', `url(https://source.unsplash.com/random/?${summary} weather)`)
+            // For some reaseon the css var doesnt work
+            fetch(`https://source.unsplash.com/random/?${summary} weather`)
+                .then(data=>{
+                    document.querySelector('body').style.background = `linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(${data.url})`
+                    document.querySelector('body').style.backgroundSize = 'cover'
+                })
+        },
     },
     created(){
         this.getWeather()

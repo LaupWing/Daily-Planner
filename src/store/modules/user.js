@@ -35,7 +35,8 @@ const actions = {
         }
     },
     updateUser({commit}, {type, value}){
-        db
+        firebase
+            .firestore()
             .collection('users')
             .doc(state.user.uid)
             .update({
