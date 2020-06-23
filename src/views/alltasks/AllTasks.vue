@@ -20,7 +20,6 @@
 
 <script>
 import firebase from 'firebase'
-import db from '@/firebase/init'
 import Task from '@/components/AllTasks/task'
 
 export default {
@@ -36,7 +35,6 @@ export default {
     },
     data(){
         return{
-            tasksArray: null,
             searchTerm: null
         }
     },
@@ -49,15 +47,6 @@ export default {
             }
         }
     },
-    created(){
-        db
-            .collection('planner')
-            .doc(firebase.auth().currentUser.uid)
-            .get()
-            .then(doc=>{
-                this.tasksArray = doc.data().dailyTasks
-            })       
-    }
 }
 </script>
 
