@@ -17,7 +17,6 @@
     </div>    
     <ColorLabels
         :taskColor='taskColor'
-        :view='"single"'
     />
     <TasksContainer
         v-on:setData="setData"

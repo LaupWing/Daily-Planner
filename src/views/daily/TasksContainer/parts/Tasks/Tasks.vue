@@ -18,7 +18,6 @@
 
 <script>
 import firebase from 'firebase'
-import db from '@/firebase/init'
 import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
 import Task from './Task/Task'
@@ -31,7 +30,6 @@ export default {
     props:['visibleTask'],
     data(){
         return{
-            
             allTasks: null,
             currentTask: null,
             edit: null,

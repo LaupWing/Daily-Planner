@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import CustomContext from '@/views/Daily/TasksContainer/parts/Tasks/CustomContext'
+import CustomContext from '@/views/Daily/TasksContainer/parts/Tasks/CustomContext/CustomContext'
 import EditLabelForm from '@/views/Daily/ColorLabels/ColorForms/EditLabelForm'
 import AddLabelForm from '@/views/Daily/ColorLabels/ColorForms/AddLabelForm'
 

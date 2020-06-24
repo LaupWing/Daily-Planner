@@ -28,7 +28,7 @@ import Popup from '@/components/Popups/Popups'
 import { mapGetters } from 'vuex'
 export default {
     name: 'ColorLabels',
-    props:['taskColor' ,'addTask', 'chosenColorLabel','view'],
+    props:['taskColor' ,'addTask', 'chosenColorLabel'],
     components:{
         Label,
         Popup
