@@ -14,6 +14,24 @@ const getters = {
 }
 
 const actions = {
+    tasksWatcher(){
+        db
+            .collection('planner')
+            .onSnapshot(snapshot=>{
+            snapshot.docChanges().forEach(change=>{
+                const userId = firebase.auth().currentUser.uid
+                if(change.type === 'modified' && change.doc.id === userId){
+                    // console.log(change)
+                    if(!this.preventStateChangeFlag){
+                        this.getTasks(()=>{
+                            // this.taskHeightAndPosition()
+                            // console.log('State changed')
+                        })
+                    }
+                }
+            })
+        })
+    },
     async fetchUserData({commit, rootGetters}){
         const doc  = await db
             .collection('planner')

@@ -37,7 +37,7 @@ export default {
             edit: null,
             taskHeights:[],
             preventStateChangeFlag: false,
-            today: null,
+            today: days[new Date().getDay()],
             expanded: null,
             taskHeightWhenExpanded: 250,
             compareTop: null,
@@ -55,8 +55,6 @@ export default {
                         const currentDay = days[dateNumber]
                         // Need to look at the code below
                         // https://stackoverflow.com/questions/53757107/handling-unexpected-side-effect-in-computed-properties-vuejs 
-                        // eslint-disable-next-line
-                        this.today = currentDay
                         const checkDay = task.days.some(day=>day.day===currentDay)
                         if(checkDay){
                             return task
@@ -107,7 +105,6 @@ export default {
                 if(begin<=currentTimeInMS && end>=currentTimeInMS){
                     return task
                 }
-
             })
             if(findTask){
                 this.changeTimeSize(findTask)
@@ -180,7 +177,7 @@ export default {
                             const date = new Date()
                             const dateNumber =  date.getDay()
                             const currentDay = days[dateNumber]
-                            this.today = currentDay
+                            
                             this.tasks = doc
                                 .data()
                                 .dailyTasks
