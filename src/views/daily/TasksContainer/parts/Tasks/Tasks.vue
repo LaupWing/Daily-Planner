@@ -46,15 +46,15 @@ export default {
     },
     computed:{
         tasksOfToday(){
-            if(this.$store.getters.dailyTasks){
+            const tasks = this.$store.getters.dailyTasks 
+            if(tasks){
                 this.checkCurrentTask()
-                return this.$store.getters.dailyTasks
+                return tasks
                     .filter(task=>{
                         const date = new Date()
                         const dateNumber =  date.getDay()
                         const currentDay = days[dateNumber]
-                        // Need to look at the code below
-                        // https://stackoverflow.com/questions/53757107/handling-unexpected-side-effect-in-computed-properties-vuejs 
+                        
                         const checkDay = task.days.some(day=>day.day===currentDay)
                         if(checkDay){
                             return task
