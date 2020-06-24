@@ -31,7 +31,7 @@ export default {
     props:['visibleTask'],
     data(){
         return{
-            tasks:[],
+            
             allTasks: null,
             currentTask: null,
             edit: null,
@@ -161,40 +161,6 @@ export default {
         setCurrentLocationTaskSettings(){
             this.checkCurrentTask()
             this.$emit('checkActiveTask')
-        },
-        getTasks(extraCallback){
-            db
-                .collection('planner')
-                .doc(firebase.auth().currentUser.uid)
-                .get()
-                .then(doc=>{
-                    if(doc.exists){
-                        if(doc.data().dailyTasks){
-                            this.allTasks = doc
-                                .data()
-                                .dailyTasks
-                                
-                            const date = new Date()
-                            const dateNumber =  date.getDay()
-                            const currentDay = days[dateNumber]
-
-                            this.tasks = doc
-                                .data()
-                                .dailyTasks
-                                .filter(task=>{
-                                    const checkDay = task.days.some(day=>day.day===currentDay)
-                                    if(checkDay){
-                                        return task
-                                    }
-                                })
-                        }
-                    }
-                })
-                .then(()=>{
-                    if(extraCallback){
-                        extraCallback()
-                    }
-                })
         },
         openTab(task){
             event.preventDefault()

@@ -2,14 +2,12 @@
     <div 
         id="planner"
         @scroll="scrollEvent"
-        @click="createTask"
     >
         <div 
             :style="{
                 top: elementMidpoint
             }" 
-            class="indicator" 
-            @click="turnoff"
+            class="indicator"
         >
         </div>
         <Timeline/>
@@ -75,31 +73,14 @@ export default {
         emitToParent(func, data){
             this.$emit(func, data)
         },
-        test(){
-            // console.log(this.visibleTask)
-        },
-        createTask(){
-        // this.test()
-            // if(event.target.id){
-            //     if(event.target.id === 'Tasks' || event.target.id === 'planner'){
-            //     const container = this.$el
-            //     const clickYCoord = event.clientY
-            //     const zeroScrollCoord = container.getBoundingClientRect().top + (container.offsetHeight/2)
-            //     const begin = (clickYCoord -zeroScrollCoord) + container.scrollTop 
-            //     container.scrollTo(0,begin)
-            //     } 
-            // }
-        },
         toggle(prop){
             this[prop] = !this[prop]
         },
         goToSpecifikTime(point){
             this.scrollByCode = false
-            // console.log('scrolling')
             this.$el.scrollTo(0,point)
         },
         setTask(task){
-            // console.log(task)
             task.task ? this.$emit('setCurrentTask', task) : this.$emit('setCurrentTask', {task})
         },
         adjustPosition(){
@@ -135,9 +116,6 @@ export default {
             this.date = date.getDate()
             this.day = days[date.getDay()]
             this.month = monthNames[date.getMonth()]
-        },
-        turnoff(){
-        // clearInterval(this.settingDistanceAndAdjust)
         },
         scrollEvent(){
             this.setTimeIndicator()
