@@ -60,31 +60,30 @@ export default {
 
 <style>
 ul#Timeline{
-  display: flex;
-  flex-direction: column;
-  padding-right: 15px;
-  padding-top: calc(var(--dailyPlanner-height)/2);
-  margin-left: 20px;
-  padding-bottom: calc(var(--dailyPlanner-height)/2);
-  box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    padding-right: 15px;
+    padding-top: calc(var(--dailyPlanner-height)/2);
+    margin-left: 20px;
+    padding-bottom: calc(var(--dailyPlanner-height)/2);
+    box-sizing: content-box;
 }
 #Timeline li{
-  padding: 10px 0;
-  list-style: none;
-  text-align: right;
-  display: inline;
-  font-size: 1.5em;
-  transform-origin: right;
-  opacity: .3;
-  transition: 1s;
-  position: relative;
+    padding: 10px 0;
+    list-style: none;
+    text-align: right;
+    display: inline;
+    font-size: 1.5em;
+    transform-origin: right;
+    opacity: .3;
+    transition: 1s;
+    position: relative;
 }
 #Timeline li.highlight{
-  transform: scale(1.2);
-  /* color: white; */
+    transform: scale(1.2);
 }
 #Timeline li.opacity{
-  opacity: 1;
+    opacity: 1;
 }
 @media only screen and (max-height: 800px) {
     #Timeline li{
@@ -92,41 +91,4 @@ ul#Timeline{
         font-size: 1.2em;
     }
 }
-/* #Timeline li:nth-of-type(odd)::after{
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  content: '';
-  width: 5px;
-  height: 2px;
-  display: block;
-  background: black;
-}
-
-#Timeline li:nth-of-type(odd)::before{
-  position: absolute;
-  top: 0;
-  right: 0;
-  content: '';
-  width: 5px;
-  height: 2px;
-  display: block;
-  background: black;
-} */
-
-
-/* width */
-/* ul#Timeline::-webkit-scrollbar {
-  width: 10px;
-} */
-
-/* Track */
-/* ul#Timeline::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-} */
- 
-/* Handle */
-/* ul#Timeline::-webkit-scrollbar-thumb {
-  background: #888; 
-} */
 </style>
