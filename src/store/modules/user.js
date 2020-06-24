@@ -32,7 +32,7 @@ const actions = {
                     lng: state.geolocation.lng
                 }
             })
-            dispatch('fetchUserData')
+            dispatch('plannerWatcher')
         }
     },
     // eslint-disable-next-line

@@ -208,24 +208,6 @@ export default {
                 elPrio2: '#Tasks .task'
             })
         }
-    },
-    mounted(){
-        this.$store.dispatch('tasksWatcher')
-        let ref = db.collection('planner')
-        ref.onSnapshot(snapshot=>{
-            snapshot.docChanges().forEach(change=>{
-                const userId = firebase.auth().currentUser.uid
-                if(change.type === 'modified' && change.doc.id === userId){
-                    // console.log(change)
-                    if(!this.preventStateChangeFlag){
-                        this.getTasks(()=>{
-                            // this.taskHeightAndPosition()
-                            // console.log('State changed')
-                        })
-                    }
-                }
-            })
-        })
     }
 }
 </script>
