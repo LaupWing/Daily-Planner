@@ -177,7 +177,7 @@ export default {
                             const date = new Date()
                             const dateNumber =  date.getDay()
                             const currentDay = days[dateNumber]
-                            
+
                             this.tasks = doc
                                 .data()
                                 .dailyTasks
@@ -210,6 +210,7 @@ export default {
         }
     },
     mounted(){
+        this.$store.dispatch('tasksWatcher')
         let ref = db.collection('planner')
         ref.onSnapshot(snapshot=>{
             snapshot.docChanges().forEach(change=>{

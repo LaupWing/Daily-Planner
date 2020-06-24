@@ -14,23 +14,28 @@ const getters = {
 }
 
 const actions = {
-    tasksWatcher(){
+    tasksWatcher({rootGetters}){
+        console.log(rootGetters.user)
         db
             .collection('planner')
+            .doc(rootGetters.user.uid)
             .onSnapshot(snapshot=>{
-            snapshot.docChanges().forEach(change=>{
-                const userId = firebase.auth().currentUser.uid
-                if(change.type === 'modified' && change.doc.id === userId){
-                    // console.log(change)
-                    if(!this.preventStateChangeFlag){
-                        this.getTasks(()=>{
-                            // this.taskHeightAndPosition()
-                            // console.log('State changed')
-                        })
-                    }
+                if(snapshot.exists){
+                    console.log(snapshot.data())
                 }
+                // snapshot.docChanges().forEach(change=>{
+                //     const userId = firebase.auth().currentUser.uid
+                //     if(change.type === 'modified' && change.doc.id === userId){
+                //         // console.log(change)
+                //         if(!this.preventStateChangeFlag){
+                //             this.getTasks(()=>{
+                //                 // this.taskHeightAndPosition()
+                //                 // console.log('State changed')
+                //             })
+                //         }
+                //     }
+                // })
             })
-        })
     },
     async fetchUserData({commit, rootGetters}){
         const doc  = await db
