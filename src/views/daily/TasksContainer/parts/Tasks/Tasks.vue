@@ -29,14 +29,11 @@ export default {
     props:['visibleTask'],
     data(){
         return{
-            allTasks: null,
             currentTask: null,
             edit: null,
-            taskHeights:[],
             preventStateChangeFlag: false,
             today: days[new Date().getDay()],
             expanded: null,
-            taskHeightWhenExpanded: 250,
             compareTop: null,
             diffrence: null
         }

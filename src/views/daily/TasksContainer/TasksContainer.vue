@@ -67,8 +67,6 @@ export default {
             elementMidpoint: 0
         }
     },
-    computed:{  
-    },
     methods:{
         emitToParent(func, data){
             this.$emit(func, data)
