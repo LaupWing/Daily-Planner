@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import firebase from 'firebase'
 import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
 import Task from './Task/Task'
