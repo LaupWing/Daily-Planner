@@ -1,41 +1,62 @@
 <template>
-    <div id="SideBar">
-        <nav id="Main-Nav">
-            <router-link 
-                @click.native="closeNav" 
-                :to="{name: 'Daily'}"
-            >
-                Daily Planner
-            </router-link>
-            <router-link 
-                @click.native="closeNav" 
-                :to="{name: 'Week'}"
-            >
-                Week Planner
-            </router-link>
-            <router-link @
-                click.native="closeNav" 
-                :to="{name: 'AllTasks'}"
-            >
-                All Tasks
-            </router-link>
-            <a>Habit Tracker</a>
-            <a>Skills</a>
-            <a>Projects</a>
-        </nav>
-    </div>
+    <backdrop
+        :style="{
+            opacity: visible ? 1 : 0
+        }"
+        @click.native="closeNav"
+    >
+        <div 
+            id="SideBar"
+            :class="visible ? 'visible': ''"
+            @click.stop
+        >
+            <nav id="Main-Nav">
+                <router-link 
+                    @click.native="closeNav" 
+                    :to="{name: 'Daily'}"
+                >
+                    Daily Planner
+                </router-link>
+                <router-link 
+                    @click.native="closeNav" 
+                    :to="{name: 'Week'}"
+                >
+                    Week Planner
+                </router-link>
+                <router-link 
+                    @click.native="closeNav" 
+                    :to="{name: 'AllTasks'}"
+                >
+                    All Tasks
+                </router-link>
+                <a>Habit Tracker</a>
+                <a>Skills</a>
+                <a>Projects</a>
+            </nav>
+        </div>
+    </backdrop>
 </template>
 
 <script>
+import Backdrop from '@/components/Backdrop/Backdrop'
 export default {
     name: 'SideBar',
+    data(){
+        return{
+            visible: false
+        }
+    },
+    components:{
+        Backdrop
+    },
     methods:{
         closeNav(){
             this.$emit('closeNav')
         }
     },
     mounted(){
-        this.$el.style.top = `${document.querySelector('#NavBar').offsetHeight}px`
+        this.$el.querySelector('#SideBar').style.top = `${document.querySelector('#NavBar').offsetHeight}px`
+        this.visible = true
     }
 }
 </script>
@@ -50,7 +71,14 @@ export default {
     background: white;
     font-size: .8em;
     z-index: 100;
+    transform: translate(-100%,0);
+    transition: transform 1s;
 }
+
+#SideBar.visible{
+    transform: translate(0,0);
+}
+
 nav#Main-Nav{
     display: flex;
     justify-content: center;

@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .backdrop{
     width: 100vw;
     height: 100vh;
@@ -20,6 +20,7 @@ export default {
     left: 0;
     background: rgba(0,0,0,.5);
     z-index: 10;
+    transition: all 1s;
 }
 .content{
     z-index: 100;

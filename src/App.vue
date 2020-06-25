@@ -5,12 +5,10 @@
         v-on:toggle="toggle('sideNav')"
         v-on:navbarLoaded="navbarLoaded = true"
     />
-    <transition name="slide">
-        <SideBar
-            v-if="sideNav"
-            v-on:closeNav="toggle('sideNav')"
-        />
-    </transition>
+    <SideBar
+        v-if="sideNav"
+        v-on:closeNav="toggle('sideNav')"
+    />
     <Popups 
         v-if="popup"
         :settings="popup"
@@ -123,6 +121,14 @@ li{
         transform: translate(0,0);
     }
 }
+@keyframes opacity {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
 
 @keyframes scaleUp {
     from{
@@ -139,5 +145,12 @@ li{
 
 .slide-leave-active {
     animation: slideIn reverse 1s;
+}
+.opacity-enter-active {
+    animation: opacity 1s;
+}
+
+.opacity-leave-active {
+    animation: opacity reverse 1s;
 }
 </style>
