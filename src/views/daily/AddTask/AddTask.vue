@@ -1,11 +1,19 @@
 <template>
 <div class="add-task-bg">
     <form @submit.prevent="submit" id="AddTask"> 
-        <h2 v-if="!task">Add Task</h2>
-        <h2 v-else>{{task}}</h2>
+        <h2 v-if="!task">
+            <input 
+                type="text" 
+                name="task" 
+                v-model="task" 
+                placeholder="Name your task" 
+                autocomplete="off"
+                class="add_task_name"
+            >
+        </h2>
         <main>
             <div class="info">
-                <input type="text" name="task" v-model="task" placeholder="Name your task" autocomplete="off">
+                <!-- <input type="text" name="task" v-model="task" placeholder="Name your task" autocomplete="off"> -->
                 <div class="field notes">
                     <label for="notes">Notes</label>
                     <textarea name="notes" cols="30" rows="10" placeholder="Insert your notes here. This is not a must!"></textarea>
@@ -55,7 +63,7 @@
             </div>
         </div>
         <div class="buttons">
-            <button @click="toggle" type="button">Cancel</button>
+            <button @click="$emit('close')" type="button">Cancel</button>
             <button :class="submitButtonStyling" type="submit">Submit</button>
         </div>
     </form>
@@ -213,9 +221,6 @@ export default {
                 }
             }
         },
-        toggle(){
-            this.$emit('toggle')
-        },
         deleteFeedback(index){
             this.feedback = this.feedback.filter((feed, i)=>i!==index)
         },
@@ -358,18 +363,19 @@ export default {
     padding: 5px;
     font-family: Arial, Helvetica, sans-serif
 }
-#AddTask .info input[type='text']{
+#AddTask .add_task_name{
     border: none;
     width: 100%;
-    font-size: 1.5em;
+    font-size: 1em;
     font-weight: bold;
     transition: .25s;
     opacity: .5;
+    padding: 10px;
 }
-#AddTask .info input[type='text']:focus,
-#AddTask .info input[type='text']:hover,
-#AddTask .info textarea:focus,
-#AddTask .info textarea:hover{
+#AddTask input[type='text']:focus,
+#AddTask input[type='text']:hover,
+#AddTask textarea:focus,
+#AddTask textarea:hover{
     background: rgba(0,0,0,.075);
 }
 #AddTask .info input[type='text']::placeholder{
@@ -381,7 +387,6 @@ export default {
 #AddTask .field.color-label{
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
     width: 100%;
 }
 

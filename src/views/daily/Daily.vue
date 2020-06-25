@@ -2,7 +2,7 @@
   <div class="planner-container">
     <AddTask 
         v-if="addTask"
-        v-on:toggle="toggle('addTask')"
+        v-on:close="addTask = false"
     />
     <div class='addTask'>
         <div class="current-info">
@@ -20,7 +20,7 @@
         </div>
         <button 
             type="button" 
-            @click="toggle('addTask')"
+            @click="addTask = true"
         >
             Add New Task
             <i class="far fa-calendar-plus"></i>
@@ -52,7 +52,7 @@ export default {
             month: null,
             user: null,
             taskColor: null,
-            addTask: null,
+            addTask: false,
             currentTask: null
         }
     },
