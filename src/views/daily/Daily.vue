@@ -6,11 +6,22 @@
     />
     <div class='addTask'>
         <div class="current-info">
-            <h2 v-if="currentTask">{{currentTask.task}}</h2>
-            <h2 v-else>Your current Task</h2>
+            <h2 
+                v-if="currentTask"
+            >
+                {{currentTask.task}}
+            </h2>
+            <h2 
+                v-else
+            >
+                Your current Task
+            </h2>
             <p>{{day}}, {{date}} {{month}}</p>
         </div>
-        <button type="button" @click="toggle('addTask')">
+        <button 
+            type="button" 
+            @click="toggle('addTask')"
+        >
             Add New Task
             <i class="far fa-calendar-plus"></i>
         </button>

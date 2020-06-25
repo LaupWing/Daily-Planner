@@ -25,11 +25,29 @@
             v-if="expanded === task"
             v-on:contractTask="contractTask"
         />
-        <div class="info" v-else>
-            <p class="task-name" v-if="edit !== task">{{task.task}}</p>
+        <div 
+            class="info" 
+            v-else
+        >
+            <p 
+                class="task-name" 
+                v-if="edit !== task"
+            >
+                {{task.task}}
+            </p>
             <div class="time">
-                <p class="task-begin" v-if="edit !== task">{{getTimeOfThisDay('begin', task)}}-</p>
-                <p class="task-end" v-if="edit !== task">{{getTimeOfThisDay('end', task)}}</p>
+                <p 
+                    class="task-begin" 
+                    v-if="edit !== task"
+                >
+                    {{getTimeOfThisDay('begin', task)}}-
+                </p>
+                <p 
+                    class="task-end" 
+                    v-if="edit !== task"
+                >
+                    {{getTimeOfThisDay('end', task)}}
+                </p>
             </div>
         </div>
     </div>
@@ -262,7 +280,3 @@ export default {
     },
 }
 </script>
-
-<style>
-
-</style>
