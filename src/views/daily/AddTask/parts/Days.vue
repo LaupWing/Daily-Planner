@@ -1,23 +1,22 @@
 <template>
     <div class="days-addTask">
         <div 
-            class="days" 
-            :class="{'checkbox': period ==='weekly','selected':days.length>0}"
+            class="days"
         >
             <div 
                 class="field"
                 v-for="(day,index) in daysName"
                 :key="index"
             >
-                <input 
+                <!-- <input 
                     type="checkbox" 
                     name="days" 
-                    :id="day" 
-                    v-if="period==='weekly'"
+                    :id="day"
                     @input="toggleDay"
-                >
-                <label v-if="period==='weekly'" :for="day">{{day}}</label>
-                <p v-if="period==='daily'" class="day">{{day}}</p>
+                > -->
+                <!-- <label :for="day">{{day}}</label> -->
+                <p class="day">{{day}}</p>
+                <button type="button" @click="activateTime('all')">Set Time</button>
                 <p class="time-span" v-if="days.length>0"  @click="activateTime(day)">{{setTimePeroid(day)}}</p>
             </div>      
         </div>
@@ -31,7 +30,6 @@
                 v-if="setTime"
                 v-on:userSelectedTime="userSelectedTime"
             />
-            <button type="button" @click="activateTime('all')">Set Time</button>
         </div>
     </div>
 </template>
@@ -150,7 +148,7 @@ export default {
 #AddTask .days.checkbox .field p.time-span{
     opacity: .2;
 }
-#AddTask .days-addTask .days.selected{
+#AddTask .days-addTask .days{
     flex-direction: column;
 }
 #AddTask .days-addTask .days.selected p.day{
@@ -176,10 +174,10 @@ export default {
     margin: auto;
     
 }
-#AddTask .days-addTask  button{
-    margin: 10px auto;
-    display: block;
-    font-size: .7em;
+#AddTask .days-addTask .field  button{
+    display: flex;
+    font-size: .6em;
+    white-space: nowrap;
 }
 #AddTask .days-addTask .set-time{
     display: flex;
