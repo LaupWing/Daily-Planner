@@ -72,10 +72,9 @@
 <script>
 import {addZero} from '@/components/helpers/timeFormat'
 import {checkOverlap} from '@/components/helpers/overlap'
-import {addDayToMsg} from '@/components/helpers/overlap'
 import ColorLabels from '@/views/Daily/ColorLabels/ColorLabels'
 import Days from './parts/Days'
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import firebase from 'firebase'
 import db from '@/firebase/init'
@@ -100,7 +99,6 @@ export default {
             feedback: [],
             feedbackMsg: null,
             user: null,
-            dailyTasks: [],
             color: null,
             notes: null,
             state: 1,
@@ -151,7 +149,6 @@ export default {
                     }
                 }
                 if(overlapCheck.feedback.length > 0){
-                    const overlapArray = overlapCheck.findOverlap
                     this.feedback = []
                     this.feedback = overlapCheck.feedback
                     dailyCheck()
@@ -237,24 +234,10 @@ export default {
             if(this.days && this.color &&  this.task){
                 return 'active'
             }
-        }
-
+            return ''
+        },
+        ...mapGetters(['dailyTasks'])
     },
-    created(){
-        this.user = firebase.auth().currentUser 
-        db
-            .collection('planner')
-            .doc(this.user.uid)
-            .get()
-            .then(doc=>{
-                if(doc.exists){
-                    const data = doc.data()
-                    if(data.dailyTasks){
-                        this.dailyTasks = data.dailyTasks 
-                    }
-                }
-            })
-    }
 }
 </script>
 
@@ -484,18 +467,6 @@ export default {
 #AddTask #Color-Label i{
     color: black;
 }
-
-#AddTask #Color-Label .form-container{
-    /* position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
-}
 #AddTask #Color-Label .form-container form{
     background: white
 }
@@ -552,9 +523,6 @@ export default {
 #AddTask .user-input{
     padding: 10px;
     width: 50%;
-}
-#AddTask .field{
-    /* margin: 10px 0; */
 }
 #AddTask .task-time{
     display: flex;
