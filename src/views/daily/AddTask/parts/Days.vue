@@ -41,7 +41,7 @@ import TimePopup from './Days/TimePopup'
 
 export default {
     name: 'Days',
-    props:['period', 'days'],
+    props:['days'],
     components:{
         TimePopup
     },

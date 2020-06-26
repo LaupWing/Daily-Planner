@@ -24,22 +24,10 @@
                 </div>
             </div>
             <div class="extra-info">
-                <div class="field period-choice">
-                    <input type="radio" name="period" id="daily" @input="setPeriod">
-                    <label for="daily">Daily</label>
-                    <input type="radio" name="period" id="weekly" @input="setPeriod">
-                    <label for="weekly">Weekly</label>
-                    <input type="radio" name="period" id="once" @input="setPeriod">
-                    <label for="once">Once</label>
-                </div>
-                <div class="time" v-if="period">
-                    <Days
-                        :period="period"
-                        :days="days"
-                        v-on:updateDaysAndTime="updateDaysAndTime"
-                    />
-                </div>
-                
+                <Days
+                    :days="days"
+                    v-on:updateDaysAndTime="updateDaysAndTime"
+                />
             </div>
             <div class="color-labels-bg" v-if="colorPopup" @click="closePopupByBG">
                 <ColorLabels
@@ -76,8 +64,6 @@ import ColorLabels from '@/views/Daily/ColorLabels/ColorLabels'
 import Days from './parts/Days'
 import { mapActions, mapGetters } from 'vuex'
 
-import firebase from 'firebase'
-import db from '@/firebase/init'
 export default {
     name: 'AddTask',
     components:{
@@ -102,7 +88,6 @@ export default {
             color: null,
             notes: null,
             state: 1,
-            period: null,
             colorPopup: false,
             daysFullName:['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
         }
@@ -114,9 +99,6 @@ export default {
         },
         nextInput(state){
             this.state = state
-        },
-        setPeriod(){
-            this.period = event.target.id
         },
         submit(){
             if(this.days.length !== 0 && this.task && this.color){
