@@ -13,7 +13,6 @@
         </h2>
         <main>
             <div class="info">
-                <!-- <input type="text" name="task" v-model="task" placeholder="Name your task" autocomplete="off"> -->
                 <div class="field notes">
                     <label for="notes">Notes</label>
                     <textarea name="notes" cols="30" rows="10" placeholder="Insert your notes here. This is not a must!"></textarea>
