@@ -22,7 +22,7 @@
                 {{setDuration(day)}}
             </div>
         </div>
-        <SetTimeTask
+        <SetTaskTime
             v-if="dayToEdit"
             :dayToEdit="dayToEdit"
             :pos="pos"
@@ -33,12 +33,13 @@
 </template>
 
 <script>
-import SetTimeTask from '@/components/SetTimeTask'
+import SetTaskTime from '@/components/SetTaskTime/SetTaskTime'
+
 export default {
     name: 'Week',
     props:['editTask', 'edit'],
     components:{
-        SetTimeTask
+        SetTaskTime
     },
     data(){
         return{

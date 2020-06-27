@@ -38,7 +38,7 @@
 <script>
 import {addZero} from '@/components/helpers/timeFormat'
 export default {
-    name: 'ChangeDay',
+    name: 'SetTimeTask',
     props:['dayToEdit', 'pos'],
     data(){
         return{
