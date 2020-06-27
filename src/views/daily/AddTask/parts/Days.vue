@@ -198,6 +198,14 @@ export default {
     display: flex;
     font-size: .6em;
     white-space: nowrap;
+    background: transparent;
+    border-radius: 5px;
+    border: solid 1px black;
+    text-transform: uppercase;
+    font-size: .6em;
+    letter-spacing: 1px;
+    padding: 3px 5px;
+    opacity: .7;
 }
 #AddTask .days-addTask .set-time{
     display: flex;

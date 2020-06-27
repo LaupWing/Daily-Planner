@@ -110,6 +110,7 @@ export default {
     padding: 7px;
     width: 50%;
     background: white;
+    border: none;
     border-top: solid rgba(0,0,0,.4) 1px;
     text-transform: uppercase;
     font-size: .6em;
@@ -144,6 +145,7 @@ export default {
     flex-direction: column;
     align-items: center;
     position: fixed;
+    font-size: 12px;
     z-index: 10000;
 }
 .edit-day-bg .edit-day.before::after{
