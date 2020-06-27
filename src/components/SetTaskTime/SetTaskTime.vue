@@ -93,7 +93,6 @@ export default {
     },
     mounted(){
         this.setPos()
-        console.log('From the change time component')
     },
 }
 </script>
