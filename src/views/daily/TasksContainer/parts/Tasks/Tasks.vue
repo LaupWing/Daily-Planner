@@ -172,7 +172,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #Tasks{
     width: 100%;
     position: relative;

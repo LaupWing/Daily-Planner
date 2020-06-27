@@ -26,6 +26,7 @@
             v-if="dayToEdit"
             :dayToEdit="dayToEdit"
             :pos="pos"
+            :elClicked="elClicked"
             v-on:cancel="reset"
             v-on:accept="changeEdit"
         />
@@ -45,7 +46,8 @@ export default {
         return{
             weekName: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
             dayToEdit: null,
-            pos: null
+            pos: null,
+            elClicked: null
         }
     },
     methods:{
@@ -63,6 +65,7 @@ export default {
                 left: event.target.getBoundingClientRect().left
             }
             this.dayToEdit = this.editTask.days.find(d=>d.day === day)
+            this.elClicked = event.target
         },
         reset(){
             this.$el.querySelectorAll('.task-duration').forEach(task=>task.classList.remove('active'))
@@ -76,7 +79,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .week{
     margin-top: 13px;
     font-size: .8em;

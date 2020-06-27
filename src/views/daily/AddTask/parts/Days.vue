@@ -24,6 +24,7 @@
             v-if="setTime"
             :dayToEdit="setTime.dayToEdit"
             :pos="setTime.pos"
+            :elClicked="setTime.elClicked"
         />
         <!-- <div class="set-time">
             <TimePopup
@@ -70,6 +71,7 @@ export default {
                 begin: '00:00',
                 end: '00:00'
             }
+            this.setTime.elClicked = event.target
 
             // this.display = display
             // if(this.display !== 'all'){

@@ -39,7 +39,7 @@
 import {addZero} from '@/components/helpers/timeFormat'
 export default {
     name: 'SetTimeTask',
-    props:['dayToEdit', 'pos'],
+    props:['dayToEdit', 'pos', 'elClicked'],
     data(){
         return{
             section: 'change',
@@ -80,7 +80,7 @@ export default {
         },
         setPos(){
             const container = this.$el.querySelector('.edit-day')
-            const timeSpanEl = document.querySelector('.week .task-duration')
+            const timeSpanEl = this.elClicked
             if(Number(this.pos.top) < Number((window.innerHeight/2))){
                 container.classList.add('after')
                 container.style.top = (this.pos.top + timeSpanEl.offsetHeight + 15) + 'px'
@@ -176,6 +176,8 @@ export default {
     margin: 10px auto;
     justify-content:center;
     width: 100%;
+    display: flex;
+    font-size: .7em;
 }
 .edit-day .time .hours,
 .edit-day .time .minutes{

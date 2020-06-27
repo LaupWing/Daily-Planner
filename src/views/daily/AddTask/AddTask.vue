@@ -223,7 +223,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .add-task-bg{
     position: fixed;
     top: 0;
@@ -354,33 +354,6 @@ export default {
     width: 100%;
 }
 
-#AddTask .extra-info input[type="radio"]{
-    display: none;
-}
-#AddTask .extra-info input[type="radio"]:checked + label{
-    opacity: 1;
-}
-#AddTask .extra-info label{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    color: var(--chosen-color);
-    border: solid 1px var(--chosen-color);
-    display: inline-block;
-    font-size: .5em;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    text-align: center;
-    line-height: 50px;
-    vertical-align: middle;
-    opacity: .3;
-    cursor: pointer;
-    transition: .25s;
-}
-#AddTask .extra-info label:hover{
-    opacity: 1;
-}
 #AddTask .extra-info .field.period-choice{
     display: flex;
     width: 80%;
