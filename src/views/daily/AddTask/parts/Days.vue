@@ -16,7 +16,7 @@
                 > -->
                 <!-- <label :for="day">{{day}}</label> -->
                 <p class="day">{{day}}</p>
-                <button type="button" @click="activateTime">Set Time</button>
+                <button type="button" @click="activateTime(day)">Set Time</button>
                 <p class="time-span" v-if="days.length>0"  @click="activateTime(day)">{{setTimePeroid(day)}}</p>
             </div>      
         </div>
@@ -25,6 +25,7 @@
             :dayToEdit="setTime.dayToEdit"
             :pos="setTime.pos"
             :elClicked="setTime.elClicked"
+            v-on:cancel="setTime = false"
         />
         <!-- <div class="set-time">
             <TimePopup
@@ -56,18 +57,19 @@ export default {
             setTime: false,
             display: null,
             timeToEdit:null,
-            daysName:['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+            daysName:['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+            daysFullName:['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
         }
     },
     methods:{
-        activateTime(event){
+        activateTime(day){
             this.setTime = {}
             this.setTime.pos = { 
                 top: event.target.getBoundingClientRect().top,
                 left: event.target.getBoundingClientRect().left
             }
             this.setTime.dayToEdit = {
-                day:'Saturday',
+                day:this.daysFullName[this.daysName.indexOf(day)],
                 begin: '00:00',
                 end: '00:00'
             }
