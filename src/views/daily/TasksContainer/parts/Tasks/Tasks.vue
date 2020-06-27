@@ -177,44 +177,4 @@ export default {
     width: 100%;
     position: relative;
 }
-
-#Tasks .task{
-    position: absolute;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    transition: .5s ease-out;
-    background: orange;
-    color: white;
-    border-radius: 6px;
-    opacity: .1;
-    overflow: hidden;
-    /* padding: 2px 5px; */
-}
-
-#Tasks .task.opacity{
-    opacity: 1;
-}
-#Tasks .task.activeByEdit{
-    opacity: 1;
-}
-#Tasks .days{
-    display: flex;
-}
-
-#Tasks .task .task-name{
-    max-width: 90%;
-}
-#Tasks .task .time{
-    display: flex;
-    font-size: .7em;
-}
-#Tasks .task.expanded{
-    height: 250px;
-    opacity: 1;
-}
-#Tasks .task .info{
-    pointer-events: none;
-    padding: 2px 5px;
-}
 </style>

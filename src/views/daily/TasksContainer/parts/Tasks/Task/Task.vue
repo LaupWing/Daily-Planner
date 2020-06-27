@@ -280,3 +280,42 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.task{
+    position: absolute;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    transition: .5s ease-out;
+    background: orange;
+    color: white;
+    border-radius: 6px;
+    opacity: .1;
+    overflow: hidden;
+    /* padding: 2px 5px; */
+}
+
+.task.opacity{
+    opacity: 1;
+}
+.task.activeByEdit{
+    opacity: 1;
+}
+
+.task .task-name{
+    max-width: 90%;
+}
+.task .time{
+    display: flex;
+    font-size: .7em;
+}
+.task.expanded{
+    height: 250px;
+    opacity: 1;
+}
+.task .info{
+    pointer-events: none;
+    padding: 2px 5px;
+}
+</style>

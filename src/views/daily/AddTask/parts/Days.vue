@@ -121,7 +121,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #AddTask .days-addTask{
     animation: heightAnim 2s forwards;
     max-height: 0;

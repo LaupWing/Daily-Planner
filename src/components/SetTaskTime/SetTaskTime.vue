@@ -102,14 +102,28 @@ export default {
     position: relative;
     bottom: 0;
     left: 0;
+    width: 100%;
+    text-align: center;
 }
 .edit-day-bg .edit-day .buttons button{
     color: black;
     padding: 7px;
+    width: 50%;
+    background: white;
     border-top: solid rgba(0,0,0,.4) 1px;
+    text-transform: uppercase;
+    font-size: .6em;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: .25s;
 }
 .edit-day-bg .edit-day .buttons button:first-of-type{
     border-right: solid rgba(0,0,0,.4) 1px;
+    border-radius: 0 0 0 5px;
+}
+
+.edit-day-bg .edit-day .buttons button:last-of-type{
+    border-radius: 0 0 5px 0;
 }
 .edit-day-bg{
     width: 100vw;
