@@ -97,7 +97,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .edit-day-bg .edit-day .buttons{
     position: relative;
     bottom: 0;
@@ -121,8 +121,6 @@ export default {
 }
 .edit-day-bg .edit-day{
     box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
-    /* width: 280px; */
-    /* height: 180px; */
     background: white;
     color: var(--task-color);
     border-radius: 5px;

@@ -16,6 +16,7 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 - [x]  Split up the week and daily view
 - [ ]  Need To clean up a lot of code
     - [ ] Modulaze some code (put it in some dedicated files/functions)
+    - [ ] Centralize all the timeout en times in a json file
 
 ### Would be nice
 - [ ]  Make week view multiscreen compatible

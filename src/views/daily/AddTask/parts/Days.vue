@@ -16,11 +16,16 @@
                 > -->
                 <!-- <label :for="day">{{day}}</label> -->
                 <p class="day">{{day}}</p>
-                <button type="button" @click="activateTime('all')">Set Time</button>
+                <button type="button" @click="activateTime">Set Time</button>
                 <p class="time-span" v-if="days.length>0"  @click="activateTime(day)">{{setTimePeroid(day)}}</p>
             </div>      
         </div>
-        <div class="set-time">
+        <set-time-task
+            v-if="setTime"
+            :dayToEdit="setTime.dayToEdit"
+            :pos="setTime.pos"
+        />
+        <!-- <div class="set-time">
             <TimePopup
                 :period="period"
                 :days="days"
@@ -30,18 +35,20 @@
                 v-if="setTime"
                 v-on:userSelectedTime="userSelectedTime"
             />
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
 import TimePopup from './Days/TimePopup'
+import SetTaskTime from '@/components/SetTaskTime/SetTaskTime'
 
 export default {
     name: 'Days',
     props:['days'],
     components:{
-        TimePopup
+        TimePopup,
+        'set-time-task':SetTaskTime
     },
     data(){
         return{
@@ -52,26 +59,37 @@ export default {
         }
     },
     methods:{
-        activateTime(display){
-            this.display = display
-            if(this.display !== 'all'){
-                const time = this.days.find(day=>day.day === display)
-                if(time){
-                    this.timeToEdit = {
-                        begin:{
-                            hours: null,
-                            minutes: null
-                        },
-                        end:{
-                            hours: null,
-                            minutes: null
-                        }
-                    }
-                    this.timeToEdit.begin = time.begin
-                    this.timeToEdit.end = time.end
-                }
+        activateTime(event){
+            this.setTime = {}
+            this.setTime.pos = { 
+                top: event.target.getBoundingClientRect().top,
+                left: event.target.getBoundingClientRect().left
             }
-            this.setTime = !this.setTime
+            this.setTime.dayToEdit = {
+                day:'Saturday',
+                begin: '00:00',
+                end: '00:00'
+            }
+
+            // this.display = display
+            // if(this.display !== 'all'){
+            //     const time = this.days.find(day=>day.day === display)
+            //     if(time){
+            //         this.timeToEdit = {
+            //             begin:{
+            //                 hours: null,
+            //                 minutes: null
+            //             },
+            //             end:{
+            //                 hours: null,
+            //                 minutes: null
+            //             }
+            //         }
+            //         this.timeToEdit.begin = time.begin
+            //         this.timeToEdit.end = time.end
+            //     }
+            // }
+            // this.setTime = !this.setTime
         },
         userSelectedTime(days){
             this.activateTime()

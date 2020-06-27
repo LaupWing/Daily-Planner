@@ -14,9 +14,10 @@
 </template>
 
 <script>
-import Temperature from "@/components/Navbar/parts/Temperature";
-import Auth from "@/components/Navbar/parts/Auth";
-import CurrentTime from "@/components/Navbar/parts/CurrentTime";
+import Temperature from "@/components/Navbar/parts/Temperature"
+import Auth from "@/components/Navbar/parts/Auth"
+import CurrentTime from "@/components/Navbar/parts/CurrentTime"
+
 export default {
     name: "NavBar",
     props: ["currentTask"],
@@ -29,7 +30,7 @@ export default {
         // To be sure that the navbar loads first in order to render the view
         setTimeout(() => {
             this.$emit("navbarLoaded");
-        }, 50);
+        }, 200);
     }
 };
 </script>
