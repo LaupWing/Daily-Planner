@@ -22,7 +22,7 @@
                 {{setDuration(day)}}
             </div>
         </div>
-        <ChangeDay
+        <SetTimeTask
             v-if="dayToEdit"
             :dayToEdit="dayToEdit"
             :pos="pos"
@@ -33,12 +33,12 @@
 </template>
 
 <script>
-import ChangeDay from './Week/ChangeDay'
+import SetTimeTask from '@/components/SetTimeTask'
 export default {
     name: 'Week',
     props:['editTask', 'edit'],
     components:{
-        ChangeDay
+        SetTimeTask
     },
     data(){
         return{
@@ -49,12 +49,7 @@ export default {
     },
     methods:{
         checkDay(day){
-            const findDay = this.editTask.days.find(d=>d.day === day)
-            if(findDay){
-                return true
-            }else{
-                return false
-            }
+            return this.editTask.days.find(d=>d.day === day) ? true : false
         },
         setDuration(day){
             const findDay = this.editTask.days.find(d=>d.day === day)
