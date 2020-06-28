@@ -56,7 +56,7 @@
         <div class="buttons">
             <button 
                 type="button" 
-                @click="cancel"
+                @click="$emit('cancel')"
             >
                 cancel
             </button>
@@ -97,9 +97,6 @@ export default {
                     this.$emit('cancel')
                 }
             }
-        },
-        cancel(){
-            this.$emit('cancel')
         },
         accept(){
             const newDay = {

@@ -22,32 +22,40 @@
                 {{setDuration(day)}}
             </div>
         </div>
-        <SetTaskTime
+        <!-- <SetTaskTime
             v-if="dayToEdit"
             :dayToEdit="dayToEdit"
             :pos="pos"
             :elClicked="elClicked"
             v-on:cancel="reset"
             v-on:accept="changeEdit"
+        /> -->
+        <app-popup
+            v-if="popupSettings"
+            :settings="popupSettings"
+            :componentId="'SetTimeTask'"
+            v-on:turnOffPopup="reset"
         />
     </div>
 </template>
 
 <script>
-import SetTaskTime from '@/components/SetTaskTime/SetTaskTime'
+// import SetTaskTime from '@/components/SetTaskTime/SetTaskTime'
+import Popup from '@/components/Popups/Popups'
 
 export default {
     name: 'Week',
     props:['editTask', 'edit'],
     components:{
-        SetTaskTime
+        'app-popup':Popup
     },
     data(){
         return{
             weekName: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
             dayToEdit: null,
             pos: null,
-            elClicked: null
+            elClicked: null,
+            popupSettings: null
         }
     },
     methods:{
@@ -60,19 +68,27 @@ export default {
         },
         editDay(day){
             event.target.classList.add('active')
-            this.pos = { 
-                top: event.target.getBoundingClientRect().top,
-                left: event.target.getBoundingClientRect().left
+            this.popupSettings = {
+                pos : { 
+                    top: event.target.getBoundingClientRect().top,
+                    left: event.target.getBoundingClientRect().left
+                },
+                dayToEdit : this.editTask.days.find(d=>d.day === day),
+                elClicked : event.target
             }
-            this.dayToEdit = this.editTask.days.find(d=>d.day === day)
-            this.elClicked = event.target
+            // this.pos = { 
+            //     top: event.target.getBoundingClientRect().top,
+            //     left: event.target.getBoundingClientRect().left
+            // }
+            // this.dayToEdit = this.editTask.days.find(d=>d.day === day)
+            // this.elClicked = event.target
         },
         reset(){
             this.$el.querySelectorAll('.task-duration').forEach(task=>task.classList.remove('active'))
-            this.dayToEdit = null
+            this.popupSettings = null
         },
         changeEdit(newDay){
-            this.dayToEdit = null
+            this.popupSettings = null
             this.$emit('changeDay', newDay)
         }
     }

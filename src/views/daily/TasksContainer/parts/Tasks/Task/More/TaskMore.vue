@@ -60,13 +60,19 @@ export default {
         Week,
         Colors
     },
+    computed:{
+        dailyTasks(){
+            return this.$store.getters.dailyTasks
+        },
+        colors(){
+            return this.$store.getters.colorLabels
+        },
+    },
     data(){
         return{
             section: 'general',
             edit: false,
             editTask:JSON.parse(JSON.stringify(this.task)),
-            dailyTasks: [],
-            colors: []
         }
     },
     methods:{
@@ -119,24 +125,13 @@ export default {
             this.updateDatabase()
         }
     },
-    created(){
-        db
-            .collection('planner')
-            .doc(firebase.auth().currentUser.uid)
-            .get()
-            .then(doc=>{
-                this.dailyTasks = doc.data().dailyTasks
-                this.colors = doc.data().colorLabels
-            })
-
-    },
     mounted(){
         this.$el.style.setProperty('--task-color', this.task.color.color)
     }
 }
 </script>
 
-<style>
+<style scoped>
 .task-more{
     width: 100%;
     height: 100%;
