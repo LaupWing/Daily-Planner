@@ -2,6 +2,7 @@
     <div 
         id="planner"
         @scroll="scrollEvent"
+        @mousedown="createTask"
     >
         <div 
             :style="{
@@ -68,12 +69,19 @@ export default {
         }
     },
     methods:{
-        emitToParent(func, data){
-            this.$emit(func, data)
-        },
-        toggle(prop){
-            this[prop] = !this[prop]
-        },
+        createTask(){
+            const containerCoords = this.$el.getBoundingClientRect()
+            const halfOfContainer = containerCoords.height / 2
+            const yValInContainer = (this.$el.scrollTop + event.y) - containerCoords.top 
+           
+           if(halfOfContainer > yValInContainer){
+               return
+           }
+           console.log({
+               yValInContainer,
+               halfOfContainer
+           })
+        }, 
         goToSpecifikTime(point){
             this.scrollByCode = false
             this.$el.scrollTo(0,point)
