@@ -17,7 +17,7 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 - [ ]  Need To clean up a lot of code
     - [ ] Modulaze some code (put it in some dedicated files/functions)
     - [ ] Centralize all the timeout en times in a json file
-
+- [ ] Add click and drag to create a new task
 ### Would be nice
 - [ ]  Make week view multiscreen compatible
 - [ ]  Voice task reminder
