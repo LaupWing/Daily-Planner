@@ -94,13 +94,17 @@ export default {
     },
     methods:{
         ...mapActions(['addNewTask']),
-        updateDaysAndTime(days){
-            this.days = days
+        updateDaysAndTime(day){
+            console.log(day)
+            this.days.find(d=>day.day === d.day) ? 
+            this.days.map = this.days.map(x=>x.day === day.day ? day : x) :
+            this.days.push(day)
         },
         nextInput(state){
             this.state = state
         },
         submit(){
+            console.log('submiitted')
             if(this.days.length !== 0 && this.task && this.color){
                 const reformatDays = this.days.map(day=>{
                     const dayFormatted = this.daysFullName.find(fullDay=>fullDay.slice(0,3)===day.day)

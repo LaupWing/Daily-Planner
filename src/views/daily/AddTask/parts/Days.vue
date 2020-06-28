@@ -16,8 +16,20 @@
                 > -->
                 <!-- <label :for="day">{{day}}</label> -->
                 <p class="day">{{day}}</p>
-                <button type="button" @click="activateTime(day)">Set Time</button>
-                <p class="time-span" v-if="days.length>0"  @click="activateTime(day)">{{setTimePeroid(day)}}</p>
+                <button 
+                    type="button"
+                    v-if="!days.find(x=>x.day===day)" 
+                    @click="activateTime(day)"
+                >
+                    Set Time
+                </button>
+                <p 
+                    class="time-span" 
+                    v-else  
+                    @click="activateTime(day)"
+                >
+                    {{setTimePeroid(day)}}
+                </p>
             </div>      
         </div>
         <set-time-task
@@ -26,6 +38,7 @@
             :pos="setTime.pos"
             :elClicked="setTime.elClicked"
             v-on:cancel="setTime = false"
+            v-on:accept="userSelectedTime"
         />
         <!-- <div class="set-time">
             <TimePopup
@@ -51,6 +64,11 @@ export default {
     components:{
         TimePopup,
         'set-time-task':SetTaskTime
+    },
+    watch:{
+        days(val){
+            console.log(val)
+        }
     },
     data(){
         return{
@@ -95,9 +113,11 @@ export default {
             // }
             // this.setTime = !this.setTime
         },
-        userSelectedTime(days){
-            this.activateTime()
-            this.$emit('updateDaysAndTime', days)
+        userSelectedTime(time){
+            this.$emit('updateDaysAndTime', {
+                ...time,
+                day: this.daysName[this.daysFullName.indexOf(time.day)]
+            })
         },
         setTimePeroid(day){
             const findDay = this.days.find(d=>d.day===day)

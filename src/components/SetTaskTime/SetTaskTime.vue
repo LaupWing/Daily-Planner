@@ -28,8 +28,8 @@
             </div>
             <i class="fas fa-trash-alt"></i>
             <div class="buttons">
-                <button @click="cancel">cancel</button>
-                <button @click="accept">Apply</button>
+                <button type="button" @click="cancel">cancel</button>
+                <button type="button" @click="accept">Apply</button>
             </div>
         </div>
     </div>
