@@ -114,6 +114,7 @@ export default {
             // this.setTime = !this.setTime
         },
         userSelectedTime(time){
+            this.setTime = false
             this.$emit('updateDaysAndTime', {
                 ...time,
                 day: this.daysName[this.daysFullName.indexOf(time.day)]
@@ -174,6 +175,7 @@ export default {
 }
 #AddTask .days .field p.day{
     width: 100%;
+    text-align: left;
 }
 
 #AddTask .days .field label{
@@ -182,6 +184,7 @@ export default {
 #AddTask .days .field p.time-span{
     border-bottom: solid 1px rgba(0,0,0,.2);
     cursor: pointer;
+    white-space: nowrap;
     transition: .5s;
 }
 #AddTask .days .field p.time-span:hover{
