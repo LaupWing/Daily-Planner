@@ -131,13 +131,6 @@ export default {
     border-radius: 5px;
     color: black;
     transform-origin: 0px 0px;
-    transform: scale(0);
-    animation: scaleUp forwards .5s;
-}
-@keyframes scaleUp {
-    to{
-        transform: scale(1);
-    }
 }
 #Custom-Context i.close{
     position: absolute;

@@ -11,6 +11,7 @@
                 class="popup"
                 v-on:cancel="$emit('turnOffPopup')"
                 @click.stop.native
+                v-on="$listeners"
             >
             </component>
         </div>
@@ -21,6 +22,7 @@
 import CustomContext from './CustomContext/CustomContext'
 import EditLabelForm from './ColorForms/EditLabelForm'
 import AddLabelForm from './ColorForms/AddLabelForm'
+import SetTimeTask from './SetTimeTask/SetTimeTask'
 
 export default {
     name:'Popups',
@@ -28,12 +30,12 @@ export default {
     components:{
         'CustomContext':CustomContext,
         'EditLabelForm':EditLabelForm,
-        'AddLabelForm':AddLabelForm
+        'SetTimeTask':SetTimeTask
     },
 }
 </script>
 
-<style>
+<style scoped>
 .popup-disabler{
     width: 100vw;
     height: 100vh;
@@ -43,22 +45,15 @@ export default {
     left: 0;
 }
 .popup{
-  z-index: 100000;
-}
-.scalingLeftTopCorner-enter-active{
-    animation: scalingLeftTopCorner forwards 1s;
-}
-.scalingLeftTopCorner-leave-active{
-    animation: scalingLeftTopCorner reverse 1s;
+    z-index: 100000;
+    animation: scaleUp forwards .5s;
 }
 
-@keyframes scalingLeftTopCorner {
+@keyframes scaleUp {
     from{
-        transform-origin: top left;
         transform: scale(0);
     }
-    from{
-        transform-origin: top left;
+    to{
         transform: scale(1);
     }
 }

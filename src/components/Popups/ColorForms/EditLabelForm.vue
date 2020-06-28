@@ -125,6 +125,7 @@ export default {
 
 <style>
 form.popup.edit-label{
+    transform-origin: 0px 0px;
     position: fixed;
     left: 0;
     top: 0;

@@ -102,6 +102,9 @@ export default {
 </script>
 
 <style>
+form.add-label{
+    transform-origin: 0px 0px;
+}
 form.popup.add-label h2{
     color: black;
     position: absolute;

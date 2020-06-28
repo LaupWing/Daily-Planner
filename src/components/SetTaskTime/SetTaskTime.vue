@@ -82,7 +82,6 @@ export default {
     props:['dayToEdit', 'pos', 'elClicked'],
     data(){
         return{
-            section: 'change',
             day:{
                 day:this.dayToEdit.day,
                 begin:{
@@ -106,9 +105,6 @@ export default {
         },
         cancel(){
             this.$emit('cancel')
-        },
-        setSection(section){
-            this.section = section
         },
         accept(){
             const newDay = {

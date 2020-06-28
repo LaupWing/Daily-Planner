@@ -32,7 +32,7 @@
                 </p>
             </div>      
         </div>
-        <set-time-task
+        <!-- <set-time-task
             v-if="setTime"
             :dayToEdit="setTime.dayToEdit"
             :pos="setTime.pos"
@@ -40,6 +40,12 @@
             v-on:cancel="setTime = false"
             v-on:accept="userSelectedTime"
             v-on:remove="removeDay"
+        /> -->
+        <app-popup
+            v-if="popupSettings"
+            :settings="popupSettings"
+            :componentId="'SetTimeTask'"
+            v-on:turnOffPopup="popupSettings = false"
         />
         <!-- <div class="set-time">
             <TimePopup
@@ -57,18 +63,18 @@
 
 <script>
 import TimePopup from './Days/TimePopup'
-import SetTaskTime from '@/components/SetTaskTime/SetTaskTime'
+import Popup from '@/components/Popups/Popups'
 
 export default {
     name: 'Days',
     props:['days'],
     components:{
         TimePopup,
-        'set-time-task':SetTaskTime
+        'app-popup':Popup
     },
     data(){
         return{
-            setTime: false,
+            popupSettings: false,
             display: null,
             timeToEdit:null,
             daysName:['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
@@ -80,12 +86,12 @@ export default {
             const removeDayFromArray = this.days.filter(x=>x.day !== this.daysName[this.daysFullName.indexOf(day.day)])
             console.log(removeDayFromArray)
             this.$emit('removedDay', removeDayFromArray)
-            this.setTime = false
+            this.popupSettings = false
         },
         activateTime(day){
             const exists = this.days.find(d=>d.day===day)
 
-            this.setTime = {
+            this.popupSettings = {
                 pos: { 
                     top: event.target.getBoundingClientRect().top,
                     left: event.target.getBoundingClientRect().left
@@ -99,7 +105,7 @@ export default {
             }
         },
         userSelectedTime(time){
-            this.setTime = false
+            this.popupSettings = false
             this.$emit('updateDaysAndTime', {
                 ...time,
                 day: this.daysName[this.daysFullName.indexOf(time.day)]
