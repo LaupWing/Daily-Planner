@@ -113,9 +113,11 @@ export default {
             const container = this.$el
             const timeSpanEl = this.settings.elClicked
             if(Number(this.settings.pos.top) < Number((window.innerHeight/2))){
+                container.style.transformOrigin = 'top'
                 container.classList.add('after')
                 container.style.top = (this.settings.pos.top + timeSpanEl.offsetHeight + 15) + 'px'
             }else{
+                container.style.transformOrigin = 'bottom'
                 container.classList.add('before')
                 container.style.top = (this.settings.pos.top - container.offsetHeight - 15) + 'px'
             }
@@ -129,8 +131,21 @@ export default {
 </script>
 
 <style scoped>
-.edit-day .buttons{
+.edit-day{
+    box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
+    background: white;
+    color: var(--task-color);
+    border-radius: 5px;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
     position: fixed;
+    font-size: 12px;
+    z-index: 10000;
+}
+.edit-day .buttons{
     bottom: 0;
     left: 0;
     width: 100%;
@@ -164,20 +179,6 @@ export default {
     left: 0;
     top: 0;
     z-index: 1000;
-}
-.edit-day{
-    box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
-    background: white;
-    color: var(--task-color);
-    border-radius: 5px;
-    position: relative;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    font-size: 12px;
-    z-index: 10000;
 }
 .edit-day.before::after{
     content: '';

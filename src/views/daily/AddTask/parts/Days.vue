@@ -45,6 +45,8 @@
             v-if="popupSettings"
             :settings="popupSettings"
             :componentId="'SetTimeTask'"
+            v-on:accept="userSelectedTime"
+            v-on:remove="removeDay"
             v-on:turnOffPopup="popupSettings = false"
         />
         <!-- <div class="set-time">
