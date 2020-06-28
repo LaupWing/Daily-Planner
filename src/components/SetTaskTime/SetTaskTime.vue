@@ -1,16 +1,31 @@
 <template>
-    <div class="edit-day-bg" @click="checkBg">
+    <div 
+        class="edit-day-bg" 
+        @click="checkBg"
+    >
         <div class="edit-day">
             <h2>{{dayToEdit.day}}</h2>
             <div class="field time-span">
                 <label for="task">Begin:</label>
                 <div class="time">
                     <div class="hours">
-                        <input type="number" name="hours" min="00" max="23" v-model="day.begin.hours">
+                        <input 
+                            type="number" 
+                            name="hours" 
+                            min="00" 
+                            max="23" 
+                            v-model="day.begin.hours"
+                        >
                     </div>
                     <span>:</span>
                     <div class="minutes">
-                        <input type="number" name="minutes" min="00" max="59" v-model="day.begin.minutes">
+                        <input 
+                            type="number" 
+                            name="minutes" 
+                            min="00" 
+                            max="59" 
+                            v-model="day.begin.minutes"
+                        >
                     </div>
                 </div>
             </div>
@@ -18,18 +33,43 @@
                 <label for="task">End:</label>
                 <div class="time">
                     <div class="hours">
-                        <input type="number" name="hours" min="00" max="23" v-model="day.end.hours">
+                        <input 
+                            type="number" 
+                            name="hours" 
+                            min="00" 
+                            max="23" 
+                            v-model="day.end.hours"
+                        >
                     </div>
                     <span>:</span>
                     <div class="minutes">
-                        <input type="number" name="minutes" min="00" max="59" v-model="day.end.minutes">
+                        <input 
+                            type="number" 
+                            name="minutes" 
+                            min="00" 
+                            max="59" 
+                            v-model="day.end.minutes"
+                        >
                     </div>
                 </div>
             </div>
-            <i class="fas fa-trash-alt"></i>
+            <i 
+                class="fas fa-trash-alt"
+                @click="$emit('remove', dayToEdit)"
+            ></i>
             <div class="buttons">
-                <button type="button" @click="cancel">cancel</button>
-                <button type="button" @click="accept">Apply</button>
+                <button 
+                    type="button" 
+                    @click="cancel"
+                >
+                    cancel
+                </button>
+                <button 
+                    type="button" 
+                    @click="accept"
+                >
+                    Apply
+                </button>
             </div>
         </div>
     </div>

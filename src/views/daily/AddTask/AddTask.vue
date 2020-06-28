@@ -42,6 +42,7 @@
                 <Days
                     :days="days"
                     v-on:updateDaysAndTime="updateDaysAndTime"
+                    v-on:removedDay="days = $event"
                 />
             </div>
             <div class="color-labels-bg" v-if="colorPopup" @click="closePopupByBG">
@@ -176,26 +177,6 @@ export default {
                 .then(()=>{
                     this.toggle()
                 })
-            // db
-            //     .collection('planner')
-            //     .doc(this.user.uid)
-            //     .update({
-            //         dailyTasks: this.dailyTasks
-            //     })
-            //     .then(()=>{
-            //         this.toggle()
-            //     })
-            //     .catch(()=>{
-            //         db
-            //             .collection('planner')
-            //             .doc(this.user.uid)
-            //             .set({
-            //                 dailyTasks: this.dailyTasks
-            //             })
-            //             .then(()=>{
-            //                 this.toggle()
-            //             })
-            //     })
         },
         settingData(obj){
             this[obj.type] = obj.value

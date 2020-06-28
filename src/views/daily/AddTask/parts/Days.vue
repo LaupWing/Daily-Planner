@@ -39,6 +39,7 @@
             :elClicked="setTime.elClicked"
             v-on:cancel="setTime = false"
             v-on:accept="userSelectedTime"
+            v-on:remove="removeDay"
         />
         <!-- <div class="set-time">
             <TimePopup
@@ -65,11 +66,6 @@ export default {
         TimePopup,
         'set-time-task':SetTaskTime
     },
-    watch:{
-        days(val){
-            console.log(val)
-        }
-    },
     data(){
         return{
             setTime: false,
@@ -80,6 +76,12 @@ export default {
         }
     },
     methods:{
+        removeDay(day){
+            const removeDayFromArray = this.days.filter(x=>x.day !== this.daysName[this.daysFullName.indexOf(day.day)])
+            console.log(removeDayFromArray)
+            this.$emit('removedDay', removeDayFromArray)
+            this.setTime = false
+        },
         activateTime(day){
             const exists = this.days.find(d=>d.day===day)
 
@@ -95,26 +97,6 @@ export default {
                 },
                 elClicked: event.target
             }
-
-            // this.display = display
-            // if(this.display !== 'all'){
-            //     const time = this.days.find(day=>day.day === display)
-            //     if(time){
-            //         this.timeToEdit = {
-            //             begin:{
-            //                 hours: null,
-            //                 minutes: null
-            //             },
-            //             end:{
-            //                 hours: null,
-            //                 minutes: null
-            //             }
-            //         }
-            //         this.timeToEdit.begin = time.begin
-            //         this.timeToEdit.end = time.end
-            //     }
-            // }
-            // this.setTime = !this.setTime
         },
         userSelectedTime(time){
             this.setTime = false
