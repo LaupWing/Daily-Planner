@@ -1,6 +1,10 @@
 <template>
     <div class="popup-container">
-        <div class="popup-disabler" v-if="settings" @click="togglePopup">
+        <div 
+            class="popup-disabler" 
+            v-if="settings" 
+            @click="togglePopup"
+        >
         </div>
         <component 
             :is="componentId"

@@ -102,8 +102,7 @@ export default {
                 coords:{
                     x: event.x,
                     y: event.y
-                },
-                elPrio2: '#Tasks .task'
+                }
             }
         },
         emitToParent(method){

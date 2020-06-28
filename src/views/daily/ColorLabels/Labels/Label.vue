@@ -82,8 +82,7 @@ export default {
                         top: this.$el.getBoundingClientRect().top,
                         left: this.$el.getBoundingClientRect().left,
                         elHeight: this.$el.offsetHeight
-                    },
-                    elPrio2: '#Tasks .task'
+                    }
                 }
             }else{
                 // There has to be a timeout here otherwise it will trigger the click on color event

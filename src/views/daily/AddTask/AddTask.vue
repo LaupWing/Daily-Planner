@@ -1,7 +1,7 @@
 <template>
 <div class="add-task-bg">
     <form @submit.prevent="submit" id="AddTask"> 
-        <h2 v-if="!task">
+        <h2>
             <input 
                 type="text" 
                 name="task" 
