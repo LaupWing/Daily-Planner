@@ -5,7 +5,7 @@
             @mouseout="showAll(false)"
         >Labels</h2>
         <div class="label-container">
-            <Label 
+            <app-label 
                 v-for="(label, index) in colorLabels" 
                 :key="index"
                 :label='label'
@@ -13,7 +13,7 @@
             />
             <i class="fas fa-plus-circle" @click="addColorLabel2"></i>
         </div>
-        <Popup
+        <app-popup
             v-if="popupSettings"
             :settings="popupSettings"
             :componentId="'AddLabelForm'"
@@ -24,14 +24,14 @@
 
 <script>
 import Label from './Labels/Label'
-import Popup from '@/components/Popups/Popups'
+import Popup from '@/components/Popup/Popup'
 import { mapGetters } from 'vuex'
 export default {
     name: 'ColorLabels',
     props:['taskColor' ,'addTask', 'chosenColorLabel'],
     components:{
-        Label,
-        Popup
+        'app-label' : Label,
+        'app-popup': Popup
     },
     data(){
         return{

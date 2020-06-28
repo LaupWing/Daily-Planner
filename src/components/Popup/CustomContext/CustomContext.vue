@@ -115,14 +115,11 @@ export default {
         setActiveColor(color){
             return this.activeColor === color.color
         }
-    },
-    mounted(){
-        console.log(this.settings)
     }
 }
 </script>
 
-<style>
+<style scoped>
 #Custom-Context{
     position: fixed;
     background: white;

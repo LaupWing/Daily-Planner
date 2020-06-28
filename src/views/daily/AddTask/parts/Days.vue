@@ -65,7 +65,7 @@
 
 <script>
 import TimePopup from './Days/TimePopup'
-import Popup from '@/components/Popups/Popups'
+import Popup from '@/components/Popup/Popup'
 
 export default {
     name: 'Days',

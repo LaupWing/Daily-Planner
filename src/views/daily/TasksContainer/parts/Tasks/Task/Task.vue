@@ -12,13 +12,13 @@
         @contextmenu="openTab(task)"
         @transitionend="animEnded"
     >
-        <Popup
+        <app-popup
             v-if="popupSettings"
             :settings="popupSettings"
             :componentId="'CustomContext'"
             v-on:turnOffPopup="turnOffPopup"
         />
-        <TaskMore
+        <task-more
             :task="task"
             :edit="edit"
             :today="today"
@@ -56,13 +56,13 @@
 <script>
 import TaskMore from './More/TaskMore'
 import {checkConnectedLi} from '@/components/helpers/timeline'
-import Popup from '@/components/Popups/Popups'
+import Popup from '@/components/Popup/Popup'
 
 export default {
     name: 'Task',
     components:{
-        TaskMore,
-        Popup
+        'task-more':TaskMore,
+        'app-popup':Popup
     },
     props:[
         'task',

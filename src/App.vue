@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <Navbar
+    <app-navbar
         :currentTask='currentTask'
         v-on:toggle="toggle('sideNav')"
         v-on:navbarLoaded="navbarLoaded = true"
     />
-    <SideBar
+    <apps-sidebar
         v-if="sideNav"
         v-on:closeNav="toggle('sideNav')"
     />
-    <Popups 
+    <app-popup 
         v-if="popup"
         :settings="popup"
         v-on:togglePopup="togglePopup"
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Popups from '@/components/Popups/Popups'
+import Popup from '@/components/Popup/Popup'
 import Navbar from '@/components/Navbar/Navbar'
 import SideBar from '@/components/SideBar/SideBar'
 import { mapActions } from 'vuex'
@@ -40,9 +40,9 @@ export default {
         }
     },
     components:{
-        Popups,
-        Navbar,
-        SideBar
+        'app-popup':Popup,
+        'app-navbar': Navbar,
+        'apps-sidebar': SideBar
     },
     methods:{
         ...mapActions(['checkUser']),

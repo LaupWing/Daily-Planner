@@ -22,14 +22,6 @@
                 {{setDuration(day)}}
             </div>
         </div>
-        <!-- <SetTaskTime
-            v-if="dayToEdit"
-            :dayToEdit="dayToEdit"
-            :pos="pos"
-            :elClicked="elClicked"
-            v-on:cancel="reset"
-            v-on:accept="changeEdit"
-        /> -->
         <app-popup
             v-if="popupSettings"
             :settings="popupSettings"
@@ -40,8 +32,7 @@
 </template>
 
 <script>
-// import SetTaskTime from '@/components/SetTaskTime/SetTaskTime'
-import Popup from '@/components/Popups/Popups'
+import Popup from '@/components/Popup/Popup'
 
 export default {
     name: 'Week',
@@ -76,12 +67,6 @@ export default {
                 dayToEdit : this.editTask.days.find(d=>d.day === day),
                 elClicked : event.target
             }
-            // this.pos = { 
-            //     top: event.target.getBoundingClientRect().top,
-            //     left: event.target.getBoundingClientRect().left
-            // }
-            // this.dayToEdit = this.editTask.days.find(d=>d.day === day)
-            // this.elClicked = event.target
         },
         reset(){
             this.$el.querySelectorAll('.task-duration').forEach(task=>task.classList.remove('active'))

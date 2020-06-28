@@ -25,7 +25,7 @@ import AddLabelForm from './ColorForms/AddLabelForm'
 import SetTimeTask from './SetTimeTask/SetTimeTask'
 
 export default {
-    name:'Popups',
+    name:'Popup',
     props:['settings', 'componentId'],
     components:{
         'CustomContext':CustomContext,

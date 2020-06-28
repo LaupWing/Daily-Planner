@@ -6,7 +6,7 @@
         @contextmenu.prevent="toggleEditPopup(true)"
         @click="checkTaskWithThisColor"
     >
-        <Popup
+        <app-popup
             v-if="popupSettings"
             :settings="popupSettings"
             :componentId="'EditLabelForm'"
@@ -28,13 +28,13 @@
 </template>
 
 <script>
-import Popup from '@/components/Popups/Popups'
+import Popup from '@/components/Popup/Popup'
 
 export default {
     name: 'Label',
     props:['label' ,'taskColor', 'editLabel'],
     components:{
-        Popup
+        'app-popup':Popup
     },  
     data(){
         return{
