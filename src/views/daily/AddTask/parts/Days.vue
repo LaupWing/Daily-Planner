@@ -81,17 +81,20 @@ export default {
     },
     methods:{
         activateTime(day){
-            this.setTime = {}
-            this.setTime.pos = { 
-                top: event.target.getBoundingClientRect().top,
-                left: event.target.getBoundingClientRect().left
+            const exists = this.days.find(d=>d.day===day)
+
+            this.setTime = {
+                pos: { 
+                    top: event.target.getBoundingClientRect().top,
+                    left: event.target.getBoundingClientRect().left
+                },
+                dayToEdit: {
+                    day:this.daysFullName[this.daysName.indexOf(day)],
+                    begin: exists ? exists.begin : '00:00',
+                    end: exists ? exists.end : '00:00'
+                },
+                elClicked: event.target
             }
-            this.setTime.dayToEdit = {
-                day:this.daysFullName[this.daysName.indexOf(day)],
-                begin: '00:00',
-                end: '00:00'
-            }
-            this.setTime.elClicked = event.target
 
             // this.display = display
             // if(this.display !== 'all'){
@@ -125,6 +128,7 @@ export default {
             if(findDay){
                 return `${findDay.begin} - ${findDay.end}`
             }
+            return false
         },
         toggleDay(){
             if(event.target.checked){

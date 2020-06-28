@@ -19,8 +19,23 @@
                 </div>
                 <div class="field color-label">
                     <label>Color Label:</label>
-                    <button type="button" class="set-color" @click="setColor" v-if="!color">Set Colorlabel</button>
-                    <button type="button" class="set-color" @click="setColor" :style="buttonStyling" v-else>{{color.label}}</button>
+                    <button 
+                        type="button" 
+                        class="set-color" 
+                        @click="setColor" 
+                        v-if="!color"
+                    >
+                        Set Colorlabel
+                    </button>
+                    <button 
+                        type="button" 
+                        class="set-color" 
+                        @click="setColor" 
+                        :style="buttonStyling" 
+                        v-else
+                    >
+                        {{color.label}}
+                    </button>
                 </div>
             </div>
             <div class="extra-info">
@@ -50,8 +65,18 @@
             </div>
         </div>
         <div class="buttons">
-            <button @click="$emit('close')" type="button">Cancel</button>
-            <button :class="submitButtonStyling" type="submit">Submit</button>
+            <button 
+                @click="$emit('close')" 
+                type="button"
+            >
+                Cancel
+            </button>
+            <button 
+                :class="submitButtonStyling" 
+                type="submit"
+            >
+                Submit
+            </button>
         </div>
     </form>
 </div>            
@@ -313,7 +338,7 @@ export default {
     width: 50%;
     justify-content: flex-start;
     flex-direction: column;
-    padding: 20px;
+    padding: 10px 15px;
     align-items: center;
 }
 #AddTask .info{
