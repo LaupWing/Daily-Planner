@@ -3,15 +3,17 @@
         <div 
             class="popup-disabler" 
             v-if="settings" 
-            @click="togglePopup"
+            @click="$emit('turnOffPopup')"
         >
+            <component 
+                :is="componentId"
+                :settings="settings"
+                class="popup"
+                v-on:cancel="$emit('turnOffPopup')"
+                @click.stop.native
+            >
+            </component>
         </div>
-        <component 
-            :is="componentId"
-            :settings="settings"
-            class="popup"
-            v-on:cancel="cancel"
-        ></component>
     </div>
 </template>
 
@@ -23,27 +25,10 @@ import AddLabelForm from './ColorForms/AddLabelForm'
 export default {
     name:'Popups',
     props:['settings', 'componentId'],
-    data(){
-        return{
-
-        }
-    },
     components:{
         'CustomContext':CustomContext,
         'EditLabelForm':EditLabelForm,
         'AddLabelForm':AddLabelForm
-    },
-    methods:{
-        togglePopup(){
-            if(event.target.classList.length>0){
-                if(event.target.classList[0]==='popup-disabler'){
-                    this.$emit('turnOffPopup')
-                }
-            }
-        },
-        cancel(){
-            this.$emit('turnOffPopup')
-        }
     },
 }
 </script>
