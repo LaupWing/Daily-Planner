@@ -101,6 +101,12 @@ export default {
             ){
                 return
             }
+            // if(this.createTask.moving && section === 'moving'){
+            //     const collided = collisionDetection(this.createTask.starting.coord,this.createTask.moving.coord)
+            //     if(collided){
+            //         return this.createTask.moving === getClosestCoord(collided.offsetTop)
+            //     }
+            // }
             this.createTask[section] = getClosestCoord(yValInContainer)
         }, 
         goToSpecifikTime(point){
