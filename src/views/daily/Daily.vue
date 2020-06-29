@@ -176,25 +176,7 @@ export default {
     padding-bottom: 10%;
 }
 
-#planner .indicator{
-    --time: '00:00';
-    height: 1.2px;
-    width: 300px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-left: -300px;
-    background: white;
-    opacity: .8;
-}
-#planner .indicator::before{
-    content: 'Time';
-    top:-20px;
-    position: absolute;
-}
-#planner .indicator::after{
-    content: attr(time);
-}
+
 #planner::-webkit-scrollbar {
     width: 0px;
 }

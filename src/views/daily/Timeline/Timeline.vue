@@ -1,8 +1,5 @@
 <template>
-    <ul 
-        id="Timeline"
-        @mousedown.stop
-    >
+    <ul id="Timeline">
         <li data-time="00:00">00:00</li>
         <li data-time="00:30">-</li>
         <li data-time="01:00">01:00</li>

@@ -1,5 +1,8 @@
 <template>
-    <div class="actions" :style="{marginTop : marginTop}">
+    <div 
+        class="actions" 
+        :style="{marginTop : marginTop}"
+    >
         <i class="fas fa-arrow-circle-up" @click="goToTask('up')"></i>
         <i class="far fa-circle" @click="goToTask('current')"></i>
         <i class="fas fa-arrow-circle-down" @click="goToTask('down')"></i>

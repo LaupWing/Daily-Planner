@@ -9,15 +9,22 @@
                 top: elementMidpoint
             }" 
             class="indicator"
+            @mousedown.stop
         >
         </div>
-        <Timeline/>
+        <Timeline
+            @mousedown.native.stop
+        />
         <Tasks
             :visibleTask="visibleTask"
             v-on:checkActiveTask='checkTaskByScroll'
             v-on:setTask='setTask'
+            @mousedown.native.stop
         />
-        <div class="controls">
+        <div 
+            class="controls"
+            @mousedown.stop
+        >
             <Actions
                 :visibleTask="visibleTask"
             />
@@ -26,6 +33,7 @@
         <GoTo
             v-on:setupCurrentPos='setupCurrentPos'  
             v-on:goToSpecifikTime='goToSpecifikTime'
+            @mousedown.native.stop
         />
     </div>
 </template>
@@ -38,7 +46,7 @@ import Actions from './parts/Actions'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import {days} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'
-import {getClosestCoord} from './helpers/helpers'
+import {getClosestCoord, fiveMinuteCoords} from './helpers/helpers'
 
 export default {
     name: 'TasksContainer',
@@ -73,12 +81,14 @@ export default {
         createTask(){
             const containerCoords = this.$el.getBoundingClientRect()
             const halfOfContainer = containerCoords.height / 2
-            const yValInContainer = (this.$el.scrollTop + event.y) - containerCoords.top 
-           
-           if(halfOfContainer > yValInContainer){
-               return
-           }
-           console.log(getClosestCoord(yValInContainer))
+            const yValInContainer = (this.$el.scrollTop + event.y) -    containerCoords.top 
+            const min = fiveMinuteCoords()[0].coord 
+            // const max = fiveMinuteCoords()[fiveMinuteCoords().length-1].coord 
+            
+            if((min-5) > yValInContainer){
+                return
+            }
+            console.log(getClosestCoord(yValInContainer))
         }, 
         goToSpecifikTime(point){
             this.scrollByCode = false
@@ -250,6 +260,25 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.indicator{
+    --time: '00:00';
+    height: 1.2px;
+    width: 300px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -300px;
+    background: white;
+    opacity: .8;
+    pointer-events: none;
+}
+.indicator::before{
+    content: 'Time';
+    top:-20px;
+    position: absolute;
+}
+.indicator::after{
+    content: attr(time);
+}
 </style>
