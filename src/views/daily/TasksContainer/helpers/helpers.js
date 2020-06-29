@@ -9,10 +9,6 @@ export function fiveMinuteCoords(){
         const minute = Number(li.textContent.includes(':') 
             ? li.textContent.split(':')[1]
             : 30)
-        // console.log({
-        //     hour,
-        //     minute
-        // })
         if(!i){
             coords.push({
                 time: li.textContent,
@@ -40,6 +36,13 @@ export function fiveMinuteCoords(){
                 time: `${hour < 10 ? '0'+ hour: hour}:${minute < 10 ? '0'+ minute: minute}`,
                 coord: (li.offsetTop + (li.offsetHeight / 2))
             })
+            for(let x=1; x<=2; x++){
+                const newMinute = minute + (5*x)
+                coords.push({
+                    time: `${hour < 10 ? '0'+ hour: hour}:${newMinute < 10 ? '0'+ newMinute: newMinute}`,
+                    coord: (li.offsetTop + (li.offsetHeight / 2)) + minuteCoord * x
+                })
+            }
         }
     })
     console.log(coords)
