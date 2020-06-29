@@ -292,6 +292,7 @@ export default {
     border-radius: 6px;
     opacity: .1;
     overflow: hidden;
+    user-select: none;
     /* padding: 2px 5px; */
 }
 

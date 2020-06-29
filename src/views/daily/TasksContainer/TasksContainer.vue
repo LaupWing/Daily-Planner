@@ -2,7 +2,13 @@
     <div 
         id="planner"
         @scroll="scrollEvent"
-        @mousedown="createTask"
+        @mousedown="creatingTask('starting')"
+        @mousemove="createTask.starting && creatingTask('moving')"
+        @mouseup="createTask = {
+            starting: false,
+            moving: null,
+            ended: false
+        }"
     >
         <div 
             :style="{
@@ -17,12 +23,10 @@
         />
         <app-tasks
             :visibleTask="visibleTask"
+            :createTask="createTask"
             v-on:checkActiveTask='checkTaskByScroll'
             v-on:setTask='setTask'
             @mousedown.native.stop
-        />
-        <app-create-task
-            v-if="createTask.starting"
         />
         <div 
             class="controls"
@@ -45,7 +49,6 @@
 import Timeline from '@/views/Daily/Timeline/Timeline'
 import Tasks from './parts/Tasks/Tasks'
 import GoTo from '@/views/Daily/GoTo/GoTo'
-import CreateTask from './parts/CreateTask/CreateTask'
 import Actions from './parts/Actions/Actions'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import {days} from '@/components/helpers/timeFormat'
@@ -59,7 +62,6 @@ export default {
         'app-timeline':Timeline,
         'app-go-to':GoTo,
         'app-actions':Actions,
-        'app-create-task': CreateTask
     },
     data(){
         return{
@@ -81,22 +83,23 @@ export default {
             offset: 0,
             elementMidpoint: 0,
             createTask:{
-                starting: false
+                starting: false,
+                moving: null,
+                ended: false
             }
         }
     },
     methods:{
-        createTask(){
+        creatingTask(section){
             const containerCoords = this.$el.getBoundingClientRect()
             const halfOfContainer = containerCoords.height / 2
             const yValInContainer = (this.$el.scrollTop + event.y) -    containerCoords.top 
             const min = fiveMinuteCoords()[0].coord 
             // const max = fiveMinuteCoords()[fiveMinuteCoords().length-1].coord 
-            
             if((min-5) > yValInContainer){
                 return
             }
-            this.createTask.starting = getClosestCoord(yValInContainer)
+            this.createTask[section] = getClosestCoord(yValInContainer)
         }, 
         goToSpecifikTime(point){
             this.scrollByCode = false

@@ -1,6 +1,10 @@
 <template>
-    <div id="Tasks"> 
-        <Task
+    <div id="Tasks">
+        <app-create-task
+            v-if="createTask.starting"
+            :createTask="createTask"
+        />
+        <app-task
             v-for="(task, index) in tasksOfToday"
             :key="index"
             :task="task"
@@ -20,13 +24,15 @@
 import {converDateToMS} from '@/components/helpers/timeFormat'
 import {days} from '@/components/helpers/timeFormat'
 import Task from './Task/Task'
+import CreateTask from './CreateTask/CreateTask'
 
 export default {
     name: 'Tasks',
     components:{
-        Task
+        'app-task':Task,
+        'app-create-task':CreateTask
     },
-    props:['visibleTask'],
+    props:['visibleTask', 'createTask'],
     data(){
         return{
             currentTask: null,
