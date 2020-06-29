@@ -53,7 +53,7 @@ import Actions from './parts/Actions/Actions'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import {days} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'
-import {getClosestCoord, fiveMinuteCoords} from './helpers/helpers'
+import {getClosestCoord, fiveMinuteCoords, collisionDetection} from './helpers/helpers'
 
 export default {
     name: 'TasksContainer',

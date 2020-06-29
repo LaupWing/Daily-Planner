@@ -6,10 +6,10 @@
         }"
     >
         <p class="begin">
-            {{createTask.starting.time}}    
-            {{calcDuration}}
+            {{createTask.starting.time}}
         </p>  
         <p class="duration">
+            {{calcDuration}}
         </p>
         <p v-if="createTask.moving" class="end">
             {{createTask.moving.time}}
@@ -35,7 +35,7 @@ export default {
             return 0
         },
         calcDuration(){
-            if(!this.createTask.starting||this.createTask.moving){
+            if(!this.createTask.starting||!this.createTask.moving){
                 return 'No duration available'
             }
             const startHour = Number(this.createTask.starting.time.split(':')[0])
@@ -46,15 +46,12 @@ export default {
             
             let hourDif = endHour - startHour
             let minuteDif = endMinute - startMinute
-
             if(minuteDif < 0){
                 hourDif -= 1 
-                minuteDif = (startMinute - endMinute) + endMinute
+                minuteDif = 60 -(startMinute - endMinute)
             }
-            return `${hourDif < 10 ? '0'+hourDif:hourDif}:${minuteDif < 10 ? '0'+minuteDif:minuteDif}`
+            return `Duration: ${hourDif < 10 ? '0'+hourDif:hourDif}:${minuteDif < 10 ? '0'+minuteDif:minuteDif}`
         }
-    },
-    methods:{
     },
     mounted(){
         this.$el.style.top = this.createTask.starting.coord + 'px'
@@ -70,6 +67,9 @@ export default {
     border: dashed 1px white;
     height: 50px;
     border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 p.begin,
 p.end{
@@ -95,5 +95,6 @@ p.end{
 }
 p.duration{
     position: absolute;
+    user-select: none;
 }
 </style>
