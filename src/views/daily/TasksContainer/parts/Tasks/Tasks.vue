@@ -16,6 +16,7 @@
             :visibleTask="visibleTask"
             v-on:emitToParent="emitToParent"
             v-on:expandTask="expandTask"
+            @mousedown.native.stop.prevent
         />
     </div>
 </template>
