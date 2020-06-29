@@ -7,9 +7,9 @@
     >
         <p class="begin">
             {{createTask.starting.time}}    
+            {{calcDuration}}
         </p>  
         <p class="duration">
-                
         </p>
         <p v-if="createTask.moving" class="end">
             {{createTask.moving.time}}
@@ -34,17 +34,27 @@ export default {
             }
             return 0
         },
+        calcDuration(){
+            if(!this.createTask.starting||this.createTask.moving){
+                return 'No duration available'
+            }
+            const startHour = Number(this.createTask.starting.time.split(':')[0])
+            const startMinute = Number(this.createTask.starting.time.split(':')[1])
+
+            const endHour = Number(this.createTask.moving.time.split(':')[0])
+            const endMinute = Number(this.createTask.moving.time.split(':')[1])
+            
+            let hourDif = endHour - startHour
+            let minuteDif = endMinute - startMinute
+
+            if(minuteDif < 0){
+                hourDif -= 1 
+                minuteDif = (startMinute - endMinute) + endMinute
+            }
+            return `${hourDif < 10 ? '0'+hourDif:hourDif}:${minuteDif < 10 ? '0'+minuteDif:minuteDif}`
+        }
     },
     methods:{
-        calcDuration(){
-            const startHour = this.createTask.starting.time.split(':')[0]
-            const startMinute = this.createTask.starting.time.split(':')[1]
-
-            const endHour = this.createTask.moving.time.split(':')[0]
-            const endMinute = this.createTask.moving.time.split(':')[1]
-
-            
-        }
     },
     mounted(){
         this.$el.style.top = this.createTask.starting.coord + 'px'
@@ -82,5 +92,8 @@ p.end{
     right: 0;
     transform: translateY(100%);
     border-radius: 0 0 5px 5px;
+}
+p.duration{
+    position: absolute;
 }
 </style>
