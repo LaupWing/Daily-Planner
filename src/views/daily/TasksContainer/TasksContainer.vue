@@ -53,7 +53,7 @@ import Actions from './parts/Actions/Actions'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import {days} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'
-import {getClosestCoord, fiveMinuteCoords, collisionDetection} from './helpers/helpers'
+import {getClosestCoord, fiveMinuteCoords, pointOverlappedTask} from './helpers/helpers'
 
 export default {
     name: 'TasksContainer',
@@ -101,12 +101,12 @@ export default {
             ){
                 return
             }
-            // if(this.createTask.moving && section === 'moving'){
-            //     const collided = collisionDetection(this.createTask.starting.coord,this.createTask.moving.coord)
-            //     if(collided){
-            //         return this.createTask.moving === getClosestCoord(collided.offsetTop)
-            //     }
-            // }
+            if(this.createTask.moving && section === 'moving'){
+                const overlapping = pointOverlappedTask(yValInContainer)
+                if(overlapping){
+                    return
+                }
+            }
             this.createTask[section] = getClosestCoord(yValInContainer)
         }, 
         goToSpecifikTime(point){

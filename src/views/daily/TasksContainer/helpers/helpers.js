@@ -71,3 +71,8 @@ export function collisionDetection(min, max){
     const collided = tasks.find(t=>t.offsetTop > min && t.offsetTop < max)
     return collided
 }
+export function pointOverlappedTask(point){
+    const tasks = Array.from(document.querySelectorAll('#Tasks .task'))
+    const overlapped = tasks.find(t=>point > t.offsetTop && point < (t.offsetTop + t.offsetHeight))
+    return overlapped
+}
