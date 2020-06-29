@@ -9,7 +9,7 @@
             {{createTask.starting.time}}    
         </p>  
         <p class="duration">
-            
+                
         </p>
         <p v-if="createTask.moving" class="end">
             {{createTask.moving.time}}
@@ -34,6 +34,17 @@ export default {
             }
             return 0
         },
+    },
+    methods:{
+        calcDuration(){
+            const startHour = this.createTask.starting.time.split(':')[0]
+            const startMinute = this.createTask.starting.time.split(':')[1]
+
+            const endHour = this.createTask.moving.time.split(':')[0]
+            const endMinute = this.createTask.moving.time.split(':')[1]
+
+            
+        }
     },
     mounted(){
         this.$el.style.top = this.createTask.starting.coord + 'px'
