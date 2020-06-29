@@ -47,3 +47,9 @@ export function fiveMinuteCoords(){
     })
     console.log(coords)
 }
+
+export function getClosestCoord(goal){
+    return counts.reduce((prev, curr)=> {
+        return (Math.abs(curr.coord - goal) < Math.abs(prev.coord - goal) ? curr : prev);
+    })
+}
