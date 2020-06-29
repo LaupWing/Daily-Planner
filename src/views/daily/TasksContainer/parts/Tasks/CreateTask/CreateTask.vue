@@ -10,12 +10,16 @@
 </template>
 
 <script>
+import {collisionDetection} from '../../../helpers/helpers'
+
 export default {
     name: 'CreateTask',
     props:['createTask'],
     computed:{
         height(){
             if(this.createTask.moving){
+                console.log(collisionDetection(this.createTask.starting.coord,this.createTask.moving.coord))
+                // collisionDetection(this.createTask.starting.coord,this.createTask.moving.coord)
                 return this.createTask.moving.coord - this.createTask.starting.coord + 'px' 
             }
             return 0

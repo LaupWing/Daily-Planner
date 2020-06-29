@@ -65,3 +65,9 @@ export function getClosestCoord(goal){
             return (Math.abs(curr.coord - goal) < Math.abs(prev.coord - goal) ? curr : prev)
         })
 }
+
+export function collisionDetection(min, max){
+    const tasks = Array.from(document.querySelectorAll('#Tasks .task'))
+    const collided = tasks.find(t=>t.offsetTop > min && t.offsetTop < max)
+    return collided
+}
