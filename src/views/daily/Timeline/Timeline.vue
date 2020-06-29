@@ -67,6 +67,7 @@ ul#Timeline{
     margin-left: 20px;
     padding-bottom: calc(var(--dailyPlanner-height)/2);
     box-sizing: content-box;
+    user-select: none;
 }
 #Timeline li{
     padding: 10px 0;

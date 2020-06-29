@@ -12,25 +12,28 @@
             @mousedown.stop
         >
         </div>
-        <Timeline
+        <app-timeline
             @mousedown.native.stop
         />
-        <Tasks
+        <app-tasks
             :visibleTask="visibleTask"
             v-on:checkActiveTask='checkTaskByScroll'
             v-on:setTask='setTask'
             @mousedown.native.stop
         />
+        <app-create-task
+            v-if="createTask.starting"
+        />
         <div 
             class="controls"
             @mousedown.stop
         >
-            <Actions
+            <app-actions
                 :visibleTask="visibleTask"
             />
         </div>
         <!-- Need to calculate margin-top value by adding the planner height -->
-        <GoTo
+        <app-go-to
             v-on:setupCurrentPos='setupCurrentPos'  
             v-on:goToSpecifikTime='goToSpecifikTime'
             @mousedown.native.stop
@@ -42,7 +45,8 @@
 import Timeline from '@/views/Daily/Timeline/Timeline'
 import Tasks from './parts/Tasks/Tasks'
 import GoTo from '@/views/Daily/GoTo/GoTo'
-import Actions from './parts/Actions'
+import CreateTask from './parts/CreateTask/CreateTask'
+import Actions from './parts/Actions/Actions'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import {days} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'
@@ -51,10 +55,11 @@ import {getClosestCoord, fiveMinuteCoords} from './helpers/helpers'
 export default {
     name: 'TasksContainer',
     components:{
-        Tasks,
-        Timeline,
-        GoTo,
-        Actions
+        'app-tasks':Tasks,
+        'app-timeline':Timeline,
+        'app-go-to':GoTo,
+        'app-actions':Actions,
+        'app-create-task': CreateTask
     },
     data(){
         return{
@@ -74,7 +79,10 @@ export default {
             taskColor: null,
             currentTask: null,
             offset: 0,
-            elementMidpoint: 0
+            elementMidpoint: 0,
+            createTask:{
+                starting: false
+            }
         }
     },
     methods:{
@@ -88,7 +96,7 @@ export default {
             if((min-5) > yValInContainer){
                 return
             }
-            console.log(getClosestCoord(yValInContainer))
+            this.createTask.starting = getClosestCoord(yValInContainer)
         }, 
         goToSpecifikTime(point){
             this.scrollByCode = false
