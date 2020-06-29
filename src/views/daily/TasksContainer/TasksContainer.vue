@@ -38,7 +38,7 @@ import Actions from './parts/Actions'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import {days} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'
-import {fiveMinuteCoords} from './helpers/helpers'
+import {getClosestCoord} from './helpers/helpers'
 
 export default {
     name: 'TasksContainer',
@@ -78,11 +78,7 @@ export default {
            if(halfOfContainer > yValInContainer){
                return
            }
-        //    console.log({
-        //        yValInContainer,
-        //        halfOfContainer
-        //    })
-           fiveMinuteCoords()
+           console.log(getClosestCoord(yValInContainer))
         }, 
         goToSpecifikTime(point){
             this.scrollByCode = false

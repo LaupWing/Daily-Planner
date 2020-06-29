@@ -9,6 +9,7 @@ export function fiveMinuteCoords(){
         const minute = Number(li.textContent.includes(':') 
             ? li.textContent.split(':')[1]
             : 30)
+        const fiveMinuteCoord = (minuteCoord * 5)
         if(!i){
             coords.push({
                 time: li.textContent,
@@ -18,7 +19,7 @@ export function fiveMinuteCoords(){
                 const newMinute = minute + (5*x)
                 coords.push({
                     time: `${hour < 10 ? '0'+ hour: hour}:${newMinute < 10 ? '0'+ newMinute: newMinute}`,
-                    coord: (li.offsetTop + (li.offsetHeight / 2)) + minuteCoord * x
+                    coord: (li.offsetTop + (li.offsetHeight / 2)) + fiveMinuteCoord * x
                 })
             }
         }else{
@@ -29,7 +30,7 @@ export function fiveMinuteCoords(){
                     hour - 1 : hour
                 coords.push({
                     time: `${newHour < 10 ? '0'+ newHour: newHour}:${newMinute < 10 ? '0'+ newMinute: newMinute}`,
-                    coord: (li.offsetTop + (li.offsetHeight / 2)) + minuteCoord * x
+                    coord: (li.offsetTop + (li.offsetHeight / 2)) - fiveMinuteCoord * x
                 })
             }
             coords.push({
@@ -40,16 +41,17 @@ export function fiveMinuteCoords(){
                 const newMinute = minute + (5*x)
                 coords.push({
                     time: `${hour < 10 ? '0'+ hour: hour}:${newMinute < 10 ? '0'+ newMinute: newMinute}`,
-                    coord: (li.offsetTop + (li.offsetHeight / 2)) + minuteCoord * x
+                    coord: (li.offsetTop + (li.offsetHeight / 2)) + fiveMinuteCoord * x
                 })
             }
         }
     })
-    console.log(coords)
+    return coords
 }
 
 export function getClosestCoord(goal){
-    return counts.reduce((prev, curr)=> {
-        return (Math.abs(curr.coord - goal) < Math.abs(prev.coord - goal) ? curr : prev);
-    })
+    return fiveMinuteCoords()
+        .reduce((prev, curr)=> {
+            return (Math.abs(curr.coord - goal) < Math.abs(prev.coord - goal) ? curr : prev)
+        })
 }
