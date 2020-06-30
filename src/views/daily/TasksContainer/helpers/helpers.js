@@ -66,11 +66,6 @@ export function getClosestCoord(goal){
         })
 }
 
-export function collisionDetection(min, max){
-    const tasks = Array.from(document.querySelectorAll('#Tasks .task'))
-    const collided = tasks.find(t=>t.offsetTop > min && t.offsetTop < max)
-    return collided
-}
 export function pointOverlappedTask(start, move){
     const tasks = Array.from(document.querySelectorAll('#Tasks .task'))
     const overlapped = tasks.find(t=>{

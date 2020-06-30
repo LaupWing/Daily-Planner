@@ -4,11 +4,7 @@
         @scroll="scrollEvent"
         @mousedown="creatingTask('starting')"
         @mousemove="createTask.starting && creatingTask('moving')"
-        @mouseup="createTask = {
-            starting: false,
-            moving: null,
-            ended: false
-        }"
+        @mouseup="createTask.ended = true"
     >
         <div 
             :style="{
@@ -97,7 +93,8 @@ export default {
             // const max = fiveMinuteCoords()[fiveMinuteCoords().length-1].coord
             if(
                 (min-5) > yValInContainer ||
-                (this.createTask.starting && this.createTask.starting.coord > yValInContainer)
+                (this.createTask.starting && this.createTask.starting.coord > yValInContainer) ||
+                this.createTask.ended
             ){
                 return
             }

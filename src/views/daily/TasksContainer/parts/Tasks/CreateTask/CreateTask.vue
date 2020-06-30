@@ -5,23 +5,31 @@
             height: height
         }"
     >
-        <p class="begin">
+        <steps-popup
+            v-if="createTask.ended"
+            :coord="$el.getBoundingClientRect().top"
+        />
+        <p class="begin" v-if="!createTask.ended">
             {{createTask.starting.time}}
         </p>  
         <p class="duration">
             {{calcDuration}}
         </p>
-        <p v-if="createTask.moving" class="end">
+        <p v-if="createTask.moving && !createTask.ended" class="end">
             {{createTask.moving.time}}
         </p>
     </div>
 </template>
 
 <script>
+import StepsPopup from './StepsPopup/StepsPopup'
 
 export default {
     name: 'CreateTask',
     props:['createTask'],
+    components:{
+        'steps-popup' : StepsPopup
+    },
     computed:{
         height(){
             if(this.createTask.moving){
@@ -49,6 +57,7 @@ export default {
         }
     },
     mounted(){
+        console.log(this.createTask)
         this.$el.style.top = this.createTask.starting.coord + 'px'
     }
 }
