@@ -1,11 +1,13 @@
 <template>
-    <div 
-        id="steps-popup"
-        :style="{
-            top: topVal
-        }"
-    >
+    <div class="steps-container">
+        <div 
+            id="steps-popup"
+            :style="{
+                top: topVal
+            }"
+        >
 
+        </div>
     </div>
 </template>
 
@@ -19,12 +21,22 @@ export default {
         }
     },
     mounted(){
-        this.topVal = (this.coord-this.$el.getBoundingClientRect().height-15) + 'px'
+        this.topVal = (this.coord-this.$el.querySelector('#steps-popup').getBoundingClientRect().height-15) + 'px'
     }
 }
 </script>
 
 <style scoped>
+.steps-container{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 #steps-popup{
     position: fixed;
     background: white;
@@ -34,6 +46,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
 }
 #steps-popup::after{
     content: '';
