@@ -102,7 +102,7 @@ export default {
                 return
             }
             if(this.createTask.moving && section === 'moving'){
-                const overlapping = pointOverlappedTask(yValInContainer)
+                const overlapping = pointOverlappedTask(this.createTask.starting.coord, yValInContainer)
                 if(overlapping){
                     return
                 }
