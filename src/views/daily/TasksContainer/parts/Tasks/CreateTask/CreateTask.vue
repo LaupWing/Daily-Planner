@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import {collisionDetection, getClosestCoord} from '../../../helpers/helpers'
 
 export default {
     name: 'CreateTask',
@@ -26,11 +25,7 @@ export default {
     computed:{
         height(){
             if(this.createTask.moving){
-                const collided = collisionDetection(this.createTask.starting.coord,this.createTask.moving.coord)
-                if(collided){
-                    return getClosestCoord(collided.offsetTop) - this.createTask.starting.coord + 'px'
-                }
-                return this.createTask.moving.coord - this.createTask.starting.coord + 'px' 
+                return this.createTask.moving.coord - this.createTask.starting.coord + 'px'
             }
             return 0
         },
