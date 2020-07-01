@@ -4,11 +4,7 @@
         @scroll="scrollEvent"
         @mousedown="creatingTask('starting')"
         @mousemove="createTask.starting && creatingTask('moving')"
-        @mouseup="createTask = {
-            starting: false,
-            moving: null,
-            ended: false
-        }"
+        @mouseup="createTask.ended = true"
     >
         <div 
             :style="{
@@ -53,7 +49,7 @@ import Actions from './parts/Actions/Actions'
 import {checkConnectedLi} from '@/components/helpers/timeline'
 import {days} from '@/components/helpers/timeFormat'
 import {monthNames} from '@/components/helpers/timeFormat'
-import {getClosestCoord, fiveMinuteCoords} from './helpers/helpers'
+import {getClosestCoord, fiveMinuteCoords, pointOverlappedTask} from './helpers/helpers'
 
 export default {
     name: 'TasksContainer',
@@ -92,15 +88,21 @@ export default {
     methods:{
         creatingTask(section){
             const containerCoords = this.$el.getBoundingClientRect()
-            const halfOfContainer = containerCoords.height / 2
             const yValInContainer = (this.$el.scrollTop + event.y) -    containerCoords.top 
             const min = fiveMinuteCoords()[0].coord 
-            const max = fiveMinuteCoords()[fiveMinuteCoords().length-1].coord
+            // const max = fiveMinuteCoords()[fiveMinuteCoords().length-1].coord
             if(
                 (min-5) > yValInContainer ||
-                (this.createTask.starting && this.createTask.starting.coord > yValInContainer)
+                (this.createTask.starting && this.createTask.starting.coord > yValInContainer) ||
+                this.createTask.ended
             ){
                 return
+            }
+            if(this.createTask.moving && section === 'moving'){
+                const overlapping = pointOverlappedTask(this.createTask.starting.coord, yValInContainer)
+                if(overlapping){
+                    return
+                }
             }
             this.createTask[section] = getClosestCoord(yValInContainer)
         }, 
