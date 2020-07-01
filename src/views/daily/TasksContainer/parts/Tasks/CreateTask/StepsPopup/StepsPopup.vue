@@ -6,7 +6,38 @@
                 top: topVal
             }"
         >
-
+            <div class="starting">
+                <input 
+                    type="number" 
+                    name="hours" 
+                    min="00" 
+                    max="23" 
+                    v-model="starting.hour"
+                >
+                <input 
+                    type="number" 
+                    name="hours" 
+                    min="00" 
+                    max="23" 
+                    v-model="starting.minute"
+                >
+            </div>
+            <div class="end">
+                <input 
+                    type="number" 
+                    name="hours" 
+                    min="00" 
+                    max="23" 
+                    v-model="ending.hour"
+                >
+                <input 
+                    type="number" 
+                    name="hours" 
+                    min="00" 
+                    max="23" 
+                    v-model="ending.minute"
+                >
+            </div>
         </div>
     </div>
 </template>
@@ -14,14 +45,23 @@
 <script>
 export default {
     name: 'StepsPopup',
-    props:['coord'],
+    props:['coord', 'createTask'],
     data(){
         return{
-            topVal: 0 
+            starting: {
+                hour: Number(this.createTask.starting.time.split(':')[0]),
+                minute: Number(this.createTask.starting.time.split(':')[1])
+            },
+            ending: {
+                hour: Number(this.createTask.moving.time.split(':')[0]),
+                minute: Number(this.createTask.moving.time.split(':')[1])
+            },
+            topVal: 0
         }
     },
     mounted(){
         this.topVal = (this.coord-this.$el.querySelector('#steps-popup').getBoundingClientRect().height-15) + 'px'
+        console.log(this.createTask)
     }
 }
 </script>

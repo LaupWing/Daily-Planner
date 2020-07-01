@@ -8,6 +8,7 @@
         <steps-popup
             v-if="createTask.ended"
             :coord="$el.getBoundingClientRect().top"
+            :createTask="createTask"
         />
         <p class="begin" v-if="!createTask.ended">
             {{createTask.starting.time}}
@@ -57,7 +58,6 @@ export default {
         }
     },
     mounted(){
-        console.log(this.createTask)
         this.$el.style.top = this.createTask.starting.coord + 'px'
     }
 }
