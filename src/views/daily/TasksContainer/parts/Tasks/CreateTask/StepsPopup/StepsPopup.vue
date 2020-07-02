@@ -29,14 +29,6 @@ export default {
     props:['coord', 'createTask'],
     data(){
         return{
-            starting: {
-                hour: Number(this.createTask.starting.time.split(':')[0]),
-                minute: Number(this.createTask.starting.time.split(':')[1])
-            },
-            ending: {
-                hour: Number(this.createTask.moving.time.split(':')[0]),
-                minute: Number(this.createTask.moving.time.split(':')[1])
-            },
             topVal: 0
         }
     },
