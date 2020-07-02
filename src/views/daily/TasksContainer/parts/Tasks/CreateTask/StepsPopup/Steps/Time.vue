@@ -11,9 +11,9 @@
             >
             <input 
                 type="number" 
-                name="hours" 
+                name="minutes" 
                 min="00" 
-                max="23" 
+                max="59" 
                 v-model="startingTime.minute"
             >
         </div>
@@ -28,9 +28,9 @@
             >
             <input 
                 type="number" 
-                name="hours" 
+                name="minutes" 
                 min="00" 
-                max="23" 
+                max="59" 
                 v-model="endingTime.minute"
             >
         </div>
