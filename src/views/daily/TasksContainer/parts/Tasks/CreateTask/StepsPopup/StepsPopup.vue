@@ -10,6 +10,10 @@
                 :starting="createTask.starting.time"
                 :ending="createTask.moving.time"
             />
+            <div class="buttons">
+                <button>cancel</button>
+                <button>next</button>
+            </div>
         </div>
     </div>
 </template>
@@ -56,13 +60,11 @@ export default {
 #steps-popup{
     position: fixed;
     background: white;
-    width: 100px;
-    height: 100px;
-    top: 1000px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+    flex-direction: column;
 }
 #steps-popup::after{
     content: '';
@@ -72,5 +74,33 @@ export default {
     height: 20px;
     transform: rotate(45deg);
     bottom: -10px;
+    z-index: -1;
+}
+#steps-popup >>> .field{
+    margin: 20px;
+}
+.buttons{
+    width: 100%;
+    text-align: center;
+}
+.buttons button{
+    color: black;
+    padding: 7px;
+    width: 50%;
+    background: white;
+    border: none;
+    border-top: solid rgba(0,0,0,.4) 1px;
+    text-transform: uppercase;
+    font-size: .5em;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: .25s;
+}
+.buttons button:last-of-type{
+    border-radius: 0 0 5px 0;
+}
+.buttons button:first-of-type {
+    border-right: solid rgba(0,0,0,.4) 1px;
+    border-radius: 0 0 0 5px;
 }
 </style>

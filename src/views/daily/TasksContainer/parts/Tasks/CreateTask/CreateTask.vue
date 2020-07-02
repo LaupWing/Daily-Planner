@@ -69,7 +69,6 @@ export default {
     width: 90%;
     background: transparent;
     border: dashed 1px white;
-    height: 50px;
     border-radius: 6px;
     display: flex;
     justify-content: center;

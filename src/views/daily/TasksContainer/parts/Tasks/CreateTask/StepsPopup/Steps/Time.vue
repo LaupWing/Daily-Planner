@@ -1,37 +1,39 @@
 <template>
-    <div class="step">
-        <div class="starting">
-                <input 
-                    type="number" 
-                    name="hours" 
-                    min="00" 
-                    max="23" 
-                    v-model="startingTime.hour"
-                >
-                <input 
-                    type="number" 
-                    name="hours" 
-                    min="00" 
-                    max="23" 
-                    v-model="startingTime.minute"
-                >
-            </div>
-            <div class="end">
-                <input 
-                    type="number" 
-                    name="hours" 
-                    min="00" 
-                    max="23" 
-                    v-model="endingTime.hour"
-                >
-                <input 
-                    type="number" 
-                    name="hours" 
-                    min="00" 
-                    max="23" 
-                    v-model="endingTime.minute"
-                >
-            </div>
+    <div class="field">
+        <div class="start">
+            <h2>Start</h2>
+            <input 
+                type="number" 
+                name="hours" 
+                min="00" 
+                max="23" 
+                v-model="startingTime.hour"
+            >
+            <input 
+                type="number" 
+                name="hours" 
+                min="00" 
+                max="23" 
+                v-model="startingTime.minute"
+            >
+        </div>
+        <div class="end">
+            <h2>End</h2>
+            <input 
+                type="number" 
+                name="hours" 
+                min="00" 
+                max="23" 
+                v-model="endingTime.hour"
+            >
+            <input 
+                type="number" 
+                name="hours" 
+                min="00" 
+                max="23" 
+                v-model="endingTime.minute"
+            >
+        </div>
     </div>
 </template>
 
@@ -64,6 +66,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.end,
+.start{
+    color: black;
+}
 </style>
