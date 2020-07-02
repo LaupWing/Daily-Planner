@@ -6,14 +6,14 @@
                     name="hours" 
                     min="00" 
                     max="23" 
-                    v-model="starting.hour"
+                    v-model="startingTime.hour"
                 >
                 <input 
                     type="number" 
                     name="hours" 
                     min="00" 
                     max="23" 
-                    v-model="starting.minute"
+                    v-model="startingTime.minute"
                 >
             </div>
             <div class="end">
@@ -22,14 +22,14 @@
                     name="hours" 
                     min="00" 
                     max="23" 
-                    v-model="ending.hour"
+                    v-model="endingTime.hour"
                 >
                 <input 
                     type="number" 
                     name="hours" 
                     min="00" 
                     max="23" 
-                    v-model="ending.minute"
+                    v-model="endingTime.minute"
                 >
             </div>
     </div>
@@ -40,14 +40,27 @@ export default {
     name: 'Time',
     props:{
         starting:{
-            type: Object,
+            type: String,
             required: true
         },
         ending:{
-            type: Object,
+            type: String,
             required: true
         },
-    }
+    },
+    data(){
+        return{
+            startingTime: {
+                hour: Number(this.starting.split(':')[0]),
+                minute: Number(this.starting.split(':')[1])
+            },
+            endingTime: {
+                hour: Number(this.ending.split(':')[0]),
+                minute: Number(this.ending.split(':')[1])
+            },
+            topVal: 0
+        }
+    },
 }
 </script>
 
