@@ -2,7 +2,8 @@
     <div 
         class="create-task"
         :style="{
-            height: height
+            height,
+            top
         }"
     >
         <steps-popup
@@ -39,6 +40,9 @@ export default {
             }
             return 0
         },
+        top(){
+            return this.createTask.starting.coord + 'px'
+        },
         calcDuration(){
             if(!this.createTask.starting||!this.createTask.moving){
                 return 'No duration available'
@@ -62,9 +66,6 @@ export default {
         test(obj){
             console.log(obj)
         }
-    },
-    mounted(){
-        this.$el.style.top = this.createTask.starting.coord + 'px'
     },
     created(){
         this.$store.commit('setCreatingTask', true)
