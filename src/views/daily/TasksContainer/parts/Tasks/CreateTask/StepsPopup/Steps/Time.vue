@@ -1,7 +1,7 @@
 <template>
     <div class="field">
         <div class="start">
-            <h2>Start</h2>
+            <h2>Start:</h2>
             <input 
                 type="number" 
                 name="hours" 
@@ -18,7 +18,7 @@
             >
         </div>
         <div class="end">
-            <h2>End</h2>
+            <h2>End:</h2>
             <input 
                 type="number" 
                 name="hours" 
@@ -70,5 +70,12 @@ export default {
 .end,
 .start{
     color: black;
+}
+.start{
+    margin-bottom: 20px;
+}
+input{
+    font-size: 1.2em;
+    text-align: center;
 }
 </style>

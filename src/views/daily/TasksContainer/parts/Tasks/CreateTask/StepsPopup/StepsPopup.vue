@@ -79,6 +79,10 @@ export default {
 #steps-popup >>> .field{
     margin: 20px;
 }
+#steps-popup >>> h2{
+    font-size: 1em;
+    margin-bottom: 5px;
+}
 .buttons{
     width: 100%;
     text-align: center;
