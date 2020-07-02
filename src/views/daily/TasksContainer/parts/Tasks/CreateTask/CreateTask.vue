@@ -59,6 +59,9 @@ export default {
     },
     mounted(){
         this.$el.style.top = this.createTask.starting.coord + 'px'
+    },
+    created(){
+        this.$store.commit('setCreatingTask', true)
     }
 }
 </script>

@@ -161,6 +161,10 @@ export default {
             clearInterval(this.timeoutInterval)
             this.timeoutInSec = 0
             this.timeoutInterval = setInterval(()=>{
+                if(this.$store.getters.creatingTask){
+                    this.timeoutInSec = 300
+                    return
+                }
                 this.timeoutInSec += 1
                 if(this.timeoutInSec === this.timeToReturnInSec){
                     this.assignInterval()

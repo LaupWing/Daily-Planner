@@ -4,13 +4,15 @@ const db = firebase.firestore()
 const state = {
     userData:{},
     colorLabels: null,
-    dailyTasks: null
+    dailyTasks: null,
+    creatingTask: false
 }
 
 const getters = {
     getUserData: state => state.userData,
     colorLabels: state => state.colorLabels,
-    dailyTasks: state => state.dailyTasks
+    dailyTasks: state => state.dailyTasks,
+    creatingTask: state => state.creatingTask
 }
 
 const actions = {
@@ -75,6 +77,7 @@ const mutations = {
     },
     updateTasks: (state,updatedTasks)=>(state.userData.dailyTasks = updatedTasks),
     updateLabels: (state,updatedColorLabels)=>(state.userData.colorLabels = updatedColorLabels),
+    setCreatingTask: (state, onOrOff)=> state.creatingTask = onOrOff
 }
 
 export default {
