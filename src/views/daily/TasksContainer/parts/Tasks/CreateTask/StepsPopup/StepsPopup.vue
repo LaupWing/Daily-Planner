@@ -9,6 +9,7 @@
             <app-time
                 :starting="createTask.starting.time"
                 :ending="createTask.moving.time"
+                v-on="$listeners"
             />
             <div class="buttons">
                 <button>cancel</button>

@@ -7,14 +7,19 @@
                 name="hours" 
                 min="00" 
                 max="23" 
-                v-model="startingTime.hour"
+                :value="startingTime.hour"
+                @change="$emit('setTime', {
+                    type: 'start',
+                    time: 'hour',
+                    value: $event.target.value
+                })"
             >
             <input 
                 type="number" 
                 name="minutes" 
                 min="00" 
                 max="59" 
-                v-model="startingTime.minute"
+                :value="startingTime.minute"
             >
         </div>
         <div class="end">
@@ -24,14 +29,14 @@
                 name="hours" 
                 min="00" 
                 max="23" 
-                v-model="endingTime.hour"
+                :value="endingTime.hour"
             >
             <input 
                 type="number" 
                 name="minutes" 
                 min="00" 
                 max="59" 
-                v-model="endingTime.minute"
+                :value="endingTime.minute"
             >
         </div>
     </div>

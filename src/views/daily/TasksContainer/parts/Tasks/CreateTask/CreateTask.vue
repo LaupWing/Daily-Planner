@@ -9,6 +9,7 @@
             v-if="createTask.ended"
             :coord="$el.getBoundingClientRect().top"
             :createTask="createTask"
+            @setTime="test"
         />
         <p class="begin" v-if="!createTask.ended">
             {{createTask.starting.time}}
@@ -55,6 +56,11 @@ export default {
                 minuteDif = 60 -(startMinute - endMinute)
             }
             return `Duration: ${hourDif < 10 ? '0'+hourDif:hourDif}:${minuteDif < 10 ? '0'+minuteDif:minuteDif}`
+        }
+    },
+    methods:{
+        test(obj){
+            console.log(obj)
         }
     },
     mounted(){
