@@ -35,12 +35,20 @@ export default {
     },
     computed:{
         height(){
+            if(this.editedEndingPoint){
+                return this.editedStartingPoint ? 
+                    this.editedEndingPoint - this.editedStartingPoint + 'px' :
+                    this.editedEndingPoint - this.createTask.starting + 'px'
+            }
             if(this.createTask.moving){
                 return this.createTask.moving.coord - this.createTask.starting.coord + 'px'
             }
             return 0
         },
         top(){
+            if(this.editedStartingPoint){
+                return this.editedStartingPoint + 'px'
+            }
             return this.createTask.starting.coord + 'px'
         },
         calcDuration(){
@@ -60,6 +68,12 @@ export default {
                 minuteDif = 60 -(startMinute - endMinute)
             }
             return `Duration: ${hourDif < 10 ? '0'+hourDif:hourDif}:${minuteDif < 10 ? '0'+minuteDif:minuteDif}`
+        }
+    },
+    data(){
+        return{
+            editedStartingPoint: null,
+            editedEndingPoint: null
         }
     },
     methods:{
