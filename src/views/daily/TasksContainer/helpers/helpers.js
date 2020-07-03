@@ -75,7 +75,11 @@ export function pointOverlappedTask(start, move){
     return overlapped
 }
 
-export function getCoordOfTime(){
-    const lis = document.querySelectorAll('#Timeline li')
-    console.log(lis)
+export function getCoordOfTime({hour, minute}){
+    const lis = Array.from(document.querySelectorAll('#Timeline li'))
+    const pixelPerMinute = lis[0].offsetHeight / 30
+    const matchingHour = lis.find(x=>Number(x.textContent.split(':')[0])===Number(hour))
+    const hourCoord = matchingHour.offsetTop + (matchingHour.offsetHeight/2) 
+    
+    return hourCoord + (pixelPerMinute * minute)
 }
