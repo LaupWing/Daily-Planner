@@ -88,7 +88,7 @@ export default {
     methods:{
         creatingTask(section){
             const containerCoords = this.$el.getBoundingClientRect()
-            const yValInContainer = (this.$el.scrollTop + event.y) -    containerCoords.top 
+            const yValInContainer = (this.$el.scrollTop + event.y) - containerCoords.top 
             const min = fiveMinuteCoords()[0].coord 
             // const max = fiveMinuteCoords()[fiveMinuteCoords().length-1].coord
             if(
