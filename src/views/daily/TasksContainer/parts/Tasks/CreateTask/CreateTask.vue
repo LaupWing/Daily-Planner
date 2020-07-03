@@ -26,6 +26,7 @@
 
 <script>
 import StepsPopup from './StepsPopup/StepsPopup'
+import {getCoordOfTime} from '../../../helpers/helpers'
 
 export default {
     name: 'CreateTask',
@@ -35,20 +36,12 @@ export default {
     },
     computed:{
         height(){
-            if(this.editedEndingPoint){
-                return this.editedStartingPoint ? 
-                    this.editedEndingPoint - this.editedStartingPoint + 'px' :
-                    this.editedEndingPoint - this.createTask.starting + 'px'
-            }
             if(this.createTask.ending){
                 return this.createTask.ending.coord - this.createTask.starting.coord + 'px'
             }
             return 0
         },
         top(){
-            if(this.editedStartingPoint){
-                return this.editedStartingPoint + 'px'
-            }
             return this.createTask.starting.coord + 'px'
         },
         calcDuration(){
@@ -70,21 +63,9 @@ export default {
             return `Duration: ${hourDif < 10 ? '0'+hourDif:hourDif}:${minuteDif < 10 ? '0'+minuteDif:minuteDif}`
         }
     },
-    data(){
-        return{
-            editedStartingPoint: null,
-            editedEndingPoint: null
-        }
-    },
     methods:{
-        checkNewTime({type, time, value}){
-            value = Number(value)
-
-            if(type === 'start'){
-                
-            }else{
-
-            }
+        checkNewTime(time){
+            const newCoord = getCoordOfTime(time)
         }
     },
     created(){

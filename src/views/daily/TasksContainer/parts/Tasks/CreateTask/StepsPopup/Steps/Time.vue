@@ -1,18 +1,14 @@
 <template>
     <div class="field">
-        <div class="start">
+        <div class="time start">
             <h2>Start:</h2>
             <input 
                 type="number" 
                 name="hours" 
                 min="00" 
                 max="23" 
-                :value="startingTime.hour"
-                @change="$emit('setTime', {
-                    type: 'start',
-                    time: 'hour',
-                    value: $event.target.value
-                })"
+                v-model="startingTime.hour"
+                @change="$emit('setTime', startingTime)"
             >
             <input 
                 type="number" 
@@ -20,9 +16,10 @@
                 min="00" 
                 max="59" 
                 :value="startingTime.minute"
+                @change="$emit('setTime', startingTime)"
             >
         </div>
-        <div class="end">
+        <div class="time end">
             <h2>End:</h2>
             <input 
                 type="number" 
@@ -30,6 +27,7 @@
                 min="00" 
                 max="23" 
                 :value="endingTime.hour"
+                @change="$emit('setTime', endingTime)"
             >
             <input 
                 type="number" 
@@ -37,6 +35,7 @@
                 min="00" 
                 max="59" 
                 :value="endingTime.minute"
+                @change="$emit('setTime', endingTime)"
             >
         </div>
     </div>
@@ -67,7 +66,7 @@ export default {
             },
             topVal: 0
         }
-    },
+    }
 }
 </script>
 

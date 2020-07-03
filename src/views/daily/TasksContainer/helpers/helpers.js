@@ -74,3 +74,8 @@ export function pointOverlappedTask(start, move){
     })
     return overlapped
 }
+
+export function getCoordOfTime(){
+    const lis = document.querySelectorAll('#Timeline li')
+    console.log(lis)
+}
