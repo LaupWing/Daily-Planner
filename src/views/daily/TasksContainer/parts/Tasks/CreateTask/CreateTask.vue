@@ -47,27 +47,28 @@ export default {
         calcDuration(){
             if(!this.createTask.starting||!this.createTask.ending){
                 return 'No duration available'
+            }else{
+                const startHour = Number(this.createTask.starting.time.split(':')[0])
+                const startMinute = Number(this.createTask.starting.time.split(':')[1])
+    
+                const endHour = Number(this.createTask.ending.time.split(':')[0])
+                const endMinute = Number(this.createTask.ending.time.split(':')[1])
+                
+                let hourDif = endHour - startHour
+                let minuteDif = endMinute - startMinute
+                if(minuteDif < 0){
+                    hourDif -= 1 
+                    minuteDif = 60 -(startMinute - endMinute)
+                }
+                return `Duration: ${hourDif < 10 ? '0'+hourDif:hourDif}:${minuteDif < 10 ? '0'+minuteDif:minuteDif}`
             }
-            const startHour = Number(this.createTask.starting.time.split(':')[0])
-            const startMinute = Number(this.createTask.starting.time.split(':')[1])
-
-            const endHour = Number(this.createTask.ending.time.split(':')[0])
-            const endMinute = Number(this.createTask.ending.time.split(':')[1])
-            
-            let hourDif = endHour - startHour
-            let minuteDif = endMinute - startMinute
-            if(minuteDif < 0){
-                hourDif -= 1 
-                minuteDif = 60 -(startMinute - endMinute)
-            }
-            return `Duration: ${hourDif < 10 ? '0'+hourDif:hourDif}:${minuteDif < 10 ? '0'+minuteDif:minuteDif}`
         }
     },
     methods:{
         checkNewTime({time, moment}){
             const newCoord = getCoordOfTime(time)
             const overlapping = overlapTask(newCoord)
-            
+
             if(!overlapping){
                 this.createTask[moment].coord = newCoord
             }
