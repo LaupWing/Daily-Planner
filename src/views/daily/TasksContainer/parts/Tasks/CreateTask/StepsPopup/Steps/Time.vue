@@ -8,7 +8,11 @@
                 min="00" 
                 max="23" 
                 v-model="startingTime.hour"
-                @change="$emit('setTime', startingTime)"
+                @change="$emit('setTime', {
+                    time: startingTime,
+                    moment: 'starting'
+
+                })"
             >
             <input 
                 type="number" 
@@ -16,7 +20,11 @@
                 min="00" 
                 max="59" 
                 :value="startingTime.minute"
-                @change="$emit('setTime', startingTime)"
+                @change="$emit('setTime', {
+                    time: startingTime,
+                    moment: 'starting'
+
+                })"
             >
         </div>
         <div class="time end">
@@ -27,7 +35,11 @@
                 min="00" 
                 max="23" 
                 :value="endingTime.hour"
-                @change="$emit('setTime', endingTime)"
+                @change="$emit('setTime', {
+                    time: endingTime,
+                    moment: 'ending'
+
+                })"
             >
             <input 
                 type="number" 
@@ -35,7 +47,11 @@
                 min="00" 
                 max="59" 
                 :value="endingTime.minute"
-                @change="$emit('setTime', endingTime)"
+                @change="$emit('setTime', {
+                    time: endingTime,
+                    moment: 'ending'
+
+                })"
             >
         </div>
     </div>

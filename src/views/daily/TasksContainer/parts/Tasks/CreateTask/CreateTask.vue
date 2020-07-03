@@ -26,7 +26,7 @@
 
 <script>
 import StepsPopup from './StepsPopup/StepsPopup'
-import {getCoordOfTime} from '../../../helpers/helpers'
+import {getCoordOfTime, overlapTask} from '../../../helpers/helpers'
 
 export default {
     name: 'CreateTask',
@@ -64,10 +64,12 @@ export default {
         }
     },
     methods:{
-        checkNewTime(time){
+        checkNewTime({time, moment}){
             const newCoord = getCoordOfTime(time)
-            console.log(newCoord)
-            console.log(this.createTask)
+            const overlapping = overlapTask(newCoord)
+            if(!this.overlapping){
+                this.createTask[moment].coord = newCoord
+            }
         }
     },
     created(){
