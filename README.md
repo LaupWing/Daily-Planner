@@ -24,4 +24,4 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 - [ ]  Quickstart working functional
 
 ## Bugs
-- [ ] When switching to other page it crashes
+- [ ] When showDetails task the creatingtask doesnt work

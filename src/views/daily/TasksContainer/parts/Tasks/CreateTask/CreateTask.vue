@@ -83,6 +83,7 @@ export default {
     },
     created(){
         this.$store.commit('setCreatingTask', true)
+        console.log('createed')
     }
 }
 </script>

@@ -4,7 +4,7 @@
         @scroll="scrollEvent"
         @mousedown="creatingTask('starting')"
         @mousemove="createTask.starting && creatingTask('moving')"
-        @mouseup="createTask.ended = true"
+        @mouseup="createTask.starting && (createTask.ended = true)"
     >
         <div 
             :style="{
@@ -101,6 +101,7 @@ export default {
             if(this.createTask.moving && section === 'moving'){
                 const overlapping = pointOverlappedTask(this.createTask.starting.coord, yValInContainer)
                 if(overlapping){
+                    console.log('returning')
                     return
                 }
             }
