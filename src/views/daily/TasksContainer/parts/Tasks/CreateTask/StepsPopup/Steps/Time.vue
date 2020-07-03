@@ -19,7 +19,7 @@
                 name="minutes" 
                 min="00" 
                 max="59" 
-                :value="startingTime.minute"
+                v-model="startingTime.minute"
                 @change="$emit('setTime', {
                     time: startingTime,
                     moment: 'starting'
@@ -34,7 +34,7 @@
                 name="hours" 
                 min="00" 
                 max="23" 
-                :value="endingTime.hour"
+                v-model="endingTime.hour"
                 @change="$emit('setTime', {
                     time: endingTime,
                     moment: 'ending'
@@ -46,7 +46,7 @@
                 name="minutes" 
                 min="00" 
                 max="59" 
-                :value="endingTime.minute"
+                v-model="endingTime.minute"
                 @change="$emit('setTime', {
                     time: endingTime,
                     moment: 'ending'

@@ -67,7 +67,8 @@ export default {
         checkNewTime({time, moment}){
             const newCoord = getCoordOfTime(time)
             const overlapping = overlapTask(newCoord)
-            if(!this.overlapping){
+            
+            if(!overlapping){
                 this.createTask[moment].coord = newCoord
             }
         }
