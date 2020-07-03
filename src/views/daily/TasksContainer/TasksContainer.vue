@@ -3,7 +3,7 @@
         id="planner"
         @scroll="scrollEvent"
         @mousedown="creatingTask('starting')"
-        @mousemove="createTask.starting && creatingTask('moving')"
+        @mousemove="createTask.starting && creatingTask('ending')"
         @mouseup="createTask.starting && (createTask.ended = true)"
     >
         <div 
@@ -80,7 +80,7 @@ export default {
             elementMidpoint: 0,
             createTask:{
                 starting: false,
-                moving: null,
+                ending: null,
                 ended: false
             }
         }
@@ -98,10 +98,9 @@ export default {
             ){
                 return
             }
-            if(this.createTask.moving && section === 'moving'){
+            if(this.createTask.ending && section === 'ending'){
                 const overlapping = pointOverlappedTask(this.createTask.starting.coord, yValInContainer)
                 if(overlapping){
-                    console.log('returning')
                     return
                 }
             }

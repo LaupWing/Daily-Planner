@@ -10,7 +10,7 @@
             v-if="createTask.ended"
             :coord="$el.getBoundingClientRect().top"
             :createTask="createTask"
-            @setTime="test"
+            @setTime="checkNewTime"
         />
         <p class="begin" v-if="!createTask.ended">
             {{createTask.starting.time}}
@@ -18,8 +18,8 @@
         <p class="duration">
             {{calcDuration}}
         </p>
-        <p v-if="createTask.moving && !createTask.ended" class="end">
-            {{createTask.moving.time}}
+        <p v-if="createTask.ending && !createTask.ended" class="end">
+            {{createTask.ending.time}}
         </p>
     </div>
 </template>
@@ -40,8 +40,8 @@ export default {
                     this.editedEndingPoint - this.editedStartingPoint + 'px' :
                     this.editedEndingPoint - this.createTask.starting + 'px'
             }
-            if(this.createTask.moving){
-                return this.createTask.moving.coord - this.createTask.starting.coord + 'px'
+            if(this.createTask.ending){
+                return this.createTask.ending.coord - this.createTask.starting.coord + 'px'
             }
             return 0
         },
@@ -52,14 +52,14 @@ export default {
             return this.createTask.starting.coord + 'px'
         },
         calcDuration(){
-            if(!this.createTask.starting||!this.createTask.moving){
+            if(!this.createTask.starting||!this.createTask.ending){
                 return 'No duration available'
             }
             const startHour = Number(this.createTask.starting.time.split(':')[0])
             const startMinute = Number(this.createTask.starting.time.split(':')[1])
 
-            const endHour = Number(this.createTask.moving.time.split(':')[0])
-            const endMinute = Number(this.createTask.moving.time.split(':')[1])
+            const endHour = Number(this.createTask.ending.time.split(':')[0])
+            const endMinute = Number(this.createTask.ending.time.split(':')[1])
             
             let hourDif = endHour - startHour
             let minuteDif = endMinute - startMinute
@@ -77,13 +77,18 @@ export default {
         }
     },
     methods:{
-        test(obj){
-            console.log(obj)
+        checkNewTime({type, time, value}){
+            value = Number(value)
+
+            if(type === 'start'){
+                
+            }else{
+
+            }
         }
     },
     created(){
         this.$store.commit('setCreatingTask', true)
-        console.log('createed')
     }
 }
 </script>
