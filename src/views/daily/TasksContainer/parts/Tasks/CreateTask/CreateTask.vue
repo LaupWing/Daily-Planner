@@ -66,6 +66,8 @@ export default {
     methods:{
         checkNewTime(time){
             const newCoord = getCoordOfTime(time)
+            console.log(newCoord)
+            console.log(this.createTask)
         }
     },
     created(){
