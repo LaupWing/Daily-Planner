@@ -7,19 +7,19 @@
         }"
     >
         <steps-popup
-            v-if="createTask.ended"
+            v-if="setCreateTask.ended"
             :coord="$el.getBoundingClientRect().top"
-            :createTask="createTask"
+            :createTask="setCreateTask"
             @setTime="checkNewTime"
         />
-        <p class="begin" v-if="!createTask.ended">
-            {{createTask.starting.time}}
+        <p class="begin" v-if="!setCreateTask.ended">
+            {{setCreateTask.starting.time}}
         </p>  
         <p class="duration">
             {{calcDuration}}
         </p>
-        <p v-if="createTask.ending && !createTask.ended" class="end">
-            {{createTask.ending.time}}
+        <p v-if="setCreateTask.ending && !setCreateTask.ended" class="end">
+            {{setCreateTask.ending.time}}
         </p>
     </div>
 </template>
@@ -35,34 +35,38 @@ export default {
         'steps-popup' : StepsPopup
     },
     watch:{
-        setCreateTask(val){
-            console.log(val)
-        }
+        setCreateTask:{
+            handler(val){
+                // console.log(val)
+            },
+            deep: true
+        },
     },
     data(){
         return{
-            setCreateTask: this.createTask.ended ? JSON.parse(JSON.stringify(this.createTask)) : this.createTask
+            setCreateTask: this.createTask.ended ? JSON.parse(JSON.stringify(this.createTask)) : this.createTask,
+            test: 0
         }
     },
     computed:{
         height(){
-            if(this.createTask.ending){
-                return this.createTask.ending.coord - this.createTask.starting.coord + 'px'
+            if(this.setCreateTask.ending){
+                return this.setCreateTask.ending.coord - this.setCreateTask.starting.coord + 'px'
             }
             return 0
         },
         top(){
-            return this.createTask.starting.coord + 'px'
+            return this.setCreateTask.starting.coord + 'px'
         },
         calcDuration(){
-            if(!this.createTask.starting||!this.createTask.ending){
+            if(!this.setCreateTask.starting||!this.setCreateTask.ending){
                 return 'No duration available'
             }else{
-                const startHour = Number(this.createTask.starting.time.split(':')[0])
-                const startMinute = Number(this.createTask.starting.time.split(':')[1])
+                const startHour = Number(this.setCreateTask.starting.time.split(':')[0])
+                const startMinute = Number(this.setCreateTask.starting.time.split(':')[1])
     
-                const endHour = Number(this.createTask.ending.time.split(':')[0])
-                const endMinute = Number(this.createTask.ending.time.split(':')[1])
+                const endHour = Number(this.setCreateTask.ending.time.split(':')[0])
+                const endMinute = Number(this.setCreateTask.ending.time.split(':')[1])
                 
                 let hourDif = endHour - startHour
                 let minuteDif = endMinute - startMinute
@@ -78,10 +82,14 @@ export default {
         checkNewTime({time, moment}){
             const newCoord = getCoordOfTime(time)
             const overlapping = overlapTask(newCoord)
-
+            
             if(!overlapping){
-                this.createTask[moment].coord = newCoord
+                this.setCreateTask[moment].coord = newCoord
             }
+            const hour = Number(time.hour) < 9 ? `0${time.hour}` : time.hour
+            const minute = Number(time.minute) < 9 ? `0${time.minute}` : time.minute
+
+            this.setCreateTask[moment].time = `${hour}:${minute}`
         }
     },
     created(){
