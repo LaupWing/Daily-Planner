@@ -34,6 +34,16 @@ export default {
     components:{
         'steps-popup' : StepsPopup
     },
+    watch:{
+        createTask(val){
+            console.log(val)
+        }
+    },
+    data(){
+        return{
+            setCreatTask: JSON.parse(JSON.stringify(this.createTask))
+        }
+    },
     computed:{
         height(){
             if(this.createTask.ending){
