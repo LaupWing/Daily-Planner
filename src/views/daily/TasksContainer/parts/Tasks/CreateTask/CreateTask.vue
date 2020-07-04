@@ -35,13 +35,13 @@ export default {
         'steps-popup' : StepsPopup
     },
     watch:{
-        createTask(val){
+        setCreateTask(val){
             console.log(val)
         }
     },
     data(){
         return{
-            setCreatTask: JSON.parse(JSON.stringify(this.createTask))
+            setCreateTask: this.createTask.ended ? JSON.parse(JSON.stringify(this.createTask)) : this.createTask
         }
     },
     computed:{
