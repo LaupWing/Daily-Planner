@@ -7,7 +7,12 @@
                 name="hours" 
                 min="00" 
                 max="23" 
-                v-model="startingHourProxy"
+                v-model="startingTime.hour"
+                @change="$emit('setTime', {
+                    time: startingTime,
+                    moment: 'starting'
+
+                })"
             >
             <input 
                 type="number" 
@@ -64,25 +69,6 @@ export default {
             type: String,
             required: true
         },
-    },
-    computed:{
-        startingHourProxy:{
-            get(){
-                return Number(this.starting.split(':')[0])
-            },
-            set(val){
-                console.log(val) 
-            }
-        },
-        // startingMinuteSet:{
-
-        // },
-        // endingHourSet:{
-
-        // },
-        // endingMinuteSet:{
-
-        // },
     },
     data(){
         return{
