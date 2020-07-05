@@ -1,6 +1,11 @@
 <template>
     <div class="field">
-        <div class="time start">
+        <div 
+            class="time start"
+            :class="{
+                overlapping: createTask.starting.overlapping
+            }"
+        >
             <h2>Start:</h2>
             <input 
                 type="number" 
@@ -27,7 +32,12 @@
                 })"
             >
         </div>
-        <div class="time end">
+        <div 
+            class="time end"
+            :class="{
+                overlapping: createTask.ending.overlapping
+            }"
+        >
             <h2>End:</h2>
             <input 
                 type="number" 
@@ -69,6 +79,18 @@ export default {
             type: String,
             required: true
         },
+        createTask:{
+            type: Object,
+            required: true
+        }
+    },
+    watch:{
+        createTask:{
+            handler(val){
+                console.log(val)
+            },
+            deep:true
+        }
     },
     data(){
         return{

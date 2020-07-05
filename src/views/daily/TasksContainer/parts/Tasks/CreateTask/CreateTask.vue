@@ -12,16 +12,15 @@
             :createTask="setCreateTask"
             @setTime="checkNewTime"
         />
-        <p 
-            class="begin" 
-            v-if="!setCreateTask.ended"
+        <p class="begin" v-if="!setCreateTask.ended"
         >
             {{setCreateTask.starting.time}}
         </p>  
         <p class="duration">
             {{calcDuration}}
         </p>
-        <p v-if="setCreateTask.ending && !setCreateTask.ended" class="end">
+        <p v-if="setCreateTask.ending && !setCreateTask.ended" class="end"
+        >
             {{setCreateTask.ending.time}}
         </p>
     </div>
@@ -86,7 +85,11 @@ export default {
             )
             if(!overlapping){
                 this.setCreateTask[moment].coord = newCoord
+                this.setCreateTask[moment].overlapping = false
+            }else{
+                this.setCreateTask[moment].overlapping = true
             }
+            console.log(this.setCreateTask[moment])
             const hour = Number(time.hour) < 9 ? `0${time.hour}` : time.hour
             const minute = Number(time.minute) < 9 ? `0${time.minute}` : time.minute
 

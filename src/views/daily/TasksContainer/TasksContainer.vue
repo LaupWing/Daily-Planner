@@ -81,7 +81,7 @@ export default {
             createTask:{
                 starting: false,
                 ending: null,
-                ended: false
+                ended: false,
             }
         }
     },
