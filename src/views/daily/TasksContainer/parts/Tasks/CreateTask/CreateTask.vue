@@ -12,7 +12,10 @@
             :createTask="setCreateTask"
             @setTime="checkNewTime"
         />
-        <p class="begin" v-if="!setCreateTask.ended">
+        <p 
+            class="begin" 
+            v-if="!setCreateTask.ended"
+        >
             {{setCreateTask.starting.time}}
         </p>  
         <p class="duration">
@@ -26,21 +29,17 @@
 
 <script>
 import StepsPopup from './StepsPopup/StepsPopup'
-import {getCoordOfTime, overlapTask} from '../../../helpers/helpers'
+import {
+        getCoordOfTime, 
+        overlapTask, 
+        pointOverlappedTask
+    } from '../../../helpers/helpers'
 
 export default {
     name: 'CreateTask',
     props:['createTask'],
     components:{
         'steps-popup' : StepsPopup
-    },
-    watch:{
-        setCreateTask:{
-            handler(val){
-                // console.log(val)
-            },
-            deep: true
-        },
     },
     data(){
         return{
@@ -81,8 +80,10 @@ export default {
     methods:{
         checkNewTime({time, moment}){
             const newCoord = getCoordOfTime(time)
-            const overlapping = overlapTask(newCoord)
-            
+            const overlapping = pointOverlappedTask(
+                moment === 'starting' ? newCoord : this.setCreateTask.starting.coord,
+                moment === 'ending' ? newCoord : this.setCreateTask.ending.coord,
+            )
             if(!overlapping){
                 this.setCreateTask[moment].coord = newCoord
             }
