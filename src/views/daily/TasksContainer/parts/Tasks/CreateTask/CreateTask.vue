@@ -42,7 +42,7 @@ export default {
     },
     data(){
         return{
-            setCreateTask: this.createTask.ended ? JSON.parse(JSON.stringify(this.createTask)) : this.createTask,
+            setCreateTask: this.createTask.ended ? Object.assign({}, this.createTask) : this.createTask,
             test: 0
         }
     },

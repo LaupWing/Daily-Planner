@@ -25,4 +25,5 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 
 ## Bugs
 - [x] When showDetails task the creatingtask doesnt work
-- [ ] When no duration is available it gives an error
+- [x] When no duration is available it gives an error
+- [ ] Overlapping task display doesnt work properly
