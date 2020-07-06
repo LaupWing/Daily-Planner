@@ -79,7 +79,7 @@ export default {
     methods:{
         checkNewTime({time, moment}){
             const newCoord = getCoordOfTime(time)
-            console.log(getCoordOfTime)
+            console.log(newCoord)
             const overlapping = pointOverlappedTask(
                 moment === 'starting' ? newCoord : this.setCreateTask.starting.coord,
                 moment === 'ending' ? newCoord : this.setCreateTask.ending.coord,

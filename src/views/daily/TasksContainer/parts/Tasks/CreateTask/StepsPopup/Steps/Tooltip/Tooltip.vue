@@ -37,13 +37,14 @@ export default {
             minute: this.tooltip.time.split(':')[1]
         }
         const overlap = overlapTask(getCoordOfTime(time))
-        
+        console.log(getCoordOfTime(time))
         if(this.tooltip.moment === 'ending'){
             const overlapTime = overlap.dataset.begin
             this.msg = `This time needs to be below ${overlapTime}`
         }else{
-            const overlapTime = overlap.dataset.ending
-            this.msg = `This time needs to be above ${overlapTime}`
+            console.log(overlap)
+            // const overlapTime = overlap.dataset.end
+            // this.msg = `This time needs to be above ${overlapTime}`
         }
     }
 }
