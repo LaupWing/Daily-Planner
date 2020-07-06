@@ -89,7 +89,6 @@ export default {
             }else{
                 this.setCreateTask[moment].overlapping = true
             }
-            console.log(this.setCreateTask[moment])
             const hour = Number(time.hour) < 9 ? `0${time.hour}` : time.hour
             const minute = Number(time.minute) < 9 ? `0${time.minute}` : time.minute
 

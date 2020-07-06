@@ -33,9 +33,10 @@
             >
         </div>
         <div 
-            class="time end"
             :class="{
-                overlapping: createTask.ending.overlapping
+                time: true,
+                end: true,
+                overlapping: isOverlappingEnding
             }"
         >
             <h2>End:</h2>
@@ -84,10 +85,18 @@ export default {
             required: true
         }
     },
+    computed:{
+        isOverlappingEnding(){
+            console.log(this.createTask.ending.overlapping)
+            console.log(this.createTask.ending)
+            console.log(this.createTask.ending.coord)
+            return this.createTask.ending.overlapping
+        }
+    },
     watch:{
         createTask:{
             handler(val){
-                console.log(val)
+                console.log(val.ending.overlapping)
             },
             deep:true
         }
