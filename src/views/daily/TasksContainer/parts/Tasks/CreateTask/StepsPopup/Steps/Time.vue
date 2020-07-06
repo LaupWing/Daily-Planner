@@ -65,6 +65,7 @@
                         coord:createTask.starting.coord,
                         event: $event 
                     }"
+                    @mouseout="tooltip=null"
                 >
                 </i>
                 <app-tooltip
