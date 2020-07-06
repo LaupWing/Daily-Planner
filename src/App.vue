@@ -72,6 +72,7 @@ export default {
     --border-color: rgba(0,0,0,.2);
     --dailyPlanner-height: 600px;
     --bg-overlay-color: rgba(0,0,0,.4);
+    --red: #FF4242;
 }
 
 @media only screen and (min-height: 1000px) {

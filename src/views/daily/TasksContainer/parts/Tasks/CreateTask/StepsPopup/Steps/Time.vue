@@ -1,12 +1,19 @@
 <template>
     <div class="field">
         <div 
-            class="time start"
             :class="{
+                time: true,
+                start: true,
                 overlapping: createTask.starting.overlapping
             }"
         >
-            <h2>Start:</h2>
+            <h2>
+                Start:
+                <i 
+                    v-if="isOverlappingStarting"
+                    class="fas fa-exclamation-circle">
+                </i>
+            </h2>
             <input 
                 type="number" 
                 name="hours" 
@@ -39,7 +46,13 @@
                 overlapping: isOverlappingEnding
             }"
         >
-            <h2>End:</h2>
+            <h2>
+                End:
+                <i 
+                    v-if="isOverlappingEnding"
+                    class="fas fa-exclamation-circle">
+                </i>
+            </h2>
             <input 
                 type="number" 
                 name="hours" 
@@ -133,5 +146,17 @@ export default {
 input{
     font-size: 1.2em;
     text-align: center;
+}
+.time{
+    padding: 5px;
+    border-radius: 5px;
+}
+.time.overlapping{
+    color: var(--red);
+}
+.time.overlapping input{
+    border: var(--red) solid 2px;
+    border-radius: 3px;
+    color: var(--red);
 }
 </style>
