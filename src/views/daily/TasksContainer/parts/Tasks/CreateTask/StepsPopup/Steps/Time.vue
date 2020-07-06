@@ -34,7 +34,6 @@
                 @change="$emit('setTime', {
                     time: startingTime,
                     moment: 'starting'
-
                 })"
             >
             <input 
@@ -46,7 +45,6 @@
                 @change="$emit('setTime', {
                     time: startingTime,
                     moment: 'starting'
-
                 })"
             >
         </div>
@@ -84,7 +82,6 @@
                 @change="$emit('setTime', {
                     time: endingTime,
                     moment: 'ending'
-
                 })"
             >
             <input 
@@ -96,7 +93,6 @@
                 @change="$emit('setTime', {
                     time: endingTime,
                     moment: 'ending'
-
                 })"
             >
         </div>
