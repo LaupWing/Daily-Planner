@@ -12,8 +12,17 @@
                 <i 
                     v-if="isOverlappingStarting"
                     class="fas fa-exclamation-circle"
+                    @mouseover="tooltip={
+                        coord:createTask.starting.coord,
+                        event: $event 
+                    }"
+                    @mouseout="tooltip=null"
                 >
                 </i>
+                <app-tooltip
+                    v-if="isOverlappingStarting && tooltip"
+                    :tooltip="tooltip"
+                />
             </h2>
             <input 
                 type="number" 
@@ -52,8 +61,16 @@
                 <i 
                     v-if="isOverlappingEnding"
                     class="fas fa-exclamation-circle"
+                    @mouseover="tooltip={
+                        coord:createTask.starting.coord,
+                        event: $event 
+                    }"
                 >
                 </i>
+                <app-tooltip
+                    v-if="isOverlappingEnding && tooltip"
+                    :tooltip="tooltip"
+                />
             </h2>
             <input 
                 type="number" 
