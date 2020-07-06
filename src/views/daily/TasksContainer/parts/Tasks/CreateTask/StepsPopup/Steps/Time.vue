@@ -85,18 +85,21 @@ export default {
             required: true
         }
     },
-    computed:{
-        isOverlappingEnding(){
-            console.log(this.createTask.ending.overlapping)
-            console.log(this.createTask.ending)
-            console.log(this.createTask.ending.coord)
-            return this.createTask.ending.overlapping
-        }
-    },
     watch:{
         createTask:{
             handler(val){
-                console.log(val.ending.overlapping)
+                if(val.ending.overlapping){
+                    this.isOverlappingEnding = true
+                }
+                if(val.ending.overlapping === false){
+                    this.isOverlappingEnding = false
+                }
+                if(val.starting.overlapping){
+                    this.isOverlappingStarting = true
+                }
+                if(val.starting.overlapping === false){
+                    this.isOverlappingStarting = false
+                }
             },
             deep:true
         }
@@ -111,7 +114,9 @@ export default {
                 hour: Number(this.ending.split(':')[0]),
                 minute: Number(this.ending.split(':')[1])
             },
-            topVal: 0
+            topVal: 0,
+            isOverlappingEnding: false,
+            isOverlappingStarting: false
         }
     }
 }
