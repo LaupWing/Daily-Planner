@@ -78,7 +78,7 @@ export function pointOverlappedTask(start, end){
 export function overlapTask(point){
     const tasks = Array.from(document.querySelectorAll('#Tasks .task'))
     const overlapped = tasks.find(t=>{
-        return (point >= t.offsetTop && point <= (t.offsetTop + t.offsetHeight))
+        return (point > t.offsetTop && point < (t.offsetTop + t.offsetHeight))
     })
     // if(overlapped){
     //     console.log(point)
@@ -96,5 +96,5 @@ export function getCoordOfTime({hour, minute}){
     const matchingHour = lis.find(x=>Number(x.textContent.split(':')[0])===Number(hour))
     const hourCoord = matchingHour.offsetTop + (matchingHour.offsetHeight/2) 
     
-    return hourCoord + (pixelPerMinute * minute)
+    return hourCoord + (pixelPerMinute * Number(minute))
 }

@@ -13,8 +13,9 @@
                     v-if="isOverlappingStarting"
                     class="fas fa-exclamation-circle"
                     @mouseover="tooltip={
-                        coord:createTask.starting.coord,
-                        event: $event 
+                        time:createTask.starting.time,
+                        event: $event ,
+                        moment: 'starting'
                     }"
                     @mouseout="tooltip=null"
                 >
@@ -62,8 +63,9 @@
                     v-if="isOverlappingEnding"
                     class="fas fa-exclamation-circle"
                     @mouseover="tooltip={
-                        coord:createTask.ending.coord,
-                        event: $event 
+                        time:createTask.ending.time,
+                        event: $event,
+                        moment: 'ending' 
                     }"
                     @mouseout="tooltip=null"
                 >

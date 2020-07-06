@@ -6,12 +6,12 @@
             left: getCoord('left')
         }"
     >
-        <h2>Testing tooltip</h2>
+        <h2>{{msg}}</h2>
     </div>
 </template>
 
 <script>
-import {overlapTask}  from '../../../../../../helpers/helpers'
+import {overlapTask, getCoordOfTime}  from '../../../../../../helpers/helpers'
 
 export default {
     name: 'Tooltip',
@@ -26,9 +26,25 @@ export default {
             return this.tooltip.event.target.getBoundingClientRect()[pos] + 'px'
         }
     },
+    data(){
+        return{
+            msg: null
+        }
+    },
     created(){
-        console.log(overlapTask(this.tooltip.coord))
-        console.log(this.tooltip)
+        const time = {
+            hour: this.tooltip.time.split(':')[0],
+            minute: this.tooltip.time.split(':')[1]
+        }
+        const overlap = overlapTask(getCoordOfTime(time))
+        
+        if(this.tooltip.moment === 'ending'){
+            const overlapTime = overlap.dataset.begin
+            this.msg = `This time needs to be below ${overlapTime}`
+        }else{
+            const overlapTime = overlap.dataset.ending
+            this.msg = `This time needs to be above ${overlapTime}`
+        }
     }
 }
 </script>
@@ -40,7 +56,7 @@ export default {
 }
 .tooltip{
     position: fixed;
-    padding: 10px;
+    padding: 10px 15px;
     border-radius: 5px;
     border: solid var(--red) 1px;
     transform: translateY(-105%);
