@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import {overlapTask}  from '../../../../../../helpers/helpers'
+
 export default {
     name: 'Tooltip',
     props:{
@@ -23,6 +25,10 @@ export default {
         getCoord(pos){
             return this.tooltip.event.target.getBoundingClientRect()[pos] + 'px'
         }
+    },
+    created(){
+        console.log(overlapTask(this.tooltip.coord))
+        console.log(this.tooltip)
     }
 }
 </script>

@@ -62,7 +62,7 @@
                     v-if="isOverlappingEnding"
                     class="fas fa-exclamation-circle"
                     @mouseover="tooltip={
-                        coord:createTask.starting.coord,
+                        coord:createTask.ending.coord,
                         event: $event 
                     }"
                     @mouseout="tooltip=null"
