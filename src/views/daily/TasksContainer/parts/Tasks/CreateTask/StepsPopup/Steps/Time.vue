@@ -4,14 +4,15 @@
             :class="{
                 time: true,
                 start: true,
-                overlapping: createTask.starting.overlapping
+                overlapping: isOverlappingStarting
             }"
         >
             <h2>
                 Start:
                 <i 
                     v-if="isOverlappingStarting"
-                    class="fas fa-exclamation-circle">
+                    class="fas fa-exclamation-circle"
+                >
                 </i>
             </h2>
             <input 
@@ -50,7 +51,8 @@
                 End:
                 <i 
                     v-if="isOverlappingEnding"
-                    class="fas fa-exclamation-circle">
+                    class="fas fa-exclamation-circle"
+                >
                 </i>
             </h2>
             <input 
@@ -82,8 +84,13 @@
 </template>
 
 <script>
+import Tooltip from './Tooltip/Tooltip'
+
 export default {
     name: 'Time',
+    components:{
+        'app-tooltip': Tooltip
+    },
     props:{
         starting:{
             type: String,
@@ -129,7 +136,8 @@ export default {
             },
             topVal: 0,
             isOverlappingEnding: false,
-            isOverlappingStarting: false
+            isOverlappingStarting: false,
+            tooltip: null
         }
     }
 }
