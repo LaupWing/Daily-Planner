@@ -41,7 +41,6 @@ export default {
             const overlapTime = overlap.dataset.begin
             this.msg = `This time needs to be below ${overlapTime}`
         }else{
-            console.log(overlap)
             // const overlapTime = overlap.dataset.end
             // this.msg = `This time needs to be above ${overlapTime}`
         }

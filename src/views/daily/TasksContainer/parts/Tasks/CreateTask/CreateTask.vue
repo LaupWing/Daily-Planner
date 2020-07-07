@@ -29,8 +29,7 @@
 <script>
 import StepsPopup from './StepsPopup/StepsPopup'
 import {
-        getCoordOfTime, 
-        overlapTask, 
+        getCoordOfTime,
         pointOverlappedTask
     } from '../../../helpers/helpers'
 

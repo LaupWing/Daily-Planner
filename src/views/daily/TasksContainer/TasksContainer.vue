@@ -84,18 +84,6 @@ export default {
         }
     },
     methods:{
-        onMouseMove(){
-            console.log('Mouse Move')
-            this.creatingTask('ending')
-        },
-        onMouseDown(){
-            console.log('Mouse Down')
-            this.creatingTask('starting')
-        },
-        onMouseUp(){
-            console.log('Mouse Up')
-            this.createTask.ended = true
-        },
         creatingTask(section){
             const containerCoords = this.$el.getBoundingClientRect()
             const yValInContainer = (this.$el.scrollTop + event.y) - containerCoords.top 
@@ -106,15 +94,11 @@ export default {
                 (this.createTask.starting && this.createTask.starting.coord > yValInContainer) ||
                 this.createTask.ended
             ){
-                console.log(this.createTask)
-                console.log('return')
                 return
             }
             if(this.createTask.ending && section === 'ending'){
                 const overlapping = pointOverlappedTask(this.createTask.starting.coord, yValInContainer)
                 if(overlapping){
-                    console.log(overlapping)
-                    console.log('return')
                     return
                 }
             }
