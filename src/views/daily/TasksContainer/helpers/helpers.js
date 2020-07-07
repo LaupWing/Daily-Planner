@@ -68,11 +68,12 @@ export function getClosestCoord(goal){
 
 export function pointOverlappedTask(start, end){
     const tasks = Array.from(document.querySelectorAll('#Tasks .task'))
-    console.log(start, end)
     const overlapped = tasks.find(t=>{
-        return (end > t.offsetTop && end < (t.offsetTop + t.offsetHeight)) ||
-        ((start < t.offsetTop) && (end > (t.offsetTop + t.offsetHeight))) ||
-        (start > t.offsetTop && start < (t.offsetTop + t.offsetHeight)) // this is the issue
+        const top = Number(t.style.top.split('px')[0])
+        const height = Number(t.style.height.split('px')[0])
+        return (end > top && end < (top + height)) ||
+        ((start < top) && (end > (top + height))) ||
+        (start > top && start < (top + height)) // this is the issue
     })
     return overlapped
 }
