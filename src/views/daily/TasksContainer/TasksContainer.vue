@@ -11,7 +11,6 @@
                 top: elementMidpoint
             }" 
             class="indicator"
-            @mousedown.stop
         >
         </div>
         <app-timeline
@@ -22,7 +21,6 @@
             :createTask="createTask"
             v-on:checkActiveTask='checkTaskByScroll'
             v-on:setTask='setTask'
-            @mousedown.native.stop
         />
         <div 
             class="controls"
