@@ -113,7 +113,7 @@ export default {
             if(this.createTask.ending && section === 'ending'){
                 const overlapping = pointOverlappedTask(this.createTask.starting.coord, yValInContainer)
                 if(overlapping){
-                    console.log(this.createTask )
+                    console.log(overlapping)
                     console.log('return')
                     return
                 }
