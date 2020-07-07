@@ -2,9 +2,9 @@
     <div 
         id="planner"
         @scroll="scrollEvent"
-        @mousedown="creatingTask('starting')"
-        @mousemove="createTask.starting && creatingTask('ending')"
-        @mouseup="createTask.starting && (createTask.ended = true)"
+        @mousedown="onMouseDown"
+        @mousemove="createTask.starting &&  onMouseMove()"
+        @mouseup="createTask.starting && onMouseUp()"
     >
         <div 
             :style="{
@@ -84,6 +84,18 @@ export default {
         }
     },
     methods:{
+        onMouseMove(){
+            console.log('Mouse Move', event)
+            this.creatingTask('ending')
+        },
+        onMouseDown(){
+            console.log('Mouse Down', event)
+            this.creatingTask('starting')
+        },
+        onMouseUp(){
+            console.log('Mouse Up')
+            this.createTask.ended = true
+        },
         creatingTask(section){
             const containerCoords = this.$el.getBoundingClientRect()
             const yValInContainer = (this.$el.scrollTop + event.y) - containerCoords.top 
