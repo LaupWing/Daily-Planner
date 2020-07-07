@@ -84,6 +84,7 @@ export default {
                 moment === 'starting' ? newCoord : this.setCreateTask.starting.coord,
                 moment === 'ending' ? newCoord : this.setCreateTask.ending.coord,
             )
+            console.log(overlapping)
             if(!overlapping){
                 this.setCreateTask[moment].coord = newCoord
                 this.setCreateTask[moment].overlapping = false
