@@ -68,7 +68,6 @@ export function getClosestCoord(goal){
 
 export function pointOverlappedTask(start, end){
     const tasks = Array.from(document.querySelectorAll('#Tasks .task'))
-    console.log(start, end)
     const overlapped = tasks.find(t=>{
         const top = Number(t.style.top.split('px')[0])
         const height = Number(t.style.height.split('px')[0])
@@ -82,15 +81,8 @@ export function pointOverlappedTask(start, end){
 export function overlapTask(point){
     const tasks = Array.from(document.querySelectorAll('#Tasks .task'))
     const overlapped = tasks.find(t=>{
-        return (point > t.offsetTop && point < (t.offsetTop + t.offsetHeight))
+        return (point >= t.offsetTop && point <= (t.offsetTop + t.offsetHeight))
     })
-    // if(overlapped){
-    //     console.log(point)
-    //     console.log(overlapped.offsetTop)
-    //     console.log(point > overlapped.offsetTop)
-    //     console.log(overlapped.offsetTop + overlapped.offsetHeight)
-    //     console.log(point < (overlapped.offsetTop + overlapped.offsetHeight))
-    // }
     return overlapped
 }
 
