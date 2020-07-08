@@ -81,7 +81,9 @@ export function pointOverlappedTask(start, end){
 export function overlapTask(point){
     const tasks = Array.from(document.querySelectorAll('#Tasks .task'))
     const overlapped = tasks.find(t=>{
-        return (point >= t.offsetTop && point <= (t.offsetTop + t.offsetHeight))
+        const top = Number(t.style.top.split('px')[0])
+        const height = Number(t.style.height.split('px')[0])
+        return (point >= top && point <= (top + height))
     })
     return overlapped
 }
