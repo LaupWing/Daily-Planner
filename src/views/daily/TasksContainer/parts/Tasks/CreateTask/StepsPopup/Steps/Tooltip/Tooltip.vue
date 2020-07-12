@@ -32,7 +32,6 @@ export default {
         }
     },
     created(){
-        console.log(this.tooltip)
         const time = {
             hour: this.tooltip.time.split(':')[0],
             minute: this.tooltip.time.split(':')[1]

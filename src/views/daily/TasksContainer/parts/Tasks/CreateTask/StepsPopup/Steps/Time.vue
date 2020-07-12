@@ -30,8 +30,8 @@
                 name="hours" 
                 min="00" 
                 max="23" 
-                v-model="startingTime.hour"
-                @change="$emit('setTime', {
+                v-model.number="startingTime.hour"
+                @input="$emit('setTime', {
                     time: startingTime,
                     moment: 'starting'
                 })"
@@ -41,8 +41,8 @@
                 name="minutes" 
                 min="00" 
                 max="59" 
-                v-model="startingTime.minute"
-                @change="$emit('setTime', {
+                v-model.number="startingTime.minute"
+                @input="$emit('setTime', {
                     time: startingTime,
                     moment: 'starting'
                 })"
@@ -78,8 +78,8 @@
                 name="hours" 
                 min="00" 
                 max="23" 
-                v-model="endingTime.hour"
-                @change="$emit('setTime', {
+                v-model.number="endingTime.hour"
+                @input="$emit('setTime', {
                     time: endingTime,
                     moment: 'ending'
                 })"
@@ -89,8 +89,8 @@
                 name="minutes" 
                 min="00" 
                 max="59" 
-                v-model="endingTime.minute"
-                @change="$emit('setTime', {
+                v-model.number="endingTime.minute"
+                @input="$emit('setTime', {
                     time: endingTime,
                     moment: 'ending'
                 })"
@@ -124,10 +124,7 @@ export default {
     watch:{
         createTask:{
             handler(val){
-                if(
-                    val.starting.coord > val.ending.coord || 
-                    val.starting.overlapping)
-                {
+                if(val.starting.overlapping){
                     this.isOverlappingStarting = true
                     return
                 }
