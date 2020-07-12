@@ -124,18 +124,19 @@ export default {
     watch:{
         createTask:{
             handler(val){
+                if(
+                    val.starting.coord > val.ending.coord || 
+                    val.starting.overlapping)
+                {
+                    this.isOverlappingStarting = true
+                    return
+                }
                 if(val.ending.overlapping){
                     this.isOverlappingEnding = true
+                    return
                 }
-                if(val.ending.overlapping === false){
-                    this.isOverlappingEnding = false
-                }
-                if(val.starting.overlapping){
-                    this.isOverlappingStarting = true
-                }
-                if(val.starting.overlapping === false){
-                    this.isOverlappingStarting = false
-                }
+                this.isOverlappingEnding = false
+                this.isOverlappingStarting = false
             },
             deep:true
         }

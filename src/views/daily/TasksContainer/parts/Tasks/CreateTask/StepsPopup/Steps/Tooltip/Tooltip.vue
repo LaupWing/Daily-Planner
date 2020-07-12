@@ -32,6 +32,7 @@ export default {
         }
     },
     created(){
+        console.log(this.tooltip)
         const time = {
             hour: this.tooltip.time.split(':')[0],
             minute: this.tooltip.time.split(':')[1]
@@ -41,8 +42,6 @@ export default {
             const overlapTime = overlap.dataset.begin
             this.msg = `This time needs to be below ${overlapTime}`
         }else{
-            console.log(getCoordOfTime(time))
-            console.log(overlap)
             const overlapTime = overlap.dataset.end
             this.msg = `This time needs to be above ${overlapTime}`
         }
