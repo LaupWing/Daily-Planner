@@ -25,7 +25,7 @@
                     :tooltip="tooltip"
                 />
             </h2>
-            <input 
+            <!-- <input 
                 type="number" 
                 name="hours" 
                 min="00" 
@@ -35,6 +35,13 @@
                     time: startingTime,
                     moment: 'starting'
                 })"
+            > -->
+            <input 
+                type="number" 
+                name="hours" 
+                min="00" 
+                max="23" 
+                v-model.number="testingPreventingNumber"
             >
             <input 
                 type="number" 
@@ -119,6 +126,16 @@ export default {
         createTask:{
             type: Object,
             required: true
+        }
+    },
+    computed:{
+        testingPreventingNumber:{
+            get(){
+                return 5
+            },
+            set(val){
+                console.log(val)
+            }
         }
     },
     watch:{
