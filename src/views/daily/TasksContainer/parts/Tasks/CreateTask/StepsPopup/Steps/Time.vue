@@ -41,7 +41,7 @@
                 name="hours" 
                 min="00" 
                 max="23" 
-                v-model.number="testingPreventingNumber"
+                v-model.number="startingTimeHour"
             >
             <input 
                 type="number" 
@@ -129,12 +129,19 @@ export default {
         }
     },
     computed:{
-        testingPreventingNumber:{
+        startingTimeHour:{
             get(){
-                return Number(this.starting.split(':')[0])
+                return this.startingTime.hour
             },
             set(val){
-                console.log(val)
+                if(val > this.endingTime.hour){
+                    return
+                }
+                this.startingTime.hour = val
+                this.$emit('setTime', {
+                    time: this.startingTime,
+                    moment: 'starting'
+                })
             }
         }
     },
