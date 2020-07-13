@@ -131,7 +131,7 @@ export default {
     computed:{
         testingPreventingNumber:{
             get(){
-                return 5
+                return Number(this.starting.split(':')[0])
             },
             set(val){
                 console.log(val)
