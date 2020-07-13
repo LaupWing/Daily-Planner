@@ -96,6 +96,10 @@ export default {
     },
     created(){
         this.$store.commit('setCreatingTask', true)
+    },
+    mounted(){
+        console.log(this.$el.getBoundingClientRect().top)
+        console.log(this.setCreateTask.starting)
     }
 }
 </script>
