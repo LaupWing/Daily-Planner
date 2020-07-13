@@ -25,17 +25,6 @@
                     :tooltip="tooltip"
                 />
             </h2>
-            <!-- <input 
-                type="number" 
-                name="hours" 
-                min="00" 
-                max="23" 
-                v-model.number="startingTime.hour"
-                @input="$emit('setTime', {
-                    time: startingTime,
-                    moment: 'starting'
-                })"
-            > -->
             <input 
                 type="number" 
                 name="hours" 
@@ -88,11 +77,7 @@
                 name="minutes" 
                 min="00" 
                 max="59" 
-                v-model.number="endingTime.minute"
-                @input="$emit('setTime', {
-                    time: endingTime,
-                    moment: 'ending'
-                })"
+                v-model.number="endingTimeMinute"
             >
         </div>
     </div>
@@ -129,6 +114,9 @@ export default {
                 if(val > this.endingTime.hour){
                     return
                 }
+                if(val === this.endingTime.hour && this.startingTime.minute > this.endingTime.minute ){
+                    return
+                }
                 this.startingTime.hour = val
                 this.$emit('setTime', {
                     time: this.startingTime,
@@ -159,6 +147,9 @@ export default {
             },
             set(val){
                 if(val < this.startingTime.hour){
+                    return
+                }
+                if(val === this.startingTime.hour && this.endingTime.minute < this.startingTime.minute ){
                     return
                 }
                 this.endingTime.hour = val
