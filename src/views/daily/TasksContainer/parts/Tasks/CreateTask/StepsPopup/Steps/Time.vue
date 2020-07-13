@@ -167,7 +167,24 @@ export default {
                     moment: 'ending'
                 })
             }
-        }
+        },
+        endingTimeMinute:{
+            get(){
+                return this.endingTime.minute
+            },
+            set(val){
+                if(this.startingTime.hour === this.endingTime.hour){
+                    if(val < this.startingTime.minute){
+                        return
+                    }
+                }
+                this.endingTime.minute = val
+                this.$emit('setTime', {
+                    time: this.endingTime,
+                    moment: 'ending'
+                })
+            }
+        },
     },
     watch:{
         createTask:{
