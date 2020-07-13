@@ -48,11 +48,7 @@
                 name="minutes" 
                 min="00" 
                 max="59" 
-                v-model.number="startingTime.minute"
-                @input="$emit('setTime', {
-                    time: startingTime,
-                    moment: 'starting'
-                })"
+                v-model.number="startingTimeMinute"
             >
         </div>
         <div 
@@ -134,6 +130,23 @@ export default {
                     return
                 }
                 this.startingTime.hour = val
+                this.$emit('setTime', {
+                    time: this.startingTime,
+                    moment: 'starting'
+                })
+            }
+        },
+        startingTimeMinute:{
+            get(){
+                return this.startingTime.minute
+            },
+            set(val){
+                if(this.startingTime.hour === this.endingTime.hour){
+                    if(val > this.endingTime.minute){
+                        return
+                    }
+                }
+                this.startingTime.minute = val
                 this.$emit('setTime', {
                     time: this.startingTime,
                     moment: 'starting'
