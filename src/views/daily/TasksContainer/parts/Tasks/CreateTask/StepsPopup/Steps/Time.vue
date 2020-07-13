@@ -85,11 +85,7 @@
                 name="hours" 
                 min="00" 
                 max="23" 
-                v-model.number="endingTime.hour"
-                @input="$emit('setTime', {
-                    time: endingTime,
-                    moment: 'ending'
-                })"
+                v-model.number="endingTimeHour"
             >
             <input 
                 type="number" 
@@ -141,6 +137,21 @@ export default {
                 this.$emit('setTime', {
                     time: this.startingTime,
                     moment: 'starting'
+                })
+            }
+        },
+        endingTimeHour:{
+            get(){
+                return this.endingTime.hour
+            },
+            set(val){
+                if(val < this.startingTime.hour){
+                    return
+                }
+                this.endingTime.hour = val
+                this.$emit('setTime', {
+                    time: this.endingTime,
+                    moment: 'ending'
                 })
             }
         }
