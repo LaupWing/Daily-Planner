@@ -13,7 +13,7 @@
                 v-on="$listeners"
             />
             <div class="buttons">
-                <button>cancel</button>
+                <button @click="$emit('cancelCreateTask')">cancel</button>
                 <button>next</button>
             </div>
         </div>

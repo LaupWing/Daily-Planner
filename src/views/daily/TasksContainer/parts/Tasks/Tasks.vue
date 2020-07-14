@@ -3,6 +3,7 @@
         <app-create-task
             v-if="createTask.starting"
             :createTask="createTask"
+            v-on="$listeners"
         />
         <app-task
             v-for="(task, index) in tasksOfToday"

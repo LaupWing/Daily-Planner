@@ -11,6 +11,7 @@
             :coord="$el.getBoundingClientRect().top"
             :createTask="setCreateTask"
             @setTime="checkNewTime"
+            v-on="$listeners"
         />
         <p class="begin" v-if="!setCreateTask.ended"
         >
@@ -96,10 +97,6 @@ export default {
     },
     created(){
         this.$store.commit('setCreatingTask', true)
-    },
-    mounted(){
-        console.log(this.$el.getBoundingClientRect().top)
-        console.log(this.setCreateTask.starting)
     }
 }
 </script>

@@ -4,7 +4,7 @@
         @scroll="scrollEvent"
         @mousedown="creatingTask('starting')"
         @mousemove="(createTask.starting && !createTask.ended) &&  creatingTask('ending')"
-        @mouseup="(createTask.starting && !createTask.ended) && (createTask.ended = true)"
+        @mouseup="(createTask.starting && !createTask.ended && createTask.ending) && (createTask.ended = true)"
     >
         <div 
             :style="{
@@ -21,6 +21,12 @@
             :createTask="createTask"
             v-on:checkActiveTask='checkTaskByScroll'
             v-on:setTask='setTask'
+            v-on:cancelCreateTask='createTask = {
+                starting: false,
+                ending: null,
+                ended: false,
+            }'
+            @mousedown.native.stop
         />
         <div 
             class="controls"
