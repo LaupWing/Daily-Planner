@@ -84,7 +84,7 @@ export default {
                 moment === 'ending' ? newCoord : this.setCreateTask.ending.coord,
             )
             if(!overlapping){
-                if(moment === 'starting' && newCoord < this.setCreateTask.starting.coord){
+                if(moment === 'starting'){
                     const diffrence = Math.floor(newCoord) - Math.floor(this.setCreateTask.starting.coord)
                     document.querySelector('#planner').scrollBy(0, Math.floor(diffrence))
                 }

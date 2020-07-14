@@ -111,6 +111,9 @@ export default {
                 return this.startingTime.hour
             },
             set(val){
+                if(val > 24){
+                    return
+                }
                 if(val > this.endingTime.hour){
                     return
                 }
@@ -129,6 +132,9 @@ export default {
                 return this.startingTime.minute
             },
             set(val){
+                if(val > 59){
+                    return
+                }
                 if(this.startingTime.hour === this.endingTime.hour){
                     if(val > this.endingTime.minute){
                         return
@@ -146,6 +152,9 @@ export default {
                 return this.endingTime.hour
             },
             set(val){
+                if(val > 24){
+                    return
+                }
                 if(val < this.startingTime.hour){
                     return
                 }
@@ -164,6 +173,9 @@ export default {
                 return this.endingTime.minute
             },
             set(val){
+                if(val > 59){
+                    return
+                }
                 if(this.startingTime.hour === this.endingTime.hour){
                     if(val < this.startingTime.minute){
                         return
