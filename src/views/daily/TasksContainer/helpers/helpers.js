@@ -72,7 +72,7 @@ export function pointOverlappedTask(start, end){
         const top = Number(t.style.top.split('px')[0])
         const height = Number(t.style.height.split('px')[0])
         return (end > top && end < (top + height)) ||
-        ((start <= top) && (end > (top + height))) ||
+        ((start <= top) && (end >= (top + height))) ||
         (start > top && start < (top + height))
     })
     return overlapped
