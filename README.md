@@ -15,9 +15,9 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 - [x]  Refactor the main part of the website (styling)
 - [x]  Split up the week and daily view
 - [ ]  Need To clean up a lot of code
-    - [ ] Modulaze some code (put it in some dedicated files/functions)
+    - [x] Modulaze some code (put it in some dedicated files/functions)
     - [ ] Centralize all the timeout en times in a json file
-- [ ] Add click and drag to create a new task
+- [x] Add click and drag to create a new task
 ### Would be nice
 - [ ]  Make week view multiscreen compatible
 - [ ]  Voice task reminder
@@ -27,4 +27,4 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 - [x] When showDetails task the creatingtask doesnt work
 - [x] When no duration is available it gives an error
 - [x] Overlapping task display doesnt work properly
-- [ ] Task startime > starend time bug
+- [x] Task startime > starend time bug
