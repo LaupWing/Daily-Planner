@@ -10,11 +10,12 @@
                 :starting="createTask.starting.time"
                 :ending="createTask.ending.time"
                 :createTask="createTask"
+                v-on:disableNext="disableNext = $event"
                 v-on="$listeners"
             />
             <div class="buttons">
                 <button @click="$emit('cancelCreateTask')">cancel</button>
-                <button>next</button>
+                <button :class="{disabled:disableNext}">next</button>
             </div>
         </div>
     </div>
@@ -31,7 +32,8 @@ export default {
     props:['coord', 'createTask'],
     data(){
         return{
-            topVal: 0
+            topVal: 0,
+            disableNext: false
         }
     },
     mounted(){
@@ -100,5 +102,9 @@ export default {
 .buttons button:first-of-type {
     border-right: solid rgba(0,0,0,.4) 1px;
     border-radius: 0 0 0 5px;
+}
+button.disabled{
+    background: #eee;
+    color: #ccc;
 }
 </style>
