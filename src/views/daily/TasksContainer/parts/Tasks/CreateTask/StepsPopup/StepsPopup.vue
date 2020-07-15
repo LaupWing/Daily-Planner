@@ -12,10 +12,23 @@
                 :createTask="createTask"
                 v-on:disableNext="disableNext = $event"
                 v-on="$listeners"
+                v-if="step === 1"
+            />
+            <app-general
+                v-if="step === 2"
             />
             <div class="buttons">
-                <button @click="$emit('cancelCreateTask')">cancel</button>
-                <button :class="{disabled:disableNext}">next</button>
+                <button 
+                    @click="$emit('cancelCreateTask')"
+                >
+                    cancel
+                </button>
+                <button 
+                    :class="{disabled:disableNext}"
+                    @click="step += step"
+                >
+                    next
+                </button>
             </div>
         </div>
     </div>
@@ -23,17 +36,20 @@
 
 <script>
 import Time from './Steps/Time/Time'
+import General from './Steps/General/General'
 
 export default {
     name: 'StepsPopup',
     components:{
-        'app-time': Time
+        'app-time': Time,
+        'app-general': General
     },
     props:['coord', 'createTask'],
     data(){
         return{
             topVal: 0,
-            disableNext: false
+            disableNext: false,
+            step: 1
         }
     },
     mounted(){
@@ -61,6 +77,7 @@ export default {
     align-items: center;
     border-radius: 5px;
     flex-direction: column;
+    height: 250px;
 }
 #steps-popup::after{
     content: '';
@@ -72,8 +89,14 @@ export default {
     bottom: -10px;
     z-index: -1;
 }
-#steps-popup >>> .field{
-    margin: 20px;
+#steps-popup >>> .step{
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: black;
 }
 #steps-popup >>> h2{
     font-size: 1em;
@@ -95,6 +118,7 @@ export default {
     letter-spacing: 2px;
     cursor: pointer;
     transition: .25s;
+    min-width: 90px;
 }
 .buttons button:last-of-type{
     border-radius: 0 0 5px 0;

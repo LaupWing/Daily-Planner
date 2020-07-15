@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import {overlapTask, getCoordOfTime}  from '../../../../../../helpers/helpers'
+import {overlapTask, getCoordOfTime}  from '../../../../../../../helpers/helpers'
 
 export default {
     name: 'Tooltip',

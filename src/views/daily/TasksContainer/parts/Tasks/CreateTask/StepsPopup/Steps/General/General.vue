@@ -1,6 +1,6 @@
 <template>
-    <div class="general">
-
+    <div class="step">
+        <h2>General info</h2>
     </div>
 </template>
 

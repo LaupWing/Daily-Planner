@@ -1,5 +1,5 @@
 <template>
-    <div class="field">
+    <div class="step">
         <div 
             :class="{
                 time: true,
