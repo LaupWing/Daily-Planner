@@ -6,9 +6,6 @@ A passion project by LaupWing. This is a website that allows the user to plan th
 *   Focus on one habit at a the time
 *   Reminder of what kind of task is about to start
 
-
-<!-- Doet i ehet -->
-
 ## To do 
 ### Must
 - [x]  Refactoring the position for timeline
