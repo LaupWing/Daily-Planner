@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Time from './Steps/Time'
+import Time from './Steps/Time/Time'
 
 export default {
     name: 'StepsPopup',
@@ -106,5 +106,6 @@ export default {
 button.disabled{
     background: #eee;
     color: #ccc;
+    pointer-events: none;
 }
 </style>
