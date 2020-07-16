@@ -24,6 +24,9 @@
             <div class="buttons">
                 <button 
                     @click="setStep(false)"
+                    :class="{
+                        'disabled': step ===  1
+                    }"
                 >
                     previous
                 </button>
