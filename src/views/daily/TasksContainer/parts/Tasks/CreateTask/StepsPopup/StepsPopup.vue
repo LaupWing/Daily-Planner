@@ -179,4 +179,11 @@ button.disabled{
 .slideOutIn-leave-active {
     animation: slidingOut 1s;
 }
+.slideInOut-enter-active {
+    animation: slidingIn 1s reverse;
+}
+
+.slideInOut-leave-active {
+    animation: slidingOut 1s reverse;
+}
 </style>
