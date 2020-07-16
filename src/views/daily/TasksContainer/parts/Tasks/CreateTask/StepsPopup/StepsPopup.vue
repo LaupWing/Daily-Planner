@@ -7,7 +7,7 @@
             }"
         >
             <div class="steps-wrapper">
-                <transition name="slideOutIn">
+                <transition :name="anim">
                     <app-time
                         :starting="createTask.starting.time"
                         :ending="createTask.ending.time"
@@ -23,13 +23,13 @@
             </div>
             <div class="buttons">
                 <button 
-                    @click="(step > 1) && (step = step -1)"
+                    @click="setStep(false)"
                 >
                     previous
                 </button>
                 <button 
                     :class="{disabled:disableNext}"
-                    @click="step += step"
+                    @click="setStep(true)"
                 >
                     next
                 </button>
@@ -49,11 +49,6 @@ export default {
         'app-general': General
     },
     props:['coord', 'createTask'],
-    watch:{
-        step(val){
-            console.log(val)
-        }
-    },
     data(){
         return{
             topVal: 0,
@@ -69,7 +64,7 @@ export default {
                 this.step += 1
             }else{
                 if(this.step > 1){
-                    this.anim ='slideInOut'
+                    this.anim = 'slideInOut'
                     this.step -= 1
                 }
             }
@@ -194,10 +189,10 @@ button.disabled{
     animation: slidingOut 1s;
 }
 .slideInOut-enter-active {
-    animation: slidingIn 1s reverse;
+    animation: slidingOut 1s reverse;
 }
 
 .slideInOut-leave-active {
-    animation: slidingOut 1s reverse;
+    animation: slidingIn 1s reverse;
 }
 </style>
