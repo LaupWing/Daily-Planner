@@ -20,5 +20,6 @@ svg{
     top: 0;
     right: 0;
     transform: translate(75%, -75%);
+    cursor: pointer;
 }
 </style>

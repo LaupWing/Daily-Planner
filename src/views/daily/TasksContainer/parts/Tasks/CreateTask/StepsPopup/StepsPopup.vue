@@ -6,7 +6,7 @@
                 top: topVal
             }"
         >
-            <app-close/>
+            <app-close @click.native="$emit('cancelCreateTask')"/>
             <div class="steps-wrapper">
                 <transition :name="anim">
                     <app-time
