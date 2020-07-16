@@ -58,7 +58,21 @@ export default {
         return{
             topVal: 0,
             disableNext: false,
-            step: 1
+            step: 1,
+            anim: 'slideOutIn'
+        }
+    },
+    methods:{
+        setStep(forward){
+            if(forward){
+                this.anim = 'slideOutIn'
+                this.step += 1
+            }else{
+                if(this.step > 1){
+                    this.anim ='slideInOut'
+                    this.step -= 1
+                }
+            }
         }
     },
     mounted(){
