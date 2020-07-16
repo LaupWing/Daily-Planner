@@ -6,6 +6,7 @@
                 top: topVal
             }"
         >
+            <app-close/>
             <div class="steps-wrapper">
                 <transition :name="anim">
                     <app-time
@@ -44,12 +45,14 @@
 <script>
 import Time from './Steps/Time/Time'
 import General from './Steps/General/General'
+import Close from '../../../../../../../components/Close/Close'
 
 export default {
     name: 'StepsPopup',
     components:{
         'app-time': Time,
-        'app-general': General
+        'app-general': General,
+        'app-close': Close
     },
     props:['coord', 'createTask'],
     data(){

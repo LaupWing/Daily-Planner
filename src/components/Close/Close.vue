@@ -15,6 +15,10 @@ export default {
     fill: white;
 }
 svg{
-    width: 40px;    
+    width: 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(75%, -75%);
 }
 </style>
