@@ -6,17 +6,21 @@
                 top: topVal
             }"
         >
-            <app-time
-                :starting="createTask.starting.time"
-                :ending="createTask.ending.time"
-                :createTask="createTask"
-                v-on:disableNext="disableNext = $event"
-                v-on="$listeners"
-                v-if="step === 1"
-            />
-            <app-general
-                v-if="step === 2"
-            />
+            <div class="steps-wrapper">
+                <transition name="slideOutIn">
+                    <app-time
+                        :starting="createTask.starting.time"
+                        :ending="createTask.ending.time"
+                        :createTask="createTask"
+                        v-on:disableNext="disableNext = $event"
+                        v-on="$listeners"
+                        v-if="step === 1"
+                    />
+                    <app-general
+                        v-if="step === 2"
+                    />
+                </transition>
+            </div>
             <div class="buttons">
                 <button 
                     @click="$emit('cancelCreateTask')"
@@ -77,6 +81,7 @@ export default {
     align-items: center;
     border-radius: 5px;
     flex-direction: column;
+    min-width: 220px;
     height: 250px;
 }
 #steps-popup::after{
@@ -89,14 +94,26 @@ export default {
     bottom: -10px;
     z-index: -1;
 }
-#steps-popup >>> .step{
+.steps-wrapper{
     flex: 1;
-    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+#steps-popup >>> .step{
+    padding: 20px;
     color: black;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 #steps-popup >>> h2{
     font-size: 1em;
@@ -118,7 +135,6 @@ export default {
     letter-spacing: 2px;
     cursor: pointer;
     transition: .25s;
-    min-width: 90px;
 }
 .buttons button:last-of-type{
     border-radius: 0 0 5px 0;
@@ -131,5 +147,31 @@ button.disabled{
     background: #eee;
     color: #ccc;
     pointer-events: none;
+}
+
+@keyframes slidingOut {
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(-100%);
+    }
+
+}
+@keyframes slidingIn {
+    from{
+        transform: translateX(100%);
+    }
+    to{
+        transform: translateX(0);
+    }
+
+}
+.slideOutIn-enter-active {
+    animation: slidingIn 1s;
+}
+
+.slideOutIn-leave-active {
+    animation: slidingOut 1s;
 }
 </style>
