@@ -23,7 +23,7 @@
             </div>
             <div class="buttons">
                 <button 
-                    @click="step > 1 && step +- step"
+                    @click="(step > 1) && (step = step -1)"
                 >
                     previous
                 </button>
@@ -49,6 +49,11 @@ export default {
         'app-general': General
     },
     props:['coord', 'createTask'],
+    watch:{
+        step(val){
+            console.log(val)
+        }
+    },
     data(){
         return{
             topVal: 0,
