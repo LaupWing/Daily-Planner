@@ -23,9 +23,9 @@
             </div>
             <div class="buttons">
                 <button 
-                    @click="$emit('cancelCreateTask')"
+                    @click="step > 1 && step +- step"
                 >
-                    cancel
+                    previous
                 </button>
                 <button 
                     :class="{disabled:disableNext}"
