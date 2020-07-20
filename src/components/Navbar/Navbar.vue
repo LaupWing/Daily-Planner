@@ -2,7 +2,8 @@
     <div id="NavBar">
         <div class="left-panel">
             <div @click="$emit('toggle')" class="open-side-menu">
-                <i class="fas fa-bars"></i>
+                <i class="fas fa-stop"></i>
+                <i class="fas fa-th"></i>
             </div>
             <Temperature/>
         </div>
@@ -35,7 +36,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #NavBar {
     display: flex;
     justify-content: center;
@@ -56,21 +57,26 @@ export default {
     right: 0;
 }
 #NavBar .open-side-menu {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
     display: flex;
     align-items: center;
-    justify-content: center;
     color: black;
-    font-size: 30px;
+    font-size: 25px;
     transition: 0.25s;
     cursor: pointer;
+    margin: 0 20px;
+    margin-right: 30px;
 }
-#NavBar .open-side-menu:hover {
-    background: rgba(0, 0, 0, 0.4);
+#NavBar .open-side-menu i{
+    width: 45px;
+    height: 45px;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
 }
-#NavBar .open-side-menu:hover i {
+#NavBar .open-side-menu i:hover {
     color: white;
+    background: grey;
 }
 </style>
