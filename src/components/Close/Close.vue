@@ -13,13 +13,18 @@ export default {
 <style scoped>
 .cls-1{
     fill: white;
+    transition: .25s;
 }
 svg{
     width: 30px;
     position: absolute;
     top: 0;
     right: 0;
-    transform: translate(75%, -75%);
+    transform: translate(50%, -50%);
     cursor: pointer;
+    z-index: 100000000;
+}
+svg:hover .cls-1{
+    fill: black;
 }
 </style>
