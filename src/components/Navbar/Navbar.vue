@@ -1,9 +1,27 @@
 <template>
     <div id="NavBar">
         <div class="left-panel">
-            <div @click="$emit('toggle')" class="open-side-menu">
-                <i class="fas fa-stop"></i>
-                <i class="fas fa-th"></i>
+            <div class="open-side-menu">
+                <router-link :to="{
+                    name: 'Daily'
+                }">
+                    <i 
+                        class="fas fa-stop"
+                        :class="{
+                            active: $route.name === 'Daily'
+                        }"
+                    ></i>
+                </router-link>
+                <router-link :to="{
+                    name: 'Week'
+                }">
+                    <i 
+                        class="fas fa-th"
+                        :class="{
+                            active: $route.name === 'Week'
+                        }"
+                    ></i>
+                </router-link>
             </div>
             <Temperature/>
         </div>
@@ -27,7 +45,7 @@ export default {
         Auth,
         CurrentTime
     },
-    mounted() {
+    mounted(){
         // To be sure that the navbar loads first in order to render the view
         setTimeout(() => {
             this.$emit("navbarLoaded");
@@ -75,7 +93,8 @@ export default {
     align-items: center;
     border-radius: 50px;
 }
-#NavBar .open-side-menu i:hover {
+#NavBar .open-side-menu i:hover,
+#NavBar .open-side-menu i.active {
     color: white;
     background: grey;
 }

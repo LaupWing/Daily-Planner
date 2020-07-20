@@ -113,7 +113,10 @@ textarea{
 li{
     list-style: none;
 }
-
+a{
+    color: black;
+    text-decoration: none;
+}
 @keyframes slideIn {
     from{
         transform: translate(-100%,0);
