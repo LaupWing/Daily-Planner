@@ -87,8 +87,8 @@ export default {
                 ending: null,
                 ended: false,
                 color: null,
-                title: '',
-                description: ''
+                task: '',
+                notes: ''
             }
         }
     },

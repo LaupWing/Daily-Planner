@@ -19,7 +19,8 @@
                     />
                     <app-general
                         :task="createTask.task"
-                        :ending="createTask.ending.time"
+                        :notes="createTask.notes"
+                        v-on="$listeners"
                         v-if="step === 2"
                     />
                 </transition>

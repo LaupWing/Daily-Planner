@@ -10,6 +10,8 @@
             v-if="setCreateTask.ended"
             :coord="$el.getBoundingClientRect().top"
             :createTask="setCreateTask"
+            :notes.sync="setCreateTask.notes"
+            :task.sync="setCreateTask.task"
             @setTime="checkNewTime"
             v-on="$listeners"
         />
