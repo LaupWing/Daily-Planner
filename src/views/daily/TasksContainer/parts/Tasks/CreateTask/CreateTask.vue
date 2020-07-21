@@ -43,7 +43,6 @@ export default {
     data(){
         return{
             setCreateTask: this.createTask.ended ? Object.assign({}, this.createTask) : this.createTask,
-            test: 0
         }
     },
     computed:{
@@ -97,7 +96,7 @@ export default {
             const minute = Number(time.minute) < 9 ? `0${time.minute}` : time.minute
 
             this.setCreateTask[moment].time = `${hour}:${minute}`
-        }
+        },
     },
     created(){
         this.$store.commit('setCreatingTask', true)

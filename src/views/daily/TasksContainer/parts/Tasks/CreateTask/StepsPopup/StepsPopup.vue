@@ -18,6 +18,8 @@
                         v-if="step === 1"
                     />
                     <app-general
+                        :task="createTask.task"
+                        :ending="createTask.ending.time"
                         v-if="step === 2"
                     />
                 </transition>

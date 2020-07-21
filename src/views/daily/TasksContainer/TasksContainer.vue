@@ -86,6 +86,9 @@ export default {
                 starting: false,
                 ending: null,
                 ended: false,
+                color: null,
+                title: '',
+                description: ''
             }
         }
     },
