@@ -48,7 +48,7 @@
 <script>
 import Time from './Steps/Time/Time'
 import General from './Steps/General/General'
-import Close from '../../../../../../../components/Close/Close'
+import Close from '@/components/Close/Close'
 
 export default {
     name: 'StepsPopup',
