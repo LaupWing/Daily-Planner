@@ -13,7 +13,7 @@
                         :starting="createTask.starting.time"
                         :ending="createTask.ending.time"
                         :createTask="createTask"
-                        
+                        v-on:disableNext="disableNext = $event"
                         v-on="$listeners"
                         v-if="step === 1"
                     />
@@ -58,17 +58,10 @@ export default {
         'app-close': Close
     },
     props:['coord', 'createTask'],
-    computed:{
-        disableNext(){
-            console.log('disablenext')
-            console.log(this.createTask.starting.overlapping)
-            console.log(this.createTask.starting.ending)
-            return this.createTask.starting.overlapping || this.createTask.ending.overlapping ? true : false
-        }
-    },
     data(){
         return{
             topVal: 0,
+            disableNext: false,
             step: 1,
             anim: 'slideOutIn'
         }
@@ -88,12 +81,6 @@ export default {
     },
     mounted(){
         this.topVal = (this.coord-this.$el.querySelector('#steps-popup').getBoundingClientRect().height-15) + 'px'
-        setTimeout(()=>{
-            console.log(this.disableNext)
-            console.log(this.createTask.starting.overlapping || this.createTask.ending.overlapping ? true : false)
-            console.log(this.createTask.ending.overlapping)
-            console.log(this.createTask.starting.overlapping)
-        },5000)
     }
 }
 </script>
