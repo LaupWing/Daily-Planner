@@ -13,7 +13,6 @@
                         :starting="createTask.starting.time"
                         :ending="createTask.ending.time"
                         :createTask="createTask"
-                        v-on:disableNext="disableNext = $event"
                         v-on="$listeners"
                         v-if="step === 1"
                     />
@@ -64,6 +63,22 @@ export default {
             disableNext: false,
             step: 1,
             anim: 'slideOutIn'
+        }
+    },
+    watch:{
+        createTask:{
+            deep: true,
+            handler(val){
+                if(val.starting.overlapping){
+                    this.disableNext = true
+                    return
+                }
+                if(val.ending.overlapping){
+                    this.disableNext = true
+                    return
+                }
+                this.disableNext = false
+            }
         }
     },
     methods:{

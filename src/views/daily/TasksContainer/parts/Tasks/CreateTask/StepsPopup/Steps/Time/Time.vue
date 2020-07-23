@@ -194,15 +194,12 @@ export default {
             handler(val){
                 if(val.starting.overlapping){
                     this.isOverlappingStarting = true
-                    this.$emit('disableNext', true)
                     return
                 }
                 if(val.ending.overlapping){
                     this.isOverlappingEnding = true
-                    this.$emit('disableNext', true)
                     return
                 }
-                this.$emit('disableNext', false)
                 this.isOverlappingEnding = false
                 this.isOverlappingStarting = false
             },
