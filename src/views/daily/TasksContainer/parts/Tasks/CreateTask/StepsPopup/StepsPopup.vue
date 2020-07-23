@@ -13,7 +13,7 @@
                         :starting="createTask.starting.time"
                         :ending="createTask.ending.time"
                         :createTask="createTask"
-                        v-on:disableNext="disableNext = $event"
+                        
                         v-on="$listeners"
                         v-if="step === 1"
                     />
@@ -61,7 +61,7 @@ export default {
     data(){
         return{
             topVal: 0,
-            disableNext: false,
+            disableNext: this.createTask.starting.overlapping || this.createTask.ending.overlapping,
             step: 1,
             anim: 'slideOutIn'
         }
@@ -81,6 +81,7 @@ export default {
     },
     mounted(){
         this.topVal = (this.coord-this.$el.querySelector('#steps-popup').getBoundingClientRect().height-15) + 'px'
+        console.log(this.createTask)
     }
 }
 </script>
