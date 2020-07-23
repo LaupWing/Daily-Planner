@@ -58,10 +58,17 @@ export default {
         'app-close': Close
     },
     props:['coord', 'createTask'],
+    computed:{
+        disableNext(){
+            console.log('disablenext')
+            console.log(this.createTask.starting.overlapping)
+            console.log(this.createTask.starting.ending)
+            return this.createTask.starting.overlapping || this.createTask.ending.overlapping ? true : false
+        }
+    },
     data(){
         return{
             topVal: 0,
-            disableNext: this.createTask.starting.overlapping || this.createTask.ending.overlapping,
             step: 1,
             anim: 'slideOutIn'
         }
@@ -81,7 +88,12 @@ export default {
     },
     mounted(){
         this.topVal = (this.coord-this.$el.querySelector('#steps-popup').getBoundingClientRect().height-15) + 'px'
-        console.log(this.createTask)
+        setTimeout(()=>{
+            console.log(this.disableNext)
+            console.log(this.createTask.starting.overlapping || this.createTask.ending.overlapping ? true : false)
+            console.log(this.createTask.ending.overlapping)
+            console.log(this.createTask.starting.overlapping)
+        },5000)
     }
 }
 </script>
