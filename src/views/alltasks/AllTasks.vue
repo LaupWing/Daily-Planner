@@ -19,13 +19,13 @@
 </template>
 
 <script>
-import firebase from "firebase";
-import Task from "@/components/AllTasks/task";
+// import firebase from "firebase";
+// import Task from "@/components/AllTasks/task";
 
 export default {
    name: "AllTasks",
    components: {
-      Task,
+      // Task,
    },
    methods: {
       search() {
