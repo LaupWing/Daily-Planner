@@ -6,8 +6,8 @@ import user from './modules/user'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    modules:{
-        tasks,
-        user
-    }
+   modules: {
+      tasks,
+      user
+   }
 })
