@@ -104,6 +104,7 @@ export default {
          return task.days.find((day) => day.day === this.today)[state];
       },
       animEnded() {
+         console.log('anim ended')
          if (this.expanded === this.task) {
             const container = document.querySelector("#planner");
             const scrollToY =
